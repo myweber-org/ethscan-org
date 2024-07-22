@@ -1,0 +1,117 @@
+{{ define "js"}}
+    <script type="text/javascript" src="/js/datatables.min.js"></script>
+    <script type="text/javascript" src="/js/datatable_input.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var tblOpts = {
+                processing: true,
+                serverSide: true,
+                ordering: false,
+                searching: true,
+                ajax: '/blocks/data',
+                pageLength: 50,
+                pagingType: 'input',
+                language: {
+                    searchPlaceholder: 'Block Number / Graffiti / Proposer Name',
+                    search: '',
+                    paginate: {
+                        previous: "<",
+                        next: ">",
+                    }
+                },
+                preDrawCallback: function () {
+                    // this does not always work.. not sure how to solve the staying tooltip
+                    try {
+                        $('#blocks').find('[data-toggle="tooltip"]').tooltip('dispose')
+                    } catch (e) {
+                    }
+                },
+                drawCallback: function (settings) {
+                    formatTimestamps()
+                    $('#blocks').find('[data-toggle="tooltip"]').tooltip()
+                },
+            }
+            var usp = new URLSearchParams(window.location.search)
+            var q = usp.get('q')
+            if (q) {
+                tblOpts.search = {"search": q}
+            }
+            var tbl = $('#blocks').DataTable(tblOpts)
+            $("#blocks_filter > label > input").on('input', function (ev) {
+                if (ev && ev.target && ev.target.value) {
+                    var newUrl = window.location.pathname + "?q=" + encodeURIComponent(ev.target.value)
+                    window.history.replaceState(null, 'Blocks', newUrl)
+                } else {
+                    window.history.replaceState(null, 'Blocks', window.location.pathname)
+                }
+            })
+        })
+    </script>
+{{end}}
+{{ define "css"}}
+    <link rel="stylesheet" type="text/css" href="/css/datatables.min.css"/>
+{{end}}
+{{ define "content"}}
+    {{with .Data}}
+        <div class="container mt-2">
+            <div class="d-md-flex py-2 justify-content-md-between">
+                <h1 class="h4 mb-1 mb-md-0"><i class="fas fa-cubes mr-2"></i>Ethereum 2.0 Blocks</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb font-size-1 mb-0" style="padding:0; background-color:transparent;">
+                        <li class="breadcrumb-item"><a href="/" title="Home">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Blocks</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="card">
+                <div class="card-body px-0 py-3">
+                    <div class="table-responsive px-0 py-1">
+                        <table class="table" id="blocks">
+                            <thead>
+                            <tr>
+                                <th>Epoch</th>
+                                <th>Slot</th>
+                                <th>Status</th>
+                                <th>Time</th>
+                                <th>Proposer</th>
+                                <th data-toggle="tooltip" data-placement="top" title="Attestations included in slot">Att
+                                </th>
+                                <th data-toggle="tooltip" data-placement="top" title="Deposits included in block">Dep
+                                </th>
+                                <th data-toggle="tooltip" data-placement="top" title="Slashings Proposer/Attester">S-
+                                    <span>P</span>/<span>A</span>
+                                </th>
+                                <th>Exits</th>
+                                <th>Votes</th>
+                                <th>Graffiti</th>
+                            </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between py-2">
+                <ins data-revive-zoneid="1" data-revive-id="5b200397ccf8a9353bf44ef99b45268c"></ins>
+            </div>
+        </div>
+    {{end}}
+    <div class="container mt-2" style="height: 400px; overflow-y: scroll;margin-top: 2.5rem !important">
+        <h2>Ethereum 2.0 Blocks</h2>
+        <p>Ethereum, or ETH, is the native currency of the Ethereum blockchain network. There has been an upgrade to this network, which is expected to merge with the mainnet in the second quarter of the year. This upgrade is known as ETH 2.0, and it is expected to make the Ethereum blockchain more secure, scalable and sustainable, among many other benefits. </p>
+        <p>The upgrade on the Ethereum blockchain needs to be followed up by a new augmented Ethereum block explorer. The Ethereum block explorer provides the latest information about Ethereum blocks, transactions, gas fees, and network activities to the public.</p>
+        <h2>What Exactly Are Blocks?</h2>
+        <p>They are simply data sorted into different successive compartments, each containing analytics of the transactions that take place on the network. </p>
+        <p>On ETH2, blocks are proposed by a validator, after which they are passed on to other validators who must agree before the block is confirmed. The ETH1 method of confirming blocks is different. Transactions are confirmed by minder as opposed to validators. Further, there is no limit to how many confirmations a block can receive. The Ethereum block number is currently above 1.4 million, as seen on the ETH1  block explorer.</p>
+        <h2>ETH 2.0: How Will It Work?</h2>
+        <p>The current Ethereum blockchain, ETH 2.0, will fully function with the beacon chain as its backbone. The network is making a transition from the current proof-of-work protocol to the faster and more cost-efficient proof-of-stake protocol. </p>
+        <p>ETH 2.0 will only require PoS consensus. The validation usually consists of four major steps;</p>
+        <ul>
+            <li>A validator is randomly picked to propose blocks for the beacon chain and, if not, they are required to attest to and confirm the proposal of another validator. A minimum of 128 validators are usually needed to attest to each proposed block.</li>
+            <li>Once a proposal reaches the required number of attestations, a cross-link is formed. As soon as this is done, the validator who proposed the block will be rewarded.</li>
+            <li>This step finalizes a cross-linked block and renders it unchangeable. This is achieved by using Casper, finality protocol with the agreement of, at least, two-thirds of the validators.</li>
+        </ul>
+        <p>Ethereum’s transition will result in lower usage costs, as well as decentralization and active participation, features likely to attract new users, use-cases, and improve security.</p>
+    </div>
+{{end}}

@@ -1,0 +1,391 @@
+{{ define "js"}}
+    <script src="/js/highcharts/highstock.min.js"></script>
+    <script src="/js/highcharts/exporting.min.js"></script>
+    <script src="/js/highcharts/offline-exporting.min.js"></script>
+    <script src="/js/vue.min.js"></script>
+    <script src="/js/highcharts/highcharts-vue.min.js"></script>
+    <script src="/js/highcharts/highcharts-global-options.js"></script>
+    <script src="/js/requestInterval.js"></script>
+
+    <!-- <script type="text/javascript" src="js/slick.min.js"></script> -->
+    <!-- <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> -->
+
+
+    {{ if .GenesisPeriod }}
+        <script src="/js/d3.min.js"></script>
+    {{ end }}
+    <script>
+        var app = new Vue({
+            el: '#app',
+            delimiters: ['${', '}'], // Standard vuejs template syntax conflicts with golang template syntax
+            components: {
+                highcharts: HighchartsVue.Chart
+            },
+            data: function () {
+                return {
+                    checklist: [
+                        {epoch: 0, participation: 0.3,},
+                        {epoch: 1, participation: 0.3,},
+                        {epoch: 1, participation: 0.3,}
+                    ],
+                    windowWidth: window.innerWidth,
+                    updateIn: -1,
+                    page: {{.}},
+                    chartOptions: {
+                        rangeSelector: {enabled: false},
+                        navigator: {enabled: false},
+                        scrollbar: {enabled: false},
+                        chart: {type: 'spline'},
+                        title: {text: 'Network History'},
+                        subtitle: {},
+                        xAxis: {
+                            type: 'datetime',
+                            range: 7 * 24 * 60 * 60 * 1000,
+                            labels: {
+                                formatter: function () {
+                                    var epoch = timeToEpoch(this.value)
+                                    var orig = this.axis.defaultLabelFormatter.call(this)
+                                    return `${orig}<br/>Epoch ${epoch}`
+                                }
+                            }
+                        },
+                        yAxis: [{
+                            title: {text: 'Balance [ETH]'},
+                            labels: {
+                                formatter: function () {
+                                    return this.value.toFixed(0);
+                                }
+                            },
+                            opposite: false
+                        }, {
+                            title: {text: 'Active Validators'},
+                            labels: {
+                                formatter: function () {
+                                    return this.value.toFixed(0);
+                                }
+                            },
+                            opposite: true
+                        }],
+                        series: [
+                            {
+                                name: "Staked Ether",
+                                yAxis: 0,
+                                data: {{.StakedEtherChartData}}
+                            },
+                            {
+                                name: "Active Validators",
+                                yAxis: 1,
+                                data: {{.ActiveValidatorsChartData}}
+                            }
+                        ],
+                        legend: {enabled: true},
+                        tooltip: {
+                            formatter: function (tooltip) {
+                                var orig = tooltip.defaultFormatter.call(this, tooltip)
+                                var epoch = timeToEpoch(this.x)
+                                orig[0] = `${orig[0]}<span style="font-size:10px">Epoch ${epoch}</span>`
+                                return orig
+                            }
+                        },
+                    },
+                    responsive: {
+                        rules: [
+                            {
+                                condition: {maxWidth: 400,},
+                                chartOptions: {
+                                    legend: {enabled: false,},
+                                    chart: {},
+                                    legend: {layout: 'vertical',},
+                                    yAxis: [
+                                        {
+                                            title: {text: null,},
+                                            labels: {enabled: false,},
+                                            opposite: false
+                                        },
+                                        {
+                                            title: {text: null,},
+                                            labels: {enabled: false,},
+                                            opposite: true
+                                        }
+                                    ],
+                                    tooltip: {
+                                        formatter: function (tooltip) {
+                                            var orig = tooltip.defaultFormatter.call(this, tooltip)
+                                            var epoch = timeToEpoch(this.x)
+                                            orig[0] = `${orig[0]}<span style="font-size:10px">Ep ${epoch}</span>`
+                                            return orig
+                                        }
+                                    },
+                                },
+                            },
+                        ],
+                    },
+                }
+            },
+            computed: {
+                participation: function () {
+                    if (this.page && this.page.epochs && this.page.epochs.length && this.page.epochs[0].globalparticipationrate !== 0) {
+                        return Math.round(this.page.epochs[0].globalparticipationrate * 1000) / 1000
+                    } else if (this.page && this.page.epochs && this.page.epochs.length > 1) {
+                        return Math.round(this.page.epochs[1].globalparticipationrate * 1000) / 1000
+                    } else {
+                        return 0
+                    }
+                },
+
+                validatorsMissing: function () {
+                    var eligible = 0
+                    var voted = 0
+                    if (this.page && this.page.epochs && this.page.epochs.length && this.page.epochs[0].globalparticipationrate !== 0) {
+                        eligible = this.page.epochs[0].eligibleether
+                        voted = this.page.epochs[0].votedether
+                    } else if (this.page && this.page.epochs && this.page.epochs.length > 1) {
+                        eligible = this.page.epochs[1].eligibleether
+                        voted = this.page.epochs[1].votedether
+                    } else {
+                        return 0
+                    }
+                    var missingEther = (eligible * 0.66) - voted
+                    return Math.round(missingEther / 32e9)
+                },
+                scheduledCount: function () {
+                    return this.page.scheduled_count
+                },
+                epochCompletePercent: function () {
+                    return ((32 - this.page.scheduled_count) / 32) * 100
+                }
+            },
+            filters: {
+                fromNow(date) {
+                    return luxon.DateTime.fromISO(date).toRelative({ style: "short"});
+                }
+            },
+            created: function () {
+                this.tick();
+                setInterval(function () {
+                    this.tick();
+                }.bind(this), 1000);
+            },
+            methods: {
+                tick: function () {
+                    if (this.updateIn <= 0) {
+                        $.getJSON('/index/data', function (response) {
+                            this.page = response;
+                        }.bind(this));
+                        this.updateIn = 15;
+                    } else {
+                        this.updateIn--;
+                    }
+                }
+            },
+            mounted() {
+                this.$nextTick(() => {
+                    window.addEventListener('resize', () => {
+                        this.windowWidth = window.innerWidth
+                    })
+                })
+            }
+        })
+
+    </script>
+{{end}}
+
+{{ define "css"}}
+
+    <!-- <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/> -->
+
+    {{ if .GenesisPeriod }}
+        <link rel="stylesheet" href="/css/checklist.css">
+        <link rel="stylesheet" href="/css/rocket.css">
+    {{end}}
+    <style>
+        .hero-container {
+            position: relative;
+            min-height: 250px;
+            width: 100%;
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            margin-top: 1rem;
+        }
+
+        .hero-image {
+            overflow: hidden;
+            flex: 1;
+            max-width: 500px;
+            min-width: 320px;
+            max-height: 400px;
+            min-height: 200px;
+            position: relative;
+        }
+
+        .hero-image svg {
+            overflow: hidden;
+            width: inherit;
+            height: inherit;
+        }
+
+        .hero-text {
+            font-size: 2rem;
+            flex: 1;
+            min-width: 305px;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .hero-text-background {
+            position: absolute;
+            width: 100%;
+            height: 98%;
+            /* bottom: -40%; */
+            /* transform: scale(.5) translateY(20%); */
+            border-radius: 65% 35% 70% 30% / 50% 50% 50% 50%;
+            background-image: var(--linear-gradient);
+            box-shadow: 5px 15px 30px var(--shadow-light);
+            z-index: -50;
+            -webkit-animation: slide-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+            animation: slide-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+            opacity: .6;
+        }
+
+        /* ----------------------------------------------
+             * Generated by Animista on 2020-5-27 13:15:6
+             * Licensed under FreeBSD License.
+             * See http://animista.net/license for more info.
+             * w: http://animista.net, t: @cssanimista
+             * ---------------------------------------------- */
+        @-webkit-keyframes slide-bottom {
+            0% {
+                -webkit-transform: translateY(0);
+                transform: translateY(0);
+            }
+
+            100% {
+                -webkit-transform: scale(1) translateY(25%);
+                transform: scale(1) translateY(25%);
+            }
+        }
+
+        @keyframes slide-bottom {
+            0% {
+                -webkit-transform: translateY(0);
+                transform: translateY(0);
+            }
+
+            100% {
+                -webkit-transform: scale(1) translateY(25%);
+                transform: scale(1) translateY(25%);
+            }
+        }
+
+
+        @media (max-width: 1140px) {
+            .hero-text-background {
+                animation: none;
+                transform: scale(1) translateY(1.5rem);
+                height: calc(100% - 1.5rem);
+                border-radius: .5rem;
+                opacity: .8
+            }
+
+            .hero-container {
+                margin-bottom: 50px;
+            }
+        }
+
+        @media (max-width: 960px) {
+            .hero-image {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+            }
+
+            .hero-container {
+                flex-wrap: nowrap;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .hero-text {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+
+            .hero-image svg {
+                opacity: 0.2;
+            }
+
+            .hero-text-background {
+                transform: scale(1) translateY(10%);
+                animation: none;
+                opacity: .1;
+            }
+        }
+
+        @media (max-width: 960px) {
+            .index-stats {
+                font-size: .9rem;
+            }
+
+            .index-stats h5, .card-title {
+                font-size: 1rem !important;
+            }
+        }
+
+        [v-cloak] {
+            visibility: hidden;
+        }
+
+        .responsive-border-right {
+            border-right-color: rgb(222, 226, 230);
+            border-right-style: solid;
+            border-right-width: 1px;
+        }
+
+        @media (max-width: 767px) {
+            .responsive-border-right-l {
+                border: hidden;
+            }
+        }
+    </style>
+{{end}}
+
+{{ define "content"}}
+    {{with .Data}}
+        <div class="container mt-2">
+            <div id="app" v-cloak>
+                {{if and (and (not .ShowSyncingMessage) .Genesis) (not .GenesisPeriod)}}
+                    {{ template "participationWarning" .}}
+                {{end}}
+                {{ template "hero" .Subtitle }}
+                {{ if and (not .Genesis) (not .GenesisPeriod) }}
+                    {{ template "preGenesis" .}}
+                {{ else if .GenesisPeriod}}
+                    {{template "genesis" .}}
+                {{else}}
+                    {{template "postGenesis" .}}
+                {{end}}
+            </div>
+        </div>
+    {{end}}
+    <div class="container mt-2" style="height: 400px; overflow-y: scroll;margin-top: 2.5rem !important">
+        <h1>Ethscan ― Ethereum 2.0 Blockchain Explorer </h1>
+        <p>Ethscan provides easy and free access to Ethereum blockchain data and information. </p>
+        <h2>What is Ethereum 2.0? </h2>
+        <p>The novel ETH 2.0 is an improvement on the Ethereum mainnet blockchain. The beacon chain introduces the PoS, which further leverages sharding to improve the transaction speed. Ethereum 2.0 is set to undergo major transitions that will enhance transaction speed while scaling the network. One of such transitions is the switch from the PoW model to the PoS model. </p>
+        <p>The existing PoW Ethereum chain protocol requires miners to process block transactions, in return for which they get rewards. However, this results in excess energy use, congestion of the chain, and high time consumption. Rather than having fierce competition, the ETH 2 will allow new blocks to be added to the blockchain through algorithmically selected validators who check the validity of a block before adding it to the chain. </p>
+        <p>This improvement will enable the Ether chain to perform transactions at a faster rate. It will also result in a reduction of fees needed to execute transactions on the Ethereum network, rendering it more available to users. </p>
+        <p>The beacon chain will help with coordinating the new network; including creating new blocks, and rewarding validators. This, in turn, results in an outcome of increased stability, security, and network efficiency.</p>
+        <h2>Why is it Important?</h2>
+        <p>Despite Ethereum possessing a vast DeFi system, it needs to do better since it’s now suffering from high fees and low transaction throughput. </p>
+        <p>Currently, only about 15-30 transactions can happen on the ETH blockchain every second. However, a co-founder of Ethereum, Vitalik Buterin, has announced that with the upgraded ETH blockchain, about 100,000 trading transactions can occur per second. If this happens as planned, it will be a tremendous breakthrough.</p>
+        <p>This upgrade is predicted to happen towards the end of the second half of 2022. With faster network speed, improved efficiency, and increased security, the Ethereum ecosystem is bound to take a positive turn. </p>
+    </div>
+{{end}}

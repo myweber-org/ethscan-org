@@ -1,0 +1,94 @@
+{{ define "js"}}
+
+    <script type="text/javascript" src="/js/datatables.min.js"></script>
+    <script type="text/javascript" src="/js/datatable_input.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#epochs').DataTable({
+                processing: true,
+                serverSide: true,
+                ordering: false,
+                searching: true,
+                ajax: '/epochs/data',
+                pagingType: 'input',
+                pageLength: 50,
+                language: {
+                    searchPlaceholder: 'Search by Epoch Number',
+                    search: '',
+                    paginate: {
+                        previous: "<",
+                        next: ">",
+                    }
+                },
+                preDrawCallback: function () {
+                    // this does not always work.. not sure how to solve the staying tooltip
+                    try {
+                        $('#epochs').find('[data-toggle="tooltip"]').tooltip('dispose')
+                    } catch (e) {
+                    }
+                },
+                drawCallback: function (settings) {
+                    formatTimestamps()
+                },
+            })
+            $('div.toolbar').html('<b>Custom tool bar! Text/images etc.</b>')
+        })
+    </script>
+{{end}}
+{{ define "css"}}
+    <link rel="stylesheet" type="text/css" href="/css/datatables.min.css"/>
+{{end}}
+{{ define "content"}}
+    {{with .Data}}
+        <div class="container mt-2">
+            <div class="d-md-flex py-2 justify-content-md-between">
+                <h1 class="h4 mb-1 mb-md-0"><i class="fas fa-history mr-2"></i>Ethereum 2.0 Epochs</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb font-size-1 mb-0" style="padding:0; background-color:transparent;">
+                        <li class="breadcrumb-item"><a href="/" title="Home">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Epochs</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="card">
+                <div class="card-body px-0 py-3">
+                    <div class="table-responsive px-0 py-1">
+                        <table class="table" id="epochs">
+                            <thead>
+                            <tr>
+                                <th>Epoch</th>
+                                <th>Time</th>
+                                <th>Attestations</th>
+                                <th>Deposits</th>
+                                <th>Slashings <span data-toggle="tooltip" data-placement="top"
+                                                    title="Proposers">P</span> / <span data-toggle="tooltip"
+                                                                                       data-placement="top"
+                                                                                       title="Attesters">A</span></th>
+                                <th>Finalized</th>
+                                <th>Eligible</th>
+                                <th>Voted</th>
+                            </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between py-2">
+                <ins data-revive-zoneid="1" data-revive-id="5b200397ccf8a9353bf44ef99b45268c"></ins>
+            </div>
+        </div>
+    {{end}}
+    <div class="container mt-2" style="height: 400px; overflow-y: scroll;margin-top: 2.5rem !important">
+        <h2>Ethereum 2.0 Epochs</h2>
+        <p>With hundreds of thousands of users using various features from dapps to NFTs, the Ethereum network is being upgraded as a means of devising a lasting solution, called the ETH 2.0, to solve the Ethereum blockchain's scalability challenge.</p>
+        <p>The Ethereum block explorer shows current updates on various activities within the network. These data are shown in the form of attestations, slots, and epochs.</p>
+        <p>Epoch is one concept that is very important to the Ethereum 2.0 explorer, and we will see what it means in a while. </p>
+        <h2>Understanding Epochs</h2>
+        <p>Epochs are generally time frames within a blockchain. These time frames determine the order in which certain activities take place -- activities such as, paying out rewards or changing a set of validators to validate transactions. </p>
+        <p>Epochs are also understood as the time span for finalizing a specific number of blocks on the blockchain. Different blockchain protocols have their epoch specifications. </p>
+        <h2>What Is An Epoch In Ethereum?</h2>
+        <p>For Bitcoin and the Ethereum Mainnet, progress on the network is recorded in blocks, but for Ethereum 2.0, it is recorded in epochs. Ethereum epoch is the unit of time — and time in ETH 2.0 is divided into slots. </p>
+        <p>A slot is 12 seconds, and an Ethereum epoch is 6.4 minutes; which comprises 32 slots or blocks (1 slot = 1 block). Do you recall that different blockchain protocols have different epochs wherein validators propose and attest (vote) to reach a consensus? Cardano, for instance, has a five-day epoch, while Solana's epoch is 44 hours. Ethereum's current epoch is tagged finalized after two more epochs are recorded behind it and Ethereum using a different metric like epoch, as opposed to blocks, is tied to its current transfer from a proof of work consensus to a proof of stake consensus.</p>
+    </div>
+{{end}}
