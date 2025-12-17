@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <style>
+        .error { color: red; font-size: 0.9em; margin-top: 5px; display: none; }
+        .success { color: green; font-size: 1em; margin-top: 15px; display: none; }
+    </style>
+</head>
+<body>
+    <h1>Get in Touch</h1>
+    <form id="contactForm">
+        <div>
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required>
+            <div id="nameError" class="error">Please enter a valid name.</div>
+        </div>
+        <div>
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required>
+            <div id="emailError" class="error">Please enter a valid email address.</div>
+        </div>
+        <div>
+            <label for="message">Your Message:</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+            <div id="messageError" class="error">Message must be at least 10 characters.</div>
+        </div>
+        <button type="submit">Send Message</button>
+        <div id="successMessage" class="success">Thank you! Your message has been sent.</div>
+    </form>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let isValid = true;
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            document.getElementById('nameError').style.display = 'none';
+            document.getElementById('emailError').style.display = 'none';
+            document.getElementById('messageError').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+
+            if (name.length < 2) {
+                document.getElementById('nameError').style.display = 'block';
+                isValid = false;
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            }
+
+            if (message.length < 10) {
+                document.getElementById('messageError').style.display = 'block';
+                isValid = false;
+            }
+
+            if (isValid) {
+                console.log('Form submitted:', { name, email, message });
+                document.getElementById('successMessage').style.display = 'block';
+                this.reset();
+            }
+        });
+    </script>
+</body>
+</html>
