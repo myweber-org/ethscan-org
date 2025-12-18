@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #4CAF50;
+        }
+        .user-info {
+            margin-top: 20px;
+        }
+        .bio {
+            margin-top: 15px;
+            line-height: 1.6;
+            color: #555;
+        }
+        .stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: #777;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <img src="https://via.placeholder.com/120" alt="User Avatar" class="avatar">
+        <div class="user-info">
+            <h2>Alex Johnson</h2>
+            <p>Software Developer | Open Source Enthusiast</p>
+            <div class="bio">
+                Passionate about building scalable web applications and contributing to developer communities. Currently focused on frontend technologies and UX design.
+            </div>
+        </div>
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value">142</div>
+                <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">2.8k</div>
+                <div class="stat-label">Followers</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">89</div>
+                <div class="stat-label">Following</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
