@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+</head>
+<body>
+    <form id="loginForm">
+        <div>
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required>
+            <div class="error" id="emailError"></div>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" minlength="8" required>
+            <div class="error" id="passwordError"></div>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let isValid = true;
+
+            const email = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            const password = document.getElementById('password');
+            const passwordError = document.getElementById('passwordError');
+
+            emailError.textContent = '';
+            passwordError.textContent = '';
+
+            if (!email.value.includes('@')) {
+                emailError.textContent = 'Please enter a valid email address.';
+                isValid = false;
+            }
+
+            if (password.value.length < 8) {
+                passwordError.textContent = 'Password must be at least 8 characters long.';
+                isValid = false;
+            }
+
+            if (isValid) {
+                console.log('Login attempt with:', { email: email.value });
+                alert('Login submitted successfully!');
+                this.reset();
+            }
+        });
+    </script>
+</body>
+</html>
