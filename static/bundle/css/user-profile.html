@@ -30,3 +30,83 @@
     </footer>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; }
+        input:invalid { border-color: red; }
+        input:valid { border-color: green; }
+    </style>
+</head>
+<body>
+    <h1>User Profile</h1>
+    <form id="profileForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+            <span class="error" id="usernameError"></span>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <span class="error" id="emailError"></span>
+        </div>
+        <div>
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" min="18" max="120">
+            <span class="error" id="ageError"></span>
+        </div>
+        <button type="submit">Update Profile</button>
+    </form>
+    <p id="message" class="success"></p>
+
+    <script>
+        const form = document.getElementById('profileForm');
+        const message = document.getElementById('message');
+
+        function showError(elementId, text) {
+            document.getElementById(elementId).textContent = text;
+        }
+
+        function clearErrors() {
+            document.querySelectorAll('.error').forEach(el => el.textContent = '');
+            message.textContent = '';
+        }
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            clearErrors();
+
+            let isValid = true;
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const age = document.getElementById('age').value;
+
+            if (username.length < 3) {
+                showError('usernameError', 'Username must be at least 3 characters.');
+                isValid = false;
+            }
+
+            if (!email.includes('@')) {
+                showError('emailError', 'Please enter a valid email address.');
+                isValid = false;
+            }
+
+            if (age && (age < 18 || age > 120)) {
+                showError('ageError', 'Age must be between 18 and 120.');
+                isValid = false;
+            }
+
+            if (isValid) {
+                message.textContent = 'Profile updated successfully!';
+                form.reset();
+            }
+        });
+    </script>
+</body>
+</html>
