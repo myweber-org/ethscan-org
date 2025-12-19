@@ -98,4 +98,401 @@
         </div>
     </div>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .profile-container {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .profile-header {
+            background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+        .avatar-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid rgba(255, 255, 255, 0.5);
+            object-fit: cover;
+            background-color: #f0f0f0;
+        }
+        .avatar-upload {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: #667eea;
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        .avatar-upload:hover {
+            background-color: #764ba2;
+            transform: scale(1.1);
+        }
+        .profile-name {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        .profile-title {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+        .profile-location {
+            font-size: 1rem;
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .profile-content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 40px;
+        }
+        .profile-section {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #4facfe;
+        }
+        .bio-textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+        .bio-textarea:focus {
+            outline: none;
+            border-color: #4facfe;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .stat-item {
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
+        }
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #4facfe;
+        }
+        .stat-label {
+            font-size: 1rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        .skills-list {
+            list-style-type: none;
+        }
+        .skill-item {
+            background-color: #f5f5f5;
+            margin-bottom: 10px;
+            padding: 12px 20px;
+            border-radius: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .skill-name {
+            font-weight: 600;
+        }
+        .skill-level {
+            background-color: #4facfe;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 30px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+        .btn {
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-primary {
+            background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+        .btn-secondary {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary:hover {
+            background: linear-gradient(to right, #00f2fe 0%, #4facfe 100%);
+        }
+        .btn-secondary:hover {
+            background-color: #e0e0e0;
+        }
+        @media (max-width: 768px) {
+            .profile-content {
+                flex-direction: column;
+            }
+            .profile-section {
+                width: 100%;
+            }
+            .action-buttons {
+                flex-direction: column;
+            }
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="avatar-container">
+                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="User Avatar" class="avatar" id="userAvatar">
+                <div class="avatar-upload" id="uploadTrigger">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <input type="file" id="avatarInput" accept="image/*" style="display: none;">
+            </div>
+            <h1 class="profile-name" id="userName">Alex Johnson</h1>
+            <p class="profile-title">Frontend Developer & UI Designer</p>
+            <p class="profile-location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span id="userLocation">San Francisco, CA</span>
+            </p>
+        </div>
+        
+        <div class="profile-content">
+            <div class="profile-section">
+                <h2 class="section-title">About Me</h2>
+                <textarea class="bio-textarea" id="userBio" placeholder="Write something about yourself...">Passionate frontend developer with 5+ years of experience creating responsive and user-friendly web applications. Specialized in React, Vue.js, and modern CSS. Love to solve complex problems with clean and efficient code.</textarea>
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="projectCount">47</div>
+                        <div class="stat-label">Projects</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="followerCount">2.8K</div>
+                        <div class="stat-label">Followers</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="followingCount">350</div>
+                        <div class="stat-label">Following</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile-section">
+                <h2 class="section-title">Skills & Expertise</h2>
+                <ul class="skills-list">
+                    <li class="skill-item">
+                        <span class="skill-name">HTML/CSS</span>
+                        <span class="skill-level">Expert</span>
+                    </li>
+                    <li class="skill-item">
+                        <span class="skill-name">JavaScript</span>
+                        <span class="skill-level">Advanced</span>
+                    </li>
+                    <li class="skill-item">
+                        <span class="skill-name">React.js</span>
+                        <span class="skill-level">Advanced</span>
+                    </li>
+                    <li class="skill-item">
+                        <span class="skill-name">Vue.js</span>
+                        <span class="skill-level">Intermediate</span>
+                    </li>
+                    <li class="skill-item">
+                        <span class="skill-name">UI/UX Design</span>
+                        <span class="skill-level">Intermediate</span>
+                    </li>
+                </ul>
+                
+                <h2 class="section-title" style="margin-top: 30px;">Contact Info</h2>
+                <div style="margin-top: 15px;">
+                    <p><i class="fas fa-envelope" style="margin-right: 10px; color: #4facfe;"></i> <span id="userEmail">alex.johnson@example.com</span></p>
+                    <p style="margin-top: 10px;"><i class="fas fa-phone" style="margin-right: 10px; color: #4facfe;"></i> <span id="userPhone">+1 (555) 123-4567</span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="btn btn-primary" id="saveProfile">
+                <i class="fas fa-save"></i> Save Changes
+            </button>
+            <button class="btn btn-secondary" id="cancelEdit">
+                <i class="fas fa-times"></i> Cancel
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const avatarInput = document.getElementById('avatarInput');
+            const uploadTrigger = document.getElementById('uploadTrigger');
+            const userAvatar = document.getElementById('userAvatar');
+            const userBio = document.getElementById('userBio');
+            const saveProfileBtn = document.getElementById('saveProfile');
+            const cancelEditBtn = document.getElementById('cancelEdit');
+            const userName = document.getElementById('userName');
+            const userLocation = document.getElementById('userLocation');
+            const userEmail = document.getElementById('userEmail');
+            const userPhone = document.getElementById('userPhone');
+            
+            let originalBio = userBio.value;
+            let originalName = userName.textContent;
+            let originalLocation = userLocation.textContent;
+            let originalEmail = userEmail.textContent;
+            let originalPhone = userPhone.textContent;
+            
+            uploadTrigger.addEventListener('click', function() {
+                avatarInput.click();
+            });
+            
+            avatarInput.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        userAvatar.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            saveProfileBtn.addEventListener('click', function() {
+                originalBio = userBio.value;
+                originalName = userName.textContent;
+                originalLocation = userLocation.textContent;
+                originalEmail = userEmail.textContent;
+                originalPhone = userPhone.textContent;
+                
+                alert('Profile saved successfully!');
+                
+                saveProfileBtn.innerHTML = '<i class="fas fa-check"></i> Saved!';
+                saveProfileBtn.style.background = 'linear-gradient(to right, #38a169 0%, #48bb78 100%)';
+                
+                setTimeout(() => {
+                    saveProfileBtn.innerHTML = '<i class="fas fa-save"></i> Save Changes';
+                    saveProfileBtn.style.background = 'linear-gradient(to right, #4facfe 0%, #00f2fe 100%)';
+                }, 2000);
+            });
+            
+            cancelEditBtn.addEventListener('click', function() {
+                userBio.value = originalBio;
+                userName.textContent = originalName;
+                userLocation.textContent = originalLocation;
+                userEmail.textContent = originalEmail;
+                userPhone.textContent = originalPhone;
+                
+                alert('Changes discarded.');
+            });
+            
+            const projectCount = document.getElementById('projectCount');
+            const followerCount = document.getElementById('followerCount');
+            const followingCount = document.getElementById('followingCount');
+            
+            function animateCounter(element, targetValue) {
+                let currentValue = parseInt(element.textContent.replace('K', '') * 1000 || parseInt(element.textContent));
+                const increment = targetValue > currentValue ? 1 : -1;
+                const step = Math.abs(targetValue - currentValue) / 50;
+                
+                const timer = setInterval(() => {
+                    currentValue += increment * step;
+                    
+                    if ((increment > 0 && currentValue >= targetValue) || (increment < 0 && currentValue <= targetValue)) {
+                        currentValue = targetValue;
+                        clearInterval(timer);
+                    }
+                    
+                    if (element.id === 'followerCount') {
+                        element.textContent = (currentValue / 1000).toFixed(1) + 'K';
+                    } else {
+                        element.textContent = Math.round(currentValue);
+                    }
+                }, 20);
+            }
+            
+            setTimeout(() => {
+                animateCounter(projectCount, 52);
+                animateCounter(followerCount, 3100);
+                animateCounter(followingCount, 365);
+            }, 1000);
+        });
+    </script>
+</body>
 </html>
