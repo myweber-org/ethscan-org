@@ -101,4 +101,50 @@
         }
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section class="profile">
+            <div class="avatar-container">
+                <img src="avatar.jpg" alt="User Avatar" id="user-avatar">
+                <button onclick="changeAvatar()">Change Avatar</button>
+            </div>
+            <div class="user-info">
+                <h2 id="username">John Doe</h2>
+                <p id="user-bio">Software developer with a passion for open-source projects.</p>
+                <p>Email: <span id="user-email">john.doe@example.com</span></p>
+                <p>Location: <span id="user-location">San Francisco, CA</span></p>
+                <button onclick="editProfile()">Edit Profile</button>
+            </div>
+        </section>
+    </main>
+    <script>
+        function changeAvatar() {
+            const newAvatarUrl = prompt('Enter new avatar URL:');
+            if (newAvatarUrl) {
+                document.getElementById('user-avatar').src = newAvatarUrl;
+            }
+        }
+
+        function editProfile() {
+            const newBio = prompt('Enter new bio:', document.getElementById('user-bio').textContent);
+            if (newBio !== null) {
+                document.getElementById('user-bio').textContent = newBio;
+            }
+            const newLocation = prompt('Enter new location:', document.getElementById('user-location').textContent);
+            if (newLocation !== null) {
+                document.getElementById('user-location').textContent = newLocation;
+            }
+        }
+    </script>
+</body>
 </html>
