@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form id="loginForm">
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" minlength="8" required>
+        </div>
+        <button type="submit">Sign In</button>
+    </form>
+    <p id="message"></p>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const messageElement = document.getElementById('message');
+
+            if (email.includes('@') && password.length >= 8) {
+                messageElement.textContent = 'Login successful!';
+                messageElement.style.color = 'green';
+            } else {
+                messageElement.textContent = 'Please check your email and password.';
+                messageElement.style.color = 'red';
+            }
+        });
+    </script>
+</body>
+</html>
