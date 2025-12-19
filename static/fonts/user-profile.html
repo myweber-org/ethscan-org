@@ -91,4 +91,80 @@
         <p>&copy; 2023 User Profile Page</p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="profile-info">
+            <div class="avatar-container">
+                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
+                <form id="avatar-form" enctype="multipart/form-data">
+                    <input type="file" id="avatar-input" name="avatar" accept="image/*">
+                    <button type="submit">Upload Avatar</button>
+                </form>
+            </div>
+            <div class="bio-container">
+                <h2>Bio</h2>
+                <textarea id="bio-textarea" rows="4" cols="50" placeholder="Write something about yourself..."></textarea>
+                <button id="save-bio-btn">Save Bio</button>
+            </div>
+        </section>
+    </main>
+    <script>
+        document.getElementById('avatar-input').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatar-preview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('avatar-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            fetch('/upload-avatar', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Avatar uploaded successfully!');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to upload avatar.');
+            });
+        });
+
+        document.getElementById('save-bio-btn').addEventListener('click', function() {
+            const bioText = document.getElementById('bio-textarea').value;
+            fetch('/update-bio', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ bio: bioText })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Bio saved successfully!');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to save bio.');
+            });
+        });
+    </script>
+</body>
 </html>
