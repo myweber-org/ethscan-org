@@ -114,4 +114,52 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="avatar-section">
+            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
+            <button id="change-avatar">Change Avatar</button>
+        </section>
+        <section id="bio-section">
+            <h2>Bio</h2>
+            <p id="user-bio">This is a placeholder for the user's biography. It will be updated with real data.</p>
+            <textarea id="bio-editor" rows="4" cols="50" style="display: none;"></textarea>
+            <button id="edit-bio">Edit Bio</button>
+            <button id="save-bio" style="display: none;">Save Bio</button>
+        </section>
+    </main>
+    <script>
+        document.getElementById('edit-bio').addEventListener('click', function() {
+            const bioText = document.getElementById('user-bio').textContent;
+            document.getElementById('bio-editor').value = bioText;
+            document.getElementById('user-bio').style.display = 'none';
+            document.getElementById('bio-editor').style.display = 'block';
+            document.getElementById('edit-bio').style.display = 'none';
+            document.getElementById('save-bio').style.display = 'inline-block';
+        });
+
+        document.getElementById('save-bio').addEventListener('click', function() {
+            const newBio = document.getElementById('bio-editor').value;
+            document.getElementById('user-bio').textContent = newBio;
+            document.getElementById('user-bio').style.display = 'block';
+            document.getElementById('bio-editor').style.display = 'none';
+            document.getElementById('edit-bio').style.display = 'inline-block';
+            document.getElementById('save-bio').style.display = 'none';
+        });
+
+        document.getElementById('change-avatar').addEventListener('click', function() {
+            alert('Avatar change functionality would be implemented here.');
+        });
+    </script>
+</body>
 </html>
