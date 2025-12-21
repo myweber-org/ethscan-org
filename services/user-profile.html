@@ -106,4 +106,113 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: sans-serif;
+        }
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .avatar-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ddd;
+            margin-bottom: 10px;
+        }
+        .bio-section textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+        .form-actions {
+            margin-top: 20px;
+            text-align: right;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h1>Edit Profile</h1>
+        <div class="avatar-section">
+            <img id="avatarPreview" src="default-avatar.png" alt="Avatar Preview" class="avatar-preview">
+            <div>
+                <input type="file" id="avatarInput" accept="image/*">
+                <button onclick="document.getElementById('avatarInput').click()">Change Avatar</button>
+            </div>
+        </div>
+        <div class="bio-section">
+            <label for="bioText">Bio:</label>
+            <textarea id="bioText" placeholder="Tell something about yourself..."></textarea>
+        </div>
+        <div class="form-actions">
+            <button onclick="saveProfile()">Save Changes</button>
+        </div>
+        <div id="message" class="hidden"></div>
+    </div>
+
+    <script>
+        const avatarInput = document.getElementById('avatarInput');
+        const avatarPreview = document.getElementById('avatarPreview');
+        const bioText = document.getElementById('bioText');
+        const messageDiv = document.getElementById('message');
+
+        avatarInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function saveProfile() {
+            const bio = bioText.value.trim();
+            messageDiv.textContent = 'Profile saved successfully!';
+            messageDiv.className = '';
+            messageDiv.style.color = 'green';
+            messageDiv.style.marginTop = '15px';
+            messageDiv.style.padding = '10px';
+            messageDiv.style.backgroundColor = '#e7f7e7';
+            messageDiv.style.borderRadius = '4px';
+
+            setTimeout(() => {
+                messageDiv.className = 'hidden';
+            }, 3000);
+        }
+    </script>
+</body>
 </html>
