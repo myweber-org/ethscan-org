@@ -216,3 +216,152 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 0.9em; }
+        .hidden { display: none; }
+        .avatar-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ccc;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h1>User Profile</h1>
+        <form id="profileForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <div id="usernameError" class="error hidden"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <div id="emailError" class="error hidden"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="avatar">Profile Picture:</label>
+                <input type="file" id="avatar" name="avatar" accept="image/*">
+                <div id="avatarPreview">
+                    <img src="" alt="Avatar Preview" class="avatar-preview hidden">
+                </div>
+                <div id="avatarError" class="error hidden"></div>
+            </div>
+            
+            <div class="form-group">
+                <button type="submit">Update Profile</button>
+            </div>
+            
+            <div id="successMessage" class="success hidden">
+                Profile updated successfully!
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('profileForm');
+            const avatarInput = document.getElementById('avatar');
+            const avatarPreview = document.querySelector('.avatar-preview');
+            const successMessage = document.getElementById('successMessage');
+            
+            // Avatar preview
+            avatarInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    if (file.size > 2 * 1024 * 1024) {
+                        showError('avatarError', 'File size must be less than 2MB');
+                        avatarInput.value = '';
+                        return;
+                    }
+                    
+                    if (!file.type.startsWith('image/')) {
+                        showError('avatarError', 'Please select an image file');
+                        avatarInput.value = '';
+                        return;
+                    }
+                    
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        avatarPreview.src = event.target.result;
+                        avatarPreview.classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                    hideError('avatarError');
+                }
+            });
+            
+            // Form validation
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                clearErrors();
+                
+                let isValid = true;
+                
+                // Username validation
+                const username = document.getElementById('username').value.trim();
+                if (username.length < 3) {
+                    showError('usernameError', 'Username must be at least 3 characters');
+                    isValid = false;
+                }
+                
+                // Email validation
+                const email = document.getElementById('email').value.trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    showError('emailError', 'Please enter a valid email address');
+                    isValid = false;
+                }
+                
+                if (isValid) {
+                    // Simulate form submission
+                    setTimeout(() => {
+                        successMessage.classList.remove('hidden');
+                        form.reset();
+                        avatarPreview.classList.add('hidden');
+                        avatarPreview.src = '';
+                        
+                        // Hide success message after 3 seconds
+                        setTimeout(() => {
+                            successMessage.classList.add('hidden');
+                        }, 3000);
+                    }, 500);
+                }
+            });
+            
+            function showError(elementId, message) {
+                const errorElement = document.getElementById(elementId);
+                errorElement.textContent = message;
+                errorElement.classList.remove('hidden');
+            }
+            
+            function hideError(elementId) {
+                const errorElement = document.getElementById(elementId);
+                errorElement.textContent = '';
+                errorElement.classList.add('hidden');
+            }
+            
+            function clearErrors() {
+                const errorElements = document.querySelectorAll('.error');
+                errorElements.forEach(element => {
+                    element.textContent = '';
+                    element.classList.add('hidden');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
