@@ -108,4 +108,66 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile Settings</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Profile Information</h2>
+            <form id="profileForm">
+                <div>
+                    <label for="avatar">Profile Picture:</label>
+                    <input type="file" id="avatar" name="avatar" accept="image/*">
+                    <div id="avatarPreview"></div>
+                </div>
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div>
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div>
+                    <label for="bio">Biography:</label>
+                    <textarea id="bio" name="bio" rows="4"></textarea>
+                </div>
+                <button type="submit">Update Profile</button>
+            </form>
+        </section>
+    </main>
+    <script>
+        document.getElementById('avatar').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('avatarPreview');
+            preview.innerHTML = '';
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.maxWidth = '150px';
+                    img.style.marginTop = '10px';
+                    preview.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            console.log('Form submitted with data:', Object.fromEntries(formData));
+            alert('Profile update simulated. Check console for data.');
+        });
+    </script>
+</body>
 </html>
