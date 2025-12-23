@@ -87,3 +87,130 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 500px; margin: 40px auto; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        .error { color: red; font-size: 0.9em; margin-top: 5px; display: none; }
+        button { background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>Create Account</h1>
+    <form id="registrationForm">
+        <div class="form-group">
+            <label for="username">Username *</label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+            <div class="error" id="usernameError">Username must be 3-20 characters (letters, numbers, underscore)</div>
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" required>
+            <div class="error" id="emailError">Please enter a valid email address</div>
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Password *</label>
+            <input type="password" id="password" name="password" required minlength="8">
+            <div class="error" id="passwordError">Password must be at least 8 characters</div>
+        </div>
+        
+        <div class="form-group">
+            <label for="country">Country</label>
+            <select id="country" name="country">
+                <option value="">Select Country</option>
+                <option value="us">United States</option>
+                <option value="uk">United Kingdom</option>
+                <option value="ca">Canada</option>
+                <option value="au">Australia</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label>
+                <input type="checkbox" id="terms" name="terms" required>
+                I agree to the Terms of Service *
+            </label>
+            <div class="error" id="termsError">You must accept the terms</div>
+        </div>
+        
+        <button type="submit">Register Account</button>
+    </form>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let isValid = true;
+            
+            const username = document.getElementById('username');
+            const usernameError = document.getElementById('usernameError');
+            const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
+            if (!usernameRegex.test(username.value)) {
+                usernameError.style.display = 'block';
+                isValid = false;
+            } else {
+                usernameError.style.display = 'none';
+            }
+            
+            const email = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email.value)) {
+                emailError.style.display = 'block';
+                isValid = false;
+            } else {
+                emailError.style.display = 'none';
+            }
+            
+            const password = document.getElementById('password');
+            const passwordError = document.getElementById('passwordError');
+            if (password.value.length < 8) {
+                passwordError.style.display = 'block';
+                isValid = false;
+            } else {
+                passwordError.style.display = 'none';
+            }
+            
+            const terms = document.getElementById('terms');
+            const termsError = document.getElementById('termsError');
+            if (!terms.checked) {
+                termsError.style.display = 'block';
+                isValid = false;
+            } else {
+                termsError.style.display = 'none';
+            }
+            
+            if (isValid) {
+                const formData = {
+                    username: username.value,
+                    email: email.value,
+                    password: password.value,
+                    country: document.getElementById('country').value,
+                    terms: terms.checked
+                };
+                console.log('Form submitted:', formData);
+                alert('Registration successful! Check console for submitted data.');
+                this.reset();
+            }
+        });
+        
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', function() {
+                const errorElement = document.getElementById(this.id + 'Error');
+                if (errorElement) {
+                    errorElement.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
