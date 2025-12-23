@@ -4,517 +4,262 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="profile-section">
+    <div class="profile-container">
+        <header class="profile-header">
             <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button id="upload-btn">Upload Avatar</button>
+                <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="User Avatar" class="avatar">
+                <span class="online-status"></span>
             </div>
-            <form id="profile-form">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                <br>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <br>
-                <label for="bio">Bio:</label>
-                <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
-                <br>
-                <button type="submit">Save Profile</button>
-            </form>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
-    <script>
-        document.getElementById('upload-btn').addEventListener('click', function() {
-            document.getElementById('avatar-upload').click();
-        });
-
-        document.getElementById('avatar-upload').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            console.log('Profile saved:', { username, email, bio });
-            alert('Profile information saved!');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile-section">
-            <div class="avatar-container">
-                <img id="avatarPreview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <input type="file" id="avatarUpload" accept="image/*">
-                <button id="uploadButton">Upload Avatar</button>
+            <h1 class="username">Alex Johnson</h1>
+            <p class="user-title">Senior Frontend Developer</p>
+            <div class="location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>San Francisco, CA</span>
             </div>
-            <div class="bio-container">
-                <h2>Edit Bio</h2>
-                <textarea id="bioText" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
-                <button id="saveBioButton">Save Bio</button>
-            </div>
-        </section>
-    </main>
-    <script>
-        document.getElementById('uploadButton').addEventListener('click', function() {
-            document.getElementById('avatarUpload').click();
-        });
+        </header>
 
-        document.getElementById('avatarUpload').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatarPreview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
+        <main class="profile-content">
+            <section class="bio-section">
+                <h2><i class="fas fa-user"></i> About</h2>
+                <p class="bio-text">
+                    Passionate developer with 8 years of experience building responsive web applications.
+                    Enjoys hiking, photography, and open-source contributions. Currently focused on React and Vue.js ecosystems.
+                </p>
+            </section>
 
-        document.getElementById('saveBioButton').addEventListener('click', function() {
-            const bioText = document.getElementById('bioText').value;
-            alert('Bio saved: ' + bioText);
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
+            <section class="stats-section">
+                <h2><i class="fas fa-chart-bar"></i> Stats</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value">142</div>
+                        <div class="stat-label">Projects</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">5.8k</div>
+                        <div class="stat-label">Followers</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">328</div>
+                        <div class="stat-label">Following</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">4.9</div>
+                        <div class="stat-label">Rating</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="skills-section">
+                <h2><i class="fas fa-code"></i> Top Skills</h2>
+                <div class="skills-list">
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">React</span>
+                    <span class="skill-tag">TypeScript</span>
+                    <span class="skill-tag">Node.js</span>
+                    <span class="skill-tag">CSS3</span>
+                    <span class="skill-tag">Webpack</span>
+                </div>
+            </section>
+        </main>
+
+        <footer class="profile-footer">
+            <button class="action-btn message-btn">
+                <i class="fas fa-envelope"></i> Send Message
+            </button>
+            <button class="action-btn follow-btn">
+                <i class="fas fa-user-plus"></i> Follow
+            </button>
+        </footer>
+    </div>
+
     <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .avatar-preview {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #ddd;
-            margin-bottom: 10px;
-        }
-        .bio-section textarea {
-            width: 100%;
-            height: 100px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
+        * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
-        }
-        .form-actions {
-            margin-top: 20px;
-            text-align: right;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .hidden {
-            display: none;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <h1>Edit Profile</h1>
-        <div class="avatar-section">
-            <img id="avatarPreview" src="default-avatar.png" alt="Avatar Preview" class="avatar-preview">
-            <div>
-                <input type="file" id="avatarInput" accept="image/*">
-                <button onclick="document.getElementById('avatarInput').click()">Change Avatar</button>
-            </div>
-        </div>
-        <div class="bio-section">
-            <label for="bioText">Bio:</label>
-            <textarea id="bioText" placeholder="Tell something about yourself..."></textarea>
-        </div>
-        <div class="form-actions">
-            <button onclick="saveProfile()">Save Changes</button>
-        </div>
-        <div id="message" class="hidden"></div>
-    </div>
-
-    <script>
-        const avatarInput = document.getElementById('avatarInput');
-        const avatarPreview = document.getElementById('avatarPreview');
-        const bioText = document.getElementById('bioText');
-        const messageDiv = document.getElementById('message');
-
-        avatarInput.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    avatarPreview.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        function saveProfile() {
-            const bio = bioText.value.trim();
-            messageDiv.textContent = 'Profile saved successfully!';
-            messageDiv.className = '';
-            messageDiv.style.color = 'green';
-            messageDiv.style.marginTop = '15px';
-            messageDiv.style.padding = '10px';
-            messageDiv.style.backgroundColor = '#e7f7e7';
-            messageDiv.style.borderRadius = '4px';
-
-            setTimeout(() => {
-                messageDiv.className = 'hidden';
-            }, 3000);
-        }
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .error { color: red; font-size: 0.9em; }
-        .success { color: green; font-size: 0.9em; }
-        .hidden { display: none; }
-        .avatar-preview {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #ccc;
-            margin-bottom: 10px;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <h1>User Profile</h1>
-        <form id="profileForm">
-            <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                <div id="usernameError" class="error hidden"></div>
-            </div>
-            
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <div id="emailError" class="error hidden"></div>
-            </div>
-            
-            <div class="form-group">
-                <label for="avatar">Profile Picture:</label>
-                <input type="file" id="avatar" name="avatar" accept="image/*">
-                <div id="avatarPreview">
-                    <img src="" alt="Avatar Preview" class="avatar-preview hidden">
-                </div>
-                <div id="avatarError" class="error hidden"></div>
-            </div>
-            
-            <div class="form-group">
-                <button type="submit">Update Profile</button>
-            </div>
-            
-            <div id="successMessage" class="success hidden">
-                Profile updated successfully!
-            </div>
-        </form>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('profileForm');
-            const avatarInput = document.getElementById('avatar');
-            const avatarPreview = document.querySelector('.avatar-preview');
-            const successMessage = document.getElementById('successMessage');
-            
-            // Avatar preview
-            avatarInput.addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                if (file) {
-                    if (file.size > 2 * 1024 * 1024) {
-                        showError('avatarError', 'File size must be less than 2MB');
-                        avatarInput.value = '';
-                        return;
-                    }
-                    
-                    if (!file.type.startsWith('image/')) {
-                        showError('avatarError', 'Please select an image file');
-                        avatarInput.value = '';
-                        return;
-                    }
-                    
-                    const reader = new FileReader();
-                    reader.onload = function(event) {
-                        avatarPreview.src = event.target.result;
-                        avatarPreview.classList.remove('hidden');
-                    };
-                    reader.readAsDataURL(file);
-                    hideError('avatarError');
-                }
-            });
-            
-            // Form validation
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                clearErrors();
-                
-                let isValid = true;
-                
-                // Username validation
-                const username = document.getElementById('username').value.trim();
-                if (username.length < 3) {
-                    showError('usernameError', 'Username must be at least 3 characters');
-                    isValid = false;
-                }
-                
-                // Email validation
-                const email = document.getElementById('email').value.trim();
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(email)) {
-                    showError('emailError', 'Please enter a valid email address');
-                    isValid = false;
-                }
-                
-                if (isValid) {
-                    // Simulate form submission
-                    setTimeout(() => {
-                        successMessage.classList.remove('hidden');
-                        form.reset();
-                        avatarPreview.classList.add('hidden');
-                        avatarPreview.src = '';
-                        
-                        // Hide success message after 3 seconds
-                        setTimeout(() => {
-                            successMessage.classList.add('hidden');
-                        }, 3000);
-                    }, 500);
-                }
-            });
-            
-            function showError(elementId, message) {
-                const errorElement = document.getElementById(elementId);
-                errorElement.textContent = message;
-                errorElement.classList.remove('hidden');
-            }
-            
-            function hideError(elementId) {
-                const errorElement = document.getElementById(elementId);
-                errorElement.textContent = '';
-                errorElement.classList.add('hidden');
-            }
-            
-            function clearErrors() {
-                const errorElements = document.querySelectorAll('.error');
-                errorElements.forEach(element => {
-                    element.textContent = '';
-                    element.classList.add('hidden');
-                });
-            }
-        });
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile-section">
-            <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <div>
-                    <input type="file" id="avatar-upload" accept="image/*">
-                    <button onclick="uploadAvatar()">Upload Avatar</button>
-                </div>
-            </div>
-            <form id="profile-form">
-                <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="bio">Bio:</label>
-                    <textarea id="bio" name="bio" rows="4"></textarea>
-                </div>
-                <button type="submit">Save Profile</button>
-            </form>
-        </section>
-    </main>
-    <script>
-        function uploadAvatar() {
-            const fileInput = document.getElementById('avatar-upload');
-            const file = fileInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            console.log('Profile saved:', { username, email, bio });
-            alert('Profile saved successfully!');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: sans-serif;
         }
-        .avatar-section {
+
+        .profile-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+            padding: 30px;
+        }
+
+        .profile-header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
-        .avatar-preview {
+
+        .avatar-container {
+            position: relative;
             width: 120px;
             height: 120px;
+            margin: 0 auto 20px;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #4a90e2;
+            border: 5px solid #e0e6ff;
+        }
+
+        .online-status {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 20px;
+            height: 20px;
+            background-color: #4CAF50;
+            border: 3px solid white;
+            border-radius: 50%;
+        }
+
+        .username {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .user-title {
+            color: #666;
+            font-size: 16px;
             margin-bottom: 10px;
         }
-        .file-input {
-            margin: 10px 0;
+
+        .location {
+            color: #888;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
         }
-        .bio-section textarea {
-            width: 100%;
-            height: 100px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
-            font-family: inherit;
+
+        .profile-content section {
+            margin-bottom: 25px;
         }
-        .save-button {
-            background-color: #4a90e2;
-            color: white;
+
+        .profile-content h2 {
+            font-size: 18px;
+            color: #444;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bio-text {
+            color: #555;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .stat-item {
+            background: #f8f9ff;
+            border-radius: 10px;
+            padding: 15px 10px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4361ee;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #777;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 5px;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background: #eef2ff;
+            color: #4361ee;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .profile-footer {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 14px;
             border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
+            border-radius: 10px;
             font-size: 16px;
-            margin-top: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
         }
-        .save-button:hover {
-            background-color: #3a7bc8;
+
+        .message-btn {
+            background: #4361ee;
+            color: white;
+        }
+
+        .follow-btn {
+            background: transparent;
+            color: #4361ee;
+            border: 2px solid #4361ee;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        @media (max-width: 480px) {
+            .profile-container {
+                padding: 20px;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     </style>
-</head>
-<body>
-    <div class="profile-container">
-        <h1>Edit Your Profile</h1>
-        <div class="avatar-section">
-            <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
-            <div>
-                <input type="file" id="avatarUpload" class="file-input" accept="image/*">
-            </div>
-        </div>
-        <div class="bio-section">
-            <label for="userBio"><strong>Bio:</strong></label>
-            <textarea id="userBio" placeholder="Tell us something about yourself..."></textarea>
-        </div>
-        <button class="save-button" onclick="saveProfile()">Save Changes</button>
-    </div>
-
-    <script>
-        const avatarUpload = document.getElementById('avatarUpload');
-        const avatarPreview = document.getElementById('avatarPreview');
-        const userBio = document.getElementById('userBio');
-
-        avatarUpload.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    avatarPreview.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        function saveProfile() {
-            const bioText = userBio.value.trim();
-            alert('Profile saved successfully! Bio: ' + (bioText || 'No bio provided.'));
-        }
-    </script>
 </body>
 </html>
