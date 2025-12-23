@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        input.invalid, textarea.invalid { border: 1px solid red; }
+    </style>
+</head>
+<body>
+    <h1>Get in Touch</h1>
+    <form id="contactForm" novalidate>
+        <div>
+            <label for="name">Full Name:</label><br>
+            <input type="text" id="name" name="name" required>
+            <div class="error" id="nameError"></div>
+        </div>
+        <div>
+            <label for="email">Email Address:</label><br>
+            <input type="email" id="email" name="email" required>
+            <div class="error" id="emailError"></div>
+        </div>
+        <div>
+            <label for="message">Your Message:</label><br>
+            <textarea id="message" name="message" rows="5" required></textarea>
+            <div class="error" id="messageError"></div>
+        </div>
+        <button type="submit">Send Message</button>
+    </form>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let isValid = true;
+
+            const nameField = document.getElementById('name');
+            const emailField = document.getElementById('email');
+            const messageField = document.getElementById('message');
+            const nameError = document.getElementById('nameError');
+            const emailError = document.getElementById('emailError');
+            const messageError = document.getElementById('messageError');
+
+            nameError.textContent = '';
+            emailError.textContent = '';
+            messageError.textContent = '';
+            nameField.classList.remove('invalid');
+            emailField.classList.remove('invalid');
+            messageField.classList.remove('invalid');
+
+            if (!nameField.value.trim()) {
+                nameError.textContent = 'Name is required.';
+                nameField.classList.add('invalid');
+                isValid = false;
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailField.value.trim()) {
+                emailError.textContent = 'Email is required.';
+                emailField.classList.add('invalid');
+                isValid = false;
+            } else if (!emailPattern.test(emailField.value)) {
+                emailError.textContent = 'Please enter a valid email address.';
+                emailField.classList.add('invalid');
+                isValid = false;
+            }
+
+            if (!messageField.value.trim()) {
+                messageError.textContent = 'Message is required.';
+                messageField.classList.add('invalid');
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert('Form submitted successfully! (This is a demo)');
+                this.reset();
+            }
+        });
+    </script>
+</body>
+</html>
