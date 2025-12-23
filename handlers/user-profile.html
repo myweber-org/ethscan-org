@@ -4,183 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .avatar-preview {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #ccc;
-            margin-bottom: 10px;
-        }
-        .bio-section textarea {
-            width: 100%;
-            height: 100px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
-            box-sizing: border-box;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input[type="text"],
-        input[type="email"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .btn {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .btn:hover {
-            background-color: #45a049;
-        }
-    </style>
 </head>
 <body>
-    <div class="profile-container">
+    <header>
         <h1>User Profile</h1>
-        <div class="avatar-section">
-            <img id="avatarPreview" src="https://via.placeholder.com/120" class="avatar-preview" alt="Avatar Preview">
-            <div>
-                <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
-                <button type="button" class="btn" onclick="document.getElementById('avatarUpload').click();">Change Avatar</button>
+    </header>
+    <main>
+        <section class="profile-section">
+            <div class="avatar-container">
+                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar">
+                <input type="file" id="avatar-upload" accept="image/*">
+                <button id="upload-button">Upload Avatar</button>
             </div>
-        </div>
-
-        <form id="profileForm">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" value="john_doe" readonly>
-            </div>
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" value="john@example.com">
-            </div>
-            <div class="form-group">
-                <label for="displayName">Display Name</label>
-                <input type="text" id="displayName" name="displayName" value="John Doe">
-            </div>
-            <div class="bio-section form-group">
-                <label for="bio">Bio</label>
-                <textarea id="bio" name="bio" placeholder="Tell us about yourself...">Web developer and open source enthusiast.</textarea>
-            </div>
-            <button type="submit" class="btn">Save Profile</button>
-        </form>
-    </div>
-
+            <form id="profile-form">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="bio">Bio:</label>
+                    <textarea id="bio" name="bio" rows="4"></textarea>
+                </div>
+                <button type="submit">Save Profile</button>
+            </form>
+        </section>
+    </main>
     <script>
-        document.getElementById('avatarUpload').addEventListener('change', function(event) {
+        document.getElementById('upload-button').addEventListener('click', function() {
+            document.getElementById('avatar-upload').click();
+        });
+
+        document.getElementById('avatar-upload').addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('avatarPreview').src = e.target.result;
+                    document.getElementById('avatar-preview').src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
         });
 
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
+        document.getElementById('profile-form').addEventListener('submit', function(event) {
             event.preventDefault();
-            const formData = {
-                email: document.getElementById('email').value,
-                displayName: document.getElementById('displayName').value,
-                bio: document.getElementById('bio').value
-            };
-            console.log('Profile data to save:', formData);
-            alert('Profile saved successfully! (Check console for data)');
+            const formData = new FormData(this);
+            const profileData = Object.fromEntries(formData);
+            console.log('Profile data:', profileData);
+            alert('Profile saved successfully!');
         });
     </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 2rem;
-            border: 1px solid #e1e4e8;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #0366d6;
-        }
-        .name {
-            font-size: 1.8rem;
-            margin: 0.5rem 0;
-            color: #24292e;
-        }
-        .username {
-            color: #586069;
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-        }
-        .bio-section {
-            padding: 1rem;
-            background-color: #f6f8fa;
-            border-radius: 6px;
-            line-height: 1.5;
-            color: #24292e;
-        }
-        .bio-title {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #0366d6;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="Profile Avatar" class="avatar">
-            <h1 class="name">Alex Johnson</h1>
-            <div class="username">@alexj</div>
-        </div>
-        <div class="bio-section">
-            <div class="bio-title">Bio</div>
-            <p>Software developer passionate about open-source projects and web technologies. Enjoys hiking, photography, and contributing to developer communities. Currently working on improving accessibility in web applications.</p>
-        </div>
-    </div>
 </body>
 </html>
