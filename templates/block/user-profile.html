@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,378 +11,52 @@
         <h1>User Profile</h1>
     </header>
     <main>
-        <section class="profile-card">
+        <section class="profile-section">
             <div class="avatar-container">
-                <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            </div>
-            <div class="profile-info">
-                <h2 class="user-name">Alex Johnson</h2>
-                <p class="user-bio">Software developer with a passion for open-source projects and web technologies.</p>
-                <div class="user-details">
-                    <p><strong>Location:</strong> San Francisco, CA</p>
-                    <p><strong>Joined:</strong> January 2022</p>
+                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
+                <div>
+                    <input type="file" id="avatar-upload" accept="image/*">
+                    <button onclick="uploadAvatar()">Upload Avatar</button>
                 </div>
             </div>
+            <form id="profile-form">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="bio">Bio:</label>
+                    <textarea id="bio" name="bio" rows="4"></textarea>
+                </div>
+                <button type="submit">Save Profile</button>
+            </form>
         </section>
     </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-    <div class="profile-container">
-        <header class="profile-header">
-            <h1><i class="fas fa-user-circle"></i> User Profile</h1>
-        </header>
-
-        <main class="profile-content">
-            <section class="avatar-section">
-                <div class="avatar-wrapper">
-                    <img id="avatarPreview" src="https://via.placeholder.com/150" alt="User Avatar">
-                    <div class="avatar-overlay">
-                        <label for="avatarUpload" class="upload-btn">
-                            <i class="fas fa-camera"></i> Change
-                        </label>
-                        <input type="file" id="avatarUpload" accept="image/*" hidden>
-                    </div>
-                </div>
-                <p class="avatar-hint">Click 'Change' to upload new profile picture</p>
-            </section>
-
-            <section class="info-section">
-                <form id="profileForm">
-                    <div class="form-group">
-                        <label for="fullName">
-                            <i class="fas fa-user"></i> Full Name
-                        </label>
-                        <input type="text" id="fullName" placeholder="Enter your full name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">
-                            <i class="fas fa-envelope"></i> Email Address
-                        </label>
-                        <input type="email" id="email" placeholder="user@example.com" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="bio">
-                            <i class="fas fa-edit"></i> Biography
-                        </label>
-                        <textarea id="bio" rows="4" placeholder="Tell something about yourself..."></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="country">
-                            <i class="fas fa-globe"></i> Country
-                        </label>
-                        <select id="country">
-                            <option value="">Select Country</option>
-                            <option value="us">United States</option>
-                            <option value="uk">United Kingdom</option>
-                            <option value="ca">Canada</option>
-                            <option value="au">Australia</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group checkbox-group">
-                        <input type="checkbox" id="newsletter">
-                        <label for="newsletter">Subscribe to newsletter</label>
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i> Save Profile
-                        </button>
-                        <button type="reset" class="btn btn-secondary">
-                            <i class="fas fa-undo"></i> Reset
-                        </button>
-                    </div>
-                </form>
-            </section>
-        </main>
-
-        <footer class="profile-footer">
-            <p class="timestamp">Last updated: <span id="lastUpdated">Never</span></p>
-        </footer>
-    </div>
-
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const avatarUpload = document.getElementById('avatarUpload');
-            const avatarPreview = document.getElementById('avatarPreview');
-            const profileForm = document.getElementById('profileForm');
-            const lastUpdatedSpan = document.getElementById('lastUpdated');
-
-            avatarUpload.addEventListener('change', function(event) {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        avatarPreview.src = e.target.result;
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-
-            profileForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                
-                const formData = {
-                    fullName: document.getElementById('fullName').value,
-                    email: document.getElementById('email').value,
-                    bio: document.getElementById('bio').value,
-                    country: document.getElementById('country').value,
-                    newsletter: document.getElementById('newsletter').checked
+        function uploadAvatar() {
+            const fileInput = document.getElementById('avatar-upload');
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatar-preview').src = e.target.result;
                 };
-
-                console.log('Profile saved:', formData);
-                
-                const now = new Date();
-                lastUpdatedSpan.textContent = now.toLocaleString();
-                
-                alert('Profile saved successfully!');
-            });
-
-            profileForm.addEventListener('reset', function() {
-                lastUpdatedSpan.textContent = 'Never';
-                avatarPreview.src = 'https://via.placeholder.com/150';
-            });
-        });
-    </script>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .profile-container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 800px;
-            overflow: hidden;
-        }
-
-        .profile-header {
-            background: linear-gradient(to right, #4b6cb7, #182848);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .profile-header h1 {
-            font-size: 2.5rem;
-            font-weight: 600;
-        }
-
-        .profile-header i {
-            margin-right: 15px;
-        }
-
-        .profile-content {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 40px;
-            padding: 40px;
-        }
-
-        @media (max-width: 768px) {
-            .profile-content {
-                grid-template-columns: 1fr;
+                reader.readAsDataURL(file);
             }
         }
 
-        .avatar-section {
-            text-align: center;
-        }
-
-        .avatar-wrapper {
-            position: relative;
-            width: 200px;
-            height: 200px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 5px solid #e0e0e0;
-            transition: all 0.3s ease;
-        }
-
-        .avatar-wrapper:hover {
-            border-color: #4b6cb7;
-            transform: scale(1.05);
-        }
-
-        #avatarPreview {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .avatar-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 10px;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-
-        .avatar-wrapper:hover .avatar-overlay {
-            transform: translateY(0);
-        }
-
-        .upload-btn {
-            color: white;
-            background: #4b6cb7;
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 500;
-            transition: background 0.3s ease;
-        }
-
-        .upload-btn:hover {
-            background: #3a559f;
-        }
-
-        .avatar-hint {
-            color: #666;
-            font-size: 0.9rem;
-            margin-top: 10px;
-        }
-
-        .info-section {
-            padding-top: 10px;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-group label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 600;
-        }
-
-        .form-group label i {
-            color: #4b6cb7;
-            width: 20px;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: border 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #4b6cb7;
-            box-shadow: 0 0 0 3px rgba(75, 108, 183, 0.1);
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .checkbox-group input {
-            width: auto;
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background: linear-gradient(to right, #4b6cb7, #182848);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(75, 108, 183, 0.4);
-        }
-
-        .btn-secondary {
-            background: #f0f0f0;
-            color: #333;
-        }
-
-        .btn-secondary:hover {
-            background: #e0e0e0;
-        }
-
-        .profile-footer {
-            background: #f8f9fa;
-            padding: 20px;
-            text-align: center;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        .timestamp {
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        #lastUpdated {
-            font-weight: 600;
-            color: #4b6cb7;
-        }
-    </style>
+        document.getElementById('profile-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const bio = document.getElementById('bio').value;
+            console.log('Profile saved:', { username, email, bio });
+            alert('Profile saved successfully!');
+        });
+    </script>
 </body>
 </html>
