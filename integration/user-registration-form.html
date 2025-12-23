@@ -270,3 +270,105 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; }
+        input, select { width: 300px; padding: 8px; }
+        .error { color: red; font-size: 0.9em; }
+        button { padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>User Registration</h1>
+    <form id="registrationForm">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <div class="error" id="usernameError"></div>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <div class="error" id="emailError"></div>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <div class="error" id="passwordError"></div>
+        </div>
+        <div class="form-group">
+            <label for="country">Country:</label>
+            <select id="country" name="country">
+                <option value="">Select a country</option>
+                <option value="us">United States</option>
+                <option value="uk">United Kingdom</option>
+                <option value="ca">Canada</option>
+                <option value="au">Australia</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>
+                <input type="checkbox" id="terms" name="terms" required>
+                I agree to the Terms and Conditions
+            </label>
+            <div class="error" id="termsError"></div>
+        </div>
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            clearErrors();
+            let isValid = true;
+
+            const username = document.getElementById('username').value.trim();
+            if (username.length < 3) {
+                showError('usernameError', 'Username must be at least 3 characters.');
+                isValid = false;
+            }
+
+            const email = document.getElementById('email').value.trim();
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                showError('emailError', 'Please enter a valid email address.');
+                isValid = false;
+            }
+
+            const password = document.getElementById('password').value;
+            if (password.length < 6) {
+                showError('passwordError', 'Password must be at least 6 characters.');
+                isValid = false;
+            }
+
+            const terms = document.getElementById('terms').checked;
+            if (!terms) {
+                showError('termsError', 'You must agree to the terms and conditions.');
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert('Registration submitted successfully!');
+                this.reset();
+            }
+        });
+
+        function showError(elementId, message) {
+            document.getElementById(elementId).textContent = message;
+        }
+
+        function clearErrors() {
+            const errorElements = document.querySelectorAll('.error');
+            errorElements.forEach(element => element.textContent = '');
+        }
+    </script>
+</body>
+</html>
