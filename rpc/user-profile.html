@@ -204,4 +204,78 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: sans-serif;
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #4a6fa5;
+            display: block;
+            margin: 0 auto 20px;
+        }
+        .user-name {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        .user-title {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .info-section {
+            margin-top: 25px;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #4a6fa5;
+            margin-bottom: 5px;
+        }
+        .info-value {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
+        <h1 class="user-name">Alex Johnson</h1>
+        <p class="user-title">Senior Software Developer</p>
+        
+        <div class="info-section">
+            <div class="info-label">Email</div>
+            <div class="info-value">alex.johnson@example.com</div>
+            
+            <div class="info-label">Location</div>
+            <div class="info-value">San Francisco, CA</div>
+            
+            <div class="info-label">Department</div>
+            <div class="info-value">Engineering - Platform Team</div>
+            
+            <div class="info-label">Join Date</div>
+            <div class="info-value">March 15, 2020</div>
+            
+            <div class="info-label">Bio</div>
+            <div class="info-value">Full-stack developer with 8 years of experience specializing in React, Node.js, and cloud infrastructure. Passionate about building scalable applications and mentoring junior engineers.</div>
+        </div>
+    </div>
+</body>
 </html>
