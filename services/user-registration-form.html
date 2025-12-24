@@ -10,42 +10,42 @@
     </style>
 </head>
 <body>
-    <h2>Register New Account</h2>
+    <h1>Register New Account</h1>
     <form id="registrationForm">
         <div>
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required minlength="3" maxlength="20">
-            <div id="usernameError" class="error"></div>
+            <span id="usernameError" class="error"></span>
         </div>
         <div>
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
-            <div id="emailError" class="error"></div>
+            <span id="emailError" class="error"></span>
         </div>
         <div>
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required minlength="8">
-            <div id="passwordError" class="error"></div>
+            <span id="passwordError" class="error"></span>
         </div>
         <div>
             <label for="confirmPassword">Confirm Password:</label>
             <input type="password" id="confirmPassword" name="confirmPassword" required>
-            <div id="confirmPasswordError" class="error"></div>
+            <span id="confirmError" class="error"></span>
         </div>
         <button type="submit">Register</button>
-        <div id="formMessage" class="success"></div>
+        <div id="message" class="success"></div>
     </form>
 
     <script>
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
             event.preventDefault();
             clearErrors();
-            let isValid = true;
-
+            
             const username = document.getElementById('username').value.trim();
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
+            let isValid = true;
 
             if (username.length < 3) {
                 showError('usernameError', 'Username must be at least 3 characters.');
@@ -64,13 +64,13 @@
             }
 
             if (password !== confirmPassword) {
-                showError('confirmPasswordError', 'Passwords do not match.');
+                showError('confirmError', 'Passwords do not match.');
                 isValid = false;
             }
 
             if (isValid) {
-                document.getElementById('formMessage').textContent = 'Registration successful!';
-                console.log('Registration data:', { username, email, password });
+                document.getElementById('message').textContent = 'Registration successful!';
+                this.reset();
             }
         });
 
@@ -81,7 +81,7 @@
         function clearErrors() {
             const errorElements = document.querySelectorAll('.error');
             errorElements.forEach(el => el.textContent = '');
-            document.getElementById('formMessage').textContent = '';
+            document.getElementById('message').textContent = '';
         }
     </script>
 </body>
