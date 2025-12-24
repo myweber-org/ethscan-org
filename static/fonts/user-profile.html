@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,78 +10,14 @@
         <h1>User Profile</h1>
     </header>
     <main>
-        <section class="profile-section">
-            <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <div>
-                    <input type="file" id="avatar-upload" accept="image/*">
-                    <button onclick="uploadAvatar()">Upload Avatar</button>
-                </div>
-            </div>
-            <form id="profile-form">
-                <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="bio">Bio:</label>
-                    <textarea id="bio" name="bio" rows="4"></textarea>
-                </div>
-                <button type="submit">Save Profile</button>
-            </form>
-        </section>
-    </main>
-    <script>
-        function uploadAvatar() {
-            const fileInput = document.getElementById('avatar-upload');
-            const file = fileInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const formData = {
-                username: document.getElementById('username').value,
-                email: document.getElementById('email').value,
-                bio: document.getElementById('bio').value
-            };
-            console.log('Profile data:', formData);
-            alert('Profile saved successfully!');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
+        <section>
             <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            <div class="user-info">
-                <h2>John Doe</h2>
-                <p>Email: john.doe@example.com</p>
-                <p>Location: New York, USA</p>
-                <p>Member since: January 2023</p>
-            </div>
+            <h2>John Doe</h2>
+            <p><strong>Email:</strong> john.doe@example.com</p>
+            <p><strong>Location:</strong> New York, USA</p>
+            <p><strong>Member Since:</strong> January 2023</p>
         </section>
-        <section class="bio">
+        <section>
             <h3>Bio</h3>
             <p>Software developer with a passion for open-source projects and web technologies.</p>
         </section>
@@ -90,152 +25,5 @@
     <footer>
         <p>&copy; 2023 User Profile Page</p>
     </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="profile-info">
-            <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <form id="avatar-form" enctype="multipart/form-data">
-                    <input type="file" id="avatar-input" name="avatar" accept="image/*">
-                    <button type="submit">Upload Avatar</button>
-                </form>
-            </div>
-            <div class="bio-container">
-                <h2>Bio</h2>
-                <textarea id="bio-textarea" rows="4" cols="50" placeholder="Write something about yourself..."></textarea>
-                <button id="save-bio-btn">Save Bio</button>
-            </div>
-        </section>
-    </main>
-    <script>
-        document.getElementById('avatar-input').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        document.getElementById('avatar-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const formData = new FormData(this);
-            fetch('/upload-avatar', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert('Avatar uploaded successfully!');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Failed to upload avatar.');
-            });
-        });
-
-        document.getElementById('save-bio-btn').addEventListener('click', function() {
-            const bioText = document.getElementById('bio-textarea').value;
-            fetch('/update-bio', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ bio: bioText })
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert('Bio saved successfully!');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Failed to save bio.');
-            });
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile Settings</h1>
-    </header>
-    <main>
-        <section>
-            <h2>Profile Information</h2>
-            <form id="profileForm">
-                <div>
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div>
-                    <label for="email">Email Address:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div>
-                    <label for="bio">Biography:</label>
-                    <textarea id="bio" name="bio" rows="4"></textarea>
-                </div>
-                <div>
-                    <label for="avatar">Profile Picture:</label>
-                    <input type="file" id="avatar" name="avatar" accept="image/*">
-                </div>
-                <button type="submit">Update Profile</button>
-            </form>
-        </section>
-        <section>
-            <h2>Account Preferences</h2>
-            <form id="preferencesForm">
-                <div>
-                    <label for="timezone">Timezone:</label>
-                    <select id="timezone" name="timezone">
-                        <option value="UTC-5">Eastern Time</option>
-                        <option value="UTC-6">Central Time</option>
-                        <option value="UTC-7">Mountain Time</option>
-                        <option value="UTC-8">Pacific Time</option>
-                    </select>
-                </div>
-                <div>
-                    <label>
-                        <input type="checkbox" name="newsletter">
-                        Subscribe to newsletter
-                    </label>
-                </div>
-                <button type="submit">Save Preferences</button>
-            </form>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile System</p>
-    </footer>
-    <script>
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            alert('Profile updated successfully!');
-        });
-
-        document.getElementById('preferencesForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            alert('Preferences saved successfully!');
-        });
-    </script>
 </body>
 </html>
