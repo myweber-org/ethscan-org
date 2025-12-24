@@ -177,3 +177,133 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        input:invalid { border-color: red; }
+        input:valid { border-color: green; }
+    </style>
+</head>
+<body>
+    <h1>Register New Account</h1>
+    <form id="registrationForm" novalidate>
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="20" pattern="[A-Za-z0-9_]+">
+            <div class="error" id="usernameError"></div>
+            <small>3-20 characters, letters, numbers, underscore only</small>
+        </div>
+
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <div class="error" id="emailError"></div>
+        </div>
+
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required minlength="8" pattern="^(?=.*[A-Za-z])(?=.*\d).+$">
+            <div class="error" id="passwordError"></div>
+            <small>Minimum 8 characters, at least one letter and one number</small>
+        </div>
+
+        <div>
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <div class="error" id="confirmPasswordError"></div>
+        </div>
+
+        <div>
+            <label for="birthdate">Birthdate:</label>
+            <input type="date" id="birthdate" name="birthdate" required max="2024-12-31">
+            <div class="error" id="birthdateError"></div>
+        </div>
+
+        <div>
+            <label>
+                <input type="checkbox" id="terms" name="terms" required>
+                I agree to the Terms of Service
+            </label>
+            <div class="error" id="termsError"></div>
+        </div>
+
+        <button type="submit">Register</button>
+        <button type="reset">Clear Form</button>
+    </form>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            clearErrors();
+            
+            let isValid = true;
+            const username = document.getElementById('username');
+            const email = document.getElementById('email');
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirmPassword');
+            const birthdate = document.getElementById('birthdate');
+            const terms = document.getElementById('terms');
+
+            if (!username.checkValidity()) {
+                showError('usernameError', 'Username must be 3-20 alphanumeric characters');
+                isValid = false;
+            }
+
+            if (!email.checkValidity()) {
+                showError('emailError', 'Please enter a valid email address');
+                isValid = false;
+            }
+
+            if (!password.checkValidity()) {
+                showError('passwordError', 'Password must be at least 8 characters with letters and numbers');
+                isValid = false;
+            }
+
+            if (password.value !== confirmPassword.value) {
+                showError('confirmPasswordError', 'Passwords do not match');
+                isValid = false;
+            }
+
+            if (!birthdate.checkValidity()) {
+                showError('birthdateError', 'Please enter a valid birthdate');
+                isValid = false;
+            }
+
+            if (!terms.checked) {
+                showError('termsError', 'You must accept the terms');
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert('Registration successful! Form data would be submitted to server.');
+                this.submit();
+            }
+        });
+
+        function showError(elementId, message) {
+            document.getElementById(elementId).textContent = message;
+        }
+
+        function clearErrors() {
+            const errors = document.querySelectorAll('.error');
+            errors.forEach(error => error.textContent = '');
+        }
+
+        document.getElementById('confirmPassword').addEventListener('input', function() {
+            const password = document.getElementById('password');
+            const errorElement = document.getElementById('confirmPasswordError');
+            
+            if (this.value !== password.value) {
+                errorElement.textContent = 'Passwords do not match';
+            } else {
+                errorElement.textContent = '';
+            }
+        });
+    </script>
+</body>
+</html>
