@@ -426,4 +426,130 @@
         }
     </style>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: sans-serif;
+        }
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .avatar-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #eee;
+            margin-bottom: 10px;
+        }
+        .avatar-upload {
+            margin-top: 10px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="avatar-section">
+            <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
+            <div class="avatar-upload">
+                <input type="file" id="avatarInput" accept="image/*">
+                <button onclick="uploadAvatar()" class="btn">Upload Avatar</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="displayName">Display Name</label>
+            <input type="text" id="displayName" placeholder="Enter your display name">
+        </div>
+
+        <div class="form-group">
+            <label for="userBio">Bio</label>
+            <textarea id="userBio" placeholder="Tell something about yourself..."></textarea>
+        </div>
+
+        <button onclick="saveProfile()" class="btn">Save Profile</button>
+    </div>
+
+    <script>
+        function uploadAvatar() {
+            const fileInput = document.getElementById('avatarInput');
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatarPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                alert('Please select an image file first.');
+            }
+        }
+
+        function saveProfile() {
+            const displayName = document.getElementById('displayName').value;
+            const userBio = document.getElementById('userBio').value;
+
+            if (!displayName.trim()) {
+                alert('Display name is required.');
+                return;
+            }
+
+            // In a real application, you would send data to a server here.
+            console.log('Profile saved:', { displayName, userBio });
+            alert('Profile saved successfully! (Check console for data)');
+        }
+
+        // Load existing profile data (simulated)
+        window.onload = function() {
+            // Simulate fetching data from an API
+            setTimeout(() => {
+                document.getElementById('displayName').value = 'John Doe';
+                document.getElementById('userBio').value = 'Web developer and open source enthusiast.';
+            }, 300);
+        };
+    </script>
+</body>
 </html>
