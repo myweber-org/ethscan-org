@@ -387,4 +387,38 @@
         }
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="avatar-section">
+            <img src="avatar-placeholder.png" alt="User Avatar" width="150" height="150">
+            <button onclick="changeAvatar()">Change Avatar</button>
+        </section>
+        <section id="bio-section">
+            <h2>Biography</h2>
+            <p id="user-bio">This is a placeholder for the user's biography. Click edit to update.</p>
+            <button onclick="editBio()">Edit Bio</button>
+        </section>
+    </main>
+    <script>
+        function changeAvatar() {
+            alert('Avatar change functionality would go here.');
+        }
+        function editBio() {
+            const newBio = prompt('Enter your new biography:');
+            if (newBio) {
+                document.getElementById('user-bio').textContent = newBio;
+            }
+        }
+    </script>
+</body>
 </html>
