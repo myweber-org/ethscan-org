@@ -11,412 +11,55 @@
     </header>
     <main>
         <section id="profile-section">
-            <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button id="upload-btn">Upload Avatar</button>
+            <div id="avatar-container">
+                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
+                <form id="avatar-form">
+                    <label for="avatar-upload">Upload new avatar:</label>
+                    <input type="file" id="avatar-upload" name="avatar" accept="image/png, image/jpeg">
+                    <button type="submit">Update Avatar</button>
+                </form>
             </div>
-            <form id="profile-form">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <label for="bio">Bio:</label>
-                <textarea id="bio" name="bio" rows="4"></textarea>
-                <button type="submit">Save Profile</button>
-            </form>
+            <div id="bio-container">
+                <h2>Edit Bio</h2>
+                <form id="bio-form">
+                    <textarea id="bio-text" name="bio" rows="4" cols="50" placeholder="Write something about yourself..."></textarea>
+                    <br>
+                    <button type="submit">Save Bio</button>
+                </form>
+                <p id="current-bio">No bio provided yet.</p>
+            </div>
         </section>
     </main>
     <script>
-        document.getElementById('avatar-upload').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        document.getElementById('upload-btn').addEventListener('click', function() {
-            document.getElementById('avatar-upload').click();
-        });
-
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            console.log('Profile saved:', { username, email, bio });
-            alert('Profile saved successfully!');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-    <div class="profile-container">
-        <header class="profile-header">
-            <h1><i class="fas fa-user-circle"></i> User Profile</h1>
-        </header>
-
-        <main class="profile-content">
-            <section class="avatar-section">
-                <div class="avatar-preview">
-                    <img id="avatarImage" src="https://via.placeholder.com/150" alt="Profile Avatar">
-                </div>
-                <div class="avatar-controls">
-                    <input type="file" id="avatarUpload" accept="image/*" hidden>
-                    <button id="uploadButton" class="btn btn-primary">
-                        <i class="fas fa-cloud-upload-alt"></i> Upload New Avatar
-                    </button>
-                    <button id="removeButton" class="btn btn-secondary">
-                        <i class="fas fa-trash-alt"></i> Remove Avatar
-                    </button>
-                </div>
-            </section>
-
-            <section class="bio-section">
-                <h2><i class="fas fa-edit"></i> Edit Biography</h2>
-                <textarea id="bioTextarea" rows="6" placeholder="Tell us something about yourself..."></textarea>
-                <div class="char-count">
-                    Characters: <span id="charCount">0</span> / 500
-                </div>
-                <div class="bio-controls">
-                    <button id="saveBioButton" class="btn btn-success">
-                        <i class="fas fa-save"></i> Save Biography
-                    </button>
-                    <button id="clearBioButton" class="btn btn-warning">
-                        <i class="fas fa-eraser"></i> Clear
-                    </button>
-                </div>
-            </section>
-
-            <section class="profile-info">
-                <h2><i class="fas fa-info-circle"></i> Profile Information</h2>
-                <div class="info-grid">
-                    <div class="info-item">
-                        <strong>Username:</strong>
-                        <span id="usernameDisplay">john_doe</span>
-                    </div>
-                    <div class="info-item">
-                        <strong>Member Since:</strong>
-                        <span id="joinDate">January 15, 2023</span>
-                    </div>
-                    <div class="info-item">
-                        <strong>Last Updated:</strong>
-                        <span id="lastUpdated">Just now</span>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <footer class="profile-footer">
-            <p>Profile settings saved automatically to your account.</p>
-        </footer>
-    </div>
-
-    <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const avatarImage = document.getElementById('avatarImage');
-            const avatarUpload = document.getElementById('avatarUpload');
-            const uploadButton = document.getElementById('uploadButton');
-            const removeButton = document.getElementById('removeButton');
-            const bioTextarea = document.getElementById('bioTextarea');
-            const charCount = document.getElementById('charCount');
-            const saveBioButton = document.getElementById('saveBioButton');
-            const clearBioButton = document.getElementById('clearBioButton');
-            const lastUpdatedSpan = document.getElementById('lastUpdated');
+            const avatarForm = document.getElementById('avatar-form');
+            const avatarUpload = document.getElementById('avatar-upload');
+            const avatarPreview = document.getElementById('avatar-preview');
+            const bioForm = document.getElementById('bio-form');
+            const bioText = document.getElementById('bio-text');
+            const currentBio = document.getElementById('current-bio');
 
-            const defaultAvatar = 'https://via.placeholder.com/150';
-
-            uploadButton.addEventListener('click', () => avatarUpload.click());
-
-            avatarUpload.addEventListener('change', function(event) {
-                const file = event.target.files[0];
-                if (file && file.type.startsWith('image/')) {
+            avatarForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const file = avatarUpload.files[0];
+                if (file) {
                     const reader = new FileReader();
                     reader.onload = function(e) {
-                        avatarImage.src = e.target.result;
-                        updateLastUpdated();
+                        avatarPreview.src = e.target.result;
                     };
                     reader.readAsDataURL(file);
                 }
             });
 
-            removeButton.addEventListener('click', function() {
-                if (confirm('Are you sure you want to remove your avatar?')) {
-                    avatarImage.src = defaultAvatar;
-                    updateLastUpdated();
+            bioForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const newBio = bioText.value.trim();
+                if (newBio) {
+                    currentBio.textContent = newBio;
+                    bioText.value = '';
                 }
             });
-
-            bioTextarea.addEventListener('input', function() {
-                const currentLength = bioTextarea.value.length;
-                charCount.textContent = currentLength;
-                if (currentLength > 500) {
-                    charCount.style.color = 'red';
-                    bioTextarea.value = bioTextarea.value.substring(0, 500);
-                    charCount.textContent = 500;
-                } else {
-                    charCount.style.color = 'inherit';
-                }
-            });
-
-            saveBioButton.addEventListener('click', function() {
-                const bio = bioTextarea.value.trim();
-                if (bio) {
-                    alert('Biography saved successfully!');
-                    updateLastUpdated();
-                } else {
-                    alert('Please enter some text before saving.');
-                }
-            });
-
-            clearBioButton.addEventListener('click', function() {
-                if (bioTextarea.value.trim() && confirm('Clear biography text?')) {
-                    bioTextarea.value = '';
-                    charCount.textContent = 0;
-                    updateLastUpdated();
-                }
-            });
-
-            function updateLastUpdated() {
-                const now = new Date();
-                lastUpdatedSpan.textContent = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-            }
-
-            updateLastUpdated();
         });
     </script>
-
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .profile-container {
-            background-color: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
-            width: 100%;
-            max-width: 800px;
-            overflow: hidden;
-        }
-
-        .profile-header {
-            background: linear-gradient(to right, #4776E6, #8E54E9);
-            color: white;
-            padding: 25px 30px;
-            text-align: center;
-        }
-
-        .profile-header h1 {
-            font-size: 2.2rem;
-            font-weight: 600;
-        }
-
-        .profile-header i {
-            margin-right: 15px;
-        }
-
-        .profile-content {
-            padding: 30px;
-        }
-
-        section {
-            margin-bottom: 40px;
-            padding-bottom: 25px;
-            border-bottom: 1px solid #eee;
-        }
-
-        section:last-of-type {
-            border-bottom: none;
-            margin-bottom: 0;
-        }
-
-        h2 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-        }
-
-        h2 i {
-            margin-right: 10px;
-            color: #4776E6;
-        }
-
-        .avatar-section {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 40px;
-        }
-
-        .avatar-preview img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid #f0f0f0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .avatar-controls {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .btn i {
-            margin-right: 8px;
-        }
-
-        .btn-primary {
-            background-color: #4776E6;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: #3a64d0;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background-color: #6c757d;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background-color: #5a6268;
-            transform: translateY(-2px);
-        }
-
-        .btn-success {
-            background-color: #28a745;
-            color: white;
-        }
-
-        .btn-success:hover {
-            background-color: #218838;
-            transform: translateY(-2px);
-        }
-
-        .btn-warning {
-            background-color: #ffc107;
-            color: #212529;
-        }
-
-        .btn-warning:hover {
-            background-color: #e0a800;
-            transform: translateY(-2px);
-        }
-
-        textarea {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #e1e5eb;
-            border-radius: 10px;
-            font-size: 1rem;
-            resize: vertical;
-            transition: border-color 0.3s;
-        }
-
-        textarea:focus {
-            outline: none;
-            border-color: #4776E6;
-        }
-
-        .char-count {
-            text-align: right;
-            margin-top: 10px;
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .bio-controls {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .info-item {
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 10px;
-            border-left: 4px solid #4776E6;
-        }
-
-        .info-item strong {
-            display: block;
-            color: #555;
-            margin-bottom: 5px;
-        }
-
-        .profile-footer {
-            background-color: #f8f9fa;
-            padding: 20px;
-            text-align: center;
-            color: #6c757d;
-            font-size: 0.9rem;
-            border-top: 1px solid #e9ecef;
-        }
-
-        @media (max-width: 600px) {
-            .avatar-section {
-                flex-direction: column;
-                text-align: center;
-                gap: 25px;
-            }
-
-            .bio-controls {
-                flex-direction: column;
-            }
-
-            .info-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
 </body>
 </html>
