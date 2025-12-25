@@ -439,4 +439,111 @@
         }
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        input.invalid { border: 1px solid red; }
+    </style>
+</head>
+<body>
+    <h2>Register Account</h2>
+    <form id="registrationForm" novalidate>
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+            <div class="error" id="usernameError"></div>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <div class="error" id="emailError"></div>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required minlength="8">
+            <div class="error" id="passwordError"></div>
+        </div>
+        <div>
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <div class="error" id="confirmPasswordError"></div>
+        </div>
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('registrationForm');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirmPassword');
+
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = message;
+        }
+
+        function clearError(elementId) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = '';
+        }
+
+        function validatePasswordMatch() {
+            if (password.value !== confirmPassword.value) {
+                showError('confirmPasswordError', 'Passwords do not match.');
+                confirmPassword.classList.add('invalid');
+                return false;
+            } else {
+                clearError('confirmPasswordError');
+                confirmPassword.classList.remove('invalid');
+                return true;
+            }
+        }
+
+        confirmPassword.addEventListener('input', validatePasswordMatch);
+        password.addEventListener('input', validatePasswordMatch);
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            let isValid = true;
+
+            if (!form.checkValidity()) {
+                const inputs = form.querySelectorAll('input[required]');
+                inputs.forEach(input => {
+                    const errorId = input.id + 'Error';
+                    if (!input.validity.valid) {
+                        let message = '';
+                        if (input.validity.valueMissing) {
+                            message = 'This field is required.';
+                        } else if (input.validity.typeMismatch) {
+                            message = 'Please enter a valid email address.';
+                        } else if (input.validity.tooShort) {
+                            message = `Minimum length is ${input.minLength} characters.`;
+                        }
+                        showError(errorId, message);
+                        input.classList.add('invalid');
+                        isValid = false;
+                    } else {
+                        clearError(errorId);
+                        input.classList.remove('invalid');
+                    }
+                });
+            }
+
+            if (!validatePasswordMatch()) {
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert('Registration submitted successfully!');
+                form.reset();
+                form.querySelectorAll('.error').forEach(el => el.textContent = '');
+                form.querySelectorAll('.invalid').forEach(el => el.classList.remove('invalid'));
+            }
+        });
+    </script>
+</body>
 </html>
