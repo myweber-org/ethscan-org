@@ -4,38 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Login</title>
-</head>
-<body>
-    <h1>Login to Your Account</h1>
-    <form id="loginForm">
-        <div>
-            <label for="email">Email Address:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <div>
-            <button type="submit">Sign In</button>
-        </div>
-    </form>
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            console.log('Login attempt with:', { email, password });
-            alert('Login submitted (check console)');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login</title>
     <style>
         .error { color: red; font-size: 0.9em; }
         .success { color: green; font-size: 0.9em; }
@@ -51,7 +19,7 @@
         </div>
         <div>
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required minlength="6">
+            <input type="password" id="password" name="password" minlength="6" required>
             <span id="passwordError" class="error"></span>
         </div>
         <button type="submit">Login</button>
@@ -65,24 +33,35 @@
             let isValid = true;
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+            const messageDiv = document.getElementById('message');
 
-            if (!emailRegex.test(email)) {
-                document.getElementById('emailError').textContent = 'Please enter a valid email address.';
+            if (!validateEmail(email)) {
+                emailError.textContent = 'Please enter a valid email address.';
                 isValid = false;
             }
             if (password.length < 6) {
-                document.getElementById('passwordError').textContent = 'Password must be at least 6 characters.';
+                passwordError.textContent = 'Password must be at least 6 characters.';
                 isValid = false;
             }
 
             if (isValid) {
-                document.getElementById('message').textContent = 'Login successful! Redirecting...';
+                messageDiv.textContent = 'Login successful! Redirecting...';
+                messageDiv.className = 'success';
                 setTimeout(() => {
                     alert('Simulated redirect to dashboard.');
                 }, 1000);
+            } else {
+                messageDiv.textContent = 'Please fix errors above.';
+                messageDiv.className = 'error';
             }
         });
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
 
         function clearErrors() {
             document.querySelectorAll('.error').forEach(span => span.textContent = '');
