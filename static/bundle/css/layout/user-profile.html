@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #4a90e2;
+            display: block;
+            margin: 0 auto 20px;
+        }
+        .user-name {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .user-title {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        .contact-info {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .contact-item {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .contact-item i {
+            margin-right: 10px;
+            color: #4a90e2;
+            width: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
+        <h1 class="user-name">Alex Johnson</h1>
+        <p class="user-title">Senior Software Developer</p>
+        
+        <div class="contact-info">
+            <div class="contact-item">
+                <i>📧</i>
+                <span>alex.johnson@example.com</span>
+            </div>
+            <div class="contact-item">
+                <i>📱</i>
+                <span>+1 (555) 123-4567</span>
+            </div>
+            <div class="contact-item">
+                <i>🏢</i>
+                <span>San Francisco, CA</span>
+            </div>
+            <div class="contact-item">
+                <i>🔗</i>
+                <span>github.com/alexjohnson</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
