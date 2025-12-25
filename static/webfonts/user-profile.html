@@ -1,119 +1,60 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        body { font-family: sans-serif; margin: 40px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input, textarea { width: 300px; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
-        .error { color: red; font-size: 0.9em; margin-top: 5px; display: none; }
-        button { background-color: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
-        button:hover { background-color: #0056b3; }
-        .avatar-preview { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid #ddd; margin-bottom: 15px; }
-    </style>
 </head>
 <body>
-    <h1>Edit Profile</h1>
-    <form id="profileForm">
-        <div class="form-group">
-            <label for="avatar">Profile Picture</label>
-            <img id="avatarPreview" src="https://via.placeholder.com/100" alt="Avatar Preview" class="avatar-preview">
-            <input type="file" id="avatar" name="avatar" accept="image/*">
-            <div id="avatarError" class="error">Please select a valid image file (JPG, PNG, GIF).</div>
-        </div>
-
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
-            <div id="usernameError" class="error">Username must be 3-20 characters long.</div>
-        </div>
-
-        <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" required>
-            <div id="emailError" class="error">Please enter a valid email address.</div>
-        </div>
-
-        <div class="form-group">
-            <label for="bio">Bio</label>
-            <textarea id="bio" name="bio" rows="4" maxlength="200"></textarea>
-            <div id="bioError" class="error">Bio cannot exceed 200 characters.</div>
-        </div>
-
-        <button type="submit">Update Profile</button>
-    </form>
-
+    <header>
+        <h1>User Profile Settings</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Profile Picture</h2>
+            <div>
+                <img id="avatarPreview" src="default-avatar.png" alt="Avatar Preview" width="150" height="150">
+                <br>
+                <input type="file" id="avatarUpload" accept="image/*">
+                <button onclick="uploadAvatar()">Upload Avatar</button>
+            </div>
+        </section>
+        <section>
+            <h2>Basic Information</h2>
+            <form id="profileForm">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <br>
+                <label for="bio">Bio:</label>
+                <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
+                <br>
+                <button type="submit">Save Profile</button>
+            </form>
+        </section>
+    </main>
     <script>
-        const form = document.getElementById('profileForm');
-        const avatarInput = document.getElementById('avatar');
-        const avatarPreview = document.getElementById('avatarPreview');
-        const usernameInput = document.getElementById('username');
-        const emailInput = document.getElementById('email');
-        const bioInput = document.getElementById('bio');
-
-        function showError(elementId, show) {
-            document.getElementById(elementId).style.display = show ? 'block' : 'none';
-        }
-
-        function validateUsername() {
-            const valid = usernameInput.value.length >= 3 && usernameInput.value.length <= 20;
-            showError('usernameError', !valid);
-            return valid;
-        }
-
-        function validateEmail() {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            const valid = emailRegex.test(emailInput.value);
-            showError('emailError', !valid);
-            return valid;
-        }
-
-        function validateBio() {
-            const valid = bioInput.value.length <= 200;
-            showError('bioError', !valid);
-            return valid;
-        }
-
-        function validateAvatar() {
-            if (avatarInput.files.length === 0) return true;
-            const file = avatarInput.files[0];
-            const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
-            const valid = validTypes.includes(file.type);
-            showError('avatarError', !valid);
-            return valid;
-        }
-
-        avatarInput.addEventListener('change', function() {
-            if (this.files && this.files[0]) {
+        function uploadAvatar() {
+            const fileInput = document.getElementById('avatarUpload');
+            const file = fileInput.files[0];
+            if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    avatarPreview.src = e.target.result;
-                }
-                reader.readAsDataURL(this.files[0]);
+                    document.getElementById('avatarPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
             }
-            validateAvatar();
-        });
+        }
 
-        usernameInput.addEventListener('input', validateUsername);
-        emailInput.addEventListener('input', validateEmail);
-        bioInput.addEventListener('input', validateBio);
-
-        form.addEventListener('submit', function(event) {
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
             event.preventDefault();
-            const isUsernameValid = validateUsername();
-            const isEmailValid = validateEmail();
-            const isBioValid = validateBio();
-            const isAvatarValid = validateAvatar();
-
-            if (isUsernameValid && isEmailValid && isBioValid && isAvatarValid) {
-                alert('Profile updated successfully! (This is a demo)');
-            } else {
-                alert('Please fix the errors before submitting.');
-            }
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const bio = document.getElementById('bio').value;
+            console.log('Profile saved:', { username, email, bio });
+            alert('Profile saved successfully!');
         });
     </script>
 </body>
