@@ -9,119 +9,106 @@
             max-width: 600px;
             margin: 40px auto;
             padding: 20px;
-            border: 1px solid #ddd;
+            border: 1px solid #ccc;
             border-radius: 8px;
             font-family: sans-serif;
         }
         .avatar-section {
-            display: flex;
-            align-items: center;
+            text-align: center;
             margin-bottom: 20px;
         }
         .avatar-preview {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            margin-right: 20px;
-            border: 2px solid #ccc;
+            border: 3px solid #ddd;
+            margin-bottom: 10px;
         }
-        .bio-section textarea {
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        textarea,
+        input[type="file"] {
             width: 100%;
-            height: 100px;
-            padding: 10px;
-            border: 1px solid #ccc;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #aaa;
             border-radius: 4px;
-            resize: vertical;
-            font-family: inherit;
         }
-        .save-button {
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        button {
             background-color: #4CAF50;
             color: white;
             padding: 10px 20px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            margin-top: 15px;
+            font-size: 16px;
         }
-        .save-button:hover {
+        button:hover {
             background-color: #45a049;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <h1>Edit Profile</h1>
+        <h1>Edit Your Profile</h1>
         <div class="avatar-section">
-            <img id="avatarPreview" src="default-avatar.png" alt="Avatar" class="avatar-preview">
-            <div>
+            <img id="avatarPreview" src="https://via.placeholder.com/120" class="avatar-preview" alt="Avatar Preview">
+            <div class="form-group">
+                <label for="avatarUpload">Upload New Avatar</label>
                 <input type="file" id="avatarUpload" accept="image/*">
-                <p>Upload a new profile picture (JPG, PNG, max 2MB)</p>
             </div>
         </div>
-        <div class="bio-section">
-            <label for="userBio"><strong>Bio:</strong></label>
-            <textarea id="userBio" placeholder="Tell us about yourself..."></textarea>
-        </div>
-        <button class="save-button" onclick="saveProfile()">Save Changes</button>
+        <form id="profileForm">
+            <div class="form-group">
+                <label for="displayName">Display Name</label>
+                <input type="text" id="displayName" placeholder="Enter your display name">
+            </div>
+            <div class="form-group">
+                <label for="userBio">Bio</label>
+                <textarea id="userBio" placeholder="Tell us something about yourself..."></textarea>
+            </div>
+            <button type="submit">Save Profile</button>
+        </form>
     </div>
 
     <script>
-        const avatarUpload = document.getElementById('avatarUpload');
-        const avatarPreview = document.getElementById('avatarPreview');
-        const userBio = document.getElementById('userBio');
-
-        avatarUpload.addEventListener('change', function(event) {
+        document.getElementById('avatarUpload').addEventListener('change', function(event) {
             const file = event.target.files[0];
-            if (file && file.type.startsWith('image/')) {
+            if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    avatarPreview.src = e.target.result;
+                    document.getElementById('avatarPreview').src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
         });
 
-        function saveProfile() {
-            const bioText = userBio.value.trim();
-            alert('Profile saved! Bio: ' + (bioText || '(empty)'));
-        }
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const displayName = document.getElementById('displayName').value;
+            const userBio = document.getElementById('userBio').value;
+            const avatarFile = document.getElementById('avatarUpload').files[0];
+
+            console.log('Profile Data:', {
+                displayName: displayName,
+                userBio: userBio,
+                avatarFile: avatarFile ? avatarFile.name : 'No new avatar'
+            });
+
+            alert('Profile saved successfully! Check console for data.');
+        });
     </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
-            <div class="avatar-container">
-                <img src="avatar.jpg" alt="User Avatar" id="user-avatar" width="150" height="150">
-            </div>
-            <div class="profile-info">
-                <h2 id="username">John Doe</h2>
-                <p id="user-bio">Software developer with a passion for open-source projects and web technologies.</p>
-                <p><strong>Location:</strong> <span id="user-location">San Francisco, CA</span></p>
-                <p><strong>Joined:</strong> <span id="join-date">January 2023</span></p>
-            </div>
-        </section>
-        <section class="stats">
-            <h3>Activity Stats</h3>
-            <ul>
-                <li>Repositories: <span id="repo-count">24</span></li>
-                <li>Followers: <span id="follower-count">128</span></li>
-                <li>Following: <span id="following-count">56</span></li>
-            </ul>
-        </section>
-    </main>
-    <footer>
-        <p>Contact: <a href="mailto:john.doe@example.com" id="user-email">john.doe@example.com</a></p>
-    </footer>
 </body>
 </html>
