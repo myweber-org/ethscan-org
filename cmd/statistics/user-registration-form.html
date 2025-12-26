@@ -382,4 +382,95 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <script>
+        function validateForm() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const errorElement = document.getElementById('errorMessage');
+
+            errorElement.textContent = '';
+
+            if (!email.includes('@')) {
+                errorElement.textContent = 'Please enter a valid email address.';
+                return false;
+            }
+
+            if (password.length < 8) {
+                errorElement.textContent = 'Password must be at least 8 characters long.';
+                return false;
+            }
+
+            if (password !== confirmPassword) {
+                errorElement.textContent = 'Passwords do not match.';
+                return false;
+            }
+
+            alert('Registration submitted successfully!');
+            return true;
+        }
+
+        function togglePasswordVisibility(fieldId) {
+            const field = document.getElementById(fieldId);
+            field.type = field.type === 'password' ? 'text' : 'password';
+        }
+    </script>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 400px; margin: 40px auto; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input { width: 100%; padding: 8px; box-sizing: border-box; }
+        .password-container { position: relative; }
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .error { color: red; font-size: 14px; margin-top: 5px; }
+        button { background-color: #4CAF50; color: white; padding: 10px 15px; border: none; cursor: pointer; width: 100%; }
+        button:hover { background-color: #45a049; }
+    </style>
+</head>
+<body>
+    <h2>Create Account</h2>
+    <form onsubmit="return validateForm()">
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <div class="password-container">
+                <input type="password" id="password" name="password" required>
+                <button type="button" class="toggle-password" onclick="togglePasswordVisibility('password')">Show</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <div class="password-container">
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+                <button type="button" class="toggle-password" onclick="togglePasswordVisibility('confirmPassword')">Show</button>
+            </div>
+        </div>
+
+        <div id="errorMessage" class="error"></div>
+
+        <div class="form-group">
+            <button type="submit">Register</button>
+        </div>
+    </form>
+</body>
 </html>
