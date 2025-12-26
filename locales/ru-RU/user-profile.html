@@ -262,4 +262,382 @@
         }
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .profile-container {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .profile-header {
+            background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+        .avatar-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .avatar-upload {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 3px solid white;
+            transition: all 0.3s ease;
+        }
+        .avatar-upload:hover {
+            background-color: #764ba2;
+            transform: scale(1.1);
+        }
+        .profile-name {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .profile-title {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+        .profile-location {
+            font-size: 1rem;
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        .profile-content {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        .section {
+            background-color: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        .section-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title i {
+            color: #667eea;
+        }
+        .bio-text {
+            line-height: 1.6;
+            color: #555;
+            font-size: 1.1rem;
+        }
+        .bio-edit {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 120px;
+            transition: border 0.3s;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+        }
+        .btn {
+            padding: 12px 25px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        .btn-primary {
+            background-color: #667eea;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #5a6fd8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        .btn-secondary {
+            background-color: #f1f3f9;
+            color: #667eea;
+        }
+        .btn-secondary:hover {
+            background-color: #e4e7f4;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+        .stat-label {
+            color: #777;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 768px) {
+            .profile-container {
+                margin: 10px;
+            }
+            .profile-header {
+                padding: 30px 20px;
+            }
+            .profile-content {
+                padding: 30px 20px;
+            }
+            .profile-name {
+                font-size: 2rem;
+            }
+            .stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="avatar-container">
+                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80" alt="User Avatar" class="avatar" id="userAvatar">
+                <div class="avatar-upload" id="uploadTrigger">
+                    <i class="fas fa-camera"></i>
+                </div>
+            </div>
+            <h1 class="profile-name" id="userName">Alex Johnson</h1>
+            <p class="profile-title">Frontend Developer & UI Designer</p>
+            <p class="profile-location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span id="userLocation">San Francisco, CA</span>
+            </p>
+        </div>
+        
+        <div class="profile-content">
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-user-edit"></i>
+                    About Me
+                </h2>
+                <p class="bio-text" id="bioText">
+                    Passionate frontend developer with 5+ years of experience building responsive web applications. 
+                    Specialized in React, Vue.js, and modern CSS. Enjoys creating intuitive user interfaces and 
+                    solving complex problems with clean code. Currently focused on accessibility and performance optimization.
+                </p>
+                
+                <div class="bio-edit" id="bioEdit" style="display: none;">
+                    <textarea id="bioTextarea" placeholder="Tell us about yourself..."></textarea>
+                    <div class="button-group">
+                        <button class="btn btn-secondary" id="cancelEdit">Cancel</button>
+                        <button class="btn btn-primary" id="saveBio">Save Changes</button>
+                    </div>
+                </div>
+                
+                <div class="button-group" style="justify-content: flex-start; margin-top: 20px;">
+                    <button class="btn btn-primary" id="editBio">
+                        <i class="fas fa-edit"></i> Edit Bio
+                    </button>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-chart-line"></i>
+                    Profile Stats
+                </h2>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="projectCount">47</div>
+                        <div class="stat-label">Projects</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="followersCount">1.2k</div>
+                        <div class="stat-label">Followers</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="followingCount">348</div>
+                        <div class="stat-label">Following</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="memberYears">5</div>
+                        <div class="stat-label">Years</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const editBioBtn = document.getElementById('editBio');
+            const cancelEditBtn = document.getElementById('cancelEdit');
+            const saveBioBtn = document.getElementById('saveBio');
+            const bioText = document.getElementById('bioText');
+            const bioEdit = document.getElementById('bioEdit');
+            const bioTextarea = document.getElementById('bioTextarea');
+            const uploadTrigger = document.getElementById('uploadTrigger');
+            const userAvatar = document.getElementById('userAvatar');
+            const userName = document.getElementById('userName');
+            const userLocation = document.getElementById('userLocation');
+            
+            editBioBtn.addEventListener('click', function() {
+                bioText.style.display = 'none';
+                bioEdit.style.display = 'flex';
+                editBioBtn.style.display = 'none';
+                bioTextarea.value = bioText.textContent;
+                bioTextarea.focus();
+            });
+            
+            cancelEditBtn.addEventListener('click', function() {
+                bioText.style.display = 'block';
+                bioEdit.style.display = 'none';
+                editBioBtn.style.display = 'flex';
+            });
+            
+            saveBioBtn.addEventListener('click', function() {
+                const newBio = bioTextarea.value.trim();
+                if (newBio) {
+                    bioText.textContent = newBio;
+                }
+                bioText.style.display = 'block';
+                bioEdit.style.display = 'none';
+                editBioBtn.style.display = 'flex';
+                
+                showNotification('Bio updated successfully!');
+            });
+            
+            uploadTrigger.addEventListener('click', function() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*';
+                
+                input.addEventListener('change', function(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            userAvatar.src = e.target.result;
+                            showNotification('Profile picture updated!');
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+                
+                input.click();
+            });
+            
+            function showNotification(message) {
+                const notification = document.createElement('div');
+                notification.textContent = message;
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background-color: #4CAF50;
+                    color: white;
+                    padding: 15px 25px;
+                    border-radius: 10px;
+                    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                    z-index: 1000;
+                    font-weight: 600;
+                    animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s;
+                `;
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.remove();
+                }, 3000);
+            }
+            
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes fadeOut {
+                    from { opacity: 1; }
+                    to { opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            console.log('User profile page loaded successfully.');
+        });
+    </script>
+</body>
 </html>
