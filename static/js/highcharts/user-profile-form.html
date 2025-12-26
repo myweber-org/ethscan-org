@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .error { color: red; font-size: 0.9em; display: none; }
+        input:invalid { border-color: #ffcccc; }
+    </style>
+</head>
+<body>
+    <h1>Update Profile</h1>
+    <form id="profileForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+            <span class="error" id="usernameError">Username must be 3-20 characters.</span>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <span class="error" id="emailError">Please enter a valid email address.</span>
+        </div>
+        <div>
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" min="18" max="120">
+            <span class="error" id="ageError">Age must be between 18 and 120.</span>
+        </div>
+        <button type="submit">Save Profile</button>
+    </form>
+
+    <script>
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let isValid = true;
+
+            const username = document.getElementById('username');
+            const email = document.getElementById('email');
+            const age = document.getElementById('age');
+
+            document.querySelectorAll('.error').forEach(el => el.style.display = 'none');
+
+            if (!username.checkValidity()) {
+                document.getElementById('usernameError').style.display = 'inline';
+                isValid = false;
+            }
+
+            if (!email.checkValidity()) {
+                document.getElementById('emailError').style.display = 'inline';
+                isValid = false;
+            }
+
+            if (age.value && !age.checkValidity()) {
+                document.getElementById('ageError').style.display = 'inline';
+                isValid = false;
+            }
+
+            if (isValid) {
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData);
+                console.log('Submitting profile data:', data);
+                alert('Profile submitted successfully! Check console for data.');
+                this.reset();
+            }
+        });
+    </script>
+</body>
+</html>
