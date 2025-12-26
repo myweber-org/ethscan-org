@@ -4,111 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .avatar-preview {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #ddd;
-            margin-bottom: 10px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input[type="text"],
-        textarea,
-        input[type="file"] {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-            border: 1px solid #aaa;
-            border-radius: 4px;
-        }
-        textarea {
-            height: 100px;
-            resize: vertical;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
 </head>
 <body>
-    <div class="profile-container">
-        <h1>Edit Your Profile</h1>
-        <div class="avatar-section">
-            <img id="avatarPreview" src="https://via.placeholder.com/120" class="avatar-preview" alt="Avatar Preview">
-            <div class="form-group">
-                <label for="avatarUpload">Upload New Avatar</label>
-                <input type="file" id="avatarUpload" accept="image/*">
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section class="profile">
+            <img src="avatar.jpg" alt="User Avatar" width="150" height="150">
+            <div class="user-info">
+                <h2>John Doe</h2>
+                <p>Email: john.doe@example.com</p>
+                <p>Location: New York, USA</p>
+                <p>Member since: January 2023</p>
             </div>
-        </div>
-        <form id="profileForm">
-            <div class="form-group">
-                <label for="displayName">Display Name</label>
-                <input type="text" id="displayName" placeholder="Enter your display name">
-            </div>
-            <div class="form-group">
-                <label for="userBio">Bio</label>
-                <textarea id="userBio" placeholder="Tell us something about yourself..."></textarea>
-            </div>
-            <button type="submit">Save Profile</button>
-        </form>
-    </div>
-
-    <script>
-        document.getElementById('avatarUpload').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatarPreview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const displayName = document.getElementById('displayName').value;
-            const userBio = document.getElementById('userBio').value;
-            const avatarFile = document.getElementById('avatarUpload').files[0];
-
-            console.log('Profile Data:', {
-                displayName: displayName,
-                userBio: userBio,
-                avatarFile: avatarFile ? avatarFile.name : 'No new avatar'
-            });
-
-            alert('Profile saved successfully! Check console for data.');
-        });
-    </script>
+        </section>
+        <section class="bio">
+            <h3>Biography</h3>
+            <p>Software developer with a passion for web technologies and open source projects.</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 User Profile Page</p>
+    </footer>
 </body>
 </html>
