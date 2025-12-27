@@ -1,58 +1,117 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 0.9em; }
+        .avatar-preview { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid #ddd; }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile-section">
-            <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button onclick="uploadAvatar()">Upload Avatar</button>
-            </div>
-            <form id="profile-form">
-                <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="bio">Bio:</label>
-                    <textarea id="bio" name="bio" rows="4"></textarea>
-                </div>
-                <button type="submit">Save Profile</button>
-            </form>
-        </section>
-    </main>
+    <h1>User Profile</h1>
+    <form id="profileForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <span id="usernameError" class="error"></span>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <span id="emailError" class="error"></span>
+        </div>
+        <div>
+            <label for="avatar">Avatar Image:</label>
+            <input type="file" id="avatar" name="avatar" accept="image/*">
+            <img id="avatarPreview" class="avatar-preview" src="" alt="Avatar Preview">
+            <span id="avatarError" class="error"></span>
+        </div>
+        <button type="submit">Update Profile</button>
+        <div id="successMessage" class="success"></div>
+    </form>
+
     <script>
-        function uploadAvatar() {
-            const fileInput = document.getElementById('avatar-upload');
-            const file = fileInput.files[0];
+        const form = document.getElementById('profileForm');
+        const usernameInput = document.getElementById('username');
+        const emailInput = document.getElementById('email');
+        const avatarInput = document.getElementById('avatar');
+        const avatarPreview = document.getElementById('avatarPreview');
+        const usernameError = document.getElementById('usernameError');
+        const emailError = document.getElementById('emailError');
+        const avatarError = document.getElementById('avatarError');
+        const successMessage = document.getElementById('successMessage');
+
+        function validateUsername() {
+            const username = usernameInput.value.trim();
+            if (username.length < 3) {
+                usernameError.textContent = 'Username must be at least 3 characters.';
+                return false;
+            }
+            usernameError.textContent = '';
+            return true;
+        }
+
+        function validateEmail() {
+            const email = emailInput.value.trim();
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                emailError.textContent = 'Please enter a valid email address.';
+                return false;
+            }
+            emailError.textContent = '';
+            return true;
+        }
+
+        function validateAvatar() {
+            const file = avatarInput.files[0];
+            if (file) {
+                const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                if (!validTypes.includes(file.type)) {
+                    avatarError.textContent = 'Only JPG, PNG, or GIF images are allowed.';
+                    return false;
+                }
+                if (file.size > 2 * 1024 * 1024) {
+                    avatarError.textContent = 'Image size must be less than 2MB.';
+                    return false;
+                }
+            }
+            avatarError.textContent = '';
+            return true;
+        }
+
+        avatarInput.addEventListener('change', function() {
+            const file = this.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
+                    avatarPreview.src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
-        }
+            validateAvatar();
+        });
 
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
+        usernameInput.addEventListener('blur', validateUsername);
+        emailInput.addEventListener('blur', validateEmail);
+
+        form.addEventListener('submit', function(event) {
             event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            console.log('Profile saved:', { username, email, bio });
-            alert('Profile saved successfully!');
+            const isUsernameValid = validateUsername();
+            const isEmailValid = validateEmail();
+            const isAvatarValid = validateAvatar();
+
+            if (isUsernameValid && isEmailValid && isAvatarValid) {
+                successMessage.textContent = 'Profile updated successfully!';
+                setTimeout(() => {
+                    successMessage.textContent = '';
+                }, 3000);
+            } else {
+                successMessage.textContent = '';
+            }
         });
     </script>
 </body>
