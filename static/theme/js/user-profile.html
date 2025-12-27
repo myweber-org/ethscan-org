@@ -10,182 +10,53 @@
         <h1>User Profile</h1>
     </header>
     <main>
-        <section id="profile-info">
-            <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button id="upload-btn">Upload Avatar</button>
-            </div>
-            <div class="bio-section">
-                <label for="user-bio">Biography:</label>
-                <textarea id="user-bio" rows="4" cols="50" placeholder="Tell us about yourself..."></textarea>
-                <button id="save-bio-btn">Save Bio</button>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>Profile settings saved locally.</p>
-    </footer>
-    <script>
-        document.getElementById('upload-btn').addEventListener('click', function() {
-            document.getElementById('avatar-upload').click();
-        });
-
-        document.getElementById('avatar-upload').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                    localStorage.setItem('userAvatar', e.target.result);
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        document.getElementById('save-bio-btn').addEventListener('click', function() {
-            const bioText = document.getElementById('user-bio').value;
-            localStorage.setItem('userBio', bioText);
-            alert('Biography saved!');
-        });
-
-        window.addEventListener('load', function() {
-            const savedAvatar = localStorage.getItem('userAvatar');
-            const savedBio = localStorage.getItem('userBio');
-            if (savedAvatar) {
-                document.getElementById('avatar-preview').src = savedAvatar;
-            }
-            if (savedBio) {
-                document.getElementById('user-bio').value = savedBio;
-            }
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile-section">
+        <section id="profile-section">
             <div class="avatar-container">
                 <img id="avatar-preview" src="default-avatar.png" alt="User Avatar">
                 <input type="file" id="avatar-upload" accept="image/*">
                 <button id="upload-btn">Upload Avatar</button>
             </div>
             <div class="bio-container">
-                <h2>Edit Bio</h2>
-                <textarea id="bio-textarea" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
+                <label for="bio-input">Edit Bio:</label>
+                <textarea id="bio-input" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
                 <button id="save-bio-btn">Save Bio</button>
             </div>
+            <div id="status-message"></div>
         </section>
     </main>
     <script>
         document.getElementById('upload-btn').addEventListener('click', function() {
-            document.getElementById('avatar-upload').click();
-        });
-
-        document.getElementById('avatar-upload').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
+            const fileInput = document.getElementById('avatar-upload');
+            if (fileInput.files && fileInput.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     document.getElementById('avatar-preview').src = e.target.result;
+                    showMessage('Avatar uploaded successfully!', 'success');
                 };
-                reader.readAsDataURL(file);
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                showMessage('Please select an image file.', 'error');
             }
         });
 
         document.getElementById('save-bio-btn').addEventListener('click', function() {
-            const bioText = document.getElementById('bio-textarea').value;
-            alert('Bio saved: ' + bioText);
+            const bioText = document.getElementById('bio-input').value.trim();
+            if (bioText) {
+                showMessage('Bio saved successfully!', 'success');
+            } else {
+                showMessage('Bio cannot be empty.', 'error');
+            }
         });
+
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById('status-message');
+            messageDiv.textContent = text;
+            messageDiv.className = type;
+            setTimeout(() => {
+                messageDiv.textContent = '';
+                messageDiv.className = '';
+            }, 3000);
+        }
     </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 400px;
-            margin: 50px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            text-align: center;
-            font-family: Arial, sans-serif;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #007bff;
-            margin-bottom: 15px;
-        }
-        .user-name {
-            font-size: 24px;
-            font-weight: bold;
-            margin: 10px 0;
-            color: #333;
-        }
-        .user-bio {
-            font-size: 16px;
-            color: #666;
-            line-height: 1.5;
-            margin-bottom: 20px;
-        }
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }
-        .stat-item {
-            text-align: center;
-        }
-        .stat-value {
-            font-size: 20px;
-            font-weight: bold;
-            color: #007bff;
-        }
-        .stat-label {
-            font-size: 14px;
-            color: #888;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
-        <div class="user-name">Alex Johnson</div>
-        <div class="user-bio">
-            Software engineer passionate about open-source projects, web development, and hiking in the mountains. Always eager to learn new technologies and collaborate on interesting projects.
-        </div>
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-value">247</div>
-                <div class="stat-label">Posts</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">1.8K</div>
-                <div class="stat-label">Followers</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">356</div>
-                <div class="stat-label">Following</div>
-            </div>
-        </div>
-    </div>
 </body>
 </html>
