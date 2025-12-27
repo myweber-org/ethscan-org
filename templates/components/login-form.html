@@ -4,58 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Login</title>
-    <style>
-        .error { color: red; font-size: 0.9em; }
-        .success { color: green; font-size: 0.9em; }
-    </style>
 </head>
 <body>
     <form id="loginForm">
         <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <span class="error" id="emailError"></span>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <span id="usernameError" class="error"></span>
         </div>
         <div>
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" minlength="8" required>
-            <span class="error" id="passwordError"></span>
+            <input type="password" id="password" name="password" required>
+            <span id="passwordError" class="error"></span>
         </div>
         <button type="submit">Login</button>
-        <div class="success" id="message"></div>
     </form>
 
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
-            clearErrors();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
             let isValid = true;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-            if (!emailRegex.test(email)) {
-                document.getElementById('emailError').textContent = 'Please enter a valid email address.';
+            document.getElementById('usernameError').textContent = '';
+            document.getElementById('passwordError').textContent = '';
+
+            if (username.length < 3) {
+                document.getElementById('usernameError').textContent = 'Username must be at least 3 characters.';
                 isValid = false;
             }
-            if (password.length < 8) {
-                document.getElementById('passwordError').textContent = 'Password must be at least 8 characters.';
+
+            if (password.length < 6) {
+                document.getElementById('passwordError').textContent = 'Password must be at least 6 characters.';
                 isValid = false;
             }
+
             if (isValid) {
-                document.getElementById('message').textContent = 'Login successful! Redirecting...';
-                setTimeout(() => {
-                    alert('Form submitted successfully!');
-                    this.reset();
-                    document.getElementById('message').textContent = '';
-                }, 1500);
+                console.log('Login attempt for user:', username);
+                alert('Login submitted successfully!');
             }
         });
-
-        function clearErrors() {
-            document.querySelectorAll('.error').forEach(el => el.textContent = '');
-            document.getElementById('message').textContent = '';
-        }
     </script>
+
+    <style>
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-left: 10px;
+        }
+        div {
+            margin-bottom: 15px;
+        }
+        label {
+            display: inline-block;
+            width: 80px;
+        }
+    </style>
 </body>
 </html>
