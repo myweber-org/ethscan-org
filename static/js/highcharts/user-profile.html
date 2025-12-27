@@ -180,4 +180,96 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 0.9em; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <h1>User Profile</h1>
+    <form id="profileForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <span id="usernameError" class="error hidden"></span>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <span id="emailError" class="error hidden"></span>
+        </div>
+        <div>
+            <label for="avatar">Avatar Image:</label>
+            <input type="file" id="avatar" name="avatar" accept="image/*">
+            <span id="avatarError" class="error hidden"></span>
+        </div>
+        <div>
+            <button type="submit">Update Profile</button>
+        </div>
+    </form>
+    <div id="successMessage" class="success hidden">Profile updated successfully!</div>
+
+    <script>
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            clearErrors();
+            let isValid = true;
+
+            const username = document.getElementById('username').value.trim();
+            if (username.length < 3) {
+                showError('usernameError', 'Username must be at least 3 characters.');
+                isValid = false;
+            }
+
+            const email = document.getElementById('email').value.trim();
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                showError('emailError', 'Please enter a valid email address.');
+                isValid = false;
+            }
+
+            const avatarFile = document.getElementById('avatar').files[0];
+            if (avatarFile) {
+                const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                if (!validTypes.includes(avatarFile.type)) {
+                    showError('avatarError', 'Only JPG, PNG, or GIF images are allowed.');
+                    isValid = false;
+                }
+                if (avatarFile.size > 2 * 1024 * 1024) {
+                    showError('avatarError', 'Image size must be less than 2MB.');
+                    isValid = false;
+                }
+            }
+
+            if (isValid) {
+                document.getElementById('successMessage').classList.remove('hidden');
+                setTimeout(() => {
+                    document.getElementById('successMessage').classList.add('hidden');
+                }, 3000);
+            }
+        });
+
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = message;
+            errorElement.classList.remove('hidden');
+        }
+
+        function clearErrors() {
+            const errors = document.querySelectorAll('.error');
+            errors.forEach(error => {
+                error.textContent = '';
+                error.classList.add('hidden');
+            });
+            document.getElementById('successMessage').classList.add('hidden');
+        }
+    </script>
+</body>
 </html>
