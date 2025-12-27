@@ -179,4 +179,120 @@
         </div>
     </div>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: sans-serif;
+        }
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .avatar-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ccc;
+            margin-bottom: 10px;
+        }
+        .avatar-input {
+            display: none;
+        }
+        .avatar-label {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .bio-section {
+            margin-bottom: 20px;
+        }
+        .bio-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .bio-textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+        .save-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .save-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="avatar-section">
+            <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
+            <input type="file" id="avatarInput" class="avatar-input" accept="image/*">
+            <label for="avatarInput" class="avatar-label">Choose Avatar</label>
+        </div>
+
+        <div class="bio-section">
+            <label for="bioInput" class="bio-label">Bio</label>
+            <textarea id="bioInput" class="bio-textarea" placeholder="Tell us about yourself..."></textarea>
+        </div>
+
+        <button id="saveButton" class="save-button">Save Profile</button>
+    </div>
+
+    <script>
+        const avatarInput = document.getElementById('avatarInput');
+        const avatarPreview = document.getElementById('avatarPreview');
+        const bioInput = document.getElementById('bioInput');
+        const saveButton = document.getElementById('saveButton');
+
+        avatarInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        saveButton.addEventListener('click', function() {
+            const bio = bioInput.value.trim();
+            const avatarSrc = avatarPreview.src;
+
+            console.log('Profile saved:');
+            console.log('Bio:', bio);
+            console.log('Avatar Source:', avatarSrc);
+
+            alert('Profile saved successfully! Check console for details.');
+        });
+    </script>
+</body>
 </html>
