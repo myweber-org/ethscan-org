@@ -29,4 +29,389 @@
         <p>&copy; 2023 User Profile Page</p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="profile-container">
+        <header class="profile-header">
+            <h1><i class="fas fa-user-circle"></i> User Profile</h1>
+        </header>
+
+        <main class="profile-content">
+            <section class="avatar-section">
+                <div class="avatar-wrapper">
+                    <img id="avatarImage" src="https://via.placeholder.com/150" alt="User Avatar">
+                    <div class="avatar-overlay">
+                        <label for="avatarUpload" class="upload-btn">
+                            <i class="fas fa-camera"></i> Change
+                        </label>
+                        <input type="file" id="avatarUpload" accept="image/*" hidden>
+                    </div>
+                </div>
+                <p class="avatar-hint">Click 'Change' to upload a new profile picture</p>
+            </section>
+
+            <section class="bio-section">
+                <h2><i class="fas fa-edit"></i> Edit Biography</h2>
+                <div class="bio-editor">
+                    <textarea id="bioText" placeholder="Tell us something about yourself..." rows="5">Hello! I'm a web enthusiast who loves coding and design.</textarea>
+                    <div class="bio-tools">
+                        <button id="boldBtn" class="tool-btn"><i class="fas fa-bold"></i></button>
+                        <button id="italicBtn" class="tool-btn"><i class="fas fa-italic"></i></button>
+                        <button id="linkBtn" class="tool-btn"><i class="fas fa-link"></i></button>
+                        <span class="char-count">Characters: <span id="charCount">0</span></span>
+                    </div>
+                </div>
+                <div class="bio-actions">
+                    <button id="saveBio" class="btn-primary"><i class="fas fa-save"></i> Save Bio</button>
+                    <button id="previewBio" class="btn-secondary"><i class="fas fa-eye"></i> Preview</button>
+                    <button id="clearBio" class="btn-outline"><i class="fas fa-trash-alt"></i> Clear</button>
+                </div>
+                <div id="bioPreview" class="bio-preview" hidden>
+                    <h3>Preview:</h3>
+                    <div id="previewContent"></div>
+                </div>
+            </section>
+
+            <section class="profile-info">
+                <h2><i class="fas fa-info-circle"></i> Profile Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Username:</strong>
+                        <span id="username">johndoe_web</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Member Since:</strong>
+                        <span id="joinDate">January 15, 2023</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Last Updated:</strong>
+                        <span id="updateDate">Just now</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="profile-footer">
+            <p>Profile settings saved automatically to your account.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const avatarImage = document.getElementById('avatarImage');
+            const avatarUpload = document.getElementById('avatarUpload');
+            const bioText = document.getElementById('bioText');
+            const charCount = document.getElementById('charCount');
+            const saveBioBtn = document.getElementById('saveBio');
+            const previewBioBtn = document.getElementById('previewBio');
+            const clearBioBtn = document.getElementById('clearBio');
+            const boldBtn = document.getElementById('boldBtn');
+            const italicBtn = document.getElementById('italicBtn');
+            const linkBtn = document.getElementById('linkBtn');
+            const bioPreview = document.getElementById('bioPreview');
+            const previewContent = document.getElementById('previewContent');
+            const updateDate = document.getElementById('updateDate');
+
+            function updateCharCount() {
+                const count = bioText.value.length;
+                charCount.textContent = count;
+                charCount.style.color = count > 500 ? '#e74c3c' : '#2ecc71';
+            }
+
+            bioText.addEventListener('input', updateCharCount);
+            updateCharCount();
+
+            avatarUpload.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        avatarImage.src = event.target.result;
+                        updateDate.textContent = new Date().toLocaleString();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            function formatText(tag) {
+                const start = bioText.selectionStart;
+                const end = bioText.selectionEnd;
+                const selectedText = bioText.value.substring(start, end);
+                const before = bioText.value.substring(0, start);
+                const after = bioText.value.substring(end);
+                
+                let formattedText = '';
+                if (tag === 'bold') formattedText = `**${selectedText}**`;
+                else if (tag === 'italic') formattedText = `*${selectedText}*`;
+                else if (tag === 'link') {
+                    const url = prompt('Enter URL:', 'https://');
+                    if (url) formattedText = `[${selectedText}](${url})`;
+                    else return;
+                }
+                
+                bioText.value = before + formattedText + after;
+                bioText.focus();
+                bioText.setSelectionRange(start, start + formattedText.length);
+                updateCharCount();
+            }
+
+            boldBtn.addEventListener('click', () => formatText('bold'));
+            italicBtn.addEventListener('click', () => formatText('italic'));
+            linkBtn.addEventListener('click', () => formatText('link'));
+
+            saveBioBtn.addEventListener('click', function() {
+                updateDate.textContent = new Date().toLocaleString();
+                alert('Biography saved successfully!');
+            });
+
+            previewBioBtn.addEventListener('click', function() {
+                let content = bioText.value;
+                content = content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                content = content.replace(/\*(.*?)\*/g, '<em>$1</em>');
+                content = content.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>');
+                previewContent.innerHTML = content;
+                bioPreview.hidden = false;
+            });
+
+            clearBioBtn.addEventListener('click', function() {
+                if (confirm('Are you sure you want to clear your biography?')) {
+                    bioText.value = '';
+                    updateCharCount();
+                }
+            });
+        });
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .profile-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+        }
+        .profile-header {
+            background: linear-gradient(to right, #3498db, #2ecc71);
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+        }
+        .profile-header h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+        }
+        .profile-header i {
+            margin-right: 15px;
+        }
+        .profile-content {
+            padding: 30px;
+        }
+        section {
+            margin-bottom: 35px;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+        }
+        h2 i {
+            color: #3498db;
+            margin-right: 10px;
+        }
+        .avatar-wrapper {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid #ecf0f1;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        #avatarImage {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        .avatar-wrapper:hover #avatarImage {
+            transform: scale(1.05);
+        }
+        .avatar-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            padding: 10px;
+            text-align: center;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+        .avatar-wrapper:hover .avatar-overlay {
+            transform: translateY(0);
+        }
+        .upload-btn {
+            color: white;
+            background: #3498db;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+        .upload-btn:hover {
+            background: #2980b9;
+        }
+        .avatar-hint {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        .bio-editor textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            resize: vertical;
+            transition: border 0.3s;
+        }
+        .bio-editor textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        .bio-tools {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+            gap: 10px;
+        }
+        .tool-btn {
+            background: #ecf0f1;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 12px;
+            cursor: pointer;
+            color: #2c3e50;
+            transition: all 0.3s;
+        }
+        .tool-btn:hover {
+            background: #3498db;
+            color: white;
+        }
+        .char-count {
+            margin-left: auto;
+            font-weight: 600;
+        }
+        .bio-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: #2ecc71;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #27ae60;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: #3498db;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        .btn-outline {
+            background: white;
+            color: #e74c3c;
+            border: 2px solid #e74c3c;
+        }
+        .btn-outline:hover {
+            background: #e74c3c;
+            color: white;
+        }
+        .bio-preview {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 25px;
+            border-left: 5px solid #3498db;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .info-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+        }
+        .info-item strong {
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .profile-footer {
+            background: #ecf0f1;
+            padding: 20px;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 600px) {
+            .profile-header h1 {
+                font-size: 1.8rem;
+            }
+            .bio-actions {
+                flex-direction: column;
+            }
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</body>
 </html>
