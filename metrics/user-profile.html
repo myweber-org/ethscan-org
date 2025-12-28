@@ -4,121 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <form id="profileForm">
-            <div>
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div>
-                <label for="email">Email Address:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div>
-                <label for="bio">Biography:</label>
-                <textarea id="bio" name="bio" rows="4"></textarea>
-            </div>
-            <div>
-                <button type="submit">Update Profile</button>
-            </div>
-        </form>
-    </main>
-    <script>
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            console.log('Profile Update Submitted:', { username, email, bio });
-            alert('Profile updated successfully!');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
     <style>
         .profile-container {
             max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
+            margin: 2rem auto;
+            padding: 2rem;
+            border: 1px solid #e0e0e0;
             border-radius: 8px;
+            font-family: sans-serif;
+        }
+        .avatar-section {
             text-align: center;
-            font-family: Arial, sans-serif;
+            margin-bottom: 1.5rem;
         }
         .avatar {
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #007bff;
+            border: 3px solid #4a6fa5;
+        }
+        .name-section {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .full-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.25rem;
         }
         .username {
-            font-size: 24px;
-            margin: 15px 0 5px;
-            color: #333;
-        }
-        .user-title {
+            font-size: 1rem;
             color: #666;
             font-style: italic;
-            margin-bottom: 15px;
         }
-        .bio {
-            line-height: 1.6;
+        .bio-section {
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-radius: 6px;
+            line-height: 1.5;
             color: #444;
-            text-align: left;
-            padding: 0 20px;
         }
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-        }
-        .stat-value {
+        .bio-title {
             font-weight: bold;
-            font-size: 20px;
-        }
-        .stat-label {
-            font-size: 14px;
-            color: #777;
+            margin-bottom: 0.5rem;
+            color: #4a6fa5;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
-        <h1 class="username">Alex Johnson</h1>
-        <p class="user-title">Senior Frontend Developer</p>
-        <p class="bio">
-            Passionate about building responsive and accessible web applications. Enjoys working with modern JavaScript frameworks and contributing to open-source projects. Currently focused on improving user experience through performance optimization.
-        </p>
-        <div class="stats">
-            <div class="stat-item">
-                <span class="stat-value">247</span>
-                <span class="stat-label">Projects</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-value">1.2k</span>
-                <span class="stat-label">Followers</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-value">89</span>
-                <span class="stat-label">Following</span>
+        <div class="avatar-section">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Profile Avatar" class="avatar">
+        </div>
+        <div class="name-section">
+            <div class="full-name">Alex Morgan</div>
+            <div class="username">@alex_morgan</div>
+        </div>
+        <div class="bio-section">
+            <div class="bio-title">About Me</div>
+            <div class="bio-content">
+                Software developer with a passion for open-source projects and web technologies. Enjoys hiking, photography, and exploring new coffee shops. Currently focused on building accessible and performant user interfaces.
             </div>
         </div>
     </div>
