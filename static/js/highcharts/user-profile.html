@@ -9,267 +9,88 @@
             max-width: 600px;
             margin: 40px auto;
             padding: 20px;
-            border: 1px solid #e0e0e0;
+            border: 1px solid #ccc;
             border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 20px;
+            font-family: Arial, sans-serif;
         }
         .avatar {
-            width: 120px;
-            height: 120px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #4a90e2;
+            display: block;
+            margin: 0 auto 20px;
+            border: 3px solid #4CAF50;
         }
-        .name-section {
+        .user-name {
             text-align: center;
             font-size: 24px;
-            font-weight: bold;
             margin-bottom: 10px;
             color: #333;
         }
-        .bio-section {
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 6px;
-            line-height: 1.6;
-            color: #555;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="User Avatar" class="avatar">
-        </div>
-        <div class="name-section">
-            Alex Johnson
-        </div>
-        <div class="bio-section">
-            Software developer with over 8 years of experience building web applications. Passionate about open-source projects and user interface design. Enjoys hiking and photography in free time.
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
+        .user-title {
             text-align: center;
+            font-size: 16px;
+            color: #666;
             margin-bottom: 20px;
         }
-        .avatar-preview {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #ddd;
-            margin-bottom: 10px;
+        .bio-section {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
         }
-        .bio-section textarea {
-            width: 100%;
-            height: 100px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
-            box-sizing: border-box;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
+        .bio-title {
             font-weight: bold;
+            margin-bottom: 10px;
+            color: #444;
         }
-        input[type="text"],
-        input[type="email"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
         }
-        .btn {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
+        .stat-item {
+            text-align: center;
         }
-        .btn:hover {
-            background-color: #45a049;
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: #777;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <h1>Edit Your Profile</h1>
-        <form id="profileForm">
-            <div class="avatar-section">
-                <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
-                <div>
-                    <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
-                    <button type="button" class="btn" onclick="document.getElementById('avatarUpload').click();">Change Avatar</button>
-                </div>
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
+        <h1 class="user-name">Alex Johnson</h1>
+        <p class="user-title">Senior Software Developer</p>
+        
+        <div class="bio-section">
+            <div class="bio-title">About Me</div>
+            <p>Passionate developer with over 8 years of experience building web applications. Enjoys working with modern JavaScript frameworks, open-source contributions, and mentoring junior developers. Currently focused on cloud architecture and scalable systems.</p>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value">142</div>
+                <div class="stat-label">Projects</div>
             </div>
-
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" value="john_doe" required>
+            <div class="stat-item">
+                <div class="stat-value">5.8k</div>
+                <div class="stat-label">Followers</div>
             </div>
-
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" value="john@example.com" required>
+            <div class="stat-item">
+                <div class="stat-value">327</div>
+                <div class="stat-label">Following</div>
             </div>
-
-            <div class="form-group">
-                <label for="fullName">Full Name</label>
-                <input type="text" id="fullName" name="fullName" value="John Doe">
-            </div>
-
-            <div class="bio-section form-group">
-                <label for="bio">Biography</label>
-                <textarea id="bio" name="bio" placeholder="Tell us about yourself...">Web developer and open source enthusiast. Love hiking and photography.</textarea>
-            </div>
-
-            <button type="submit" class="btn">Save Profile</button>
-        </form>
+        </div>
     </div>
-
-    <script>
-        document.getElementById('avatarUpload').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatarPreview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const formData = {
-                username: document.getElementById('username').value,
-                email: document.getElementById('email').value,
-                fullName: document.getElementById('fullName').value,
-                bio: document.getElementById('bio').value
-            };
-            console.log('Profile data to save:', formData);
-            alert('Profile saved successfully! (Check console for data)');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .error { color: red; font-size: 0.9em; }
-        .success { color: green; font-size: 0.9em; }
-        .hidden { display: none; }
-    </style>
-</head>
-<body>
-    <h1>User Profile</h1>
-    <form id="profileForm">
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            <span id="usernameError" class="error hidden"></span>
-        </div>
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <span id="emailError" class="error hidden"></span>
-        </div>
-        <div>
-            <label for="avatar">Avatar Image:</label>
-            <input type="file" id="avatar" name="avatar" accept="image/*">
-            <span id="avatarError" class="error hidden"></span>
-        </div>
-        <div>
-            <button type="submit">Update Profile</button>
-        </div>
-    </form>
-    <div id="successMessage" class="success hidden">Profile updated successfully!</div>
-
-    <script>
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            clearErrors();
-            let isValid = true;
-
-            const username = document.getElementById('username').value.trim();
-            if (username.length < 3) {
-                showError('usernameError', 'Username must be at least 3 characters.');
-                isValid = false;
-            }
-
-            const email = document.getElementById('email').value.trim();
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-                showError('emailError', 'Please enter a valid email address.');
-                isValid = false;
-            }
-
-            const avatarFile = document.getElementById('avatar').files[0];
-            if (avatarFile) {
-                const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
-                if (!validTypes.includes(avatarFile.type)) {
-                    showError('avatarError', 'Only JPG, PNG, or GIF images are allowed.');
-                    isValid = false;
-                }
-                if (avatarFile.size > 2 * 1024 * 1024) {
-                    showError('avatarError', 'Image size must be less than 2MB.');
-                    isValid = false;
-                }
-            }
-
-            if (isValid) {
-                document.getElementById('successMessage').classList.remove('hidden');
-                setTimeout(() => {
-                    document.getElementById('successMessage').classList.add('hidden');
-                }, 3000);
-            }
-        });
-
-        function showError(elementId, message) {
-            const errorElement = document.getElementById(elementId);
-            errorElement.textContent = message;
-            errorElement.classList.remove('hidden');
-        }
-
-        function clearErrors() {
-            const errors = document.querySelectorAll('.error');
-            errors.forEach(error => {
-                error.textContent = '';
-                error.classList.add('hidden');
-            });
-            document.getElementById('successMessage').classList.add('hidden');
-        }
-    </script>
 </body>
 </html>
