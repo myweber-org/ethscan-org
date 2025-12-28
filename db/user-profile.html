@@ -4,80 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
-            <div class="avatar-container">
-                <img src="avatar-placeholder.jpg" alt="User Avatar" id="user-avatar" width="150" height="150">
-            </div>
-            <div class="profile-info">
-                <h2 id="username">John Doe</h2>
-                <p id="user-bio">Software developer with a passion for open-source projects and web technologies.</p>
-                <p><strong>Location:</strong> <span id="user-location">San Francisco, CA</span></p>
-                <p><strong>Member since:</strong> <span id="join-date">January 2023</span></p>
-            </div>
-        </section>
-    </main>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('User profile page loaded.');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
     <style>
         .profile-container {
             max-width: 600px;
             margin: 40px auto;
             padding: 20px;
-            border: 1px solid #ddd;
+            border: 1px solid #ccc;
             border-radius: 8px;
             font-family: sans-serif;
         }
         .avatar-section {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
         .avatar-preview {
             width: 120px;
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #eee;
+            border: 3px solid #ddd;
             margin-bottom: 10px;
         }
-        .avatar-upload-btn {
-            display: inline-block;
-            padding: 8px 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+        .form-group {
+            margin-bottom: 15px;
         }
-        .bio-section {
-            margin-bottom: 20px;
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        textarea,
+        input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #aaa;
+            border-radius: 4px;
         }
         textarea {
-            width: 100%;
             height: 100px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
             resize: vertical;
-            box-sizing: border-box;
         }
-        .save-btn {
-            background-color: #008CBA;
+        button {
+            background-color: #4CAF50;
             color: white;
             padding: 10px 20px;
             border: none;
@@ -85,80 +55,65 @@
             cursor: pointer;
             font-size: 16px;
         }
-        .hidden {
-            display: none;
+        button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <h1>Edit Profile</h1>
-        
+        <h1>Edit Your Profile</h1>
         <div class="avatar-section">
             <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
-            <input type="file" id="avatarInput" accept="image/*" class="hidden">
-            <button type="button" id="uploadBtn" class="avatar-upload-btn">Upload New Avatar</button>
+            <div class="form-group">
+                <label for="avatarUpload">Upload New Avatar</label>
+                <input type="file" id="avatarUpload" accept="image/*">
+            </div>
         </div>
-
-        <div class="bio-section">
-            <label for="bioTextarea"><strong>Bio:</strong></label>
-            <textarea id="bioTextarea" placeholder="Tell something about yourself..."></textarea>
-        </div>
-
-        <button type="button" id="saveBtn" class="save-btn">Save Changes</button>
+        <form id="profileForm">
+            <div class="form-group">
+                <label for="displayName">Display Name</label>
+                <input type="text" id="displayName" placeholder="Enter your display name">
+            </div>
+            <div class="form-group">
+                <label for="userBio">Bio</label>
+                <textarea id="userBio" placeholder="Tell us about yourself..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" placeholder="City, Country">
+            </div>
+            <button type="submit">Save Profile</button>
+        </form>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const avatarInput = document.getElementById('avatarInput');
-            const uploadBtn = document.getElementById('uploadBtn');
-            const avatarPreview = document.getElementById('avatarPreview');
-            const bioTextarea = document.getElementById('bioTextarea');
-            const saveBtn = document.getElementById('saveBtn');
-
-            uploadBtn.addEventListener('click', function() {
-                avatarInput.click();
-            });
-
-            avatarInput.addEventListener('change', function(event) {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        avatarPreview.src = e.target.result;
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-
-            saveBtn.addEventListener('click', function() {
-                const bio = bioTextarea.value.trim();
-                const avatarSrc = avatarPreview.src;
-                
-                alert('Profile saved successfully!');
-                console.log('Bio:', bio);
-                console.log('Avatar Source:', avatarSrc);
-            });
-
-            const savedBio = localStorage.getItem('userBio');
-            const savedAvatar = localStorage.getItem('userAvatar');
-            
-            if (savedBio) {
-                bioTextarea.value = savedBio;
+        document.getElementById('avatarUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatarPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
             }
-            if (savedAvatar) {
-                avatarPreview.src = savedAvatar;
-            }
+        });
 
-            saveBtn.addEventListener('click', function() {
-                const bio = bioTextarea.value.trim();
-                const avatarSrc = avatarPreview.src;
-                
-                localStorage.setItem('userBio', bio);
-                localStorage.setItem('userAvatar', avatarSrc);
-                
-                alert('Profile saved to browser storage!');
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const displayName = document.getElementById('displayName').value;
+            const userBio = document.getElementById('userBio').value;
+            const location = document.getElementById('location').value;
+            const avatarFile = document.getElementById('avatarUpload').files[0];
+
+            console.log('Profile Data:', {
+                displayName: displayName,
+                bio: userBio,
+                location: location,
+                avatarFile: avatarFile ? avatarFile.name : 'No new avatar'
             });
+
+            alert('Profile saved successfully! (Check console for data)');
         });
     </script>
 </body>
