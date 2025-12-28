@@ -295,4 +295,89 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            border: 1px solid #e1e8ed;
+            border-radius: 12px;
+            text-align: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #4dabf7;
+            margin-bottom: 20px;
+        }
+        .user-name {
+            font-size: 28px;
+            font-weight: 700;
+            color: #212529;
+            margin: 10px 0;
+        }
+        .user-bio {
+            font-size: 16px;
+            color: #495057;
+            line-height: 1.6;
+            margin: 15px 0 25px;
+            max-width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 25px;
+        }
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1c7ed6;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: #868e96;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Profile Avatar" class="avatar">
+        <h1 class="user-name">Alex Morgan</h1>
+        <p class="user-bio">Software engineer passionate about open-source projects, web technologies, and hiking in the mountains. Building tools to make development easier and more efficient.</p>
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-value">247</span>
+                <span class="stat-label">Repositories</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">1.8k</span>
+                <span class="stat-label">Followers</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">562</span>
+                <span class="stat-label">Following</span>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
