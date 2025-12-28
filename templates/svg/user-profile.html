@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,149 +6,112 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
     <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 30px;
-            border: 1px solid #e1e8ed;
-            border-radius: 12px;
-            background-color: #f8f9fa;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #4a90e2;
-            margin-bottom: 15px;
-        }
-        .user-name {
-            font-size: 28px;
-            font-weight: 700;
-            color: #1c1e21;
-            margin: 8px 0;
-        }
-        .user-title {
-            font-size: 16px;
-            color: #65676b;
-            margin-bottom: 20px;
-        }
-        .bio-section {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid #4a90e2;
-            margin-top: 20px;
-        }
-        .bio-title {
-            font-weight: 600;
-            color: #1c1e21;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-        .bio-content {
-            color: #4b4f56;
-            line-height: 1.6;
-        }
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid #e1e8ed;
-        }
-        .stat-item {
-            text-align: center;
-        }
-        .stat-value {
-            font-size: 24px;
-            font-weight: 700;
-            color: #4a90e2;
-        }
-        .stat-label {
-            font-size: 14px;
-            color: #65676b;
-            margin-top: 5px;
-        }
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 0.9em; }
+        input:invalid { border-color: #ffcccc; }
     </style>
 </head>
 <body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Profile Avatar" class="avatar">
-            <h1 class="user-name">Alex Johnson</h1>
-            <div class="user-title">Senior Frontend Developer</div>
+    <h1>User Profile</h1>
+    <form id="profileForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="20" pattern="[A-Za-z0-9_]+">
+            <div id="usernameError" class="error"></div>
         </div>
-        
-        <div class="bio-section">
-            <div class="bio-title">About Me</div>
-            <div class="bio-content">
-                Passionate about building intuitive user interfaces and scalable web applications. 
-                Specializing in modern JavaScript frameworks and responsive design. 
-                Currently focused on improving accessibility standards in web development.
-            </div>
+
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <div id="emailError" class="error"></div>
         </div>
-        
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-value">247</div>
-                <div class="stat-label">Projects</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">5.2k</div>
-                <div class="stat-label">Followers</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">89</div>
-                <div class="stat-label">Following</div>
-            </div>
+
+        <div>
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" min="18" max="120">
+            <div id="ageError" class="error"></div>
         </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
-            <div class="avatar-container">
-                <img src="https://via.placeholder.com/150" alt="User Avatar" class="avatar">
-            </div>
-            <div class="user-info">
-                <h2 class="user-name">Alex Johnson</h2>
-                <p class="user-bio">Software developer with a passion for open-source projects and web technologies.</p>
-                <p class="user-location">Based in San Francisco, CA</p>
-            </div>
-        </section>
-        <section class="stats">
-            <div class="stat">
-                <span class="stat-value">42</span>
-                <span class="stat-label">Projects</span>
-            </div>
-            <div class="stat">
-                <span class="stat-value">128</span>
-                <span class="stat-label">Followers</span>
-            </div>
-            <div class="stat">
-                <span class="stat-value">56</span>
-                <span class="stat-label">Following</span>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>Last updated: <time datetime="2023-10-27">October 27, 2023</time></p>
-    </footer>
+
+        <div>
+            <label for="country">Country:</label>
+            <select id="country" name="country">
+                <option value="">Select a country</option>
+                <option value="us">United States</option>
+                <option value="uk">United Kingdom</option>
+                <option value="ca">Canada</option>
+                <option value="au">Australia</option>
+            </select>
+        </div>
+
+        <button type="submit">Update Profile</button>
+    </form>
+
+    <div id="message" class="success"></div>
+
+    <script>
+        const form = document.getElementById('profileForm');
+        const messageDiv = document.getElementById('message');
+
+        function showError(elementId, message) {
+            const errorDiv = document.getElementById(elementId);
+            errorDiv.textContent = message;
+        }
+
+        function clearErrors() {
+            document.querySelectorAll('.error').forEach(div => div.textContent = '');
+            messageDiv.textContent = '';
+        }
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            clearErrors();
+            
+            let isValid = true;
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const age = document.getElementById('age').value;
+
+            if (username.length < 3) {
+                showError('usernameError', 'Username must be at least 3 characters.');
+                isValid = false;
+            }
+
+            if (!email.includes('@')) {
+                showError('emailError', 'Please enter a valid email address.');
+                isValid = false;
+            }
+
+            if (age && (age < 18 || age > 120)) {
+                showError('ageError', 'Age must be between 18 and 120.');
+                isValid = false;
+            }
+
+            if (isValid) {
+                messageDiv.textContent = 'Profile updated successfully!';
+                console.log('Form data:', {
+                    username: username,
+                    email: email,
+                    age: age || 'Not specified',
+                    country: document.getElementById('country').value || 'Not specified'
+                });
+            }
+        });
+
+        form.addEventListener('input', function(event) {
+            const target = event.target;
+            const errorId = target.id + 'Error';
+            const errorDiv = document.getElementById(errorId);
+            
+            if (errorDiv) {
+                errorDiv.textContent = '';
+            }
+            
+            if (target.validity.valid) {
+                target.style.borderColor = '';
+            } else {
+                target.style.borderColor = '#ffcccc';
+            }
+        });
+    </script>
 </body>
 </html>
