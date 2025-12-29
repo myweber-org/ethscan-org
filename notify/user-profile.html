@@ -6,39 +6,48 @@
     <title>User Profile</title>
     <style>
         .profile-container {
-            max-width: 400px;
+            max-width: 600px;
             margin: 40px auto;
             padding: 20px;
             border: 1px solid #ddd;
             border-radius: 8px;
+            font-family: Arial, sans-serif;
+        }
+        .avatar-section {
             text-align: center;
-            font-family: sans-serif;
+            margin-bottom: 20px;
         }
         .avatar {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            margin-bottom: 15px;
+            border: 3px solid #4a90e2;
         }
-        .user-name {
-            font-size: 1.5em;
+        .user-info {
+            line-height: 1.6;
+        }
+        .info-label {
             font-weight: bold;
-            margin-bottom: 10px;
-            color: #333;
+            color: #555;
         }
-        .user-bio {
-            color: #666;
-            line-height: 1.5;
+        .info-value {
+            color: #333;
+            margin-left: 10px;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="User Avatar" class="avatar">
-        <div class="user-name">Alex Johnson</div>
-        <div class="user-bio">
-            Software developer with a passion for open-source projects and web technologies. Enjoys hiking and photography in free time.
+        <div class="avatar-section">
+            <img src="https://via.placeholder.com/120" alt="User Avatar" class="avatar">
+        </div>
+        <div class="user-info">
+            <p><span class="info-label">Name:</span> <span class="info-value">Alex Johnson</span></p>
+            <p><span class="info-label">Email:</span> <span class="info-value">alex.johnson@example.com</span></p>
+            <p><span class="info-label">Location:</span> <span class="info-value">San Francisco, CA</span></p>
+            <p><span class="info-label">Member Since:</span> <span class="info-value">January 2022</span></p>
+            <p><span class="info-label">Bio:</span> <span class="info-value">Software developer with interest in web technologies and open source projects.</span></p>
         </div>
     </div>
 </body>
