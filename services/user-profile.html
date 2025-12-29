@@ -4,49 +4,112 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: sans-serif;
+        }
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .avatar-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ddd;
+            margin-bottom: 10px;
+        }
+        .bio-section textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="avatar-section">
-            <h2>Avatar</h2>
-            <img src="https://via.placeholder.com/150" alt="Profile Avatar" id="profile-avatar">
-            <button id="change-avatar-btn">Change Avatar</button>
-        </section>
-        <section id="bio-section">
-            <h2>Bio</h2>
-            <p id="user-bio">This is a placeholder bio for the user. It can be edited to provide more personal information.</p>
-            <textarea id="bio-editor" rows="4" cols="50" style="display: none;"></textarea>
-            <button id="edit-bio-btn">Edit Bio</button>
-            <button id="save-bio-btn" style="display: none;">Save Bio</button>
-        </section>
-    </main>
+    <div class="profile-container">
+        <h1>Edit Profile</h1>
+        <div class="avatar-section">
+            <img id="avatarPreview" src="default-avatar.png" alt="Avatar" class="avatar-preview">
+            <div>
+                <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
+                <button type="button" onclick="document.getElementById('avatarUpload').click();">Change Avatar</button>
+            </div>
+        </div>
+        <form id="profileForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" value="john_doe" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="john@example.com" required>
+            </div>
+            <div class="form-group bio-section">
+                <label for="bio">Bio</label>
+                <textarea id="bio" name="bio" placeholder="Tell us about yourself...">Web developer and open source enthusiast.</textarea>
+            </div>
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+
     <script>
-        document.getElementById('edit-bio-btn').addEventListener('click', function() {
-            const bioText = document.getElementById('user-bio').textContent;
-            document.getElementById('bio-editor').value = bioText;
-            document.getElementById('user-bio').style.display = 'none';
-            document.getElementById('bio-editor').style.display = 'block';
-            document.getElementById('edit-bio-btn').style.display = 'none';
-            document.getElementById('save-bio-btn').style.display = 'inline-block';
-        });
-
-        document.getElementById('save-bio-btn').addEventListener('click', function() {
-            const newBio = document.getElementById('bio-editor').value;
-            document.getElementById('user-bio').textContent = newBio;
-            document.getElementById('user-bio').style.display = 'block';
-            document.getElementById('bio-editor').style.display = 'none';
-            document.getElementById('edit-bio-btn').style.display = 'inline-block';
-            document.getElementById('save-bio-btn').style.display = 'none';
-        });
-
-        document.getElementById('change-avatar-btn').addEventListener('click', function() {
-            const newAvatarUrl = prompt('Enter new avatar URL:');
-            if (newAvatarUrl) {
-                document.getElementById('profile-avatar').src = newAvatarUrl;
+        document.getElementById('avatarUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatarPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
             }
+        });
+
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const bio = document.getElementById('bio').value;
+            console.log('Profile saved:', { username, email, bio });
+            alert('Profile updated successfully!');
         });
     </script>
 </body>
