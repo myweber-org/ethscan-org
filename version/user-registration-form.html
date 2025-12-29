@@ -10,7 +10,7 @@
     </style>
 </head>
 <body>
-    <h1>Register Account</h1>
+    <h1>Register New Account</h1>
     <form id="registrationForm">
         <div>
             <label for="username">Username:</label>
@@ -70,7 +70,7 @@
 
             if (isValid) {
                 document.getElementById('formMessage').textContent = 'Registration successful!';
-                this.reset();
+                console.log('Registration data:', { username, email, password });
             }
         });
 
