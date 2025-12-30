@@ -7,65 +7,104 @@
     <style>
         .profile-container {
             max-width: 600px;
-            margin: 2rem auto;
-            padding: 2rem;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            font-family: sans-serif;
+            margin: 40px auto;
+            padding: 30px;
+            border: 1px solid #e1e8ed;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         .avatar-section {
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 25px;
         }
         .avatar {
             width: 120px;
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #4a6fa5;
+            border: 4px solid #4a90e2;
         }
-        .name-section {
-            text-align: center;
-            margin-bottom: 1rem;
+        .user-name {
+            font-size: 28px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-top: 15px;
+            margin-bottom: 5px;
         }
-        .full-name {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 0.25rem;
-        }
-        .username {
-            font-size: 1rem;
-            color: #666;
-            font-style: italic;
+        .user-title {
+            font-size: 16px;
+            color: #657786;
+            margin-bottom: 20px;
         }
         .bio-section {
-            padding: 1rem;
-            background-color: #f9f9f9;
-            border-radius: 6px;
-            line-height: 1.5;
-            color: #444;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #4a90e2;
         }
         .bio-title {
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            color: #4a6fa5;
+            font-size: 18px;
+            font-weight: 500;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+        .bio-content {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #555;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e1e8ed;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 22px;
+            font-weight: 700;
+            color: #4a90e2;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: #657786;
+            margin-top: 5px;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
         <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Profile Avatar" class="avatar">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="User Avatar" class="avatar">
+            <h1 class="user-name">Alex Morgan</h1>
+            <p class="user-title">Senior Frontend Developer</p>
         </div>
-        <div class="name-section">
-            <div class="full-name">Alex Morgan</div>
-            <div class="username">@alex_morgan</div>
-        </div>
+        
         <div class="bio-section">
             <div class="bio-title">About Me</div>
             <div class="bio-content">
-                Software developer with a passion for open-source projects and web technologies. Enjoys hiking, photography, and exploring new coffee shops. Currently focused on building accessible and performant user interfaces.
+                Passionate about creating intuitive user interfaces and seamless web experiences. 
+                Specializing in modern JavaScript frameworks and responsive design. 
+                Enjoys contributing to open-source projects and mentoring junior developers.
+            </div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value">247</div>
+                <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">5.2k</div>
+                <div class="stat-label">Followers</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">892</div>
+                <div class="stat-label">Following</div>
             </div>
         </div>
     </div>
