@@ -265,4 +265,74 @@
         }
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        input:invalid { border-color: red; }
+    </style>
+</head>
+<body>
+    <h1>Register Account</h1>
+    <form id="registrationForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+            <div class="error" id="usernameError"></div>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <div class="error" id="emailError"></div>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
+            <div class="error" id="passwordError">Minimum eight characters, at least one letter and one number</div>
+        </div>
+        <div>
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <div class="error" id="confirmPasswordError"></div>
+        </div>
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('registrationForm');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirmPassword');
+        const confirmPasswordError = document.getElementById('confirmPasswordError');
+
+        function validatePasswordMatch() {
+            if (password.value !== confirmPassword.value) {
+                confirmPasswordError.textContent = 'Passwords do not match';
+                confirmPassword.setCustomValidity('Passwords do not match');
+                return false;
+            } else {
+                confirmPasswordError.textContent = '';
+                confirmPassword.setCustomValidity('');
+                return true;
+            }
+        }
+
+        confirmPassword.addEventListener('input', validatePasswordMatch);
+        password.addEventListener('input', validatePasswordMatch);
+
+        form.addEventListener('submit', function(event) {
+            if (!validatePasswordMatch()) {
+                event.preventDefault();
+                alert('Please fix errors before submitting.');
+            } else {
+                event.preventDefault();
+                alert('Registration successful! (This is a demo)');
+                form.reset();
+            }
+        });
+    </script>
+</body>
 </html>
