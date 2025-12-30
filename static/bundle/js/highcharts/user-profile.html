@@ -4,27 +4,139 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: sans-serif;
+        }
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .avatar-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ddd;
+            margin-bottom: 10px;
+        }
+        .bio-section textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        .form-actions {
+            margin-top: 20px;
+            text-align: right;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
-            <div class="avatar-container">
-                <img src="avatar-placeholder.jpg" alt="User Avatar" id="user-avatar" width="150" height="150">
+    <div class="profile-container">
+        <h1>Edit Profile</h1>
+        <div class="avatar-section">
+            <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
+            <div>
+                <input type="file" id="avatarUpload" accept="image/*">
+                <button type="button" id="removeAvatar">Remove Avatar</button>
             </div>
-            <div class="profile-info">
-                <h2 id="username">John Doe</h2>
-                <p id="user-bio">Software developer with a passion for open-source projects and web technologies.</p>
-                <p><strong>Location:</strong> <span id="user-location">San Francisco, CA</span></p>
-                <p><strong>Member since:</strong> <span id="join-date">January 2023</span></p>
-            </div>
-        </section>
-    </main>
+        </div>
+        <div class="bio-section">
+            <label for="userBio">Bio:</label>
+            <textarea id="userBio" placeholder="Tell something about yourself..."></textarea>
+        </div>
+        <div class="form-actions">
+            <button id="saveProfile">Save Changes</button>
+        </div>
+        <div id="message" class="hidden"></div>
+    </div>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('User profile page loaded.');
+        const avatarUpload = document.getElementById('avatarUpload');
+        const avatarPreview = document.getElementById('avatarPreview');
+        const removeAvatarBtn = document.getElementById('removeAvatar');
+        const userBio = document.getElementById('userBio');
+        const saveProfileBtn = document.getElementById('saveProfile');
+        const messageDiv = document.getElementById('message');
+
+        const defaultAvatar = 'https://via.placeholder.com/120';
+
+        avatarUpload.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        removeAvatarBtn.addEventListener('click', function() {
+            avatarPreview.src = defaultAvatar;
+            avatarUpload.value = '';
+        });
+
+        saveProfileBtn.addEventListener('click', function() {
+            const bio = userBio.value.trim();
+            messageDiv.textContent = 'Profile saved successfully!';
+            messageDiv.className = '';
+            messageDiv.style.color = 'green';
+            messageDiv.style.padding = '10px';
+            messageDiv.style.marginTop = '10px';
+            messageDiv.style.border = '1px solid green';
+            messageDiv.style.borderRadius = '4px';
+            messageDiv.style.backgroundColor = '#f0fff0';
+
+            setTimeout(() => {
+                messageDiv.className = 'hidden';
+            }, 3000);
+
+            console.log('Profile Data:', {
+                avatar: avatarPreview.src !== defaultAvatar ? avatarPreview.src : null,
+                bio: bio
+            });
+        });
+
+        window.addEventListener('load', function() {
+            const savedBio = localStorage.getItem('userBio');
+            const savedAvatar = localStorage.getItem('userAvatar');
+            if (savedBio) {
+                userBio.value = savedBio;
+            }
+            if (savedAvatar) {
+                avatarPreview.src = savedAvatar;
+            }
+        });
+
+        window.addEventListener('beforeunload', function() {
+            if (avatarPreview.src !== defaultAvatar) {
+                localStorage.setItem('userAvatar', avatarPreview.src);
+            }
+            localStorage.setItem('userBio', userBio.value);
         });
     </script>
 </body>
