@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +10,7 @@
     </style>
 </head>
 <body>
-    <h1>Register New Account</h1>
+    <h1>Register Account</h1>
     <form id="registrationForm">
         <div>
             <label for="username">Username:</label>
@@ -31,22 +30,22 @@
         <div>
             <label for="confirmPassword">Confirm Password:</label>
             <input type="password" id="confirmPassword" name="confirmPassword" required>
-            <span id="confirmError" class="error"></span>
+            <span id="confirmPasswordError" class="error"></span>
         </div>
         <button type="submit">Register</button>
-        <div id="message" class="success"></div>
+        <div id="formMessage" class="success"></div>
     </form>
 
     <script>
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
             event.preventDefault();
             clearErrors();
-            
+            let isValid = true;
+
             const username = document.getElementById('username').value.trim();
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
-            let isValid = true;
 
             if (username.length < 3) {
                 showError('usernameError', 'Username must be at least 3 characters.');
@@ -65,13 +64,15 @@
             }
 
             if (password !== confirmPassword) {
-                showError('confirmError', 'Passwords do not match.');
+                showError('confirmPasswordError', 'Passwords do not match.');
                 isValid = false;
             }
 
             if (isValid) {
-                document.getElementById('message').textContent = 'Registration successful!';
+                document.getElementById('formMessage').textContent = 'Registration successful!';
                 this.reset();
+            } else {
+                document.getElementById('formMessage').textContent = '';
             }
         });
 
@@ -82,7 +83,6 @@
         function clearErrors() {
             const errorElements = document.querySelectorAll('.error');
             errorElements.forEach(el => el.textContent = '');
-            document.getElementById('message').textContent = '';
         }
     </script>
 </body>
