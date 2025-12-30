@@ -4,62 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: Arial, sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a90e2;
-        }
-        .name {
-            font-size: 24px;
-            font-weight: bold;
-            margin: 10px 0 5px;
-            color: #333;
-        }
-        .title {
-            color: #666;
-            font-size: 16px;
-            margin-bottom: 15px;
-        }
-        .bio-section {
-            background-color: #f9f9f9;
-            padding: 15px;
-            border-radius: 6px;
-            line-height: 1.6;
-            color: #444;
-        }
-        .bio-heading {
-            font-weight: bold;
-            margin-bottom: 8px;
-            color: #222;
-        }
-    </style>
 </head>
 <body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="Profile Avatar" class="avatar">
-            <div class="name">Alex Johnson</div>
-            <div class="title">Senior Frontend Developer</div>
-        </div>
-        <div class="bio-section">
-            <div class="bio-heading">About Me</div>
-            <p>Passionate about building intuitive user interfaces and seamless web experiences. With over 8 years of experience in frontend technologies including React, Vue, and modern CSS. Enjoys mentoring junior developers and contributing to open-source projects.</p>
-        </div>
-    </div>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section class="profile">
+            <div class="avatar-container">
+                <img src="https://via.placeholder.com/150" alt="User Avatar" class="avatar">
+            </div>
+            <div class="user-info">
+                <h2>John Doe</h2>
+                <p>Email: john.doe@example.com</p>
+                <p>Location: New York, USA</p>
+                <p>Member since: January 2023</p>
+            </div>
+        </section>
+        <section class="bio">
+            <h3>Bio</h3>
+            <p>Software developer with a passion for open-source projects and web technologies.</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 User Profile Page</p>
+    </footer>
 </body>
 </html>
