@@ -4,30 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            font-family: sans-serif;
+        }
+        .avatar-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1.5rem;
+            border: 3px solid #f0f0f0;
+        }
+        .user-name {
+            font-size: 1.8rem;
+            margin: 0 0 0.5rem 0;
+            color: #24292e;
+        }
+        .user-title {
+            color: #586069;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+        .bio-section {
+            padding: 1rem;
+            background-color: #f6f8fa;
+            border-radius: 6px;
+            line-height: 1.5;
+            color: #24292e;
+        }
+        .bio-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #0366d6;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
-            <div class="avatar-container">
-                <img src="https://via.placeholder.com/150" alt="User Avatar" class="avatar">
+    <div class="profile-container">
+        <div class="avatar-section">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
+            <div>
+                <h1 class="user-name">Alex Morgan</h1>
+                <p class="user-title">Senior Frontend Developer</p>
             </div>
-            <div class="user-info">
-                <h2>John Doe</h2>
-                <p><strong>Email:</strong> john.doe@example.com</p>
-                <p><strong>Location:</strong> New York, USA</p>
-                <p><strong>Member Since:</strong> January 2023</p>
-            </div>
-        </section>
-        <section class="bio">
-            <h3>Bio</h3>
-            <p>Software developer passionate about web technologies and open source projects.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
+        </div>
+        <div class="bio-section">
+            <div class="bio-title">About Me</div>
+            <p>Passionate about building intuitive user interfaces and scalable web applications. Enjoys working with modern JavaScript frameworks, contributing to open-source projects, and exploring new web technologies. Currently focused on improving performance and accessibility in web products.</p>
+        </div>
+    </div>
 </body>
 </html>
