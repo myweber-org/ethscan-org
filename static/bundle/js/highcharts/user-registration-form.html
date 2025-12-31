@@ -176,3 +176,139 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+</head>
+<body>
+    <h1>Register New Account</h1>
+    <form id="registrationForm" onsubmit="return validateForm()">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+            <span id="usernameError" class="error"></span>
+        </div>
+        
+        <div>
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required>
+            <span id="emailError" class="error"></span>
+        </div>
+        
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required minlength="8">
+            <span id="passwordError" class="error"></span>
+        </div>
+        
+        <div>
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <span id="confirmPasswordError" class="error"></span>
+        </div>
+        
+        <div>
+            <input type="checkbox" id="terms" name="terms" required>
+            <label for="terms">I agree to the Terms of Service</label>
+            <span id="termsError" class="error"></span>
+        </div>
+        
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+        function validateForm() {
+            let isValid = true;
+            
+            // Clear previous errors
+            document.querySelectorAll('.error').forEach(el => el.textContent = '');
+            
+            // Username validation
+            const username = document.getElementById('username').value;
+            if (username.length < 3) {
+                document.getElementById('usernameError').textContent = 'Username must be at least 3 characters';
+                isValid = false;
+            }
+            
+            // Email validation
+            const email = document.getElementById('email').value;
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                document.getElementById('emailError').textContent = 'Please enter a valid email address';
+                isValid = false;
+            }
+            
+            // Password validation
+            const password = document.getElementById('password').value;
+            if (password.length < 8) {
+                document.getElementById('passwordError').textContent = 'Password must be at least 8 characters';
+                isValid = false;
+            }
+            
+            // Confirm password validation
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            if (password !== confirmPassword) {
+                document.getElementById('confirmPasswordError').textContent = 'Passwords do not match';
+                isValid = false;
+            }
+            
+            // Terms validation
+            if (!document.getElementById('terms').checked) {
+                document.getElementById('termsError').textContent = 'You must agree to the terms';
+                isValid = false;
+            }
+            
+            if (isValid) {
+                alert('Registration successful!');
+                // In a real application, you would submit the form to a server here
+            }
+            
+            return false; // Prevent actual form submission for this example
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        div {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+            display: block;
+            margin-top: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</body>
+</html>
