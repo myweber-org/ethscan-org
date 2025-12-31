@@ -10,7 +10,7 @@
         form { max-width: 500px; margin: 20px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
         label { display: block; margin-bottom: 5px; font-weight: bold; }
         input, textarea { width: 100%; padding: 8px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        button { background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
+        button { background-color: #4CAF50; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }
         button:hover { background-color: #45a049; }
     </style>
 </head>
@@ -30,7 +30,7 @@
         <input type="text" id="subject" name="subject" required>
         <div id="subjectError" class="error"></div>
 
-        <label for="messageText">Your Message:</label>
+        <label for="messageText">Message:</label>
         <textarea id="messageText" name="message" rows="5" required></textarea>
         <div id="messageError" class="error"></div>
 
@@ -75,14 +75,14 @@
         });
 
         function showError(elementId, message) {
-            document.getElementById(elementId).textContent = message;
+            const element = document.getElementById(elementId);
+            element.textContent = message;
         }
 
         function clearErrors() {
-            const errorElements = document.querySelectorAll('.error');
-            errorElements.forEach(el => el.textContent = '');
+            const errors = document.querySelectorAll('.error');
+            errors.forEach(error => error.textContent = '');
             document.getElementById('message').textContent = '';
-            document.getElementById('message').className = '';
         }
 
         function submitForm(formData) {
@@ -91,7 +91,7 @@
             messageDiv.className = '';
 
             setTimeout(() => {
-                messageDiv.textContent = 'Thank you, ' + formData.name + '! Your message has been sent successfully.';
+                messageDiv.textContent = `Thank you, ${formData.name}! Your message has been sent successfully.`;
                 messageDiv.className = 'success';
                 document.getElementById('contactForm').reset();
             }, 1500);
