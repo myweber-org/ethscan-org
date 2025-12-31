@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 0.9em; }
+        input { margin-bottom: 10px; display: block; }
+    </style>
+</head>
+<body>
+    <h1>Update Profile</h1>
+    <form id="profileForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required minlength="3">
+        <div id="usernameError" class="error"></div>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <div id="emailError" class="error"></div>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" min="18" max="120">
+        <div id="ageError" class="error"></div>
+
+        <button type="submit">Save Profile</button>
+    </form>
+    <div id="message" class="success"></div>
+
+    <script>
+        const form = document.getElementById('profileForm');
+        const messageDiv = document.getElementById('message');
+
+        function showError(fieldId, message) {
+            const errorDiv = document.getElementById(fieldId + 'Error');
+            errorDiv.textContent = message;
+        }
+
+        function clearErrors() {
+            document.querySelectorAll('.error').forEach(div => div.textContent = '');
+            messageDiv.textContent = '';
+        }
+
+        function validateForm() {
+            clearErrors();
+            let isValid = true;
+
+            const username = document.getElementById('username').value.trim();
+            if (username.length < 3) {
+                showError('username', 'Username must be at least 3 characters.');
+                isValid = false;
+            }
+
+            const email = document.getElementById('email').value;
+            if (!email.includes('@')) {
+                showError('email', 'Please enter a valid email address.');
+                isValid = false;
+            }
+
+            const age = document.getElementById('age').value;
+            if (age && (age < 18 || age > 120)) {
+                showError('age', 'Age must be between 18 and 120.');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            if (!validateForm()) {
+                return;
+            }
+
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+
+            messageDiv.textContent = 'Profile updated successfully!';
+            messageDiv.className = 'success';
+            console.log('Submitted data:', data);
+
+            form.reset();
+            clearErrors();
+        }
+
+        form.addEventListener('submit', handleSubmit);
+    </script>
+</body>
+</html>
