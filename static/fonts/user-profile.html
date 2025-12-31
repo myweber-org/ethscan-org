@@ -83,4 +83,305 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="profile-container">
+        <header class="profile-header">
+            <h1><i class="fas fa-user-circle"></i> User Profile</h1>
+        </header>
+
+        <main class="profile-content">
+            <section class="avatar-section">
+                <div class="avatar-wrapper">
+                    <img id="avatar-preview" src="https://via.placeholder.com/150" alt="Profile Avatar">
+                    <div class="avatar-overlay">
+                        <label for="avatar-upload" class="upload-btn">
+                            <i class="fas fa-camera"></i> Change
+                        </label>
+                        <input type="file" id="avatar-upload" accept="image/*" hidden>
+                    </div>
+                </div>
+                <p class="avatar-hint">Click 'Change' to upload a new profile picture.</p>
+            </section>
+
+            <section class="bio-section">
+                <h2><i class="fas fa-edit"></i> Edit Biography</h2>
+                <textarea id="bio-textarea" placeholder="Tell something about yourself...">Hello! I'm a web enthusiast.</textarea>
+                <div class="bio-actions">
+                    <button id="save-bio-btn" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Bio
+                    </button>
+                    <button id="clear-bio-btn" class="btn btn-secondary">
+                        <i class="fas fa-eraser"></i> Clear
+                    </button>
+                </div>
+                <div id="bio-status" class="status-message"></div>
+            </section>
+
+            <section class="info-section">
+                <h2><i class="fas fa-info-circle"></i> Profile Information</h2>
+                <ul class="info-list">
+                    <li><strong>Username:</strong> <span id="display-username">johndoe</span></li>
+                    <li><strong>Member Since:</strong> <span id="join-date">January 2023</span></li>
+                    <li><strong>Last Updated:</strong> <span id="update-time">Just now</span></li>
+                </ul>
+            </section>
+        </main>
+
+        <footer class="profile-footer">
+            <p>Profile settings saved automatically to your account.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const avatarUpload = document.getElementById('avatar-upload');
+            const avatarPreview = document.getElementById('avatar-preview');
+            const bioTextarea = document.getElementById('bio-textarea');
+            const saveBioBtn = document.getElementById('save-bio-btn');
+            const clearBioBtn = document.getElementById('clear-bio-btn');
+            const bioStatus = document.getElementById('bio-status');
+            const updateTime = document.getElementById('update-time');
+
+            avatarUpload.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        avatarPreview.src = e.target.result;
+                        showStatus('Avatar updated successfully!', 'success');
+                        updateTimestamp();
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    showStatus('Please select a valid image file.', 'error');
+                }
+            });
+
+            saveBioBtn.addEventListener('click', function() {
+                const bio = bioTextarea.value.trim();
+                if (bio.length > 0) {
+                    showStatus('Biography saved successfully!', 'success');
+                    updateTimestamp();
+                } else {
+                    showStatus('Biography cannot be empty.', 'error');
+                }
+            });
+
+            clearBioBtn.addEventListener('click', function() {
+                bioTextarea.value = '';
+                showStatus('Biography cleared.', 'info');
+            });
+
+            function showStatus(message, type) {
+                bioStatus.textContent = message;
+                bioStatus.className = 'status-message ' + type;
+                setTimeout(() => {
+                    bioStatus.textContent = '';
+                    bioStatus.className = 'status-message';
+                }, 3000);
+            }
+
+            function updateTimestamp() {
+                const now = new Date();
+                updateTime.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ' today';
+            }
+        });
+    </script>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .profile-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+            width: 100%;
+            max-width: 600px;
+            overflow: hidden;
+        }
+        .profile-header {
+            background: linear-gradient(90deg, #4776E6 0%, #8E54E9 100%);
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+        }
+        .profile-header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+        .profile-content {
+            padding: 30px;
+        }
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .avatar-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        #avatar-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+        .avatar-overlay {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.7);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .avatar-overlay:hover {
+            background: rgba(0,0,0,0.9);
+        }
+        .upload-btn {
+            color: white;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .avatar-hint {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        .bio-section {
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        #bio-textarea {
+            width: 100%;
+            height: 120px;
+            padding: 15px;
+            border: 2px solid #e1e5eb;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            margin: 15px 0;
+            transition: border 0.3s;
+        }
+        #bio-textarea:focus {
+            outline: none;
+            border-color: #4776E6;
+        }
+        .bio-actions {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, #4776E6 0%, #8E54E9 100%);
+            color: white;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+        }
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        .btn-secondary:hover {
+            background: #e9ecef;
+        }
+        .status-message {
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .status-message.success {
+            background: #d4edda;
+            color: #155724;
+            opacity: 1;
+        }
+        .status-message.error {
+            background: #f8d7da;
+            color: #721c24;
+            opacity: 1;
+        }
+        .status-message.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            opacity: 1;
+        }
+        .info-section {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .info-list {
+            list-style: none;
+            padding: 0;
+        }
+        .info-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+        .info-list li:last-child {
+            border-bottom: none;
+        }
+        .profile-footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #6c757d;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</body>
 </html>
