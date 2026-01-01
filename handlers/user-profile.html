@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,159 +7,61 @@
     <style>
         .profile-container {
             max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
+            margin: 2rem auto;
+            padding: 2rem;
+            border: 1px solid #e1e4e8;
             border-radius: 8px;
-            font-family: Arial, sans-serif;
+            font-family: sans-serif;
         }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a90e2;
-        }
-        .user-info {
-            margin-top: 20px;
-        }
-        .bio {
-            margin-top: 15px;
-            line-height: 1.6;
-            color: #333;
-        }
-        .stats {
-            display: flex;
-            gap: 30px;
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }
-        .stat-item {
+        .avatar-section {
             text-align: center;
-        }
-        .stat-value {
-            font-size: 24px;
-            font-weight: bold;
-            color: #4a90e2;
-        }
-        .stat-label {
-            font-size: 14px;
-            color: #666;
-            margin-top: 5px;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-             alt="User Avatar" 
-             class="avatar">
-        
-        <div class="user-info">
-            <h1>Alex Johnson</h1>
-            <p>Software Developer | Open Source Contributor</p>
-            
-            <div class="bio">
-                Passionate about building scalable web applications and contributing to developer communities. 
-                Enjoys hiking, photography, and exploring new technologies.
-            </div>
-            
-            <div class="stats">
-                <div class="stat-item">
-                    <div class="stat-value">142</div>
-                    <div class="stat-label">Projects</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">2.8k</div>
-                    <div class="stat-label">Followers</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">89</div>
-                    <div class="stat-label">Following</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: Arial, sans-serif;
+            margin-bottom: 1.5rem;
         }
         .avatar {
             width: 120px;
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #4CAF50;
-            display: block;
-            margin: 0 auto 20px;
+            border: 3px solid #0366d6;
+        }
+        .name {
+            font-size: 1.8rem;
+            margin: 0.5rem 0;
+            color: #24292e;
         }
         .username {
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 10px;
+            color: #586069;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
         }
-        .bio {
-            text-align: center;
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 20px;
+        .bio-section {
+            background-color: #f6f8fa;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
         }
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            text-align: center;
-            border-top: 1px solid #eee;
-            padding-top: 15px;
+        .bio-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #24292e;
         }
-        .stat-item {
-            flex: 1;
-        }
-        .stat-value {
-            font-size: 20px;
-            font-weight: bold;
-            color: #4CAF50;
-        }
-        .stat-label {
-            font-size: 14px;
-            color: #888;
+        .bio-content {
+            color: #444d56;
+            line-height: 1.5;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <img src="https://via.placeholder.com/120" alt="User Avatar" class="avatar">
-        <div class="username">Alex Johnson</div>
-        <div class="bio">
-            Software developer passionate about open-source projects and web technologies.
-            Enjoys hiking, photography, and coffee. Currently working on improving developer tools.
+        <div class="avatar-section">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Profile Avatar" class="avatar">
+            <h1 class="name">Alex Johnson</h1>
+            <div class="username">@alexj</div>
         </div>
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-value">127</div>
-                <div class="stat-label">Posts</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">892</div>
-                <div class="stat-label">Followers</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">345</div>
-                <div class="stat-label">Following</div>
+        <div class="bio-section">
+            <div class="bio-title">Bio</div>
+            <div class="bio-content">
+                Software developer with a passion for open-source projects and web technologies. Enjoys hiking, photography, and contributing to developer communities. Currently working on improving accessibility in web applications.
             </div>
         </div>
     </div>
