@@ -4,417 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="profile-info">
-            <div id="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button id="upload-btn">Upload Avatar</button>
-            </div>
-            <div id="bio-section">
-                <h2>Bio</h2>
-                <textarea id="bio-text" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
-                <button id="save-bio-btn">Save Bio</button>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
-    <script>
-        document.getElementById('upload-btn').addEventListener('click', function() {
-            const fileInput = document.getElementById('avatar-upload');
-            const file = fileInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            } else {
-                alert('Please select an image file first.');
-            }
-        });
-
-        document.getElementById('save-bio-btn').addEventListener('click', function() {
-            const bioText = document.getElementById('bio-text').value;
-            alert('Bio saved: ' + bioText);
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .profile-container {
-            background-color: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 800px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-        .profile-header {
-            background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
-            color: white;
-            padding: 40px 30px;
-            text-align: center;
-            position: relative;
-        }
-        .profile-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        .profile-header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-        .profile-content {
-            display: flex;
-            flex-wrap: wrap;
-            padding: 30px;
-        }
-        .avatar-section {
-            flex: 1;
-            min-width: 250px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border-right: 1px solid #eee;
-        }
-        .avatar-container {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 5px solid #4facfe;
-            margin-bottom: 20px;
-            position: relative;
-        }
-        .avatar-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .avatar-overlay {
-            position: absolute;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            width: 100%;
-            text-align: center;
-            padding: 10px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .avatar-overlay:hover {
-            background: rgba(0, 0, 0, 0.8);
-        }
-        .avatar-overlay i {
-            margin-right: 8px;
-        }
-        .info-section {
-            flex: 2;
-            min-width: 300px;
-            padding: 20px;
-        }
-        .info-group {
-            margin-bottom: 25px;
-        }
-        .info-group label {
-            display: block;
-            font-weight: 600;
-            color: #555;
-            margin-bottom: 8px;
-            font-size: 1rem;
-        }
-        .info-group input, .info-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border 0.3s;
-        }
-        .info-group input:focus, .info-group textarea:focus {
-            outline: none;
-            border-color: #4facfe;
-            box-shadow: 0 0 0 2px rgba(79, 172, 254, 0.2);
-        }
-        .info-group textarea {
-            min-height: 120px;
-            resize: vertical;
-            font-family: inherit;
-        }
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-        .stat-item {
-            text-align: center;
-        }
-        .stat-value {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #4facfe;
-        }
-        .stat-label {
-            font-size: 0.9rem;
-            color: #777;
-            margin-top: 5px;
-        }
-        .action-buttons {
-            display: flex;
-            justify-content: flex-end;
-            gap: 15px;
-            padding: 20px 30px;
-            background-color: #f8f9fa;
-            border-top: 1px solid #eee;
-        }
-        .btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .btn-primary {
-            background-color: #4facfe;
-            color: white;
-        }
-        .btn-primary:hover {
-            background-color: #3a9bf7;
-            transform: translateY(-2px);
-        }
-        .btn-secondary {
-            background-color: #6c757d;
-            color: white;
-        }
-        .btn-secondary:hover {
-            background-color: #5a6268;
-        }
-        @media (max-width: 768px) {
-            .avatar-section {
-                border-right: none;
-                border-bottom: 1px solid #eee;
-            }
-            .profile-header h1 {
-                font-size: 2rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <div class="profile-header">
-            <h1>User Profile</h1>
-            <p>Manage your personal information and preferences</p>
-        </div>
-        <div class="profile-content">
-            <div class="avatar-section">
-                <div class="avatar-container">
-                    <img id="avatarImage" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="User Avatar">
-                    <div class="avatar-overlay" onclick="document.getElementById('avatarUpload').click()">
-                        <i class="fas fa-camera"></i> Change Photo
-                    </div>
-                </div>
-                <input type="file" id="avatarUpload" accept="image/*" style="display: none;" onchange="previewAvatar(event)">
-                <h2 id="userNameDisplay">Alex Johnson</h2>
-                <p><i class="fas fa-map-marker-alt"></i> San Francisco, CA</p>
-                <div class="stats">
-                    <div class="stat-item">
-                        <div class="stat-value">142</div>
-                        <div class="stat-label">Posts</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value">2.5K</div>
-                        <div class="stat-label">Followers</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value">348</div>
-                        <div class="stat-label">Following</div>
-                    </div>
-                </div>
-            </div>
-            <div class="info-section">
-                <div class="info-group">
-                    <label for="fullName"><i class="fas fa-user"></i> Full Name</label>
-                    <input type="text" id="fullName" value="Alex Johnson" oninput="updateDisplayName()">
-                </div>
-                <div class="info-group">
-                    <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
-                    <input type="email" id="email" value="alex.johnson@example.com">
-                </div>
-                <div class="info-group">
-                    <label for="location"><i class="fas fa-map-marker-alt"></i> Location</label>
-                    <input type="text" id="location" value="San Francisco, CA">
-                </div>
-                <div class="info-group">
-                    <label for="bio"><i class="fas fa-edit"></i> Bio</label>
-                    <textarea id="bio">Frontend developer passionate about creating beautiful and functional user interfaces. Love hiking, photography, and open-source projects. Currently working on a new design system.</textarea>
-                </div>
-                <div class="info-group">
-                    <label for="website"><i class="fas fa-globe"></i> Website</label>
-                    <input type="url" id="website" value="https://alexjohnson.dev">
-                </div>
-            </div>
-        </div>
-        <div class="action-buttons">
-            <button class="btn btn-secondary" onclick="resetForm()">Cancel</button>
-            <button class="btn btn-primary" onclick="saveProfile()">Save Changes</button>
-        </div>
-    </div>
-
-    <script>
-        function previewAvatar(event) {
-            const reader = new FileReader();
-            reader.onload = function() {
-                const output = document.getElementById('avatarImage');
-                output.src = reader.result;
-            };
-            reader.readAsDataURL(event.target.files[0]);
-        }
-
-        function updateDisplayName() {
-            const nameInput = document.getElementById('fullName');
-            const nameDisplay = document.getElementById('userNameDisplay');
-            nameDisplay.textContent = nameInput.value || 'Alex Johnson';
-        }
-
-        function saveProfile() {
-            const fullName = document.getElementById('fullName').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            
-            alert(`Profile saved successfully!\n\nName: ${fullName}\nEmail: ${email}\nBio length: ${bio.length} characters`);
-            
-            // In a real application, you would send this data to a server
-            console.log('Profile data:', { fullName, email, bio });
-        }
-
-        function resetForm() {
-            document.getElementById('fullName').value = 'Alex Johnson';
-            document.getElementById('email').value = 'alex.johnson@example.com';
-            document.getElementById('location').value = 'San Francisco, CA';
-            document.getElementById('bio').value = 'Frontend developer passionate about creating beautiful and functional user interfaces. Love hiking, photography, and open-source projects. Currently working on a new design system.';
-            document.getElementById('website').value = 'https://alexjohnson.dev';
-            document.getElementById('avatarImage').src = 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80';
-            updateDisplayName();
-            alert('Form reset to default values');
-        }
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
     <style>
         .profile-container {
             max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
+            margin: 2rem auto;
+            padding: 2rem;
             border: 1px solid #ddd;
             border-radius: 8px;
-            font-family: Arial, sans-serif;
+            font-family: sans-serif;
+        }
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 1.5rem;
         }
         .avatar {
             width: 120px;
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #4CAF50;
+            border: 3px solid #4a6fa5;
         }
-        .user-info {
-            margin-top: 20px;
-        }
-        .bio {
-            margin-top: 15px;
-            line-height: 1.6;
-            color: #555;
-        }
-        .stats {
-            display: flex;
-            gap: 30px;
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }
-        .stat-item {
-            text-align: center;
-        }
-        .stat-value {
-            font-size: 24px;
-            font-weight: bold;
+        .name {
+            font-size: 1.8rem;
+            margin: 0.5rem 0;
             color: #333;
         }
-        .stat-label {
-            font-size: 14px;
-            color: #777;
-            margin-top: 5px;
+        .title {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        .bio-section {
+            line-height: 1.6;
+            color: #444;
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User Avatar" class="avatar">
-        <div class="user-info">
-            <h2>Alex Johnson</h2>
-            <p>Software Developer | San Francisco, CA</p>
-            <div class="bio">
-                Passionate about web technologies and open source projects. 
-                Enjoys hiking, photography, and contributing to developer communities. 
-                Currently working on scalable frontend architectures.
-            </div>
+        <div class="avatar-section">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="User Avatar" class="avatar">
+            <h1 class="name">Alex Morgan</h1>
+            <p class="title">Senior Frontend Developer</p>
         </div>
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-value">247</div>
-                <div class="stat-label">Posts</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">1.8K</div>
-                <div class="stat-label">Followers</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">356</div>
-                <div class="stat-label">Following</div>
-            </div>
+        <div class="bio-section">
+            <p>Passionate about building accessible and performant web applications. Enjoys working with modern JavaScript frameworks and contributing to open-source projects. Currently focused on improving user experience through responsive design and progressive enhancement.</p>
+            <p>Outside of coding, I enjoy hiking, photography, and experimenting with new coffee brewing techniques.</p>
         </div>
     </div>
 </body>
