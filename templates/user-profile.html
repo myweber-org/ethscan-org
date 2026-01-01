@@ -4,49 +4,143 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .profile-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            overflow: hidden;
+            text-align: center;
+            padding: 40px 30px;
+            transition: transform 0.3s ease;
+        }
+        .profile-card:hover {
+            transform: translateY(-10px);
+        }
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid #764ba2;
+            padding: 5px;
+            margin: 0 auto 25px;
+            overflow: hidden;
+        }
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .name {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .title {
+            color: #667eea;
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        .bio {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+        }
+        .stat-item h3 {
+            font-size: 24px;
+            color: #764ba2;
+            margin-bottom: 5px;
+        }
+        .stat-item p {
+            color: #777;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #f5f5f5;
+            color: #764ba2;
+            font-size: 22px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .social-links a:hover {
+            background: #764ba2;
+            color: white;
+            transform: scale(1.1);
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="profile-info">
-            <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button id="upload-btn">Upload Avatar</button>
+    <div class="profile-card">
+        <div class="avatar">
+            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Profile Picture">
+        </div>
+        <h1 class="name">Alex Morgan</h1>
+        <p class="title">Frontend Developer & UI Designer</p>
+        <p class="bio">
+            Passionate about creating beautiful and functional web experiences. Enjoys working with modern JavaScript frameworks and exploring new design trends. Loves hiking and photography in free time.
+        </p>
+        <div class="stats">
+            <div class="stat-item">
+                <h3>127</h3>
+                <p>Projects</p>
             </div>
-            <div class="bio-section">
-                <h2>Bio</h2>
-                <textarea id="bio-text" rows="4" cols="50" placeholder="Write something about yourself..."></textarea>
-                <button id="save-bio-btn">Save Bio</button>
-                <p id="bio-status"></p>
+            <div class="stat-item">
+                <h3>4.8K</h3>
+                <p>Followers</p>
             </div>
-        </section>
-    </main>
-    <script>
-        document.getElementById('upload-btn').addEventListener('click', function() {
-            const fileInput = document.getElementById('avatar-upload');
-            if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(fileInput.files[0]);
-            }
-        });
-
-        document.getElementById('save-bio-btn').addEventListener('click', function() {
-            const bioText = document.getElementById('bio-text').value;
-            const statusElement = document.getElementById('bio-status');
-            if (bioText.trim()) {
-                statusElement.textContent = 'Bio saved successfully!';
-                statusElement.style.color = 'green';
-            } else {
-                statusElement.textContent = 'Bio cannot be empty.';
-                statusElement.style.color = 'red';
-            }
-        });
-    </script>
+            <div class="stat-item">
+                <h3>312</h3>
+                <p>Following</p>
+            </div>
+        </div>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-dribbble"></i></a>
+        </div>
+    </div>
 </body>
 </html>
