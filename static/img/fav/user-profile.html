@@ -10,136 +10,20 @@
         <h1>User Profile</h1>
     </header>
     <main>
-        <form id="profileForm">
-            <div>
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div>
-                <label for="email">Email Address:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div>
-                <label for="bio">Biography:</label>
-                <textarea id="bio" name="bio" rows="4"></textarea>
-            </div>
-            <div>
-                <label for="newsletter">
-                    <input type="checkbox" id="newsletter" name="newsletter">
-                    Subscribe to newsletter
-                </label>
-            </div>
-            <button type="submit">Update Profile</button>
-        </form>
+        <section>
+            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
+            <h2>John Doe</h2>
+            <p><strong>Email:</strong> john.doe@example.com</p>
+            <p><strong>Location:</strong> New York, USA</p>
+            <p><strong>Member Since:</strong> January 2023</p>
+        </section>
+        <section>
+            <h3>Bio</h3>
+            <p>Software developer with a passion for open-source projects and web technologies.</p>
+        </section>
     </main>
-    <script>
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            alert('Profile updated successfully!');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .avatar-preview {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #ccc;
-            margin-right: 20px;
-        }
-        .bio-section textarea {
-            width: 100%;
-            height: 120px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
-            font-family: inherit;
-        }
-        .button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        .button:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <h1>User Profile</h1>
-        <div class="avatar-section">
-            <img id="avatarPreview" src="https://via.placeholder.com/100" alt="Avatar Preview" class="avatar-preview">
-            <div>
-                <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
-                <button class="button" onclick="document.getElementById('avatarUpload').click()">Upload New Avatar</button>
-                <p style="font-size: 0.9em; color: #666;">Allowed: JPG, PNG, GIF. Max size: 2MB</p>
-            </div>
-        </div>
-        <div class="bio-section">
-            <label for="userBio"><strong>Bio:</strong></label>
-            <textarea id="userBio" placeholder="Tell something about yourself..."></textarea>
-        </div>
-        <button class="button" onclick="saveProfile()">Save Profile</button>
-        <p id="statusMessage" style="margin-top: 15px;"></p>
-    </div>
-
-    <script>
-        const avatarUpload = document.getElementById('avatarUpload');
-        const avatarPreview = document.getElementById('avatarPreview');
-        const userBio = document.getElementById('userBio');
-        const statusMessage = document.getElementById('statusMessage');
-
-        avatarUpload.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                if (file.size > 2 * 1024 * 1024) {
-                    alert('File size exceeds 2MB limit.');
-                    return;
-                }
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    avatarPreview.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        function saveProfile() {
-            const bio = userBio.value.trim();
-            statusMessage.textContent = 'Profile saved successfully!';
-            statusMessage.style.color = 'green';
-            console.log('Profile saved with bio:', bio);
-        }
-
-        userBio.addEventListener('input', function() {
-            statusMessage.textContent = '';
-        });
-    </script>
+    <footer>
+        <p>&copy; 2023 User Profile Page</p>
+    </footer>
 </body>
 </html>
