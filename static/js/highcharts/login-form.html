@@ -23,15 +23,14 @@
             <span id="passwordError" class="error"></span>
         </div>
         <button type="submit">Login</button>
-        <div id="message" class="success"></div>
     </form>
+    <div id="message" class="success"></div>
 
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
             clearErrors();
             let isValid = true;
-
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const emailError = document.getElementById('emailError');
@@ -42,7 +41,6 @@
                 emailError.textContent = 'Please enter a valid email address.';
                 isValid = false;
             }
-
             if (password.length < 6) {
                 passwordError.textContent = 'Password must be at least 6 characters.';
                 isValid = false;
@@ -52,10 +50,10 @@
                 messageDiv.textContent = 'Login successful! Redirecting...';
                 messageDiv.className = 'success';
                 setTimeout(() => {
-                    console.log('Submitting login for:', email);
+                    alert('Simulated redirect to dashboard.');
                 }, 1000);
             } else {
-                messageDiv.textContent = 'Please fix errors above.';
+                messageDiv.textContent = 'Please fix the errors above.';
                 messageDiv.className = 'error';
             }
         });
