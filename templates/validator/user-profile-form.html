@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <h1>Update Your Profile</h1>
+    <form id="profileForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+            <span id="usernameError" class="error"></span>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <span id="emailError" class="error"></span>
+        </div>
+        <div>
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" min="18" max="120">
+            <span id="ageError" class="error"></span>
+        </div>
+        <div>
+            <label for="bio">Biography:</label><br>
+            <textarea id="bio" name="bio" rows="4" cols="50" maxlength="500"></textarea>
+            <div id="charCount">0 / 500 characters</div>
+        </div>
+        <button type="submit">Save Profile</button>
+    </form>
+    <div id="message" class="success"></div>
+
+    <script>
+        const form = document.getElementById('profileForm');
+        const usernameInput = document.getElementById('username');
+        const emailInput = document.getElementById('email');
+        const ageInput = document.getElementById('age');
+        const bioInput = document.getElementById('bio');
+        const charCount = document.getElementById('charCount');
+        const messageDiv = document.getElementById('message');
+
+        function showError(elementId, message) {
+            const errorSpan = document.getElementById(elementId);
+            errorSpan.textContent = message;
+        }
+
+        function clearError(elementId) {
+            const errorSpan = document.getElementById(elementId);
+            errorSpan.textContent = '';
+        }
+
+        function validateUsername() {
+            const username = usernameInput.value.trim();
+            if (username.length < 3) {
+                showError('usernameError', 'Username must be at least 3 characters.');
+                return false;
+            }
+            if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+                showError('usernameError', 'Username can only contain letters, numbers, and underscores.');
+                return false;
+            }
+            clearError('usernameError');
+            return true;
+        }
+
+        function validateEmail() {
+            const email = emailInput.value.trim();
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                showError('emailError', 'Please enter a valid email address.');
+                return false;
+            }
+            clearError('emailError');
+            return true;
+        }
+
+        function validateAge() {
+            const age = ageInput.value;
+            if (age && (age < 18 || age > 120)) {
+                showError('ageError', 'Age must be between 18 and 120.');
+                return false;
+            }
+            clearError('ageError');
+            return true;
+        }
+
+        bioInput.addEventListener('input', function() {
+            const length = this.value.length;
+            charCount.textContent = `${length} / 500 characters`;
+            if (length > 500) {
+                charCount.style.color = 'red';
+            } else {
+                charCount.style.color = 'black';
+            }
+        });
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            messageDiv.textContent = '';
+            
+            const isUsernameValid = validateUsername();
+            const isEmailValid = validateEmail();
+            const isAgeValid = validateAge();
+
+            if (isUsernameValid && isEmailValid && isAgeValid) {
+                const formData = {
+                    username: usernameInput.value.trim(),
+                    email: emailInput.value.trim(),
+                    age: ageInput.value ? parseInt(ageInput.value) : null,
+                    bio: bioInput.value.trim()
+                };
+                console.log('Form data:', formData);
+                messageDiv.textContent = 'Profile updated successfully!';
+                messageDiv.className = 'success';
+                form.reset();
+                charCount.textContent = '0 / 500 characters';
+                charCount.style.color = 'black';
+            } else {
+                messageDiv.textContent = 'Please fix the errors above.';
+                messageDiv.className = 'error';
+            }
+        });
+
+        usernameInput.addEventListener('blur', validateUsername);
+        emailInput.addEventListener('blur', validateEmail);
+        ageInput.addEventListener('blur', validateAge);
+    </script>
+</body>
+</html>
