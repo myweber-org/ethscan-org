@@ -9,7 +9,7 @@
             max-width: 600px;
             margin: 40px auto;
             padding: 20px;
-            border: 1px solid #ddd;
+            border: 1px solid #ccc;
             border-radius: 8px;
             font-family: Arial, sans-serif;
         }
@@ -23,15 +23,21 @@
             height: 100px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid #ccc;
+            border: 2px solid #007bff;
             margin-right: 20px;
         }
-        .avatar-upload {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        .upload-btn {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
         }
-        .profile-info {
+        .upload-btn:hover {
+            background-color: #0056b3;
+        }
+        .info-section {
             margin-top: 20px;
         }
         .info-item {
@@ -40,37 +46,22 @@
         .info-label {
             font-weight: bold;
             display: inline-block;
-            width: 120px;
-        }
-        button {
-            padding: 8px 16px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        input[type="file"] {
-            padding: 5px;
+            width: 100px;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <h1>User Profile</h1>
-        
+        <h2>User Profile</h2>
         <div class="avatar-section">
             <img id="avatarPreview" src="https://via.placeholder.com/100" alt="Avatar Preview" class="avatar-preview">
-            <div class="avatar-upload">
-                <input type="file" id="avatarInput" accept="image/*">
-                <button onclick="uploadAvatar()">Update Avatar</button>
+            <div>
+                <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
+                <button class="upload-btn" onclick="document.getElementById('avatarUpload').click();">Upload Avatar</button>
+                <p style="font-size: 0.9em; color: #666; margin-top: 5px;">Supported formats: JPG, PNG, GIF</p>
             </div>
         </div>
-
-        <div class="profile-info">
+        <div class="info-section">
             <div class="info-item">
                 <span class="info-label">Username:</span>
                 <span id="username">john_doe</span>
@@ -81,67 +72,22 @@
             </div>
             <div class="info-item">
                 <span class="info-label">Member Since:</span>
-                <span id="joinDate">January 2023</span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">Status:</span>
-                <span id="userStatus">Active</span>
+                <span id="joinDate">January 15, 2023</span>
             </div>
         </div>
     </div>
 
     <script>
-        function uploadAvatar() {
-            const fileInput = document.getElementById('avatarInput');
-            const preview = document.getElementById('avatarPreview');
-            
-            if (fileInput.files && fileInput.files[0]) {
+        document.getElementById('avatarUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
                 const reader = new FileReader();
-                
                 reader.onload = function(e) {
-                    preview.src = e.target.result;
-                    // In a real application, you would send the image data to a server here
-                    console.log('Avatar uploaded (simulated)');
+                    document.getElementById('avatarPreview').src = e.target.result;
                 };
-                
-                reader.readAsDataURL(fileInput.files[0]);
-            } else {
-                alert('Please select an image file first.');
+                reader.readAsDataURL(file);
             }
-        }
-
-        // Simulate loading user data
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Profile page loaded');
-            // In a real application, you would fetch user data from an API here
         });
     </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
-            <img src="avatar.jpg" alt="User Avatar" width="150" height="150">
-            <h2>Alex Johnson</h2>
-            <p class="bio">Software developer with a passion for open-source projects and web technologies.</p>
-            <ul class="details">
-                <li><strong>Location:</strong> San Francisco, CA</li>
-                <li><strong>Email:</strong> alex.johnson@example.com</li>
-                <li><strong>Joined:</strong> January 2022</li>
-            </ul>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
 </body>
 </html>
