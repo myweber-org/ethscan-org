@@ -4,136 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: Arial, sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a90e2;
-        }
-        .user-info {
-            line-height: 1.6;
-        }
-        .info-label {
-            font-weight: bold;
-            color: #555;
-        }
-        .info-value {
-            color: #333;
-            margin-left: 10px;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://via.placeholder.com/120" alt="User Avatar" class="avatar">
-        </div>
-        <div class="user-info">
-            <p><span class="info-label">Name:</span> <span class="info-value">Alex Johnson</span></p>
-            <p><span class="info-label">Email:</span> <span class="info-value">alex.johnson@example.com</span></p>
-            <p><span class="info-label">Location:</span> <span class="info-value">San Francisco, CA</span></p>
-            <p><span class="info-label">Member Since:</span> <span class="info-value">January 2022</span></p>
-            <p><span class="info-label">Bio:</span> <span class="info-value">Software developer with interest in web technologies and open source projects.</span></p>
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
 </head>
 <body>
     <header>
         <h1>User Profile</h1>
     </header>
     <main>
-        <section class="profile">
-            <div class="avatar-container">
-                <img src="https://via.placeholder.com/150" alt="User Avatar" class="avatar">
-            </div>
-            <div class="user-info">
-                <h2>John Doe</h2>
-                <p>Email: john.doe@example.com</p>
-                <p>Location: New York, USA</p>
-                <p>Member since: January 2023</p>
-            </div>
+        <section id="avatar-section">
+            <h2>Profile Picture</h2>
+            <img id="avatar-preview" src="default-avatar.png" alt="Profile Avatar" width="150" height="150">
+            <br>
+            <input type="file" id="avatar-upload" accept="image/*">
+            <button onclick="uploadAvatar()">Upload New Avatar</button>
         </section>
-        <section class="bio">
-            <h3>Bio</h3>
-            <p>Software developer passionate about open source projects and web technologies.</p>
+        <section id="info-section">
+            <h2>Basic Information</h2>
+            <form id="profile-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <br>
+                <label for="bio">Bio:</label>
+                <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
+                <br>
+                <button type="submit">Save Changes</button>
+            </form>
         </section>
     </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 2rem;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            text-align: center;
-            font-family: sans-serif;
+    <script>
+        function uploadAvatar() {
+            const fileInput = document.getElementById('avatar-upload');
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatar-preview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+                alert('Avatar uploaded successfully!');
+            } else {
+                alert('Please select an image file first.');
+            }
         }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a6fa5;
-            margin-bottom: 1rem;
-        }
-        .user-name {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 0.5rem;
-        }
-        .user-title {
-            color: #666;
-            font-style: italic;
-            margin-bottom: 1.5rem;
-        }
-        .user-bio {
-            line-height: 1.6;
-            color: #444;
-            text-align: left;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Profile Avatar" class="avatar">
-        <h1 class="user-name">Alex Morgan</h1>
-        <p class="user-title">Senior Software Developer</p>
-        <div class="user-bio">
-            <p>Experienced developer with a passion for creating efficient and scalable web applications. Enjoys working with modern JavaScript frameworks, contributing to open-source projects, and mentoring junior developers. In free time, explores new technologies and hikes in the mountains.</p>
-            <p>Currently focused on improving system architecture and developer experience within the team.</p>
-        </div>
-    </div>
+
+        document.getElementById('profile-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const bio = document.getElementById('bio').value;
+            alert('Profile saved!\nUsername: ' + username + '\nEmail: ' + email + '\nBio: ' + bio);
+        });
+    </script>
 </body>
 </html>
