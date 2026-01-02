@@ -9,236 +9,44 @@
             max-width: 600px;
             margin: 40px auto;
             padding: 20px;
-            border: 1px solid #ddd;
+            border: 1px solid #ccc;
             border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
             text-align: center;
-            margin-bottom: 20px;
+            font-family: Arial, sans-serif;
         }
         .avatar {
             width: 120px;
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #4a6fa5;
+            border: 3px solid #007bff;
         }
-        .name {
+        .user-name {
             font-size: 24px;
-            font-weight: bold;
-            margin: 10px 0 5px;
+            margin: 15px 0 5px;
             color: #333;
         }
-        .title {
+        .user-title {
             color: #666;
             font-size: 16px;
             margin-bottom: 15px;
         }
-        .bio-section {
-            background-color: #f9f9f9;
-            padding: 15px;
-            border-radius: 6px;
-            line-height: 1.6;
+        .bio {
             color: #444;
-        }
-        .bio-heading {
-            margin-top: 0;
-            color: #4a6fa5;
-            font-size: 18px;
+            line-height: 1.6;
+            padding: 0 20px;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="Profile Avatar" class="avatar">
-            <h1 class="name">Alex Morgan</h1>
-            <p class="title">Senior Software Developer</p>
-        </div>
-        <div class="bio-section">
-            <h2 class="bio-heading">About</h2>
-            <p>Passionate developer with over 8 years of experience building web applications. Specializes in front-end technologies and user experience design. Enjoys hiking, photography, and open-source contributions.</p>
-            <p>Currently focused on responsive design patterns and performance optimization techniques.</p>
-        </div>
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="User Avatar" class="avatar">
+        <h1 class="user-name">Alex Johnson</h1>
+        <p class="user-title">Senior Software Developer</p>
+        <p class="bio">
+            Passionate about building scalable web applications and open-source contributions.
+            Enjoys hiking, photography, and exploring new technologies in spare time.
+        </p>
     </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 2rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a6fa5;
-        }
-        .name {
-            font-size: 1.8rem;
-            margin: 0.5rem 0;
-            color: #333;
-        }
-        .title {
-            color: #666;
-            font-style: italic;
-            margin-bottom: 1rem;
-        }
-        .bio-section {
-            line-height: 1.6;
-            color: #444;
-            border-top: 1px solid #eee;
-            padding-top: 1rem;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="User Avatar" class="avatar">
-            <h1 class="name">Alex Morgan</h1>
-            <div class="title">Senior Frontend Developer</div>
-        </div>
-        <div class="bio-section">
-            <p>Passionate about building accessible and performant web applications. Enjoys working with modern JavaScript frameworks and contributing to open-source projects. Currently focused on improving user experience through responsive design and progressive enhancement.</p>
-            <p>Outside of coding, I enjoy hiking, photography, and experimenting with new coffee brewing techniques.</p>
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <div class="profile-container">
-        <img src="avatar.jpg" alt="User Avatar" class="profile-avatar">
-        <h1 class="profile-name">Alex Johnson</h1>
-        <p class="profile-bio">Software developer passionate about open-source projects and web technologies. Enjoys hiking and photography in free time.</p>
-        <div class="profile-stats">
-            <span class="stat">Posts: 42</span>
-            <span class="stat">Followers: 128</span>
-            <span class="stat">Following: 56</span>
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile Settings</h1>
-    </header>
-    <main>
-        <section>
-            <h2>Profile Information</h2>
-            <form id="profileForm">
-                <div>
-                    <label for="avatar">Profile Picture:</label>
-                    <input type="file" id="avatar" name="avatar" accept="image/*">
-                    <div id="avatarPreview"></div>
-                </div>
-                <div>
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div>
-                    <label for="email">Email Address:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div>
-                    <label for="bio">Biography:</label>
-                    <textarea id="bio" name="bio" rows="4"></textarea>
-                </div>
-                <button type="submit">Update Profile</button>
-            </form>
-        </section>
-    </main>
-    <script>
-        document.getElementById('avatar').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            const preview = document.getElementById('avatarPreview');
-            preview.innerHTML = '';
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.style.maxWidth = '150px';
-                    preview.appendChild(img);
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            alert('Profile update simulated.');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <form id="profileForm">
-            <div>
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div>
-                <label for="email">Email Address:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div>
-                <label for="bio">Biography:</label>
-                <textarea id="bio" name="bio" rows="4"></textarea>
-            </div>
-            <div>
-                <label for="newsletter">
-                    <input type="checkbox" id="newsletter" name="newsletter">
-                    Subscribe to newsletter
-                </label>
-            </div>
-            <button type="submit">Update Profile</button>
-        </form>
-    </main>
-    <script>
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData);
-            console.log('Profile update data:', data);
-            alert('Profile updated successfully!');
-        });
-    </script>
 </body>
 </html>
