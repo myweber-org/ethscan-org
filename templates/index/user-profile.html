@@ -47,4 +47,64 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Profile Picture</h2>
+            <div id="avatar-container">
+                <img id="avatar-preview" src="default-avatar.png" alt="Profile Avatar" width="150" height="150">
+            </div>
+            <input type="file" id="avatar-upload" accept="image/*">
+            <button id="upload-btn">Upload New Avatar</button>
+        </section>
+        <section>
+            <h2>Bio Information</h2>
+            <form id="bio-form">
+                <label for="display-name">Display Name:</label>
+                <input type="text" id="display-name" name="display-name" placeholder="Enter your display name">
+                <br><br>
+                <label for="user-bio">Bio:</label>
+                <textarea id="user-bio" name="user-bio" rows="4" cols="50" placeholder="Tell us about yourself..."></textarea>
+                <br><br>
+                <button type="submit">Save Changes</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 User Profile Page</p>
+    </footer>
+    <script>
+        document.getElementById('upload-btn').addEventListener('click', function() {
+            document.getElementById('avatar-upload').click();
+        });
+
+        document.getElementById('avatar-upload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatar-preview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('bio-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const displayName = document.getElementById('display-name').value;
+            const userBio = document.getElementById('user-bio').value;
+            alert('Profile updated successfully!\nDisplay Name: ' + displayName + '\nBio: ' + userBio);
+        });
+    </script>
+</body>
 </html>
