@@ -26,4 +26,123 @@
         <p>&copy; 2023 Profile Page. All rights reserved.</p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 0.9em; }
+        input.invalid { border: 1px solid red; }
+    </style>
+</head>
+<body>
+    <h1>Update Your Profile</h1>
+    <form id="profileForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+            <div id="usernameError" class="error"></div>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <div id="emailError" class="error"></div>
+        </div>
+        <div>
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" min="18" max="120">
+            <div id="ageError" class="error"></div>
+        </div>
+        <button type="submit">Save Profile</button>
+        <div id="formMessage" class="success"></div>
+    </form>
+
+    <script>
+        const form = document.getElementById('profileForm');
+        const usernameInput = document.getElementById('username');
+        const emailInput = document.getElementById('email');
+        const ageInput = document.getElementById('age');
+        const usernameError = document.getElementById('usernameError');
+        const emailError = document.getElementById('emailError');
+        const ageError = document.getElementById('ageError');
+        const formMessage = document.getElementById('formMessage');
+
+        function validateUsername() {
+            const value = usernameInput.value.trim();
+            usernameError.textContent = '';
+            usernameInput.classList.remove('invalid');
+
+            if (value.length < 3) {
+                usernameError.textContent = 'Username must be at least 3 characters.';
+                usernameInput.classList.add('invalid');
+                return false;
+            }
+            if (value.length > 20) {
+                usernameError.textContent = 'Username must be less than 20 characters.';
+                usernameInput.classList.add('invalid');
+                return false;
+            }
+            return true;
+        }
+
+        function validateEmail() {
+            const value = emailInput.value.trim();
+            emailError.textContent = '';
+            emailInput.classList.remove('invalid');
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) {
+                emailError.textContent = 'Please enter a valid email address.';
+                emailInput.classList.add('invalid');
+                return false;
+            }
+            return true;
+        }
+
+        function validateAge() {
+            const value = ageInput.value;
+            ageError.textContent = '';
+            ageInput.classList.remove('invalid');
+
+            if (value === '') return true;
+
+            const age = parseInt(value);
+            if (isNaN(age) || age < 18 || age > 120) {
+                ageError.textContent = 'Age must be between 18 and 120.';
+                ageInput.classList.add('invalid');
+                return false;
+            }
+            return true;
+        }
+
+        usernameInput.addEventListener('blur', validateUsername);
+        emailInput.addEventListener('blur', validateEmail);
+        ageInput.addEventListener('blur', validateAge);
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            formMessage.textContent = '';
+
+            const isUsernameValid = validateUsername();
+            const isEmailValid = validateEmail();
+            const isAgeValid = validateAge();
+
+            if (isUsernameValid && isEmailValid && isAgeValid) {
+                formMessage.textContent = 'Profile updated successfully!';
+                formMessage.style.color = 'green';
+                console.log('Form submitted with data:', {
+                    username: usernameInput.value,
+                    email: emailInput.value,
+                    age: ageInput.value
+                });
+            } else {
+                formMessage.textContent = 'Please fix the errors above.';
+                formMessage.style.color = 'red';
+            }
+        });
+    </script>
+</body>
 </html>
