@@ -4,120 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .avatar-preview {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #ddd;
-            margin-bottom: 10px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input[type="text"],
-        input[type="file"],
-        textarea {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-            border: 1px solid #aaa;
-            border-radius: 4px;
-        }
-        textarea {
-            height: 100px;
-            resize: vertical;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
 </head>
 <body>
-    <div class="profile-container">
-        <h2>Edit Profile</h2>
-        <form id="profileForm">
-            <div class="avatar-section">
-                <img id="avatarPreview" src="https://via.placeholder.com/120" class="avatar-preview" alt="Avatar Preview">
-                <div class="form-group">
-                    <label for="avatarUpload">Upload Avatar</label>
-                    <input type="file" id="avatarUpload" accept="image/*">
-                </div>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="profile-info">
+            <div class="avatar-container">
+                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar">
+                <input type="file" id="avatar-upload" accept="image/*">
+                <button id="upload-btn">Upload Avatar</button>
             </div>
-            <div class="form-group">
-                <label for="displayName">Display Name</label>
-                <input type="text" id="displayName" placeholder="Enter your display name">
+            <div class="bio-section">
+                <h2>Bio</h2>
+                <textarea id="bio-text" rows="4" cols="50" placeholder="Write something about yourself..."></textarea>
+                <button id="save-bio-btn">Save Bio</button>
             </div>
-            <div class="form-group">
-                <label for="userBio">Bio</label>
-                <textarea id="userBio" placeholder="Tell something about yourself..."></textarea>
-            </div>
-            <button type="submit">Save Changes</button>
-        </form>
-    </div>
-
+        </section>
+    </main>
     <script>
-        document.getElementById('avatarUpload').addEventListener('change', function(event) {
+        document.getElementById('upload-btn').addEventListener('click', function() {
+            document.getElementById('avatar-upload').click();
+        });
+
+        document.getElementById('avatar-upload').addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('avatarPreview').src = e.target.result;
+                    document.getElementById('avatar-preview').src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
         });
 
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const displayName = document.getElementById('displayName').value.trim();
-            const userBio = document.getElementById('userBio').value.trim();
-
-            if (!displayName) {
-                alert('Please enter a display name.');
-                return;
-            }
-
-            // Simulate saving data (in a real app, this would be an API call)
-            console.log('Profile saved:', { displayName, userBio });
-            alert('Profile updated successfully!');
-        });
-
-        // Load existing profile data (simulated)
-        window.addEventListener('DOMContentLoaded', function() {
-            // Simulate fetching user data
-            const mockUserData = {
-                displayName: 'John Doe',
-                userBio: 'Web developer and open source enthusiast.'
-            };
-            document.getElementById('displayName').value = mockUserData.displayName;
-            document.getElementById('userBio').value = mockUserData.userBio;
+        document.getElementById('save-bio-btn').addEventListener('click', function() {
+            const bioText = document.getElementById('bio-text').value;
+            alert('Bio saved: ' + bioText);
         });
     </script>
 </body>
