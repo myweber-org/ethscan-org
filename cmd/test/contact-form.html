@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        input.invalid, textarea.invalid { border: 1px solid red; }
+    </style>
+</head>
+<body>
+    <h1>Contact Form</h1>
+    <form id="contactForm" novalidate>
+        <div>
+            <label for="name">Full Name:</label><br>
+            <input type="text" id="name" name="name" required>
+            <div class="error" id="nameError"></div>
+        </div>
+        <div>
+            <label for="email">Email Address:</label><br>
+            <input type="email" id="email" name="email" required>
+            <div class="error" id="emailError"></div>
+        </div>
+        <div>
+            <label for="message">Message:</label><br>
+            <textarea id="message" name="message" rows="5" required></textarea>
+            <div class="error" id="messageError"></div>
+        </div>
+        <button type="submit">Send Message</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('contactForm');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const messageInput = document.getElementById('message');
+
+        function showError(inputElement, errorElement, message) {
+            errorElement.textContent = message;
+            inputElement.classList.add('invalid');
+        }
+
+        function clearError(inputElement, errorElement) {
+            errorElement.textContent = '';
+            inputElement.classList.remove('invalid');
+        }
+
+        function validateField(inputElement, errorElement) {
+            if (inputElement.validity.valid) {
+                clearError(inputElement, errorElement);
+                return true;
+            } else {
+                if (inputElement.validity.valueMissing) {
+                    showError(inputElement, errorElement, 'This field is required.');
+                } else if (inputElement.validity.typeMismatch) {
+                    showError(inputElement, errorElement, 'Please enter a valid email address.');
+                }
+                return false;
+            }
+        }
+
+        nameInput.addEventListener('input', () => validateField(nameInput, document.getElementById('nameError')));
+        emailInput.addEventListener('input', () => validateField(emailInput, document.getElementById('emailError')));
+        messageInput.addEventListener('input', () => validateField(messageInput, document.getElementById('messageError')));
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const isNameValid = validateField(nameInput, document.getElementById('nameError'));
+            const isEmailValid = validateField(emailInput, document.getElementById('emailError'));
+            const isMessageValid = validateField(messageInput, document.getElementById('messageError'));
+
+            if (isNameValid && isEmailValid && isMessageValid) {
+                alert('Form submitted successfully! (This is a demo)');
+                form.reset();
+                [nameInput, emailInput, messageInput].forEach(input => input.classList.remove('invalid'));
+            }
+        });
+    </script>
+</body>
+</html>
