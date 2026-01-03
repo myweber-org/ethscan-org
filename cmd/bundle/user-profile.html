@@ -4,26 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+        }
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #4CAF50;
+        }
+        .bio-section {
+            line-height: 1.6;
+            color: #333;
+        }
+        .username {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 10px 0 5px;
+        }
+        .user-title {
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
-            <div class="avatar-container">
-                <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            </div>
-            <div class="user-info">
-                <h2>John Doe</h2>
-                <p><strong>Email:</strong> john.doe@example.com</p>
-                <p><strong>Location:</strong> New York, USA</p>
-                <p><strong>Member Since:</strong> January 2023</p>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page. All rights reserved.</p>
-    </footer>
+    <div class="profile-container">
+        <div class="avatar-section">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="User Avatar" class="avatar">
+            <div class="username">Alex Johnson</div>
+            <div class="user-title">Senior Frontend Developer</div>
+        </div>
+        <div class="bio-section">
+            <p>Passionate about creating intuitive user interfaces and seamless web experiences. With over 8 years of experience in frontend development, specializing in modern JavaScript frameworks and responsive design principles.</p>
+            <p>Currently focused on accessibility improvements and performance optimization for large-scale applications. Enjoys mentoring junior developers and contributing to open-source projects during spare time.</p>
+        </div>
+    </div>
 </body>
 </html>
