@@ -10,77 +10,64 @@
         <h1>User Profile</h1>
     </header>
     <main>
-        <section>
-            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            <h2>John Doe</h2>
-            <p><strong>Email:</strong> john.doe@example.com</p>
-            <p><strong>Location:</strong> New York, USA</p>
-            <p><strong>Member Since:</strong> January 2023</p>
-        </section>
-        <section>
-            <h3>Bio</h3>
-            <p>Software developer with a passion for open-source projects and web technologies.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
         <section id="profile-section">
-            <div id="avatar-container">
+            <div class="avatar-container">
                 <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
                 <form id="avatar-form">
                     <input type="file" id="avatar-input" name="avatar" accept="image/*">
                     <button type="submit">Upload Avatar</button>
                 </form>
             </div>
-            <form id="profile-form">
-                <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="bio">Bio:</label>
-                    <textarea id="bio" name="bio" rows="4"></textarea>
-                </div>
-                <button type="submit">Save Profile</button>
-            </form>
+            <div class="bio-container">
+                <h2>Edit Bio</h2>
+                <form id="bio-form">
+                    <textarea id="bio-text" name="bio" rows="5" cols="50" placeholder="Write something about yourself..."></textarea>
+                    <br>
+                    <button type="submit">Save Bio</button>
+                </form>
+                <p id="current-bio">No bio provided yet.</p>
+            </div>
         </section>
     </main>
     <script>
-        document.getElementById('avatar-input').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const avatarForm = document.getElementById('avatar-form');
+            const avatarInput = document.getElementById('avatar-input');
+            const avatarPreview = document.getElementById('avatar-preview');
+            const bioForm = document.getElementById('bio-form');
+            const bioText = document.getElementById('bio-text');
+            const currentBio = document.getElementById('current-bio');
 
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const formData = new FormData(this);
-            const profileData = Object.fromEntries(formData);
-            console.log('Profile data to save:', profileData);
-            alert('Profile saved (check console for data)');
+            const savedBio = localStorage.getItem('userBio');
+            if (savedBio) {
+                bioText.value = savedBio;
+                currentBio.textContent = savedBio;
+            }
+
+            avatarForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const file = avatarInput.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        avatarPreview.src = e.target.result;
+                        localStorage.setItem('userAvatar', e.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            bioForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const bio = bioText.value.trim();
+                currentBio.textContent = bio || 'No bio provided yet.';
+                localStorage.setItem('userBio', bio);
+            });
+
+            const savedAvatar = localStorage.getItem('userAvatar');
+            if (savedAvatar) {
+                avatarPreview.src = savedAvatar;
+            }
         });
     </script>
 </body>
