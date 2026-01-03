@@ -10,153 +10,34 @@
         <h1>User Profile</h1>
     </header>
     <main>
-        <section>
-            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            <h2>John Doe</h2>
-            <p>Email: john.doe@example.com</p>
-            <p>Location: New York, USA</p>
-            <p>Member since: January 2023</p>
-        </section>
-        <section>
-            <h3>Bio</h3>
-            <p>Software developer passionate about web technologies and open source projects.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 Profile Page. All rights reserved.</p>
-    </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="avatar-section">
-            <img src="https://via.placeholder.com/150" alt="User Avatar" id="user-avatar">
-        </section>
-        <section id="info-section">
-            <h2 id="user-name">John Doe</h2>
-            <p id="user-bio">Software developer with a passion for open-source projects and web technologies.</p>
-        </section>
-    </main>
-    <footer>
-        <p>Profile last updated: <span id="update-date">2023-10-27</span></p>
-    </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 2rem;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            text-align: center;
-            font-family: sans-serif;
-        }
-        .avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 1rem;
-            border: 3px solid #4a6fa5;
-        }
-        .user-name {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            color: #333;
-        }
-        .user-title {
-            font-size: 1.2rem;
-            color: #666;
-            margin-bottom: 1.5rem;
-        }
-        .contact-info {
-            text-align: left;
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #eee;
-        }
-        .contact-item {
-            margin-bottom: 0.8rem;
-            display: flex;
-            align-items: center;
-        }
-        .contact-icon {
-            margin-right: 10px;
-            color: #4a6fa5;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
-        <h1 class="user-name">Alex Johnson</h1>
-        <p class="user-title">Senior Software Developer</p>
-        <p>Passionate about building scalable web applications and open-source contributions. Enjoys hiking and photography in free time.</p>
-        
-        <div class="contact-info">
-            <div class="contact-item">
-                <span class="contact-icon">📧</span>
-                <span>alex.johnson@example.com</span>
-            </div>
-            <div class="contact-item">
-                <span class="contact-icon">📱</span>
-                <span>+1 (555) 123-4567</span>
-            </div>
-            <div class="contact-item">
-                <span class="contact-icon">📍</span>
-                <span>San Francisco, CA</span>
-            </div>
-            <div class="contact-item">
-                <span class="contact-icon">🔗</span>
-                <span>github.com/alexjohnson</span>
-            </div>
-        </div>
-    </div>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
         <section id="profile-section">
-            <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button onclick="uploadAvatar()">Upload Avatar</button>
+            <div id="avatar-container">
+                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
+                <form id="avatar-form">
+                    <input type="file" id="avatar-input" accept="image/*">
+                    <button type="button" id="upload-btn">Upload Avatar</button>
+                </form>
             </div>
-            <div class="bio-container">
-                <h2>Edit Bio</h2>
-                <textarea id="bio-text" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
-                <button onclick="saveBio()">Save Bio</button>
-            </div>
+            <form id="profile-form">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="bio">Bio:</label>
+                    <textarea id="bio" name="bio" rows="4"></textarea>
+                </div>
+                <button type="submit" id="save-btn">Save Profile</button>
+            </form>
         </section>
     </main>
     <script>
-        function uploadAvatar() {
-            const fileInput = document.getElementById('avatar-upload');
+        document.getElementById('upload-btn').addEventListener('click', function() {
+            const fileInput = document.getElementById('avatar-input');
             const file = fileInput.files[0];
             if (file) {
                 const reader = new FileReader();
@@ -165,20 +46,16 @@
                 };
                 reader.readAsDataURL(file);
             }
-        }
+        });
 
-        function saveBio() {
-            const bioText = document.getElementById('bio-text').value;
-            localStorage.setItem('userBio', bioText);
-            alert('Bio saved successfully!');
-        }
-
-        window.onload = function() {
-            const savedBio = localStorage.getItem('userBio');
-            if (savedBio) {
-                document.getElementById('bio-text').value = savedBio;
-            }
-        };
+        document.getElementById('profile-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const bio = document.getElementById('bio').value;
+            console.log('Profile saved:', { username, email, bio });
+            alert('Profile saved successfully!');
+        });
     </script>
 </body>
 </html>
