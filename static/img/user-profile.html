@@ -6,47 +6,175 @@
     <title>User Profile</title>
 </head>
 <body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="profile-section">
-            <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button id="upload-btn">Upload Avatar</button>
+    <div class="profile-container">
+        <header class="profile-header">
+            <div class="avatar-section">
+                <img src="avatar-placeholder.jpg" alt="User Avatar" class="avatar" id="userAvatar">
+                <button onclick="changeAvatar()" class="avatar-btn">Change Avatar</button>
             </div>
-            <div class="bio-container">
-                <h2>Edit Bio</h2>
-                <textarea id="bio-text" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
-                <button id="save-bio-btn">Save Bio</button>
-                <p id="bio-display"></p>
+            <h1 id="userName">John Doe</h1>
+            <p class="user-title" id="userTitle">Software Developer</p>
+        </header>
+
+        <section class="profile-details">
+            <h2>Contact Information</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <strong>Email:</strong>
+                    <span id="userEmail">john.doe@example.com</span>
+                </div>
+                <div class="info-item">
+                    <strong>Location:</strong>
+                    <span id="userLocation">San Francisco, CA</span>
+                </div>
+                <div class="info-item">
+                    <strong>Member Since:</strong>
+                    <span id="joinDate">January 2023</span>
+                </div>
+                <div class="info-item">
+                    <strong>Website:</strong>
+                    <a href="#" id="userWebsite">portfolio.example.com</a>
+                </div>
             </div>
         </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
-    <script>
-        document.getElementById('upload-btn').addEventListener('click', function() {
-            const fileInput = document.getElementById('avatar-upload');
-            const file = fileInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            } else {
-                alert('Please select an image file first.');
-            }
-        });
 
-        document.getElementById('save-bio-btn').addEventListener('click', function() {
-            const bioText = document.getElementById('bio-text').value;
-            document.getElementById('bio-display').textContent = bioText || 'No bio provided.';
-            document.getElementById('bio-text').value = '';
-        });
+        <section class="profile-bio">
+            <h2>Bio</h2>
+            <p id="userBio">Passionate developer with experience in web technologies. Enjoys building scalable applications and open-source contributions.</p>
+        </section>
+
+        <section class="profile-skills">
+            <h2>Skills</h2>
+            <ul class="skills-list" id="skillsList">
+                <li>JavaScript</li>
+                <li>HTML/CSS</li>
+                <li>React</li>
+                <li>Node.js</li>
+            </ul>
+        </section>
+    </div>
+
+    <script>
+        function changeAvatar() {
+            const avatarInput = document.createElement('input');
+            avatarInput.type = 'file';
+            avatarInput.accept = 'image/*';
+            avatarInput.onchange = function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById('userAvatar').src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+            avatarInput.click();
+        }
+
+        function updateProfile() {
+            const newName = prompt('Enter new name:', document.getElementById('userName').textContent);
+            if (newName) {
+                document.getElementById('userName').textContent = newName;
+            }
+        }
     </script>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .profile-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 30px;
+        }
+        .profile-header {
+            text-align: center;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 25px;
+            margin-bottom: 30px;
+        }
+        .avatar-section {
+            margin-bottom: 20px;
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #4a6cf7;
+            margin-bottom: 15px;
+        }
+        .avatar-btn {
+            background-color: #4a6cf7;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        .avatar-btn:hover {
+            background-color: #3a5ce5;
+        }
+        h1 {
+            margin: 10px 0 5px;
+            color: #222;
+        }
+        .user-title {
+            color: #666;
+            font-size: 18px;
+            margin-top: 0;
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #444;
+            border-left: 4px solid #4a6cf7;
+            padding-left: 12px;
+            margin-bottom: 20px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .info-item {
+            background: #f8f9ff;
+            padding: 12px 18px;
+            border-radius: 8px;
+            border-left: 3px solid #4a6cf7;
+        }
+        .skills-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .skills-list li {
+            background: #eef2ff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        a {
+            color: #4a6cf7;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </body>
 </html>
