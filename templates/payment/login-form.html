@@ -31,43 +31,31 @@
             event.preventDefault();
             clearErrors();
             let isValid = true;
-
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value.trim();
-            const emailError = document.getElementById('emailError');
-            const passwordError = document.getElementById('passwordError');
-            const messageDiv = document.getElementById('message');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-            if (!validateEmail(email)) {
-                emailError.textContent = 'Please enter a valid email address.';
+            if (!emailRegex.test(email)) {
+                document.getElementById('emailError').textContent = 'Please enter a valid email address.';
                 isValid = false;
             }
-
             if (password.length < 6) {
-                passwordError.textContent = 'Password must be at least 6 characters.';
+                document.getElementById('passwordError').textContent = 'Password must be at least 6 characters.';
                 isValid = false;
             }
 
             if (isValid) {
-                messageDiv.textContent = 'Login successful! Redirecting...';
-                messageDiv.className = 'success';
-                console.log('Submitting login for:', email);
+                document.getElementById('message').textContent = 'Login successful! Redirecting...';
                 setTimeout(() => {
-                    alert('Simulated redirect to dashboard.');
-                }, 1000);
-            } else {
-                messageDiv.textContent = 'Please fix the errors above.';
-                messageDiv.className = 'error';
+                    console.log('Login data:', { email, password });
+                    this.reset();
+                    document.getElementById('message').textContent = '';
+                }, 1500);
             }
         });
 
-        function validateEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
-        }
-
         function clearErrors() {
-            document.querySelectorAll('.error').forEach(span => span.textContent = '');
+            document.querySelectorAll('.error').forEach(el => el.textContent = '');
             document.getElementById('message').textContent = '';
         }
     </script>
