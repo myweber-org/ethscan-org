@@ -7,112 +7,23 @@
 </head>
 <body>
     <header>
-        <h1>User Profile Settings</h1>
+        <h1>User Profile</h1>
     </header>
     <main>
         <section>
-            <h2>Profile Picture</h2>
-            <div>
-                <img id="avatar-preview" src="default-avatar.png" alt="Avatar Preview" width="150" height="150">
-                <br>
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button onclick="uploadAvatar()">Upload Avatar</button>
-            </div>
+            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
+            <h2>John Doe</h2>
+            <p><strong>Email:</strong> john.doe@example.com</p>
+            <p><strong>Location:</strong> New York, USA</p>
+            <p><strong>Member Since:</strong> January 2023</p>
         </section>
         <section>
-            <h2>Basic Information</h2>
-            <form id="profile-form">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                <br>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <br>
-                <label for="bio">Bio:</label>
-                <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
-                <br>
-                <button type="submit">Save Profile</button>
-            </form>
+            <h3>Bio</h3>
+            <p>Software developer with a passion for open-source projects and web technologies.</p>
         </section>
     </main>
-    <script>
-        function uploadAvatar() {
-            const fileInput = document.getElementById('avatar-upload');
-            const file = fileInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            } else {
-                alert('Please select an image file first.');
-            }
-        }
-
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            alert('Profile saved!\nUsername: ' + username + '\nEmail: ' + email + '\nBio: ' + bio);
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: Arial, sans-serif;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a90e2;
-        }
-        .user-info {
-            margin-top: 20px;
-        }
-        .info-item {
-            margin: 8px 0;
-        }
-        .label {
-            font-weight: bold;
-            color: #555;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <img src="https://via.placeholder.com/120" alt="User Avatar" class="avatar">
-        <div class="user-info">
-            <div class="info-item">
-                <span class="label">Name:</span> John Doe
-            </div>
-            <div class="info-item">
-                <span class="label">Email:</span> john.doe@example.com
-            </div>
-            <div class="info-item">
-                <span class="label">Location:</span> New York, USA
-            </div>
-            <div class="info-item">
-                <span class="label">Member Since:</span> January 2023
-            </div>
-            <div class="info-item">
-                <span class="label">Bio:</span> Software developer with passion for open-source projects and web technologies.
-            </div>
-        </div>
-    </div>
+    <footer>
+        <p>&copy; 2023 Profile Page. All rights reserved.</p>
+    </footer>
 </body>
 </html>
