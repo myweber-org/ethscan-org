@@ -4,75 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .error { color: red; font-size: 0.9em; }
-        .success { color: green; font-size: 0.9em; }
-        input { margin-bottom: 10px; display: block; }
-    </style>
 </head>
 <body>
-    <h1>User Profile</h1>
-    <form id="profileForm">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required minlength="3">
-        <div id="usernameError" class="error"></div>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        <div id="emailError" class="error"></div>
-
-        <label for="age">Age:</label>
-        <input type="number" id="age" name="age" min="1" max="120">
-        <div id="ageError" class="error"></div>
-
-        <button type="submit">Update Profile</button>
-    </form>
-    <div id="message" class="success"></div>
-
-    <script>
-        const form = document.getElementById('profileForm');
-        const messageDiv = document.getElementById('message');
-
-        function showError(elementId, msg) {
-            const el = document.getElementById(elementId);
-            el.textContent = msg;
-        }
-
-        function clearErrors() {
-            document.querySelectorAll('.error').forEach(el => el.textContent = '');
-            messageDiv.textContent = '';
-        }
-
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            clearErrors();
-
-            const username = document.getElementById('username').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const age = document.getElementById('age').value;
-
-            let isValid = true;
-
-            if (username.length < 3) {
-                showError('usernameError', 'Username must be at least 3 characters.');
-                isValid = false;
-            }
-
-            if (!email.includes('@')) {
-                showError('emailError', 'Please enter a valid email address.');
-                isValid = false;
-            }
-
-            if (age && (age < 1 || age > 120)) {
-                showError('ageError', 'Age must be between 1 and 120.');
-                isValid = false;
-            }
-
-            if (isValid) {
-                messageDiv.textContent = 'Profile updated successfully!';
-                form.reset();
-            }
-        });
-    </script>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section class="profile">
+            <div class="avatar-container">
+                <img src="avatar-placeholder.jpg" alt="User Avatar" id="user-avatar" width="150" height="150">
+            </div>
+            <div class="user-info">
+                <h2 id="username">John Doe</h2>
+                <p id="user-bio">Software developer passionate about open source projects and web technologies.</p>
+                <p><strong>Location:</strong> <span id="user-location">San Francisco, CA</span></p>
+                <p><strong>Member since:</strong> <span id="join-date">January 2020</span></p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 User Profile Page</p>
+    </footer>
 </body>
 </html>
