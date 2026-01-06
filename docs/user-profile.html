@@ -9,49 +9,62 @@
             max-width: 600px;
             margin: 40px auto;
             padding: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
             border-radius: 8px;
             font-family: sans-serif;
         }
         .avatar-section {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
         .avatar-preview {
             width: 120px;
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid #ddd;
+            border: 3px solid #eee;
             margin-bottom: 10px;
         }
-        .bio-section textarea {
+        .avatar-upload-btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .avatar-upload-btn:hover {
+            background-color: #45a049;
+        }
+        #avatar-input {
+            display: none;
+        }
+        .bio-section label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        textarea {
             width: 100%;
             height: 100px;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
             resize: vertical;
-            font-family: inherit;
+            box-sizing: border-box;
         }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
+        .save-btn {
             display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        button {
+            margin-top: 20px;
+            padding: 10px 20px;
             background-color: #007bff;
             color: white;
             border: none;
-            padding: 10px 20px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 16px;
         }
-        button:hover {
+        .save-btn:hover {
             background-color: #0056b3;
         }
     </style>
@@ -60,43 +73,46 @@
     <div class="profile-container">
         <h1>Edit Profile</h1>
         <div class="avatar-section">
-            <img id="avatarPreview" src="default-avatar.png" alt="Avatar Preview" class="avatar-preview">
-            <div class="form-group">
-                <label for="avatarUpload">Upload Avatar:</label>
-                <input type="file" id="avatarUpload" accept="image/*">
-            </div>
+            <img id="avatar-preview" src="default-avatar.png" alt="Avatar Preview" class="avatar-preview">
+            <br>
+            <label for="avatar-input" class="avatar-upload-btn">Upload New Avatar</label>
+            <input type="file" id="avatar-input" accept="image/*">
         </div>
         <div class="bio-section">
-            <div class="form-group">
-                <label for="userBio">Bio:</label>
-                <textarea id="userBio" placeholder="Tell us about yourself..."></textarea>
-            </div>
+            <label for="bio-text">About Me</label>
+            <textarea id="bio-text" placeholder="Tell us something about yourself..."></textarea>
         </div>
-        <button id="saveButton">Save Changes</button>
+        <button class="save-btn" id="save-profile">Save Changes</button>
     </div>
 
     <script>
-        document.getElementById('avatarUpload').addEventListener('change', function(event) {
+        document.getElementById('avatar-input').addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('avatarPreview').src = e.target.result;
+                    document.getElementById('avatar-preview').src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
         });
 
-        document.getElementById('saveButton').addEventListener('click', function() {
-            const bio = document.getElementById('userBio').value;
-            const avatarFile = document.getElementById('avatarUpload').files[0];
-            
-            if (bio.trim() === '' && !avatarFile) {
-                alert('No changes to save.');
-                return;
-            }
-            
-            alert('Profile saved successfully!');
+        document.getElementById('save-profile').addEventListener('click', function() {
+            const bioText = document.getElementById('bio-text').value;
+            const avatarSrc = document.getElementById('avatar-preview').src;
+
+            // In a real application, you would send this data to a server
+            console.log('Profile saved:', { bio: bioText, avatar: avatarSrc });
+
+            // Show a simple alert for demo purposes
+            alert('Profile changes saved! (Check browser console for data)');
+        });
+
+        // Load existing profile data (simulated)
+        window.addEventListener('load', function() {
+            // Simulate fetching existing data
+            const existingBio = "This is my current bio. I can edit it here.";
+            document.getElementById('bio-text').value = existingBio;
         });
     </script>
 </body>
