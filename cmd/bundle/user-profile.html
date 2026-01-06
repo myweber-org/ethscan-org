@@ -4,140 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-family: Arial, sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4CAF50;
-        }
-        .bio-section {
-            line-height: 1.6;
-            color: #333;
-        }
-        .username {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #2c3e50;
-            margin: 10px 0 5px;
-        }
-        .user-title {
-            color: #7f8c8d;
-            font-style: italic;
-            margin-bottom: 15px;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="User Avatar" class="avatar">
-            <div class="username">Alex Johnson</div>
-            <div class="user-title">Senior Frontend Developer</div>
-        </div>
-        <div class="bio-section">
-            <p>Passionate about creating intuitive user interfaces and seamless web experiences. With over 8 years of experience in frontend development, specializing in modern JavaScript frameworks and responsive design principles.</p>
-            <p>Currently focused on accessibility improvements and performance optimization for large-scale applications. Enjoys mentoring junior developers and contributing to open-source projects during spare time.</p>
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
 </head>
 <body>
     <header>
         <h1>User Profile</h1>
     </header>
     <main>
-        <section id="profile-section">
-            <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <form id="avatar-form">
-                    <input type="file" id="avatar-input" accept="image/*">
-                    <button type="submit">Upload Avatar</button>
-                </form>
-            </div>
-            <div class="bio-container">
-                <h2>Edit Bio</h2>
-                <textarea id="bio-textarea" rows="4" cols="50" placeholder="Write something about yourself..."></textarea>
-                <button id="save-bio-btn">Save Bio</button>
-                <p id="bio-display"></p>
-            </div>
+        <section class="avatar-section">
+            <img src="https://via.placeholder.com/150" alt="Profile Avatar" id="user-avatar">
+            <button onclick="changeAvatar()">Change Avatar</button>
+        </section>
+        <section class="info-section">
+            <h2>User Information</h2>
+            <p><strong>Name:</strong> <span id="user-name">Alex Johnson</span></p>
+            <p><strong>Email:</strong> <span id="user-email">alex.johnson@example.com</span></p>
+            <p><strong>Location:</strong> <span id="user-location">New York, USA</span></p>
+        </section>
+        <section class="bio-section">
+            <h2>Bio</h2>
+            <p id="user-bio">Software developer with a passion for open-source projects and web technologies.</p>
+            <textarea id="bio-editor" style="display:none;"></textarea>
+            <button onclick="editBio()" id="edit-bio-btn">Edit Bio</button>
+            <button onclick="saveBio()" id="save-bio-btn" style="display:none;">Save Bio</button>
         </section>
     </main>
     <script>
-        document.getElementById('avatar-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const fileInput = document.getElementById('avatar-input');
-            const file = fileInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
+        function changeAvatar() {
+            const newAvatarUrl = prompt('Enter new avatar URL:');
+            if (newAvatarUrl) {
+                document.getElementById('user-avatar').src = newAvatarUrl;
             }
-        });
+        }
 
-        document.getElementById('save-bio-btn').addEventListener('click', function() {
-            const bioText = document.getElementById('bio-textarea').value;
-            document.getElementById('bio-display').textContent = bioText;
-            localStorage.setItem('userBio', bioText);
-        });
+        function editBio() {
+            const bioText = document.getElementById('user-bio').textContent;
+            document.getElementById('bio-editor').value = bioText;
+            document.getElementById('user-bio').style.display = 'none';
+            document.getElementById('bio-editor').style.display = 'block';
+            document.getElementById('edit-bio-btn').style.display = 'none';
+            document.getElementById('save-bio-btn').style.display = 'inline';
+        }
 
-        window.addEventListener('load', function() {
-            const savedBio = localStorage.getItem('userBio');
-            if (savedBio) {
-                document.getElementById('bio-textarea').value = savedBio;
-                document.getElementById('bio-display').textContent = savedBio;
-            }
-        });
+        function saveBio() {
+            const newBio = document.getElementById('bio-editor').value;
+            document.getElementById('user-bio').textContent = newBio;
+            document.getElementById('user-bio').style.display = 'block';
+            document.getElementById('bio-editor').style.display = 'none';
+            document.getElementById('edit-bio-btn').style.display = 'inline';
+            document.getElementById('save-bio-btn').style.display = 'none';
+        }
     </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
-            <div class="avatar">
-                <img src="https://via.placeholder.com/150" alt="User Avatar">
-            </div>
-            <div class="info">
-                <h2>John Doe</h2>
-                <p><strong>Email:</strong> john.doe@example.com</p>
-                <p><strong>Location:</strong> New York, USA</p>
-                <p><strong>Member Since:</strong> January 2023</p>
-                <p><strong>Bio:</strong> Software developer and open source enthusiast.</p>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
 </body>
 </html>
