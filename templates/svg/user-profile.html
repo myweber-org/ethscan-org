@@ -1,117 +1,43 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .error { color: red; font-size: 0.9em; }
-        .success { color: green; font-size: 0.9em; }
-        input:invalid { border-color: #ffcccc; }
-    </style>
 </head>
 <body>
-    <h1>User Profile</h1>
-    <form id="profileForm">
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required minlength="3" maxlength="20" pattern="[A-Za-z0-9_]+">
-            <div id="usernameError" class="error"></div>
-        </div>
-
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <div id="emailError" class="error"></div>
-        </div>
-
-        <div>
-            <label for="age">Age:</label>
-            <input type="number" id="age" name="age" min="18" max="120">
-            <div id="ageError" class="error"></div>
-        </div>
-
-        <div>
-            <label for="country">Country:</label>
-            <select id="country" name="country">
-                <option value="">Select a country</option>
-                <option value="us">United States</option>
-                <option value="uk">United Kingdom</option>
-                <option value="ca">Canada</option>
-                <option value="au">Australia</option>
-            </select>
-        </div>
-
-        <button type="submit">Update Profile</button>
-    </form>
-
-    <div id="message" class="success"></div>
-
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="avatar-section">
+            <h2>Avatar</h2>
+            <img src="placeholder-avatar.jpg" alt="User Avatar" width="150" height="150">
+            <button onclick="changeAvatar()">Change Avatar</button>
+        </section>
+        <section id="bio-section">
+            <h2>Biography</h2>
+            <p id="bio-text">This is a placeholder biography. The user has not provided any information yet.</p>
+            <textarea id="bio-input" rows="4" cols="50" placeholder="Enter your biography here..."></textarea>
+            <br>
+            <button onclick="updateBio()">Update Bio</button>
+        </section>
+    </main>
     <script>
-        const form = document.getElementById('profileForm');
-        const messageDiv = document.getElementById('message');
-
-        function showError(elementId, message) {
-            const errorDiv = document.getElementById(elementId);
-            errorDiv.textContent = message;
+        function changeAvatar() {
+            alert('Avatar change functionality would be implemented here.');
         }
-
-        function clearErrors() {
-            document.querySelectorAll('.error').forEach(div => div.textContent = '');
-            messageDiv.textContent = '';
-        }
-
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            clearErrors();
-            
-            let isValid = true;
-            const username = document.getElementById('username').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const age = document.getElementById('age').value;
-
-            if (username.length < 3) {
-                showError('usernameError', 'Username must be at least 3 characters.');
-                isValid = false;
-            }
-
-            if (!email.includes('@')) {
-                showError('emailError', 'Please enter a valid email address.');
-                isValid = false;
-            }
-
-            if (age && (age < 18 || age > 120)) {
-                showError('ageError', 'Age must be between 18 and 120.');
-                isValid = false;
-            }
-
-            if (isValid) {
-                messageDiv.textContent = 'Profile updated successfully!';
-                console.log('Form data:', {
-                    username: username,
-                    email: email,
-                    age: age || 'Not specified',
-                    country: document.getElementById('country').value || 'Not specified'
-                });
-            }
-        });
-
-        form.addEventListener('input', function(event) {
-            const target = event.target;
-            const errorId = target.id + 'Error';
-            const errorDiv = document.getElementById(errorId);
-            
-            if (errorDiv) {
-                errorDiv.textContent = '';
-            }
-            
-            if (target.validity.valid) {
-                target.style.borderColor = '';
+        function updateBio() {
+            const bioInput = document.getElementById('bio-input');
+            const bioText = document.getElementById('bio-text');
+            if (bioInput.value.trim() !== '') {
+                bioText.textContent = bioInput.value;
+                bioInput.value = '';
+                alert('Biography updated successfully.');
             } else {
-                target.style.borderColor = '#ffcccc';
+                alert('Please enter some text for your biography.');
             }
-        });
+        }
     </script>
 </body>
 </html>
