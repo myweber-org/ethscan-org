@@ -4,230 +4,119 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .profile-card {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 400px;
-            overflow: hidden;
-            text-align: center;
-            padding: 40px 30px;
-            transition: transform 0.3s ease;
-        }
-        .profile-card:hover {
-            transform: translateY(-10px);
-        }
-        .avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 5px solid #764ba2;
-            padding: 5px;
-            margin: 0 auto 25px;
-            overflow: hidden;
-        }
-        .avatar img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        .name {
-            font-size: 28px;
-            color: #333;
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-        .title {
-            color: #667eea;
-            font-size: 18px;
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-        .bio {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            font-size: 16px;
-        }
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 30px;
-            border-top: 1px solid #eee;
-            border-bottom: 1px solid #eee;
-            padding: 20px 0;
-        }
-        .stat-item h3 {
-            font-size: 24px;
-            color: #764ba2;
-            margin-bottom: 5px;
-        }
-        .stat-item p {
-            color: #777;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: #f5f5f5;
-            color: #764ba2;
-            font-size: 22px;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-        .social-links a:hover {
-            background: #764ba2;
-            color: white;
-            transform: scale(1.1);
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-card">
-        <div class="avatar">
-            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Profile Picture">
-        </div>
-        <h1 class="name">Alex Morgan</h1>
-        <p class="title">Frontend Developer & UI Designer</p>
-        <p class="bio">
-            Passionate about creating beautiful and functional web experiences. Enjoys working with modern JavaScript frameworks and exploring new design trends. Loves hiking and photography in free time.
-        </p>
-        <div class="stats">
-            <div class="stat-item">
-                <h3>127</h3>
-                <p>Projects</p>
-            </div>
-            <div class="stat-item">
-                <h3>4.8K</h3>
-                <p>Followers</p>
-            </div>
-            <div class="stat-item">
-                <h3>312</h3>
-                <p>Following</p>
-            </div>
-        </div>
-        <div class="social-links">
-            <a href="#"><i class="fab fa-github"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#"><i class="fab fa-dribbble"></i></a>
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section>
-            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            <h2>John Doe</h2>
-            <p>Email: john.doe@example.com</p>
-            <p>Location: New York, USA</p>
-            <p>Member since: January 2023</p>
-        </section>
-        <section>
-            <h3>Bio</h3>
-            <p>Software developer with interest in web technologies and open source projects.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
     <style>
         .profile-container {
             max-width: 600px;
             margin: 40px auto;
             padding: 20px;
-            border: 1px solid #ddd;
+            border: 1px solid #ccc;
             border-radius: 8px;
-            font-family: Arial, sans-serif;
+            font-family: sans-serif;
         }
         .avatar-section {
             text-align: center;
             margin-bottom: 20px;
         }
-        .avatar {
+        .avatar-preview {
             width: 120px;
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #4CAF50;
+            border: 3px solid #ddd;
+            margin-bottom: 10px;
         }
-        .bio-section {
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            line-height: 1.6;
+        .bio-section textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            box-sizing: border-box;
         }
-        .username {
-            font-size: 1.5em;
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
             font-weight: bold;
-            color: #333;
-            margin-top: 10px;
         }
-        .joined-date {
-            color: #777;
-            font-size: 0.9em;
-            margin-top: 5px;
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://via.placeholder.com/120" alt="User Avatar" class="avatar">
-            <div class="username">Alex Johnson</div>
-            <div class="joined-date">Member since: January 2023</div>
-        </div>
-        <div class="bio-section">
-            <h3>About Me</h3>
-            <p>Software developer passionate about open-source projects and web technologies. Enjoys hiking, photography, and exploring new coffee shops.</p>
-            <p>Currently working on improving accessibility in modern web applications.</p>
-        </div>
+        <h1>Edit Profile</h1>
+        <form id="profileForm">
+            <div class="avatar-section">
+                <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
+                <div>
+                    <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
+                    <button type="button" class="btn" onclick="document.getElementById('avatarUpload').click();">Change Avatar</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" value="johndoe" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" value="john@example.com" required>
+            </div>
+
+            <div class="form-group bio-section">
+                <label for="bio">Bio</label>
+                <textarea id="bio" name="bio" placeholder="Tell us about yourself...">Web developer and open source enthusiast.</textarea>
+            </div>
+
+            <button type="submit" class="btn">Save Changes</button>
+        </form>
     </div>
+
+    <script>
+        document.getElementById('avatarUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatarPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const bio = document.getElementById('bio').value;
+
+            // In a real application, you would send this data to a server
+            console.log('Profile updated:', { username, email, bio });
+            alert('Profile saved successfully! (Check console for data)');
+        });
+    </script>
 </body>
 </html>
