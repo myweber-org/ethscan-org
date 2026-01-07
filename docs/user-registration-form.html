@@ -6,7 +6,7 @@
     <title>User Registration</title>
     <style>
         .error { color: red; font-size: 0.9em; }
-        .success { color: green; font-size: 0.9em; }
+        .success { color: green; }
     </style>
 </head>
 <body>
@@ -14,7 +14,7 @@
     <form id="registrationForm">
         <div>
             <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+            <input type="text" id="username" name="username" required minlength="3">
             <span id="usernameError" class="error"></span>
         </div>
         <div>
@@ -30,11 +30,11 @@
         <div>
             <label for="confirmPassword">Confirm Password:</label>
             <input type="password" id="confirmPassword" name="confirmPassword" required>
-            <span id="confirmPasswordError" class="error"></span>
+            <span id="confirmError" class="error"></span>
         </div>
         <button type="submit">Register</button>
-        <div id="formMessage" class="success"></div>
     </form>
+    <div id="message"></div>
 
     <script>
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
@@ -64,13 +64,13 @@
             }
 
             if (password !== confirmPassword) {
-                showError('confirmPasswordError', 'Passwords do not match.');
+                showError('confirmError', 'Passwords do not match.');
                 isValid = false;
             }
 
             if (isValid) {
-                document.getElementById('formMessage').textContent = 'Registration successful!';
-                console.log('Registration data:', { username, email });
+                document.getElementById('message').innerHTML = '<p class="success">Registration successful! Welcome, ' + username + '.</p>';
+                this.reset();
             }
         });
 
@@ -79,9 +79,9 @@
         }
 
         function clearErrors() {
-            const errorElements = document.querySelectorAll('.error');
-            errorElements.forEach(el => el.textContent = '');
-            document.getElementById('formMessage').textContent = '';
+            const errors = document.querySelectorAll('.error');
+            errors.forEach(error => error.textContent = '');
+            document.getElementById('message').innerHTML = '';
         }
     </script>
 </body>
