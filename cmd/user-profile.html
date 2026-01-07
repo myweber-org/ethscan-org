@@ -4,25 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid #4CAF50;
+        }
+        .user-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #333;
+        }
+        .user-title {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        .contact-info {
+            text-align: left;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .contact-item {
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+        }
+        .contact-icon {
+            width: 20px;
+            margin-right: 10px;
+            color: #4CAF50;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
-            <img src="avatar.jpg" alt="User Avatar" width="150" height="150">
-            <h2>John Doe</h2>
-            <p class="bio">Software developer with over 5 years of experience in web technologies. Enjoys hiking and photography.</p>
-            <ul class="details">
-                <li><strong>Location:</strong> San Francisco, CA</li>
-                <li><strong>Email:</strong> john.doe@example.com</li>
-                <li><strong>Joined:</strong> January 2020</li>
-            </ul>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 Profile Page. All rights reserved.</p>
-    </footer>
+    <div class="profile-container">
+        <img src="https://via.placeholder.com/120" alt="User Avatar" class="avatar">
+        <div class="user-name">Alex Johnson</div>
+        <div class="user-title">Senior Software Developer</div>
+        <p>Passionate about building scalable web applications and open-source projects. Enjoys hiking and photography in free time.</p>
+        
+        <div class="contact-info">
+            <div class="contact-item">
+                <span class="contact-icon">📧</span>
+                <span>alex.johnson@example.com</span>
+            </div>
+            <div class="contact-item">
+                <span class="contact-icon">📱</span>
+                <span>+1 (555) 123-4567</span>
+            </div>
+            <div class="contact-item">
+                <span class="contact-icon">📍</span>
+                <span>San Francisco, CA</span>
+            </div>
+            <div class="contact-item">
+                <span class="contact-icon">🔗</span>
+                <span>github.com/alexjohnson</span>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
