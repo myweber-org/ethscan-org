@@ -4,87 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .error { color: red; font-size: 0.9em; }
-        .success { color: green; }
-        input { display: block; margin-bottom: 10px; }
-        input:valid { border: 1px solid green; }
-        input:invalid { border: 1px solid red; }
-    </style>
-</head>
-<body>
-    <h1>Update Profile</h1>
-    <form id="profileForm">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required minlength="3" maxlength="20">
-        <span class="error" id="usernameError"></span>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        <span class="error" id="emailError"></span>
-
-        <label for="age">Age:</label>
-        <input type="number" id="age" name="age" min="18" max="120">
-        <span class="error" id="ageError"></span>
-
-        <button type="submit">Save Profile</button>
-    </form>
-    <p id="message" class="success"></p>
-
-    <script>
-        const form = document.getElementById('profileForm');
-        const message = document.getElementById('message');
-
-        function showError(elementId, text) {
-            const element = document.getElementById(elementId);
-            element.textContent = text;
-        }
-
-        function clearErrors() {
-            const errors = document.querySelectorAll('.error');
-            errors.forEach(error => error.textContent = '');
-            message.textContent = '';
-        }
-
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            clearErrors();
-
-            const username = document.getElementById('username').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const age = document.getElementById('age').value;
-
-            let isValid = true;
-
-            if (username.length < 3) {
-                showError('usernameError', 'Username must be at least 3 characters.');
-                isValid = false;
-            }
-
-            if (!email.includes('@')) {
-                showError('emailError', 'Please enter a valid email address.');
-                isValid = false;
-            }
-
-            if (age && (age < 18 || age > 120)) {
-                showError('ageError', 'Age must be between 18 and 120.');
-                isValid = false;
-            }
-
-            if (isValid) {
-                message.textContent = 'Profile updated successfully!';
-                form.reset();
-            }
-        });
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
 </head>
 <body>
     <header>
@@ -92,22 +11,18 @@
     </header>
     <main>
         <section class="profile">
-            <div class="avatar-container">
-                <img src="https://via.placeholder.com/150" alt="User Avatar" class="avatar">
-            </div>
-            <div class="user-info">
-                <h2 class="username">John Doe</h2>
-                <p class="user-bio">Software developer with over 5 years of experience in web technologies. Enjoys hiking and photography in free time.</p>
-                <div class="user-stats">
-                    <span class="stat">Posts: 42</span>
-                    <span class="stat">Followers: 128</span>
-                    <span class="stat">Following: 56</span>
-                </div>
-            </div>
+            <img src="avatar.jpg" alt="User Avatar" width="150" height="150">
+            <h2>Alex Johnson</h2>
+            <p>Software developer with a passion for open-source projects and web technologies.</p>
+            <ul>
+                <li>Location: San Francisco</li>
+                <li>Email: alex.johnson@example.com</li>
+                <li>Joined: January 2023</li>
+            </ul>
         </section>
     </main>
     <footer>
-        <p>Profile last updated: <span class="update-date">2023-10-05</span></p>
+        <p>&copy; 2023 User Profile Page</p>
     </footer>
 </body>
 </html>
