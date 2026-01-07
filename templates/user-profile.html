@@ -9,114 +9,50 @@
             max-width: 600px;
             margin: 40px auto;
             padding: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
             border-radius: 8px;
-            font-family: sans-serif;
+            font-family: Arial, sans-serif;
         }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .avatar-preview {
+        .avatar {
             width: 120px;
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #ddd;
-            margin-bottom: 10px;
+            border: 3px solid #4a90e2;
         }
-        .bio-section textarea {
-            width: 100%;
-            height: 100px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
-            box-sizing: border-box;
+        .user-info {
+            margin-top: 20px;
         }
-        .form-group {
-            margin-bottom: 15px;
+        .info-item {
+            margin: 8px 0;
+            color: #333;
         }
-        label {
-            display: block;
-            margin-bottom: 5px;
+        .label {
             font-weight: bold;
-        }
-        input[type="text"],
-        input[type="email"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .btn {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .btn:hover {
-            background-color: #0056b3;
+            color: #555;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <h1>Edit Profile</h1>
-        <form id="profileForm">
-            <div class="avatar-section">
-                <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
-                <div>
-                    <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
-                    <button type="button" class="btn" onclick="document.getElementById('avatarUpload').click();">Change Avatar</button>
-                </div>
+        <img src="https://via.placeholder.com/120" alt="User Avatar" class="avatar">
+        <div class="user-info">
+            <div class="info-item">
+                <span class="label">Name:</span> John Doe
             </div>
-
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" value="johndoe" required>
+            <div class="info-item">
+                <span class="label">Email:</span> john.doe@example.com
             </div>
-
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" value="john@example.com" required>
+            <div class="info-item">
+                <span class="label">Location:</span> New York, USA
             </div>
-
-            <div class="form-group bio-section">
-                <label for="bio">Bio</label>
-                <textarea id="bio" name="bio" placeholder="Tell us about yourself...">Web developer and open source enthusiast.</textarea>
+            <div class="info-item">
+                <span class="label">Member Since:</span> January 2023
             </div>
-
-            <button type="submit" class="btn">Save Changes</button>
-        </form>
+            <div class="info-item">
+                <span class="label">Bio:</span> Software developer passionate about open-source projects and web technologies.
+            </div>
+        </div>
     </div>
-
-    <script>
-        document.getElementById('avatarUpload').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatarPreview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-
-            // In a real application, you would send this data to a server
-            console.log('Profile updated:', { username, email, bio });
-            alert('Profile saved successfully! (Check console for data)');
-        });
-    </script>
 </body>
 </html>
