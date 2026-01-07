@@ -4,78 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            text-align: center;
-            font-family: Arial, sans-serif;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a6fa5;
-            margin-bottom: 15px;
-        }
-        .user-name {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-            margin: 10px 0;
-        }
-        .user-title {
-            color: #666;
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-        .contact-info {
-            text-align: left;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }
-        .contact-item {
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-        }
-        .contact-icon {
-            width: 20px;
-            margin-right: 10px;
-            color: #4a6fa5;
-        }
-    </style>
 </head>
 <body>
-    <div class="profile-container">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="User Avatar" class="avatar">
-        <h1 class="user-name">Alex Johnson</h1>
-        <p class="user-title">Senior Software Developer</p>
-        <p>Passionate about building efficient web applications and open-source contributions.</p>
-        
-        <div class="contact-info">
-            <div class="contact-item">
-                <span class="contact-icon">📧</span>
-                <span>alex.johnson@example.com</span>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="profile-section">
+            <div class="avatar-container">
+                <img id="avatar-preview" src="placeholder-avatar.png" alt="User Avatar" width="150" height="150">
+                <form id="avatar-form">
+                    <label for="avatar-upload">Update Avatar:</label>
+                    <input type="file" id="avatar-upload" name="avatar" accept="image/*">
+                    <button type="submit">Upload</button>
+                </form>
             </div>
-            <div class="contact-item">
-                <span class="contact-icon">📱</span>
-                <span>+1 (555) 123-4567</span>
+            <div class="bio-container">
+                <h2>Edit Bio</h2>
+                <form id="bio-form">
+                    <textarea id="bio-text" name="bio" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
+                    <br>
+                    <button type="submit">Save Bio</button>
+                </form>
+                <p id="current-bio">Current bio will be displayed here after saving.</p>
             </div>
-            <div class="contact-item">
-                <span class="contact-icon">📍</span>
-                <span>San Francisco, CA</span>
-            </div>
-            <div class="contact-item">
-                <span class="contact-icon">🔗</span>
-                <span>github.com/alexjohnson</span>
-            </div>
-        </div>
-    </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 User Profile Page</p>
+    </footer>
+    <script>
+        document.getElementById('avatar-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const fileInput = document.getElementById('avatar-upload');
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatar-preview').src = e.target.result;
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        });
+
+        document.getElementById('bio-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const bioText = document.getElementById('bio-text').value;
+            document.getElementById('current-bio').textContent = bioText || 'No bio provided.';
+            document.getElementById('bio-text').value = '';
+        });
+    </script>
 </body>
 </html>
