@@ -4,84 +4,141 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: sans-serif;
+        }
+        .avatar-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .avatar-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            margin-right: 20px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .avatar-preview img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        .bio-section textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        .actions {
+            margin-top: 20px;
+            text-align: right;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="profile-info">
-            <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button id="upload-btn">Upload Avatar</button>
+    <div class="profile-container">
+        <h1>Edit Profile</h1>
+        <div class="avatar-section">
+            <div class="avatar-preview" id="avatarPreview">
+                <span>No Image</span>
             </div>
-            <div class="bio-section">
-                <h2>Bio</h2>
-                <textarea id="bio-text" rows="4" cols="50" placeholder="Write something about yourself..."></textarea>
-                <button id="save-bio-btn">Save Bio</button>
-                <p id="bio-status"></p>
+            <div>
+                <input type="file" id="avatarInput" accept="image/*">
+                <p>Upload a profile picture (JPG, PNG, max 2MB)</p>
             </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
+        </div>
+        <div class="bio-section">
+            <label for="bioTextarea">Bio:</label>
+            <textarea id="bioTextarea" placeholder="Tell us about yourself..."></textarea>
+        </div>
+        <div class="actions">
+            <button id="saveButton">Save Changes</button>
+        </div>
+    </div>
+
     <script>
-        document.getElementById('upload-btn').addEventListener('click', function() {
-            const fileInput = document.getElementById('avatar-upload');
-            const file = fileInput.files[0];
+        const avatarInput = document.getElementById('avatarInput');
+        const avatarPreview = document.getElementById('avatarPreview');
+        const bioTextarea = document.getElementById('bioTextarea');
+        const saveButton = document.getElementById('saveButton');
+
+        avatarInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
             if (file) {
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('File size exceeds 2MB limit.');
+                    avatarInput.value = '';
+                    return;
+                }
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
+                    avatarPreview.innerHTML = '';
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    avatarPreview.appendChild(img);
                 };
                 reader.readAsDataURL(file);
             }
         });
 
-        document.getElementById('save-bio-btn').addEventListener('click', function() {
-            const bioText = document.getElementById('bio-text').value;
-            const statusElement = document.getElementById('bio-status');
-            if (bioText.trim() !== '') {
-                statusElement.textContent = 'Bio saved successfully!';
-                statusElement.style.color = 'green';
-            } else {
-                statusElement.textContent = 'Bio cannot be empty.';
-                statusElement.style.color = 'red';
+        saveButton.addEventListener('click', function() {
+            const bio = bioTextarea.value.trim();
+            const avatarFile = avatarInput.files[0];
+            let message = 'Profile saved.';
+            if (avatarFile) {
+                message += ` Avatar: ${avatarFile.name}`;
+            }
+            if (bio) {
+                message += ` Bio: ${bio.substring(0, 50)}...`;
+            }
+            alert(message);
+        });
+
+        window.addEventListener('load', function() {
+            const savedBio = localStorage.getItem('userBio');
+            if (savedBio) {
+                bioTextarea.value = savedBio;
+            }
+            const savedAvatar = localStorage.getItem('userAvatar');
+            if (savedAvatar) {
+                avatarPreview.innerHTML = '';
+                const img = document.createElement('img');
+                img.src = savedAvatar;
+                avatarPreview.appendChild(img);
+            }
+        });
+
+        saveButton.addEventListener('click', function() {
+            localStorage.setItem('userBio', bioTextarea.value.trim());
+            const avatarImg = avatarPreview.querySelector('img');
+            if (avatarImg && avatarImg.src.startsWith('data:')) {
+                localStorage.setItem('userAvatar', avatarImg.src);
             }
         });
     </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
-            <div class="avatar-container">
-                <img src="https://via.placeholder.com/150" alt="User Avatar" class="avatar">
-            </div>
-            <div class="user-info">
-                <h2 class="username">Alex Johnson</h2>
-                <p class="user-bio">Software developer with a passion for open-source projects and web technologies. Enjoys hiking and photography in free time.</p>
-                <div class="user-stats">
-                    <span class="stat">Posts: 42</span>
-                    <span class="stat">Followers: 128</span>
-                    <span class="stat">Following: 56</span>
-                </div>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>Profile last updated: <span class="update-date">2023-10-05</span></p>
-    </footer>
 </body>
 </html>
