@@ -4,174 +4,318 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 2rem;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            font-family: sans-serif;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .avatar-section {
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .profile-container {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .profile-header {
+            background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 40px;
             text-align: center;
-            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        .avatar-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
         }
         .avatar {
-            width: 120px;
-            height: 120px;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #4a6fa5;
+            border: 5px solid rgba(255, 255, 255, 0.5);
         }
-        .name-section {
-            text-align: center;
-            margin-bottom: 1rem;
+        .avatar-upload {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: #667eea;
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
-        .full-name {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 0.25rem;
+        .avatar-upload:hover {
+            background-color: #5a67d8;
         }
-        .username {
+        .profile-name {
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+        }
+        .profile-title {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        .profile-content {
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        .section {
+            margin-bottom: 25px;
+        }
+        .section-title {
+            font-size: 1.3rem;
+            color: #4a5568;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .info-item {
+            margin-bottom: 15px;
+        }
+        .info-label {
+            font-weight: 600;
+            color: #718096;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        .info-value {
+            color: #2d3748;
+            font-size: 1.1rem;
+        }
+        .bio-textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
             font-size: 1rem;
-            color: #666;
+            resize: vertical;
+            transition: border-color 0.3s;
         }
-        .bio-section {
-            padding: 1rem;
-            background-color: #f9f9f9;
-            border-radius: 6px;
-            line-height: 1.5;
-            color: #444;
+        .bio-textarea:focus {
+            outline: none;
+            border-color: #667eea;
         }
-        .bio-title {
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            color: #333;
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+            grid-column: span 2;
+        }
+        .btn {
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background-color: #667eea;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #5a67d8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        .btn-secondary {
+            background-color: #e2e8f0;
+            color: #4a5568;
+        }
+        .btn-secondary:hover {
+            background-color: #cbd5e0;
+        }
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 20px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        @media (max-width: 768px) {
+            .profile-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .action-buttons {
+                grid-column: span 1;
+            }
+            .stats {
+                gap: 20px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="Profile Avatar" class="avatar">
+        <div class="profile-header">
+            <div class="avatar-container">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar" id="userAvatar">
+                <div class="avatar-upload" id="uploadTrigger">
+                    <i class="fas fa-camera"></i>
+                </div>
+            </div>
+            <h1 class="profile-name" id="userName">Alex Johnson</h1>
+            <p class="profile-title" id="userTitle">Senior Frontend Developer</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value">142</div>
+                    <div class="stat-label">Projects</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">2.4K</div>
+                    <div class="stat-label">Followers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">89</div>
+                    <div class="stat-label">Following</div>
+                </div>
+            </div>
         </div>
-        <div class="name-section">
-            <div class="full-name">Alex Johnson</div>
-            <div class="username">@alexj</div>
-        </div>
-        <div class="bio-section">
-            <div class="bio-title">About Me</div>
-            <div class="bio-content">
-                Software developer with a passion for open-source projects and web technologies. Enjoys hiking, photography, and exploring new coffee shops. Currently working on improving accessibility in web applications.
+        <div class="profile-content">
+            <div class="section">
+                <h2 class="section-title">Personal Information</h2>
+                <div class="info-item">
+                    <div class="info-label">Full Name</div>
+                    <div class="info-value" id="infoFullName">Alexandra Johnson</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Email Address</div>
+                    <div class="info-value" id="infoEmail">alex.j@example.com</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Location</div>
+                    <div class="info-value" id="infoLocation">San Francisco, CA</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Join Date</div>
+                    <div class="info-value" id="infoJoinDate">March 15, 2019</div>
+                </div>
+            </div>
+            <div class="section">
+                <h2 class="section-title">Professional Details</h2>
+                <div class="info-item">
+                    <div class="info-label">Current Role</div>
+                    <div class="info-value" id="infoRole">Senior Frontend Developer</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Department</div>
+                    <div class="info-value" id="infoDepartment">Product Engineering</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Skills</div>
+                    <div class="info-value" id="infoSkills">React, Vue.js, TypeScript, Node.js</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Experience</div>
+                    <div class="info-value" id="infoExperience">7 Years</div>
+                </div>
+            </div>
+            <div class="section" style="grid-column: span 2;">
+                <h2 class="section-title">About Me</h2>
+                <textarea class="bio-textarea" id="userBio">Passionate frontend developer with over 7 years of experience building modern web applications. Specialized in React and Vue.js ecosystems. Love creating intuitive user interfaces and optimizing performance. Currently leading a team of 5 developers on our flagship product. In my free time, I contribute to open-source projects and mentor junior developers.</textarea>
+            </div>
+            <div class="action-buttons">
+                <button class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                <button class="btn btn-primary" id="saveBtn">Save Changes</button>
             </div>
         </div>
     </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <form id="profileForm">
-            <div>
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required minlength="3" maxlength="20">
-                <div class="error" id="usernameError"></div>
-            </div>
-            <div>
-                <label for="email">Email Address:</label>
-                <input type="email" id="email" name="email" required>
-                <div class="error" id="emailError"></div>
-            </div>
-            <div>
-                <label for="age">Age:</label>
-                <input type="number" id="age" name="age" min="18" max="120">
-                <div class="error" id="ageError"></div>
-            </div>
-            <div>
-                <label for="bio">Biography:</label>
-                <textarea id="bio" name="bio" rows="4" cols="50" maxlength="500"></textarea>
-                <div class="char-count">Characters left: <span id="charCount">500</span></div>
-            </div>
-            <button type="submit">Update Profile</button>
-        </form>
-        <section id="profilePreview">
-            <h2>Profile Preview</h2>
-            <p><strong>Username:</strong> <span id="previewUsername">Not set</span></p>
-            <p><strong>Email:</strong> <span id="previewEmail">Not set</span></p>
-            <p><strong>Age:</strong> <span id="previewAge">Not set</span></p>
-            <p><strong>Bio:</strong> <span id="previewBio">Not set</span></p>
-        </section>
-    </main>
+
     <script>
-        const form = document.getElementById('profileForm');
-        const bioTextarea = document.getElementById('bio');
-        const charCountSpan = document.getElementById('charCount');
-        const maxLength = 500;
-
-        function updateCharCount() {
-            const remaining = maxLength - bioTextarea.value.length;
-            charCountSpan.textContent = remaining;
-            charCountSpan.style.color = remaining < 50 ? 'red' : 'black';
-        }
-
-        function updatePreview() {
-            document.getElementById('previewUsername').textContent = document.getElementById('username').value || 'Not set';
-            document.getElementById('previewEmail').textContent = document.getElementById('email').value || 'Not set';
-            document.getElementById('previewAge').textContent = document.getElementById('age').value || 'Not set';
-            document.getElementById('previewBio').textContent = document.getElementById('bio').value || 'Not set';
-        }
-
-        function validateForm(event) {
-            event.preventDefault();
-            let isValid = true;
-
-            const username = document.getElementById('username');
-            const email = document.getElementById('email');
-            const age = document.getElementById('age');
-            const usernameError = document.getElementById('usernameError');
-            const emailError = document.getElementById('emailError');
-            const ageError = document.getElementById('ageError');
-
-            usernameError.textContent = '';
-            emailError.textContent = '';
-            ageError.textContent = '';
-
-            if (username.value.length < 3) {
-                usernameError.textContent = 'Username must be at least 3 characters.';
-                isValid = false;
-            }
-
-            if (!email.checkValidity()) {
-                emailError.textContent = 'Please enter a valid email address.';
-                isValid = false;
-            }
-
-            if (age.value && (age.value < 18 || age.value > 120)) {
-                ageError.textContent = 'Age must be between 18 and 120.';
-                isValid = false;
-            }
-
-            if (isValid) {
-                updatePreview();
-                alert('Profile updated successfully!');
-            }
-        }
-
-        bioTextarea.addEventListener('input', updateCharCount);
-        form.addEventListener('input', updatePreview);
-        form.addEventListener('submit', validateForm);
-
-        updateCharCount();
+        document.addEventListener('DOMContentLoaded', function() {
+            const avatar = document.getElementById('userAvatar');
+            const uploadTrigger = document.getElementById('uploadTrigger');
+            const userName = document.getElementById('userName');
+            const userTitle = document.getElementById('userTitle');
+            const userBio = document.getElementById('userBio');
+            const saveBtn = document.getElementById('saveBtn');
+            const cancelBtn = document.getElementById('cancelBtn');
+            
+            let originalBio = userBio.value;
+            
+            uploadTrigger.addEventListener('click', function() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*';
+                
+                input.addEventListener('change', function(e) {
+                    if (e.target.files && e.target.files[0]) {
+                        const reader = new FileReader();
+                        
+                        reader.onload = function(event) {
+                            avatar.src = event.target.result;
+                        };
+                        
+                        reader.readAsDataURL(e.target.files[0]);
+                    }
+                });
+                
+                input.click();
+            });
+            
+            saveBtn.addEventListener('click', function() {
+                const newBio = userBio.value;
+                
+                if (newBio !== originalBio) {
+                    originalBio = newBio;
+                    alert('Profile updated successfully!');
+                } else {
+                    alert('No changes detected.');
+                }
+            });
+            
+            cancelBtn.addEventListener('click', function() {
+                userBio.value = originalBio;
+                alert('Changes discarded.');
+            });
+            
+            userBio.addEventListener('input', function() {
+                if (userBio.value !== originalBio) {
+                    saveBtn.textContent = 'Save Changes *';
+                } else {
+                    saveBtn.textContent = 'Save Changes';
+                }
+            });
+        });
     </script>
 </body>
 </html>
