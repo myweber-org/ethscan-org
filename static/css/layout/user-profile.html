@@ -4,187 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 2rem;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a6fa5;
-        }
-        .name {
-            font-size: 1.8rem;
-            margin: 0.5rem 0;
-            color: #333;
-        }
-        .title {
-            color: #666;
-            font-style: italic;
-            margin-bottom: 1rem;
-        }
-        .bio-section {
-            line-height: 1.6;
-            color: #444;
-            border-top: 1px solid #eee;
-            padding-top: 1.5rem;
-        }
-    </style>
 </head>
 <body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="User Avatar" class="avatar">
-            <h1 class="name">Alex Johnson</h1>
-            <p class="title">Senior Software Developer</p>
-        </div>
-        <div class="bio-section">
-            <p>Passionate about building scalable web applications and open-source projects. Enjoys hiking, photography, and exploring new technologies. Currently focused on frontend architecture and user experience design.</p>
-            <p>Main tech stack includes JavaScript, React, Node.js, and PostgreSQL. Always eager to collaborate on interesting projects and learn from the developer community.</p>
-        </div>
-    </div>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 2rem;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
-            display: flex;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-        .avatar-preview {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #007bff;
-            margin-right: 1.5rem;
-        }
-        .avatar-upload {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-        .bio-section {
-            margin-bottom: 1.5rem;
-        }
-        textarea {
-            width: 100%;
-            min-height: 120px;
-            padding: 0.75rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-family: inherit;
-            resize: vertical;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .hidden {
-            display: none;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <h1>Edit Profile</h1>
-        
-        <div class="avatar-section">
-            <img id="avatarPreview" src="https://via.placeholder.com/100" alt="Avatar Preview" class="avatar-preview">
-            <div class="avatar-upload">
-                <input type="file" id="avatarInput" accept="image/*">
-                <button id="uploadBtn">Upload Avatar</button>
-                <div id="uploadStatus" class="hidden"></div>
-            </div>
-        </div>
-
-        <div class="bio-section">
-            <label for="bioInput"><strong>Bio:</strong></label>
-            <textarea id="bioInput" placeholder="Tell us about yourself..."></textarea>
-        </div>
-
-        <button id="saveBtn">Save Profile</button>
-    </div>
-
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="avatar-section">
+            <h2>Profile Picture</h2>
+            <img id="avatar-preview" src="default-avatar.png" alt="Avatar Preview" width="150" height="150">
+            <br>
+            <input type="file" id="avatar-upload" accept="image/*">
+            <button id="upload-btn">Upload Avatar</button>
+        </section>
+        <section id="info-section">
+            <h2>Basic Information</h2>
+            <form id="profile-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <br>
+                <label for="bio">Bio:</label>
+                <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
+                <br>
+                <button type="submit">Save Profile</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 User Profile Page</p>
+    </footer>
     <script>
-        const avatarInput = document.getElementById('avatarInput');
-        const avatarPreview = document.getElementById('avatarPreview');
-        const uploadBtn = document.getElementById('uploadBtn');
-        const uploadStatus = document.getElementById('uploadStatus');
-        const bioInput = document.getElementById('bioInput');
-        const saveBtn = document.getElementById('saveBtn');
-
-        function simulateUpload() {
-            uploadStatus.textContent = 'Uploading...';
-            uploadStatus.classList.remove('hidden');
-            
-            setTimeout(() => {
-                uploadStatus.textContent = 'Avatar uploaded successfully!';
-                uploadStatus.style.color = 'green';
-            }, 1000);
-        }
-
-        function handleAvatarChange(event) {
-            const file = event.target.files[0];
+        document.getElementById('upload-btn').addEventListener('click', function() {
+            const fileInput = document.getElementById('avatar-upload');
+            const file = fileInput.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    avatarPreview.src = e.target.result;
+                    document.getElementById('avatar-preview').src = e.target.result;
                 };
                 reader.readAsDataURL(file);
-                simulateUpload();
-            }
-        }
-
-        function saveProfile() {
-            const bio = bioInput.value.trim();
-            if (bio) {
-                alert('Profile saved successfully!');
             } else {
-                alert('Please add a bio before saving.');
+                alert('Please select an image file first.');
             }
-        }
+        });
 
-        avatarInput.addEventListener('change', handleAvatarChange);
-        uploadBtn.addEventListener('click', () => avatarInput.click());
-        saveBtn.addEventListener('click', saveProfile);
-
-        bioInput.value = localStorage.getItem('userBio') || '';
-        bioInput.addEventListener('input', () => {
-            localStorage.setItem('userBio', bioInput.value);
+        document.getElementById('profile-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const bio = document.getElementById('bio').value;
+            alert('Profile saved!\nUsername: ' + username + '\nEmail: ' + email + '\nBio: ' + bio);
         });
     </script>
 </body>
