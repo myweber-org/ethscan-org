@@ -5,106 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Login</title>
     <style>
-        .error {
-            color: red;
-            font-size: 0.9em;
-            display: none;
-        }
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 0.9em; }
     </style>
 </head>
 <body>
+    <h2>Login</h2>
     <form id="loginForm">
         <div>
-            <label for="email">Email Address:</label>
+            <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
-            <span id="emailError" class="error">Please enter a valid email address.</span>
+            <span id="emailError" class="error"></span>
         </div>
         <div>
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" minlength="8" required>
-            <span id="passwordError" class="error">Password must be at least 8 characters long.</span>
+            <input type="password" id="password" name="password" required minlength="6">
+            <span id="passwordError" class="error"></span>
         </div>
         <button type="submit">Login</button>
     </form>
+    <div id="message" class="success"></div>
 
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
+            clearErrors();
             let isValid = true;
-
-            const email = document.getElementById('email');
-            const emailError = document.getElementById('emailError');
-            if (!email.validity.valid) {
-                emailError.style.display = 'block';
-                isValid = false;
-            } else {
-                emailError.style.display = 'none';
-            }
-
-            const password = document.getElementById('password');
-            const passwordError = document.getElementById('passwordError');
-            if (password.value.length < 8) {
-                passwordError.style.display = 'block';
-                isValid = false;
-            } else {
-                passwordError.style.display = 'none';
-            }
-
-            if (isValid) {
-                alert('Login submitted successfully!');
-                this.reset();
-            }
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login</title>
-    <script>
-        function validateForm() {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            const errorElement = document.getElementById('error-message');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-            errorElement.textContent = '';
-
-            if (!email || !password) {
-                errorElement.textContent = 'Please fill in all fields.';
-                return false;
+            if (!emailRegex.test(email)) {
+                document.getElementById('emailError').textContent = 'Please enter a valid email address.';
+                isValid = false;
             }
-
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-                errorElement.textContent = 'Please enter a valid email address.';
-                return false;
-            }
-
             if (password.length < 6) {
-                errorElement.textContent = 'Password must be at least 6 characters long.';
-                return false;
+                document.getElementById('passwordError').textContent = 'Password must be at least 6 characters.';
+                isValid = false;
             }
+            if (isValid) {
+                document.getElementById('message').textContent = 'Login successful! Redirecting...';
+                setTimeout(() => {
+                    alert('Simulated redirect to dashboard.');
+                }, 1000);
+            }
+        });
 
-            alert('Login successful!');
-            return true;
+        function clearErrors() {
+            document.querySelectorAll('.error').forEach(el => el.textContent = '');
+            document.getElementById('message').textContent = '';
         }
     </script>
-</head>
-<body>
-    <h1>Login</h1>
-    <form onsubmit="return validateForm()">
-        <div>
-            <label for="email">Email:</label>
-            <input type="text" id="email" name="email">
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password">
-        </div>
-        <div id="error-message" style="color: red;"></div>
-        <button type="submit">Login</button>
-    </form>
 </body>
 </html>
