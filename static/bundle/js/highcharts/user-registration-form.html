@@ -47,8 +47,8 @@
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
 
-            if (username.length < 3) {
-                showError('usernameError', 'Username must be at least 3 characters.');
+            if (username.length < 3 || username.length > 20) {
+                showError('usernameError', 'Username must be between 3 and 20 characters.');
                 isValid = false;
             }
 
@@ -59,7 +59,7 @@
             }
 
             if (password.length < 8) {
-                showError('passwordError', 'Password must be at least 8 characters.');
+                showError('passwordError', 'Password must be at least 8 characters long.');
                 isValid = false;
             }
 
@@ -70,7 +70,7 @@
 
             if (isValid) {
                 document.getElementById('message').textContent = 'Registration successful!';
-                document.getElementById('message').className = 'success';
+                console.log('Registration data:', { username, email, password });
                 this.reset();
             } else {
                 document.getElementById('message').textContent = '';
