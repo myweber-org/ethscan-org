@@ -1,125 +1,54 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+        }
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #4a90e2;
+        }
+        .user-info {
+            line-height: 1.6;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #555;
+        }
+        .info-value {
+            color: #333;
+            margin-left: 10px;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
-            <div class="avatar-container">
-                <img src="https://via.placeholder.com/150" alt="User Avatar" class="avatar">
-            </div>
-            <div class="user-info">
-                <h2 class="username">John Doe</h2>
-                <p class="user-bio">Software developer with a passion for open-source projects and web technologies. Enjoys hiking and photography in free time.</p>
-                <div class="user-stats">
-                    <span class="stat">Posts: 42</span>
-                    <span class="stat">Followers: 128</span>
-                    <span class="stat">Following: 56</span>
-                </div>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="avatar-section">
-            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-        </section>
-        <section class="info-section">
-            <h2>Alex Johnson</h2>
-            <p class="title">Senior Developer</p>
-            <p class="bio">Passionate about building efficient web applications and open-source projects. Enjoys hiking and photography in free time.</p>
-            <div class="contact">
-                <p>Email: alex.johnson@example.com</p>
-                <p>Location: San Francisco, CA</p>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile. All rights reserved.</p>
-    </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
-            <div class="avatar-container">
-                <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            </div>
-            <div class="user-info">
-                <h2>John Doe</h2>
-                <p><strong>Email:</strong> john.doe@example.com</p>
-                <p><strong>Location:</strong> New York, USA</p>
-                <p><strong>Member Since:</strong> January 2023</p>
-            </div>
-        </section>
-        <section class="bio">
-            <h3>Bio</h3>
-            <p>Software developer with a passion for open-source projects and web technologies.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="avatar-section">
-            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-        </section>
-        <section class="info-section">
-            <h2>John Doe</h2>
-            <p class="title">Software Developer</p>
-            <p class="bio">Passionate about building efficient web applications and open-source projects.</p>
-            <ul class="skills">
-                <li>JavaScript</li>
-                <li>HTML/CSS</li>
-                <li>Node.js</li>
-                <li>React</li>
-            </ul>
-        </section>
-    </main>
-    <footer>
-        <p>Contact: john.doe@example.com</p>
-    </footer>
+    <div class="profile-container">
+        <div class="avatar-section">
+            <img src="https://via.placeholder.com/120" alt="User Avatar" class="avatar">
+        </div>
+        <div class="user-info">
+            <p><span class="info-label">Name:</span> <span class="info-value">Alex Johnson</span></p>
+            <p><span class="info-label">Email:</span> <span class="info-value">alex.johnson@example.com</span></p>
+            <p><span class="info-label">Location:</span> <span class="info-value">San Francisco, CA</span></p>
+            <p><span class="info-label">Member Since:</span> <span class="info-value">January 2022</span></p>
+            <p><span class="info-label">Bio:</span> <span class="info-value">Software developer with passion for open-source projects and web technologies.</span></p>
+        </div>
+    </div>
 </body>
 </html>
