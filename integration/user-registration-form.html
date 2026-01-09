@@ -7,345 +7,64 @@
 </head>
 <body>
     <form id="registrationForm">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required minlength="3" maxlength="20">
-        <br>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
-        <br>
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+            <div class="error" id="usernameError"></div>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <div class="error" id="emailError"></div>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required minlength="8">
+            <div class="error" id="passwordError"></div>
+        </div>
+        <div>
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <div class="error" id="confirmPasswordError"></div>
+        </div>
         <button type="submit">Register</button>
     </form>
+
     <script>
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
             event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
+            clearErrors();
+
+            let isValid = true;
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
-            if (username && email && password) {
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (username.length < 3) {
+                showError('usernameError', 'Username must be at least 3 characters.');
+                isValid = false;
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                showError('emailError', 'Please enter a valid email address.');
+                isValid = false;
+            }
+
+            if (password.length < 8) {
+                showError('passwordError', 'Password must be at least 8 characters.');
+                isValid = false;
+            }
+
+            if (password !== confirmPassword) {
+                showError('confirmPasswordError', 'Passwords do not match.');
+                isValid = false;
+            }
+
+            if (isValid) {
                 alert('Registration successful!');
-            } else {
-                alert('Please fill in all fields correctly.');
-            }
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration</title>
-    <style>
-        .error { color: red; font-size: 0.9em; }
-        .success { color: green; }
-    </style>
-</head>
-<body>
-    <h1>Register Account</h1>
-    <form id="registrationForm">
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
-            <span id="usernameError" class="error"></span>
-        </div>
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <span id="emailError" class="error"></span>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required minlength="8">
-            <span id="passwordError" class="error"></span>
-        </div>
-        <div>
-            <label for="confirmPassword">Confirm Password:</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" required>
-            <span id="confirmError" class="error"></span>
-        </div>
-        <button type="submit">Register</button>
-        <p id="message" class="success"></p>
-    </form>
-
-    <script>
-        document.getElementById('registrationForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            clearErrors();
-            let isValid = true;
-
-            const username = document.getElementById('username').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-
-            if (username.length < 3) {
-                showError('usernameError', 'Username must be at least 3 characters.');
-                isValid = false;
-            }
-
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-                showError('emailError', 'Please enter a valid email address.');
-                isValid = false;
-            }
-
-            if (password.length < 8) {
-                showError('passwordError', 'Password must be at least 8 characters.');
-                isValid = false;
-            }
-
-            if (password !== confirmPassword) {
-                showError('confirmError', 'Passwords do not match.');
-                isValid = false;
-            }
-
-            if (isValid) {
-                document.getElementById('message').textContent = 'Registration successful!';
                 this.reset();
-            }
-        });
-
-        function showError(elementId, message) {
-            document.getElementById(elementId).textContent = message;
-        }
-
-        function clearErrors() {
-            const errors = document.querySelectorAll('.error');
-            errors.forEach(error => error.textContent = '');
-            document.getElementById('message').textContent = '';
-        }
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration</title>
-    <style>
-        .error { color: red; font-size: 0.9em; }
-        .success { color: green; }
-    </style>
-</head>
-<body>
-    <h1>Register New Account</h1>
-    <form id="registrationForm">
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required minlength="3">
-            <span id="usernameError" class="error"></span>
-        </div>
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <span id="emailError" class="error"></span>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required minlength="6">
-            <span id="passwordError" class="error"></span>
-        </div>
-        <div>
-            <label for="confirmPassword">Confirm Password:</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" required>
-            <span id="confirmError" class="error"></span>
-        </div>
-        <button type="submit">Register</button>
-    </form>
-    <div id="message"></div>
-
-    <script>
-        document.getElementById('registrationForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            clearErrors();
-            let isValid = true;
-
-            const username = document.getElementById('username').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-
-            if (username.length < 3) {
-                showError('usernameError', 'Username must be at least 3 characters.');
-                isValid = false;
-            }
-
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-                showError('emailError', 'Please enter a valid email address.');
-                isValid = false;
-            }
-
-            if (password.length < 6) {
-                showError('passwordError', 'Password must be at least 6 characters.');
-                isValid = false;
-            }
-
-            if (password !== confirmPassword) {
-                showError('confirmError', 'Passwords do not match.');
-                isValid = false;
-            }
-
-            if (isValid) {
-                document.getElementById('message').innerHTML = '<p class="success">Registration successful! Welcome, ' + username + '.</p>';
-                this.reset();
-            }
-        });
-
-        function showError(elementId, message) {
-            document.getElementById(elementId).textContent = message;
-        }
-
-        function clearErrors() {
-            const errors = document.querySelectorAll('.error');
-            errors.forEach(error => error.textContent = '');
-            document.getElementById('message').innerHTML = '';
-        }
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration</title>
-    <script>
-        function validateForm() {
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            const errorMessage = document.getElementById('errorMessage');
-
-            errorMessage.textContent = '';
-
-            if (username.length < 3) {
-                errorMessage.textContent = 'Username must be at least 3 characters long.';
-                return false;
-            }
-
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-                errorMessage.textContent = 'Please enter a valid email address.';
-                return false;
-            }
-
-            if (password.length < 6) {
-                errorMessage.textContent = 'Password must be at least 6 characters long.';
-                return false;
-            }
-
-            if (password !== confirmPassword) {
-                errorMessage.textContent = 'Passwords do not match.';
-                return false;
-            }
-
-            alert('Registration successful!');
-            return true;
-        }
-    </script>
-</head>
-<body>
-    <h1>Register New Account</h1>
-    <form onsubmit="return validateForm()">
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-        </div>
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <div>
-            <label for="confirmPassword">Confirm Password:</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" required>
-        </div>
-        <div id="errorMessage" style="color: red;"></div>
-        <button type="submit">Register</button>
-    </form>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration</title>
-    <style>
-        .error { color: red; font-size: 0.9em; }
-        .success { color: green; font-size: 0.9em; }
-    </style>
-</head>
-<body>
-    <h1>Register New Account</h1>
-    <form id="registrationForm">
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
-            <span id="usernameError" class="error"></span>
-        </div>
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <span id="emailError" class="error"></span>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required minlength="8">
-            <span id="passwordError" class="error"></span>
-        </div>
-        <div>
-            <label for="confirmPassword">Confirm Password:</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" required>
-            <span id="confirmError" class="error"></span>
-        </div>
-        <button type="submit">Register</button>
-        <div id="message" class="success"></div>
-    </form>
-
-    <script>
-        document.getElementById('registrationForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            clearErrors();
-            let isValid = true;
-
-            const username = document.getElementById('username').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-
-            if (username.length < 3) {
-                showError('usernameError', 'Username must be at least 3 characters.');
-                isValid = false;
-            }
-
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-                showError('emailError', 'Please enter a valid email address.');
-                isValid = false;
-            }
-
-            if (password.length < 8) {
-                showError('passwordError', 'Password must be at least 8 characters.');
-                isValid = false;
-            }
-
-            if (password !== confirmPassword) {
-                showError('confirmError', 'Passwords do not match.');
-                isValid = false;
-            }
-
-            if (isValid) {
-                document.getElementById('message').textContent = 'Registration successful!';
-                this.reset();
-            } else {
-                document.getElementById('message').textContent = '';
             }
         });
 
@@ -355,7 +74,9 @@
 
         function clearErrors() {
             const errorElements = document.querySelectorAll('.error');
-            errorElements.forEach(el => el.textContent = '');
+            errorElements.forEach(element => {
+                element.textContent = '';
+            });
         }
     </script>
 </body>
