@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,113 +10,54 @@
         <h1>User Profile</h1>
     </header>
     <main>
-        <section class="profile">
-            <div class="avatar-container">
-                <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
+        <form id="profileForm">
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+                <div class="error" id="usernameError"></div>
             </div>
-            <div class="user-info">
-                <h2>John Doe</h2>
-                <p class="username">@johndoe</p>
-                <p class="bio">Software developer passionate about open source projects and web technologies.</p>
-                <p class="location">San Francisco, CA</p>
-                <p class="joined-date">Member since: January 2023</p>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <div class="error" id="emailError"></div>
             </div>
-        </section>
-        <section class="stats">
-            <div class="stat-item">
-                <span class="stat-number">42</span>
-                <span class="stat-label">Repositories</span>
+            <div>
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" min="18" max="120">
             </div>
-            <div class="stat-item">
-                <span class="stat-number">128</span>
-                <span class="stat-label">Followers</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">56</span>
-                <span class="stat-label">Following</span>
-            </div>
-        </section>
+            <button type="submit">Update Profile</button>
+        </form>
     </main>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            text-align: center;
-            font-family: sans-serif;
-        }
-        .avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a6fa5;
-            margin-bottom: 20px;
-        }
-        .username {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        .bio {
-            font-size: 16px;
-            line-height: 1.6;
-            color: #666;
-            margin-bottom: 20px;
-            padding: 0 20px;
-        }
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 20px;
-        }
-        .stat-item {
-            text-align: center;
-        }
-        .stat-value {
-            font-size: 20px;
-            font-weight: bold;
-            color: #4a6fa5;
-        }
-        .stat-label {
-            font-size: 14px;
-            color: #888;
-            margin-top: 5px;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
-        <div class="username">Alex Johnson</div>
-        <div class="bio">
-            Software developer passionate about open-source projects, hiking, and photography. Currently building web applications with modern JavaScript frameworks.
-        </div>
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-value">127</div>
-                <div class="stat-label">Posts</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">892</div>
-                <div class="stat-label">Followers</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">204</div>
-                <div class="stat-label">Following</div>
-            </div>
-        </div>
-    </div>
+    <script>
+        const form = document.getElementById('profileForm');
+        const usernameError = document.getElementById('usernameError');
+        const emailError = document.getElementById('emailError');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            let isValid = true;
+
+            const username = document.getElementById('username').value;
+            if (username.length < 3) {
+                usernameError.textContent = 'Username must be at least 3 characters.';
+                isValid = false;
+            } else {
+                usernameError.textContent = '';
+            }
+
+            const email = document.getElementById('email').value;
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                emailError.textContent = 'Please enter a valid email address.';
+                isValid = false;
+            } else {
+                emailError.textContent = '';
+            }
+
+            if (isValid) {
+                alert('Profile updated successfully!');
+            }
+        });
+    </script>
 </body>
 </html>
