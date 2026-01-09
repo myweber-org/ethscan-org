@@ -41,4 +41,121 @@
         </div>
     </div>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: sans-serif;
+        }
+        .avatar-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .avatar-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            margin-right: 20px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: #666;
+        }
+        .avatar-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .bio-section textarea {
+            width: 100%;
+            height: 120px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: inherit;
+            resize: vertical;
+        }
+        .button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h1>Edit Profile</h1>
+        <div class="avatar-section">
+            <div class="avatar-preview" id="avatarPreview">
+                <span>JD</span>
+            </div>
+            <div>
+                <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
+                <button class="button" onclick="document.getElementById('avatarUpload').click()">Upload Avatar</button>
+                <p style="font-size: 0.9em; color: #666; margin-top: 5px;">Supported: JPG, PNG, GIF. Max 2MB.</p>
+            </div>
+        </div>
+        <div class="bio-section">
+            <label for="userBio"><strong>Bio:</strong></label>
+            <textarea id="userBio" placeholder="Tell us about yourself...">Hello! I'm a web developer who enjoys creating interactive user interfaces.</textarea>
+        </div>
+        <button class="button" onclick="saveProfile()">Save Changes</button>
+    </div>
+
+    <script>
+        const avatarUpload = document.getElementById('avatarUpload');
+        const avatarPreview = document.getElementById('avatarPreview');
+        const defaultInitials = avatarPreview.querySelector('span').textContent;
+
+        avatarUpload.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('File size exceeds 2MB limit.');
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarPreview.innerHTML = '';
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    avatarPreview.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function saveProfile() {
+            const bio = document.getElementById('userBio').value;
+            const hasAvatar = avatarPreview.querySelector('img') !== null;
+            const profileData = {
+                avatarUpdated: hasAvatar,
+                bio: bio,
+                timestamp: new Date().toISOString()
+            };
+            console.log('Profile saved:', profileData);
+            alert('Profile changes saved successfully!');
+        }
+    </script>
+</body>
 </html>
