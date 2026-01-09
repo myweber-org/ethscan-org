@@ -9,97 +9,36 @@
             max-width: 600px;
             margin: 40px auto;
             padding: 20px;
-            border: 1px solid #ddd;
+            border: 1px solid #ccc;
             border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
             text-align: center;
-            margin-bottom: 30px;
         }
-        .avatar-preview {
+        .avatar {
             width: 120px;
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #eee;
-            margin-bottom: 10px;
-        }
-        .avatar-upload-btn {
-            display: inline-block;
-            padding: 8px 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .bio-section {
             margin-bottom: 20px;
         }
-        textarea {
-            width: 100%;
-            height: 100px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
-            box-sizing: border-box;
+        .username {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
-        .save-btn {
-            background-color: #008CBA;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+        .bio {
             font-size: 16px;
-        }
-        .save-btn:hover {
-            background-color: #007B9A;
+            color: #666;
+            line-height: 1.5;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <h1>Edit Profile</h1>
-        <div class="avatar-section">
-            <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
-            <br>
-            <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
-            <button type="button" class="avatar-upload-btn" onclick="document.getElementById('avatarUpload').click();">Upload New Avatar</button>
+        <img src="https://via.placeholder.com/120" alt="User Avatar" class="avatar">
+        <div class="username">Alex Johnson</div>
+        <div class="bio">
+            Software developer with a passion for open-source projects. Enjoys hiking, photography, and exploring new technologies.
         </div>
-        <div class="bio-section">
-            <label for="userBio"><strong>Bio:</strong></label>
-            <textarea id="userBio" placeholder="Tell us something about yourself..."></textarea>
-        </div>
-        <button type="button" class="save-btn" onclick="saveProfile()">Save Changes</button>
     </div>
-
-    <script>
-        const avatarUpload = document.getElementById('avatarUpload');
-        const avatarPreview = document.getElementById('avatarPreview');
-        const userBio = document.getElementById('userBio');
-
-        avatarUpload.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    avatarPreview.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        function saveProfile() {
-            const bioText = userBio.value.trim();
-            if (bioText) {
-                alert('Profile saved successfully!');
-            } else {
-                alert('Profile saved. Bio is empty.');
-            }
-        }
-    </script>
 </body>
 </html>
