@@ -10,136 +10,20 @@
         <h1>User Profile</h1>
     </header>
     <main>
-        <section id="profile-section">
-            <div id="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <form id="avatar-form">
-                    <input type="file" id="avatar-input" accept="image/*">
-                    <button type="button" id="upload-btn">Upload Avatar</button>
-                </form>
-            </div>
-            <form id="profile-form">
-                <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="bio">Bio:</label>
-                    <textarea id="bio" name="bio" rows="4"></textarea>
-                </div>
-                <button type="submit" id="save-btn">Save Profile</button>
-            </form>
+        <section>
+            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
+            <h2>John Doe</h2>
+            <p>Email: john.doe@example.com</p>
+            <p>Location: New York, USA</p>
+            <p>Member since: January 2023</p>
+        </section>
+        <section>
+            <h3>Bio</h3>
+            <p>Software developer passionate about web technologies and open source.</p>
         </section>
     </main>
-    <script>
-        document.getElementById('upload-btn').addEventListener('click', function() {
-            const fileInput = document.getElementById('avatar-input');
-            const file = fileInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            console.log('Profile saved:', { username, email, bio });
-            alert('Profile saved successfully!');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-card {
-            max-width: 400px;
-            margin: 50px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            text-align: center;
-            font-family: Arial, sans-serif;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4CAF50;
-        }
-        .user-name {
-            font-size: 24px;
-            margin: 15px 0 5px;
-            color: #333;
-        }
-        .user-title {
-            color: #666;
-            font-style: italic;
-            margin-bottom: 15px;
-        }
-        .user-bio {
-            color: #444;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            border-top: 1px solid #eee;
-            padding-top: 15px;
-        }
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-        }
-        .stat-value {
-            font-weight: bold;
-            font-size: 18px;
-            color: #4CAF50;
-        }
-        .stat-label {
-            font-size: 12px;
-            color: #888;
-            text-transform: uppercase;
-            margin-top: 5px;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-card">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
-        <h1 class="user-name">Alex Johnson</h1>
-        <p class="user-title">Senior Frontend Developer</p>
-        <p class="user-bio">Passionate about building accessible and performant web applications. Enjoys hiking, photography, and open-source contributions.</p>
-        <div class="stats">
-            <div class="stat-item">
-                <span class="stat-value">247</span>
-                <span class="stat-label">Projects</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-value">5.8k</span>
-                <span class="stat-label">Followers</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-value">892</span>
-                <span class="stat-label">Following</span>
-            </div>
-        </div>
-    </div>
+    <footer>
+        <p>&copy; 2023 User Profile Page</p>
+    </footer>
 </body>
 </html>
