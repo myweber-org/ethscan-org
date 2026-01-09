@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,52 +6,126 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
     <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: Arial, sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a90e2;
-        }
-        .name-section {
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        .bio-section {
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            line-height: 1.6;
-            color: #555;
-        }
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 0.9em; }
+        .hidden { display: none; }
+        .avatar-preview { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid #ddd; }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="User Avatar" class="avatar">
-        </div>
-        <div class="name-section">
-            Alex Johnson
-        </div>
-        <div class="bio-section">
-            Software developer with over 8 years of experience in web technologies. Passionate about creating efficient, scalable applications and contributing to open-source projects. Enjoys hiking and photography in free time.
-        </div>
+        <h1>User Profile</h1>
+        <form id="profileForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+                <div id="usernameError" class="error hidden">Username must be 3-20 characters.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <div id="emailError" class="error hidden">Please enter a valid email address.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="avatar">Avatar:</label>
+                <input type="file" id="avatar" name="avatar" accept="image/*">
+                <div id="avatarError" class="error hidden">File must be an image (JPEG, PNG, GIF) under 2MB.</div>
+                <img id="avatarPreview" class="avatar-preview hidden" src="#" alt="Avatar Preview">
+            </div>
+
+            <button type="submit">Update Profile</button>
+            <div id="successMessage" class="success hidden">Profile updated successfully!</div>
+        </form>
     </div>
+
+    <script>
+        const form = document.getElementById('profileForm');
+        const usernameInput = document.getElementById('username');
+        const emailInput = document.getElementById('email');
+        const avatarInput = document.getElementById('avatar');
+        const usernameError = document.getElementById('usernameError');
+        const emailError = document.getElementById('emailError');
+        const avatarError = document.getElementById('avatarError');
+        const avatarPreview = document.getElementById('avatarPreview');
+        const successMessage = document.getElementById('successMessage');
+
+        function validateUsername() {
+            const value = usernameInput.value.trim();
+            if (value.length < 3 || value.length > 20) {
+                usernameError.classList.remove('hidden');
+                return false;
+            } else {
+                usernameError.classList.add('hidden');
+                return true;
+            }
+        }
+
+        function validateEmail() {
+            const email = emailInput.value.trim();
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                emailError.classList.remove('hidden');
+                return false;
+            } else {
+                emailError.classList.add('hidden');
+                return true;
+            }
+        }
+
+        function validateAvatar() {
+            const file = avatarInput.files[0];
+            if (!file) return true;
+
+            const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+            const maxSize = 2 * 1024 * 1024;
+
+            if (!validTypes.includes(file.type)) {
+                avatarError.textContent = 'File must be JPEG, PNG, or GIF.';
+                avatarError.classList.remove('hidden');
+                return false;
+            }
+            if (file.size > maxSize) {
+                avatarError.textContent = 'File size must be under 2MB.';
+                avatarError.classList.remove('hidden');
+                return false;
+            }
+
+            avatarError.classList.add('hidden');
+            return true;
+        }
+
+        avatarInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file && validateAvatar()) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarPreview.src = e.target.result;
+                    avatarPreview.classList.remove('hidden');
+                }
+                reader.readAsDataURL(file);
+            } else {
+                avatarPreview.classList.add('hidden');
+            }
+        });
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const isUsernameValid = validateUsername();
+            const isEmailValid = validateEmail();
+            const isAvatarValid = validateAvatar();
+
+            if (isUsernameValid && isEmailValid && isAvatarValid) {
+                successMessage.classList.remove('hidden');
+                setTimeout(() => {
+                    successMessage.classList.add('hidden');
+                }, 3000);
+            }
+        });
+
+        usernameInput.addEventListener('input', validateUsername);
+        emailInput.addEventListener('input', validateEmail);
+    </script>
 </body>
 </html>
