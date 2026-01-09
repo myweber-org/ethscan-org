@@ -4,120 +4,419 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <form id="profileForm">
-            <div>
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required minlength="3" maxlength="20">
-                <div class="error" id="usernameError"></div>
-            </div>
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <div class="error" id="emailError"></div>
-            </div>
-            <div>
-                <label for="age">Age:</label>
-                <input type="number" id="age" name="age" min="18" max="120">
-            </div>
-            <button type="submit">Update Profile</button>
-        </form>
-    </main>
-    <script>
-        const form = document.getElementById('profileForm');
-        const usernameError = document.getElementById('usernameError');
-        const emailError = document.getElementById('emailError');
-
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            let isValid = true;
-
-            const username = document.getElementById('username').value;
-            if (username.length < 3) {
-                usernameError.textContent = 'Username must be at least 3 characters.';
-                isValid = false;
-            } else {
-                usernameError.textContent = '';
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .profile-container {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+        }
+        .profile-header {
+            background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            object-fit: cover;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .profile-avatar:hover {
+            transform: scale(1.05);
+        }
+        .profile-name {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .profile-title {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        .profile-content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 40px;
+        }
+        .profile-info, .profile-actions {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+        .info-section {
+            margin-bottom: 30px;
+        }
+        .info-section h3 {
+            color: #4facfe;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 8px;
+        }
+        .info-item {
+            display: flex;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #eef7ff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            color: #4facfe;
+        }
+        .info-text {
+            flex: 1;
+        }
+        .info-label {
+            font-weight: 600;
+            color: #555;
+            font-size: 0.9rem;
+        }
+        .info-value {
+            color: #333;
+            font-size: 1.1rem;
+        }
+        .bio-textarea {
+            width: 100%;
+            height: 120px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            resize: vertical;
+            transition: border 0.3s;
+        }
+        .bio-textarea:focus {
+            outline: none;
+            border-color: #4facfe;
+        }
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background-color: #4facfe;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #3a9bf7;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+        }
+        .btn-secondary {
+            background-color: #f0f0f0;
+            color: #555;
+        }
+        .btn-secondary:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-3px);
+        }
+        .btn-icon {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        .hidden {
+            display: none;
+        }
+        #avatarInput {
+            display: none;
+        }
+        .avatar-upload-label {
+            display: inline-block;
+            margin-top: 10px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .avatar-upload-label:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        @media (max-width: 768px) {
+            .profile-content {
+                flex-direction: column;
+                padding: 20px;
             }
-
-            const email = document.getElementById('email').value;
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-                emailError.textContent = 'Please enter a valid email address.';
-                isValid = false;
-            } else {
-                emailError.textContent = '';
+            .profile-header {
+                padding: 30px 20px;
             }
-
-            if (isValid) {
-                alert('Profile updated successfully!');
-            }
-        });
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="avatar-section">
-            <h2>Profile Picture</h2>
-            <img id="avatar-preview" src="default-avatar.png" alt="Avatar Preview" width="150" height="150">
-            <br>
-            <input type="file" id="avatar-upload" accept="image/*">
-            <button onclick="uploadAvatar()">Upload Avatar</button>
-        </section>
-        <section id="info-section">
-            <h2>Basic Information</h2>
-            <form id="profile-form">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                <br>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <br>
-                <label for="bio">Bio:</label>
-                <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
-                <br>
-                <button type="submit">Save Profile</button>
-            </form>
-        </section>
-    </main>
-    <script>
-        function uploadAvatar() {
-            const fileInput = document.getElementById('avatar-upload');
-            const file = fileInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-                alert('Avatar uploaded successfully!');
-            } else {
-                alert('Please select an image file first.');
+            .profile-name {
+                font-size: 2rem;
             }
         }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="profile-avatar" id="avatarImage">
+            <h1 class="profile-name" id="userName">Alex Johnson</h1>
+            <p class="profile-title" id="userTitle">Senior Software Developer</p>
+            <label for="avatarInput" class="avatar-upload-label">
+                <i class="fas fa-camera"></i> Change Avatar
+            </label>
+            <input type="file" id="avatarInput" accept="image/*">
+        </div>
+        
+        <div class="profile-content">
+            <div class="profile-info">
+                <div class="info-section">
+                    <h3>Personal Information</h3>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="info-text">
+                            <div class="info-label">Email Address</div>
+                            <div class="info-value" id="userEmail">alex.johnson@example.com</div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="info-text">
+                            <div class="info-label">Phone Number</div>
+                            <div class="info-value" id="userPhone">+1 (555) 123-4567</div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="info-text">
+                            <div class="info-label">Location</div>
+                            <div class="info-value" id="userLocation">San Francisco, CA</div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="info-text">
+                            <div class="info-label">Department</div>
+                            <div class="info-value" id="userDepartment">Engineering</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <h3>Bio</h3>
+                    <textarea class="bio-textarea" id="userBio" placeholder="Tell us about yourself...">Passionate software developer with over 8 years of experience in building scalable web applications. Specialized in JavaScript frameworks and cloud architecture. Enjoys hiking, photography, and contributing to open-source projects.</textarea>
+                </div>
+            </div>
+            
+            <div class="profile-actions">
+                <div class="info-section">
+                    <h3>Account Settings</h3>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <div class="info-text">
+                            <div class="info-label">Account Status</div>
+                            <div class="info-value">Verified <i class="fas fa-check-circle" style="color: #4CAF50;"></i></div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="info-text">
+                            <div class="info-label">Member Since</div>
+                            <div class="info-value" id="memberSince">January 15, 2019</div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="info-text">
+                            <div class="info-label">Language</div>
+                            <div class="info-value" id="userLanguage">English (US)</div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div class="info-text">
+                            <div class="info-label">Notifications</div>
+                            <div class="info-value">Enabled</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-primary" id="saveProfileBtn">
+                        <i class="fas fa-save btn-icon"></i> Save Profile Changes
+                    </button>
+                    <button class="btn btn-secondary" id="resetProfileBtn">
+                        <i class="fas fa-undo btn-icon"></i> Reset Changes
+                    </button>
+                    <button class="btn btn-secondary" id="editProfileBtn">
+                        <i class="fas fa-edit btn-icon"></i> Edit Profile Info
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            alert('Profile saved!\nUsername: ' + username + '\nEmail: ' + email + '\nBio: ' + bio);
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const avatarImage = document.getElementById('avatarImage');
+            const avatarInput = document.getElementById('avatarInput');
+            const userBio = document.getElementById('userBio');
+            const saveProfileBtn = document.getElementById('saveProfileBtn');
+            const resetProfileBtn = document.getElementById('resetProfileBtn');
+            const editProfileBtn = document.getElementById('editProfileBtn');
+            const userName = document.getElementById('userName');
+            const userTitle = document.getElementById('userTitle');
+            const userEmail = document.getElementById('userEmail');
+            const userPhone = document.getElementById('userPhone');
+            const userLocation = document.getElementById('userLocation');
+            const userDepartment = document.getElementById('userDepartment');
+            const userLanguage = document.getElementById('userLanguage');
+            const memberSince = document.getElementById('memberSince');
+            
+            let originalBio = userBio.value;
+            let originalAvatar = avatarImage.src;
+            
+            avatarInput.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        avatarImage.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            saveProfileBtn.addEventListener('click', function() {
+                originalBio = userBio.value;
+                
+                showNotification('Profile updated successfully!', 'success');
+                
+                console.log('Profile saved with bio:', userBio.value);
+            });
+            
+            resetProfileBtn.addEventListener('click', function() {
+                userBio.value = originalBio;
+                avatarImage.src = originalAvatar;
+                avatarInput.value = '';
+                
+                showNotification('Changes reset to original values.', 'info');
+            });
+            
+            editProfileBtn.addEventListener('click', function() {
+                const newName = prompt('Enter your new name:', userName.textContent);
+                if (newName !== null && newName.trim() !== '') {
+                    userName.textContent = newName.trim();
+                }
+                
+                const newTitle = prompt('Enter your new title:', userTitle.textContent);
+                if (newTitle !== null && newTitle.trim() !== '') {
+                    userTitle.textContent = newTitle.trim();
+                }
+                
+                const newEmail = prompt('Enter your new email:', userEmail.textContent);
+                if (newEmail !== null && newEmail.trim() !== '') {
+                    userEmail.textContent = newEmail.trim();
+                }
+                
+                showNotification('Profile information updated!', 'success');
+            });
+            
+            function showNotification(message, type) {
+                const notification = document.createElement('div');
+                notification.textContent = message;
+                notification.style.position = 'fixed';
+                notification.style.top = '20px';
+                notification.style.right = '20px';
+                notification.style.padding = '15px 25px';
+                notification.style.borderRadius = '10px';
+                notification.style.color = 'white';
+                notification.style.fontWeight = '600';
+                notification.style.zIndex = '1000';
+                notification.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+                notification.style.animation = 'slideIn 0.3s ease';
+                
+                if (type === 'success') {
+                    notification.style.backgroundColor = '#4CAF50';
+                } else if (type === 'info') {
+                    notification.style.backgroundColor = '#2196F3';
+                } else {
+                    notification.style.backgroundColor = '#FF9800';
+                }
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.animation = 'slideOut 0.3s ease';
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 3000);
+            }
+            
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
         });
     </script>
 </body>
