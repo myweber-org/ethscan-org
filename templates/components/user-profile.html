@@ -1,57 +1,5 @@
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-family: Arial, sans-serif;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a90e2;
-        }
-        .user-info {
-            margin-top: 20px;
-        }
-        .info-item {
-            margin-bottom: 10px;
-        }
-        .label {
-            font-weight: bold;
-            color: #555;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <img src="https://via.placeholder.com/120" alt="User Avatar" class="avatar">
-        <div class="user-info">
-            <div class="info-item">
-                <span class="label">Name:</span> John Doe
-            </div>
-            <div class="info-item">
-                <span class="label">Email:</span> john.doe@example.com
-            </div>
-            <div class="info-item">
-                <span class="label">Location:</span> New York, USA
-            </div>
-            <div class="info-item">
-                <span class="label">Member Since:</span> January 2023
-            </div>
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -63,41 +11,28 @@
         <h1>User Profile</h1>
     </header>
     <main>
-        <section id="profile-section">
+        <section class="profile">
             <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <form id="avatar-form">
-                    <input type="file" id="avatar-input" name="avatar" accept="image/png, image/jpeg">
-                    <button type="submit">Upload Avatar</button>
-                </form>
+                <img src="avatar-placeholder.jpg" alt="User Avatar" id="user-avatar" width="150" height="150">
             </div>
-            <div class="bio-container">
-                <h2>Edit Bio</h2>
-                <textarea id="bio-textarea" rows="4" cols="50" placeholder="Write something about yourself..."></textarea>
-                <button id="save-bio-btn">Save Bio</button>
-                <p id="bio-display"></p>
+            <div class="user-info">
+                <h2 id="username">John Doe</h2>
+                <p id="user-bio">Software developer with interest in web technologies and open source projects.</p>
+                <p id="user-location">Based in San Francisco, CA</p>
+                <p id="member-since">Member since: January 2020</p>
             </div>
         </section>
+        <section class="stats">
+            <h3>Activity Stats</h3>
+            <ul>
+                <li>Posts: <span id="post-count">42</span></li>
+                <li>Comments: <span id="comment-count">128</span></li>
+                <li>Reputation: <span id="reputation-score">850</span></li>
+            </ul>
+        </section>
     </main>
-    <script>
-        document.getElementById('avatar-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const fileInput = document.getElementById('avatar-input');
-            const file = fileInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        document.getElementById('save-bio-btn').addEventListener('click', function() {
-            const bioText = document.getElementById('bio-textarea').value;
-            document.getElementById('bio-display').textContent = bioText;
-            document.getElementById('bio-textarea').value = '';
-        });
-    </script>
+    <footer>
+        <p>Profile last updated: <span id="last-updated">2023-10-05</span></p>
+    </footer>
 </body>
 </html>
