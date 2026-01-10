@@ -10,8 +10,8 @@
     </style>
 </head>
 <body>
+    <h1>Update Your Profile</h1>
     <form id="profileForm">
-        <h2>Update Profile</h2>
         <div>
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required minlength="3" maxlength="20">
@@ -27,9 +27,14 @@
             <input type="number" id="age" name="age" min="18" max="120">
             <span id="ageError" class="error"></span>
         </div>
+        <div>
+            <label for="bio">Biography:</label>
+            <textarea id="bio" name="bio" rows="4" maxlength="500"></textarea>
+            <span id="bioError" class="error"></span>
+        </div>
         <button type="submit">Save Profile</button>
-        <div id="message" class="success"></div>
     </form>
+    <div id="message" class="success"></div>
 
     <script>
         document.getElementById('profileForm').addEventListener('submit', function(event) {
@@ -56,6 +61,12 @@
                 isValid = false;
             }
 
+            const bio = document.getElementById('bio').value.trim();
+            if (bio.length > 500) {
+                showError('bioError', 'Biography cannot exceed 500 characters.');
+                isValid = false;
+            }
+
             if (isValid) {
                 document.getElementById('message').textContent = 'Profile updated successfully!';
                 setTimeout(() => {
@@ -69,8 +80,8 @@
         }
 
         function clearErrors() {
-            const errors = document.querySelectorAll('.error');
-            errors.forEach(error => error.textContent = '');
+            const errorElements = document.querySelectorAll('.error');
+            errorElements.forEach(el => el.textContent = '');
             document.getElementById('message').textContent = '';
         }
     </script>
