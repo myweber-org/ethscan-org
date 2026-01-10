@@ -15,95 +15,43 @@
             font-family: Arial, sans-serif;
         }
         .avatar-section {
-            display: flex;
-            align-items: center;
+            text-align: center;
             margin-bottom: 20px;
         }
-        .avatar-preview {
-            width: 100px;
-            height: 100px;
+        .avatar {
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid #ccc;
-            margin-right: 20px;
+            border: 3px solid #4a90e2;
         }
-        .bio-section textarea {
-            width: 100%;
-            height: 120px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
-            font-family: inherit;
+        .name-section {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
         }
-        .save-button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 15px;
-        }
-        .save-button:hover {
-            background-color: #45a049;
+        .bio-section {
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            line-height: 1.6;
+            color: #555;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <h1>Edit Profile</h1>
-        
         <div class="avatar-section">
-            <img id="avatarPreview" src="default-avatar.png" alt="Avatar" class="avatar-preview">
-            <div>
-                <input type="file" id="avatarUpload" accept="image/*">
-                <p>Upload a new profile picture (JPG, PNG, max 2MB)</p>
-            </div>
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="User Avatar" class="avatar">
         </div>
-
+        <div class="name-section">
+            Alex Johnson
+        </div>
         <div class="bio-section">
-            <label for="userBio"><strong>Bio:</strong></label>
-            <textarea id="userBio" placeholder="Tell us something about yourself..."></textarea>
+            Software developer with over 8 years of experience in web technologies. Passionate about creating efficient, scalable applications and contributing to open-source projects. Enjoys hiking and photography in free time.
         </div>
-
-        <button class="save-button" onclick="saveProfile()">Save Changes</button>
     </div>
-
-    <script>
-        const avatarUpload = document.getElementById('avatarUpload');
-        const avatarPreview = document.getElementById('avatarPreview');
-        const userBio = document.getElementById('userBio');
-
-        avatarUpload.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file && file.type.startsWith('image/')) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    avatarPreview.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        function saveProfile() {
-            const bioText = userBio.value.trim();
-            const avatarFile = avatarUpload.files[0];
-            
-            if (bioText || avatarFile) {
-                alert('Profile saved successfully!');
-            } else {
-                alert('No changes detected.');
-            }
-        }
-
-        window.addEventListener('DOMContentLoaded', function() {
-            userBio.value = localStorage.getItem('userBio') || '';
-        });
-
-        window.addEventListener('beforeunload', function() {
-            localStorage.setItem('userBio', userBio.value);
-        });
-    </script>
 </body>
 </html>
