@@ -5,15 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
     <style>
-        .profile-card {
-            width: 300px;
+        .profile-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
             border: 1px solid #ccc;
             border-radius: 8px;
-            padding: 20px;
             text-align: center;
             font-family: sans-serif;
-            margin: 20px auto;
-            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
         }
         .avatar {
             width: 100px;
@@ -35,11 +34,11 @@
     </style>
 </head>
 <body>
-    <div class="profile-card">
+    <div class="profile-container">
         <img src="https://via.placeholder.com/100" alt="User Avatar" class="avatar">
         <div class="user-name">Alex Johnson</div>
         <div class="user-bio">
-            Software developer passionate about open-source projects, web technologies, and hiking in the mountains on weekends.
+            Software developer passionate about open-source projects, hiking, and photography. Always eager to learn new technologies and collaborate on interesting challenges.
         </div>
     </div>
 </body>
