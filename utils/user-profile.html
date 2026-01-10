@@ -1,60 +1,5 @@
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 2rem;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            text-align: center;
-            font-family: sans-serif;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a6fa5;
-            margin-bottom: 1rem;
-        }
-        .user-name {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 0.5rem;
-        }
-        .user-title {
-            color: #666;
-            font-style: italic;
-            margin-bottom: 1.5rem;
-        }
-        .bio-section {
-            text-align: left;
-            line-height: 1.6;
-            color: #444;
-            border-top: 1px solid #eee;
-            padding-top: 1.5rem;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Profile Avatar" class="avatar">
-        <h1 class="user-name">Alex Morgan</h1>
-        <p class="user-title">Senior Frontend Developer</p>
-        <div class="bio-section">
-            <h3>About Me</h3>
-            <p>Passionate about creating clean, efficient, and user-friendly web interfaces. With over 8 years of experience in modern JavaScript frameworks and a strong focus on performance and accessibility. Enjoys mentoring junior developers and contributing to open-source projects.</p>
-            <p>Outside of coding, I enjoy hiking, photography, and experimenting with new coffee brewing techniques.</p>
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -65,96 +10,151 @@
             max-width: 600px;
             margin: 40px auto;
             padding: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
             border-radius: 8px;
-            font-family: sans-serif;
+            font-family: Arial, sans-serif;
         }
         .avatar-section {
-            text-align: center;
-            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
         }
         .avatar-preview {
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #ddd;
-            margin-bottom: 10px;
+            overflow: hidden;
+            border: 3px solid #4a90e2;
+            margin-right: 20px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
         }
-        .bio-section textarea {
+        .avatar-preview img {
             width: 100%;
-            height: 100px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
-            font-family: inherit;
+            height: 100%;
+            object-fit: cover;
         }
-        .form-actions {
-            margin-top: 20px;
-            text-align: right;
+        .avatar-upload {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
-        button {
+        .avatar-upload input {
+            padding: 8px;
+        }
+        .avatar-upload button {
             padding: 10px 20px;
-            background-color: #007bff;
+            background-color: #4a90e2;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
         }
-        button:hover {
-            background-color: #0056b3;
+        .avatar-upload button:hover {
+            background-color: #3a7bc8;
         }
-        .hidden {
-            display: none;
+        .profile-info {
+            margin-top: 20px;
+        }
+        .profile-field {
+            margin-bottom: 15px;
+        }
+        .profile-field label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        .profile-field input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <h1>Edit Profile</h1>
+        <h1>User Profile</h1>
+        
         <div class="avatar-section">
-            <img id="avatarPreview" src="default-avatar.png" alt="Avatar Preview" class="avatar-preview">
-            <div>
+            <div class="avatar-preview" id="avatarPreview">
+                <span>No Avatar</span>
+            </div>
+            <div class="avatar-upload">
                 <input type="file" id="avatarInput" accept="image/*">
-                <button onclick="document.getElementById('avatarInput').click()">Change Avatar</button>
+                <button onclick="uploadAvatar()">Upload Avatar</button>
             </div>
         </div>
-        <div class="bio-section">
-            <label for="bioTextarea">Bio:</label>
-            <textarea id="bioTextarea" placeholder="Tell something about yourself..."></textarea>
+
+        <div class="profile-info">
+            <div class="profile-field">
+                <label for="username">Username</label>
+                <input type="text" id="username" value="john_doe" readonly>
+            </div>
+            <div class="profile-field">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" value="john@example.com">
+            </div>
+            <div class="profile-field">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" value="John Doe">
+            </div>
+            <div class="profile-field">
+                <label for="location">Location</label>
+                <input type="text" id="location" value="New York, USA">
+            </div>
         </div>
-        <div class="form-actions">
-            <button onclick="saveProfile()">Save Changes</button>
-        </div>
-        <p id="message" class="hidden">Profile updated successfully!</p>
     </div>
 
     <script>
         const avatarInput = document.getElementById('avatarInput');
         const avatarPreview = document.getElementById('avatarPreview');
-        const bioTextarea = document.getElementById('bioTextarea');
-        const message = document.getElementById('message');
-
-        avatarInput.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
+        
+        function uploadAvatar() {
+            const file = avatarInput.files[0];
+            if (!file) {
+                alert('Please select an image file first.');
+                return;
+            }
+            
+            if (!file.type.startsWith('image/')) {
+                alert('Please select a valid image file.');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                avatarPreview.innerHTML = '';
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.alt = 'User Avatar';
+                avatarPreview.appendChild(img);
+                
+                // In a real application, you would send the image to server here
+                console.log('Avatar uploaded:', file.name);
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        // Preview image when selected
+        avatarInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    avatarPreview.src = e.target.result;
+                    avatarPreview.innerHTML = '';
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.alt = 'User Avatar';
+                    avatarPreview.appendChild(img);
                 };
-                reader.readAsDataURL(file);
+                reader.readAsDataURL(this.files[0]);
             }
         });
-
-        function saveProfile() {
-            const bio = bioTextarea.value.trim();
-            console.log('Bio saved:', bio);
-            message.classList.remove('hidden');
-            setTimeout(() => {
-                message.classList.add('hidden');
-            }, 3000);
-        }
     </script>
 </body>
 </html>
