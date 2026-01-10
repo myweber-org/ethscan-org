@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,11 +30,11 @@
         <div>
             <label for="confirmPassword">Confirm Password:</label>
             <input type="password" id="confirmPassword" name="confirmPassword" required>
-            <span id="confirmError" class="error"></span>
+            <span id="confirmPasswordError" class="error"></span>
         </div>
         <button type="submit">Register</button>
+        <div id="message" class="success"></div>
     </form>
-    <div id="message" class="success"></div>
 
     <script>
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
@@ -65,7 +64,7 @@
             }
 
             if (password !== confirmPassword) {
-                showError('confirmError', 'Passwords do not match.');
+                showError('confirmPasswordError', 'Passwords do not match.');
                 isValid = false;
             }
 
