@@ -4,54 +4,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+        }
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .avatar-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ddd;
+            margin-bottom: 10px;
+        }
+        .bio-section textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="avatar-section">
-            <img id="avatar-preview" src="placeholder.jpg" alt="Avatar Preview" width="150" height="150">
+    <div class="profile-container">
+        <h1>Edit Your Profile</h1>
+        <div class="avatar-section">
+            <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
             <br>
-            <input type="file" id="avatar-upload" accept="image/*">
-            <button onclick="uploadAvatar()">Upload Avatar</button>
-        </section>
-        <section id="info-form">
-            <form id="profile-form">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                <br>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <br>
-                <label for="bio">Bio:</label>
-                <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
-                <br>
-                <button type="submit">Save Profile</button>
-            </form>
-        </section>
-    </main>
+            <input type="file" id="avatarUpload" accept="image/*" class="hidden">
+            <button onclick="document.getElementById('avatarUpload').click()" class="button">Change Avatar</button>
+        </div>
+        <div class="bio-section">
+            <label for="userBio"><strong>Bio:</strong></label>
+            <textarea id="userBio" placeholder="Tell us something about yourself..."></textarea>
+        </div>
+        <div class="actions">
+            <button onclick="saveProfile()" class="button">Save Profile</button>
+            <button onclick="resetProfile()" class="button" style="background-color: #f44336;">Reset</button>
+        </div>
+        <p id="statusMessage" style="margin-top: 15px; color: green;"></p>
+    </div>
+
     <script>
-        function uploadAvatar() {
-            const fileInput = document.getElementById('avatar-upload');
-            const file = fileInput.files[0];
+        const avatarUpload = document.getElementById('avatarUpload');
+        const avatarPreview = document.getElementById('avatarPreview');
+        const userBio = document.getElementById('userBio');
+        const statusMessage = document.getElementById('statusMessage');
+
+        avatarUpload.addEventListener('change', function(event) {
+            const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
+                    avatarPreview.src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
+        });
+
+        function saveProfile() {
+            const bioText = userBio.value.trim();
+            if (bioText.length > 200) {
+                showStatus('Bio must be less than 200 characters.', 'red');
+                return;
+            }
+            showStatus('Profile saved successfully!', 'green');
         }
 
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            console.log('Profile saved:', { username, email, bio });
-            alert('Profile saved successfully!');
-        });
+        function resetProfile() {
+            avatarPreview.src = 'https://via.placeholder.com/120';
+            userBio.value = '';
+            avatarUpload.value = '';
+            showStatus('Profile reset.', 'orange');
+        }
+
+        function showStatus(message, color) {
+            statusMessage.textContent = message;
+            statusMessage.style.color = color;
+            setTimeout(() => {
+                statusMessage.textContent = '';
+            }, 3000);
+        }
     </script>
 </body>
 </html>
