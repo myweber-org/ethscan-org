@@ -7,87 +7,94 @@
     <style>
         .profile-container {
             max-width: 600px;
-            margin: 2rem auto;
-            padding: 2rem;
-            border: 1px solid #e1e4e8;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
             border-radius: 8px;
-            font-family: sans-serif;
+            font-family: Arial, sans-serif;
         }
         .avatar-section {
-            text-align: center;
-            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
         }
-        .avatar {
-            width: 120px;
-            height: 120px;
+        .avatar-preview {
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #0366d6;
+            border: 2px solid #007bff;
+            margin-right: 20px;
         }
-        .user-name {
-            font-size: 1.8rem;
-            margin: 0.5rem 0;
-            color: #24292e;
+        .upload-btn {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
         }
-        .user-title {
-            color: #586069;
-            font-size: 1rem;
-            margin-bottom: 1rem;
+        .upload-btn:hover {
+            background-color: #0056b3;
         }
-        .bio-section {
-            padding: 1rem;
-            background-color: #f6f8fa;
-            border-radius: 6px;
-            line-height: 1.5;
-            color: #24292e;
+        .hidden {
+            display: none;
         }
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #e1e4e8;
+        .info-item {
+            margin-bottom: 15px;
         }
-        .stat-item {
-            text-align: center;
-        }
-        .stat-value {
-            font-size: 1.5rem;
+        .info-label {
             font-weight: bold;
-            color: #0366d6;
+            display: block;
+            margin-bottom: 5px;
         }
-        .stat-label {
-            font-size: 0.9rem;
-            color: #586069;
+        .info-value {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
+        <h1>User Profile</h1>
         <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
-            <h1 class="user-name">Alex Morgan</h1>
-            <p class="user-title">Senior Frontend Developer</p>
+            <img id="avatarPreview" src="https://via.placeholder.com/100" alt="Avatar Preview" class="avatar-preview">
+            <div>
+                <input type="file" id="avatarUpload" accept="image/*" class="hidden">
+                <button class="upload-btn" onclick="document.getElementById('avatarUpload').click()">Upload Avatar</button>
+                <p style="font-size: 0.9em; color: #666; margin-top: 5px;">Supported formats: JPG, PNG, GIF</p>
+            </div>
         </div>
-        
-        <div class="bio-section">
-            <p>Passionate about building accessible and performant web applications. Enjoys working with modern JavaScript frameworks and contributing to open-source projects. Currently focused on improving developer tooling and user experience.</p>
+        <div class="info-item">
+            <span class="info-label">Username</span>
+            <div class="info-value" id="username">john_doe</div>
         </div>
-        
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-value">247</div>
-                <div class="stat-label">Repositories</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">1.2k</div>
-                <div class="stat-label">Followers</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">89</div>
-                <div class="stat-label">Following</div>
-            </div>
+        <div class="info-item">
+            <span class="info-label">Email Address</span>
+            <div class="info-value" id="email">john.doe@example.com</div>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Member Since</span>
+            <div class="info-value" id="joinDate">January 15, 2023</div>
         </div>
     </div>
+
+    <script>
+        const avatarUpload = document.getElementById('avatarUpload');
+        const avatarPreview = document.getElementById('avatarPreview');
+
+        avatarUpload.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 </body>
 </html>
