@@ -141,4 +141,61 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <script>
+        function validateForm() {
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const age = document.getElementById('age').value;
+
+            if (name === '') {
+                alert('Please enter your name.');
+                return false;
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                alert('Please enter a valid email address.');
+                return false;
+            }
+
+            if (age === '' || age < 1 || age > 120) {
+                alert('Please enter a valid age between 1 and 120.');
+                return false;
+            }
+
+            alert('Profile submitted successfully!');
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h1>User Profile</h1>
+    <form onsubmit="return validateForm()">
+        <label for="name">Full Name:</label><br>
+        <input type="text" id="name" name="name"><br><br>
+
+        <label for="email">Email Address:</label><br>
+        <input type="text" id="email" name="email"><br><br>
+
+        <label for="age">Age:</label><br>
+        <input type="number" id="age" name="age"><br><br>
+
+        <label for="country">Country:</label><br>
+        <select id="country" name="country">
+            <option value="">Select a country</option>
+            <option value="us">United States</option>
+            <option value="uk">United Kingdom</option>
+            <option value="ca">Canada</option>
+            <option value="au">Australia</option>
+        </select><br><br>
+
+        <input type="submit" value="Save Profile">
+    </form>
+</body>
 </html>
