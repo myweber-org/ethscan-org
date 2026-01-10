@@ -4,47 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <form id="profileForm">
-            <div>
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div>
-                <label for="email">Email Address:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div>
-                <label for="bio">Biography:</label>
-                <textarea id="bio" name="bio" rows="4"></textarea>
-            </div>
-            <div>
-                <label for="newsletter">
-                    <input type="checkbox" id="newsletter" name="newsletter">
-                    Subscribe to newsletter
-                </label>
-            </div>
-            <button type="submit">Update Profile</button>
-        </form>
-    </main>
-    <script>
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            alert('Profile update simulated.');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
     <style>
         .profile-container {
             max-width: 600px;
@@ -52,7 +11,7 @@
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 8px;
-            font-family: sans-serif;
+            font-family: Arial, sans-serif;
         }
         .avatar-section {
             text-align: center;
@@ -63,35 +22,30 @@
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid #ddd;
+            border: 3px solid #ddd;
             margin-bottom: 10px;
         }
         .bio-section textarea {
             width: 100%;
             height: 100px;
-            padding: 8px;
+            padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
             resize: vertical;
-            box-sizing: border-box;
+            font-family: inherit;
         }
-        .form-actions {
-            margin-top: 20px;
-            text-align: right;
-        }
-        button {
-            padding: 8px 16px;
-            background-color: #007bff;
+        .save-button {
+            background-color: #4CAF50;
             color: white;
+            padding: 10px 20px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
         }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .hidden {
-            display: none;
+        .save-button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
@@ -99,29 +53,23 @@
     <div class="profile-container">
         <h1>Edit Profile</h1>
         <div class="avatar-section">
-            <img id="avatarPreview" src="default-avatar.png" alt="Avatar Preview" class="avatar-preview">
-            <div>
-                <input type="file" id="avatarInput" accept="image/*">
-                <button onclick="document.getElementById('avatarInput').click()">Change Avatar</button>
-            </div>
+            <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
+            <br>
+            <input type="file" id="avatarUpload" accept="image/*">
         </div>
         <div class="bio-section">
-            <label for="bioTextarea">Bio:</label>
-            <textarea id="bioTextarea" placeholder="Tell us about yourself..."></textarea>
+            <label for="userBio"><strong>Bio:</strong></label>
+            <textarea id="userBio" placeholder="Tell something about yourself..."></textarea>
         </div>
-        <div class="form-actions">
-            <button onclick="saveProfile()">Save Changes</button>
-        </div>
-        <div id="successMessage" class="hidden">Profile updated successfully!</div>
+        <button class="save-button" onclick="saveProfile()">Save Changes</button>
     </div>
 
     <script>
-        const avatarInput = document.getElementById('avatarInput');
+        const avatarUpload = document.getElementById('avatarUpload');
         const avatarPreview = document.getElementById('avatarPreview');
-        const bioTextarea = document.getElementById('bioTextarea');
-        const successMessage = document.getElementById('successMessage');
+        const userBio = document.getElementById('userBio');
 
-        avatarInput.addEventListener('change', function(event) {
+        avatarUpload.addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
@@ -133,320 +81,23 @@
         });
 
         function saveProfile() {
-            const bio = bioTextarea.value.trim();
-            console.log('Bio saved:', bio);
-            console.log('Avatar updated (simulated)');
-            successMessage.classList.remove('hidden');
-            setTimeout(() => {
-                successMessage.classList.add('hidden');
-            }, 3000);
-        }
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-family: Arial, sans-serif;
-        }
-        .avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            display: block;
-            margin: 0 auto 20px;
-            border: 3px solid #4CAF50;
-        }
-        .username {
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        .bio {
-            text-align: center;
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            padding: 0 10px;
-        }
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            border-top: 1px solid #eee;
-            padding-top: 15px;
-        }
-        .stat-item {
-            text-align: center;
-        }
-        .stat-value {
-            font-size: 20px;
-            font-weight: bold;
-            color: #4CAF50;
-        }
-        .stat-label {
-            font-size: 14px;
-            color: #888;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
-        <div class="username">Alex Johnson</div>
-        <div class="bio">
-            Software developer passionate about open-source projects and web technologies.
-            Enjoys hiking, photography, and coffee. Currently working on improving developer tools.
-        </div>
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-value">142</div>
-                <div class="stat-label">Posts</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">2.8K</div>
-                <div class="stat-label">Followers</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">356</div>
-                <div class="stat-label">Following</div>
-            </div>
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .profile-container {
-            background-color: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 800px;
-            overflow: hidden;
-        }
-        .profile-header {
-            background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
-            color: white;
-            padding: 40px 30px;
-            text-align: center;
-            position: relative;
-        }
-        .profile-avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 5px solid white;
-            object-fit: cover;
-            margin-bottom: 20px;
-            background-color: #f0f0f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 60px;
-            color: #667eea;
-        }
-        .profile-name {
-            font-size: 2.5rem;
-            margin-bottom: 5px;
-        }
-        .profile-title {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 20px;
-        }
-        .profile-body {
-            padding: 40px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-        .section-title {
-            font-size: 1.5rem;
-            color: #333;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-        .info-item {
-            margin-bottom: 15px;
-        }
-        .info-label {
-            font-weight: 600;
-            color: #555;
-            display: block;
-            margin-bottom: 5px;
-        }
-        .info-value {
-            color: #777;
-            font-size: 1.1rem;
-        }
-        .bio-text {
-            line-height: 1.6;
-            color: #666;
-        }
-        .skills-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .skill-tag {
-            background-color: #eef2ff;
-            color: #4f46e5;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-        }
-        .profile-footer {
-            background-color: #f9f9f9;
-            padding: 30px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            border-top: 1px solid #eee;
-        }
-        .action-btn {
-            padding: 12px 25px;
-            border-radius: 50px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-        }
-        .edit-btn {
-            background-color: #4f46e5;
-            color: white;
-        }
-        .message-btn {
-            background-color: white;
-            color: #4f46e5;
-            border: 2px solid #4f46e5;
-        }
-        .action-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        @media (max-width: 768px) {
-            .profile-body {
-                grid-template-columns: 1fr;
-            }
-            .profile-name {
-                font-size: 2rem;
+            const bioText = userBio.value.trim();
+            if (bioText || avatarUpload.files.length > 0) {
+                alert('Profile saved successfully!');
+            } else {
+                alert('No changes detected.');
             }
         }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <div class="profile-header">
-            <div class="profile-avatar">
-                <i class="fas fa-user-circle"></i>
-            </div>
-            <h1 class="profile-name">Alex Morgan</h1>
-            <p class="profile-title">Senior Frontend Developer</p>
-        </div>
-        
-        <div class="profile-body">
-            <div class="personal-info">
-                <h2 class="section-title">Personal Information</h2>
-                <div class="info-item">
-                    <span class="info-label">Email</span>
-                    <span class="info-value">alex.morgan@example.com</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Location</span>
-                    <span class="info-value">San Francisco, CA</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Phone</span>
-                    <span class="info-value">+1 (555) 123-4567</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Joined</span>
-                    <span class="info-value">March 2019</span>
-                </div>
-            </div>
-            
-            <div class="professional-info">
-                <h2 class="section-title">Professional Details</h2>
-                <div class="info-item">
-                    <span class="info-label">Bio</span>
-                    <p class="bio-text">
-                        Passionate frontend developer with 8+ years of experience building responsive web applications. 
-                        Specialized in React, Vue.js, and modern CSS. Enjoys creating intuitive user interfaces and 
-                        optimizing frontend performance.
-                    </p>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Skills</span>
-                    <div class="skills-container">
-                        <span class="skill-tag">HTML/CSS</span>
-                        <span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag">React</span>
-                        <span class="skill-tag">Vue.js</span>
-                        <span class="skill-tag">TypeScript</span>
-                        <span class="skill-tag">UI/UX Design</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="profile-footer">
-            <button class="action-btn edit-btn">
-                <i class="fas fa-edit"></i> Edit Profile
-            </button>
-            <button class="action-btn message-btn">
-                <i class="fas fa-paper-plane"></i> Send Message
-            </button>
-        </div>
-    </div>
 
-    <script>
-        document.querySelector('.edit-btn').addEventListener('click', function() {
-            alert('Edit profile functionality would open a form here.');
-        });
-        
-        document.querySelector('.message-btn').addEventListener('click', function() {
-            alert('Message functionality would open a chat interface.');
-        });
-        
-        document.querySelector('.profile-avatar').addEventListener('click', function() {
-            alert('Avatar upload dialog would open here.');
+        window.addEventListener('DOMContentLoaded', function() {
+            const savedBio = localStorage.getItem('userBio');
+            const savedAvatar = localStorage.getItem('userAvatar');
+            if (savedBio) {
+                userBio.value = savedBio;
+            }
+            if (savedAvatar) {
+                avatarPreview.src = savedAvatar;
+            }
         });
     </script>
 </body>
