@@ -6,7 +6,7 @@
     <title>User Registration</title>
     <style>
         .error { color: red; font-size: 0.9em; }
-        .success { color: green; }
+        .success { color: green; font-size: 0.9em; }
     </style>
 </head>
 <body>
@@ -33,19 +33,19 @@
             <span id="confirmError" class="error"></span>
         </div>
         <button type="submit">Register</button>
-        <p id="message" class="success"></p>
+        <div id="message" class="success"></div>
     </form>
 
     <script>
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
             event.preventDefault();
             clearErrors();
-            
+            let isValid = true;
+
             const username = document.getElementById('username').value.trim();
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
-            let isValid = true;
 
             if (username.length < 3) {
                 showError('usernameError', 'Username must be at least 3 characters.');
