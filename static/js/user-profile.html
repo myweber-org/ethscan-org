@@ -4,137 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: Arial, sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .avatar-preview {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a90e2;
-            margin-bottom: 10px;
-        }
-        .avatar-upload {
-            margin-top: 10px;
-        }
-        .bio-section textarea {
-            width: 100%;
-            height: 100px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
-            font-family: inherit;
-        }
-        .save-button {
-            background-color: #4a90e2;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 20px;
-        }
-        .save-button:hover {
-            background-color: #3a7bc8;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <h1>Edit Profile</h1>
-        
-        <div class="avatar-section">
-            <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
-            <div class="avatar-upload">
-                <input type="file" id="avatarInput" accept="image/*">
-                <p>Upload a new profile picture (JPG, PNG, max 2MB)</p>
-            </div>
-        </div>
-
-        <div class="bio-section">
-            <label for="userBio"><strong>Bio:</strong></label>
-            <textarea id="userBio" placeholder="Tell us something about yourself..."></textarea>
-        </div>
-
-        <button class="save-button" onclick="saveProfile()">Save Changes</button>
-    </div>
-
-    <script>
-        const avatarInput = document.getElementById('avatarInput');
-        const avatarPreview = document.getElementById('avatarPreview');
-        const userBio = document.getElementById('userBio');
-
-        avatarInput.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                if (file.size > 2 * 1024 * 1024) {
-                    alert('File size exceeds 2MB limit.');
-                    return;
-                }
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    avatarPreview.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        function saveProfile() {
-            const bioText = userBio.value.trim();
-            if (bioText.length > 500) {
-                alert('Bio must be less than 500 characters.');
-                return;
-            }
-            
-            console.log('Profile saved:', {
-                avatar: avatarPreview.src,
-                bio: bioText
-            });
-            
-            alert('Profile changes saved successfully!');
-        }
-
-        window.addEventListener('DOMContentLoaded', function() {
-            userBio.value = 'Hello! I am a web developer.';
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
 </head>
 <body>
     <header>
         <h1>User Profile</h1>
     </header>
     <main>
-        <section id="profile-info">
-            <div class="avatar-container">
+        <section id="profile-section">
+            <div id="avatar-container">
                 <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
                 <input type="file" id="avatar-upload" accept="image/*">
                 <button id="upload-btn">Upload Avatar</button>
             </div>
-            <div class="bio-section">
-                <h2>Edit Bio</h2>
-                <textarea id="bio-text" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
-                <button id="save-bio-btn">Save Bio</button>
-            </div>
+            <form id="profile-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <br>
+                <label for="bio">Bio:</label>
+                <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
+                <br>
+                <button type="submit">Save Profile</button>
+            </form>
         </section>
     </main>
     <footer>
@@ -142,22 +35,26 @@
     </footer>
     <script>
         document.getElementById('upload-btn').addEventListener('click', function() {
-            const fileInput = document.getElementById('avatar-upload');
-            const file = fileInput.files[0];
+            document.getElementById('avatar-upload').click();
+        });
+
+        document.getElementById('avatar-upload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     document.getElementById('avatar-preview').src = e.target.result;
                 };
                 reader.readAsDataURL(file);
-            } else {
-                alert('Please select an image file first.');
             }
         });
 
-        document.getElementById('save-bio-btn').addEventListener('click', function() {
-            const bioText = document.getElementById('bio-text').value;
-            alert('Bio saved: ' + bioText);
+        document.getElementById('profile-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const bio = document.getElementById('bio').value;
+            alert('Profile saved!\nUsername: ' + username + '\nEmail: ' + email + '\nBio: ' + bio);
         });
     </script>
 </body>
