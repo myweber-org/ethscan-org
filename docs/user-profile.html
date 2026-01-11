@@ -4,90 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .avatar-preview {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #eee;
-            margin-bottom: 10px;
-        }
-        .avatar-upload-btn {
-            display: inline-block;
-            padding: 8px 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .avatar-upload-btn:hover {
-            background-color: #45a049;
-        }
-        #avatar-input {
-            display: none;
-        }
-        .bio-section label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-        textarea {
-            width: 100%;
-            height: 100px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
-            box-sizing: border-box;
-        }
-        .save-btn {
-            display: block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .save-btn:hover {
-            background-color: #0056b3;
-        }
-    </style>
 </head>
 <body>
-    <div class="profile-container">
-        <h1>Edit Profile</h1>
-        <div class="avatar-section">
-            <img id="avatar-preview" src="default-avatar.png" alt="Avatar Preview" class="avatar-preview">
-            <br>
-            <label for="avatar-input" class="avatar-upload-btn">Upload New Avatar</label>
-            <input type="file" id="avatar-input" accept="image/*">
-        </div>
-        <div class="bio-section">
-            <label for="bio-text">About Me</label>
-            <textarea id="bio-text" placeholder="Tell us something about yourself..."></textarea>
-        </div>
-        <button class="save-btn" id="save-profile">Save Changes</button>
-    </div>
-
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="profile-section">
+            <div class="avatar-container">
+                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
+                <form id="avatar-form">
+                    <input type="file" id="avatar-input" accept="image/*">
+                    <button type="button" id="upload-btn">Upload Avatar</button>
+                </form>
+            </div>
+            <form id="profile-form">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="bio">Bio:</label>
+                    <textarea id="bio" name="bio" rows="4"></textarea>
+                </div>
+                <button type="submit" id="save-btn">Save Profile</button>
+            </form>
+        </section>
+    </main>
     <script>
-        document.getElementById('avatar-input').addEventListener('change', function(event) {
-            const file = event.target.files[0];
+        document.getElementById('upload-btn').addEventListener('click', function() {
+            const fileInput = document.getElementById('avatar-input');
+            const file = fileInput.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
@@ -97,22 +48,13 @@
             }
         });
 
-        document.getElementById('save-profile').addEventListener('click', function() {
-            const bioText = document.getElementById('bio-text').value;
-            const avatarSrc = document.getElementById('avatar-preview').src;
-
-            // In a real application, you would send this data to a server
-            console.log('Profile saved:', { bio: bioText, avatar: avatarSrc });
-
-            // Show a simple alert for demo purposes
-            alert('Profile changes saved! (Check browser console for data)');
-        });
-
-        // Load existing profile data (simulated)
-        window.addEventListener('load', function() {
-            // Simulate fetching existing data
-            const existingBio = "This is my current bio. I can edit it here.";
-            document.getElementById('bio-text').value = existingBio;
+        document.getElementById('profile-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const bio = document.getElementById('bio').value;
+            console.log('Profile saved:', { username, email, bio });
+            alert('Profile saved successfully!');
         });
     </script>
 </body>
