@@ -10,102 +10,21 @@
         <h1>User Profile</h1>
     </header>
     <main>
-        <section>
-            <img src="avatar.jpg" alt="User Avatar" width="150" height="150">
-            <h2>John Doe</h2>
-            <p>Email: john.doe@example.com</p>
-            <p>Location: New York, USA</p>
-            <p>Member since: January 2023</p>
-        </section>
-        <section>
-            <h3>Skills</h3>
-            <ul>
-                <li>Web Development</li>
-                <li>UI/UX Design</li>
-                <li>Project Management</li>
-            </ul>
+        <section class="profile">
+            <div class="avatar-container">
+                <img src="https://via.placeholder.com/150" alt="User Avatar" class="avatar">
+            </div>
+            <div class="user-info">
+                <h2>John Doe</h2>
+                <p><strong>Email:</strong> john.doe@example.com</p>
+                <p><strong>Location:</strong> New York, USA</p>
+                <p><strong>Member Since:</strong> January 2023</p>
+                <p><strong>Bio:</strong> Software developer with a passion for open-source projects and web technologies.</p>
+            </div>
         </section>
     </main>
     <footer>
-        <p>&copy; 2023 Profile Page. All rights reserved.</p>
+        <p>&copy; 2023 User Profile Page. All rights reserved.</p>
     </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-card {
-            max-width: 400px;
-            margin: 50px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            text-align: center;
-            font-family: Arial, sans-serif;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 15px;
-            border: 3px solid #4CAF50;
-        }
-        .user-name {
-            font-size: 24px;
-            font-weight: bold;
-            margin: 10px 0;
-            color: #333;
-        }
-        .user-bio {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }
-        .stat-item {
-            text-align: center;
-        }
-        .stat-value {
-            font-size: 20px;
-            font-weight: bold;
-            color: #4CAF50;
-        }
-        .stat-label {
-            font-size: 14px;
-            color: #888;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-card">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
-        <h2 class="user-name">Alex Johnson</h2>
-        <p class="user-bio">Software developer passionate about open-source projects, web technologies, and hiking in the mountains. Always eager to learn and share knowledge with the community.</p>
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-value">127</div>
-                <div class="stat-label">Posts</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">892</div>
-                <div class="stat-label">Followers</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">342</div>
-                <div class="stat-label">Following</div>
-            </div>
-        </div>
-    </div>
 </body>
 </html>
