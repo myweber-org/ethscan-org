@@ -4,431 +4,120 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
         .profile-container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 800px;
-            overflow: hidden;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: sans-serif;
         }
-        .profile-header {
-            background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
-            color: white;
-            padding: 40px 30px;
+        .avatar-section {
             text-align: center;
-            position: relative;
+            margin-bottom: 30px;
         }
-        .avatar-container {
-            position: relative;
+        .avatar-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #eee;
+            margin-bottom: 10px;
+        }
+        .avatar-upload-btn {
             display: inline-block;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .bio-section {
             margin-bottom: 20px;
         }
-        .avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 5px solid white;
-            object-fit: cover;
-            background-color: #f0f0f0;
-        }
-        .avatar-upload {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            background: #667eea;
-            color: white;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        .avatar-upload:hover {
-            background: #5a67d8;
-        }
-        .profile-name {
-            font-size: 2.2rem;
-            margin-bottom: 5px;
-        }
-        .profile-title {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            font-weight: 300;
-        }
-        .profile-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            padding: 40px;
-        }
-        @media (max-width: 768px) {
-            .profile-content {
-                grid-template-columns: 1fr;
-            }
-        }
-        .section {
-            margin-bottom: 25px;
-        }
-        .section-title {
-            font-size: 1.3rem;
-            color: #4a5568;
-            margin-bottom: 15px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #e2e8f0;
-        }
-        .info-item {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-        .info-icon {
-            color: #667eea;
-            margin-right: 12px;
-            font-size: 1.2rem;
-            width: 24px;
-            text-align: center;
-        }
-        .info-label {
-            font-weight: 600;
-            color: #4a5568;
-            min-width: 100px;
-        }
-        .info-value {
-            color: #718096;
-        }
-        .bio-textarea {
+        textarea {
             width: 100%;
-            padding: 15px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 1rem;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
             resize: vertical;
-            min-height: 120px;
-            transition: border-color 0.3s;
+            box-sizing: border-box;
         }
-        .bio-textarea:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-        .action-buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-            grid-column: 1 / -1;
-        }
-        .btn {
-            padding: 14px 28px;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        .btn-primary {
-            background: #667eea;
+        .save-btn {
+            background-color: #008CBA;
             color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
         }
-        .btn-primary:hover {
-            background: #5a67d8;
-            transform: translateY(-2px);
-            box-shadow: 0 7px 14px rgba(102, 126, 234, 0.3);
-        }
-        .btn-secondary {
-            background: #e2e8f0;
-            color: #4a5568;
-        }
-        .btn-secondary:hover {
-            background: #cbd5e0;
-        }
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #e2e8f0;
-        }
-        .stat-item {
-            text-align: center;
-        }
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #667eea;
-        }
-        .stat-label {
-            font-size: 0.9rem;
-            color: #718096;
-            margin-top: 5px;
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <div class="profile-header">
-            <div class="avatar-container">
-                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar" id="userAvatar">
-                <div class="avatar-upload" id="uploadTrigger">
-                    <i class="fas fa-camera"></i>
-                </div>
-                <input type="file" id="avatarInput" accept="image/*" style="display: none;">
-            </div>
-            <h1 class="profile-name" id="userName">Alex Johnson</h1>
-            <p class="profile-title" id="userTitle">Senior Frontend Developer</p>
+        <h1>Edit Profile</h1>
+        
+        <div class="avatar-section">
+            <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
+            <br>
+            <input type="file" id="avatarInput" accept="image/*" class="hidden">
+            <button type="button" class="avatar-upload-btn" onclick="document.getElementById('avatarInput').click()">Upload Avatar</button>
         </div>
-        <div class="profile-content">
-            <div class="left-column">
-                <div class="section">
-                    <h2 class="section-title">Personal Information</h2>
-                    <div class="info-item">
-                        <div class="info-icon"><i class="fas fa-envelope"></i></div>
-                        <div class="info-label">Email:</div>
-                        <div class="info-value" id="userEmail">alex.johnson@example.com</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-icon"><i class="fas fa-phone"></i></div>
-                        <div class="info-label">Phone:</div>
-                        <div class="info-value" id="userPhone">+1 (555) 123-4567</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
-                        <div class="info-label">Location:</div>
-                        <div class="info-value" id="userLocation">San Francisco, CA</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-icon"><i class="fas fa-briefcase"></i></div>
-                        <div class="info-label">Company:</div>
-                        <div class="info-value" id="userCompany">TechCorp Inc.</div>
-                    </div>
-                </div>
-                <div class="section">
-                    <h2 class="section-title">Skills</h2>
-                    <div class="info-value">
-                        JavaScript, React, Vue.js, HTML/CSS, Node.js, UI/UX Design
-                    </div>
-                </div>
-            </div>
-            <div class="right-column">
-                <div class="section">
-                    <h2 class="section-title">About Me</h2>
-                    <textarea class="bio-textarea" id="userBio">Passionate frontend developer with over 8 years of experience building modern web applications. Specialized in creating responsive, user-friendly interfaces with clean code. Always eager to learn new technologies and collaborate on challenging projects. In my free time, I contribute to open-source projects and mentor junior developers.</textarea>
-                </div>
-                <div class="stats">
-                    <div class="stat-item">
-                        <div class="stat-number" id="projectCount">127</div>
-                        <div class="stat-label">Projects</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="connectionCount">892</div>
-                        <div class="stat-label">Connections</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="yearsExp">8</div>
-                        <div class="stat-label">Years Exp</div>
-                    </div>
-                </div>
-            </div>
-            <div class="action-buttons">
-                <button class="btn btn-primary" id="saveProfile">
-                    <i class="fas fa-save"></i> Save Changes
-                </button>
-                <button class="btn btn-secondary" id="cancelEdit">
-                    <i class="fas fa-times"></i> Cancel
-                </button>
-            </div>
+
+        <div class="bio-section">
+            <label for="bioTextarea"><strong>Bio:</strong></label>
+            <textarea id="bioTextarea" placeholder="Tell something about yourself..."></textarea>
         </div>
+
+        <button type="button" class="save-btn" onclick="saveProfile()">Save Changes</button>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const avatarInput = document.getElementById('avatarInput');
-            const uploadTrigger = document.getElementById('uploadTrigger');
-            const userAvatar = document.getElementById('userAvatar');
-            const saveButton = document.getElementById('saveProfile');
-            const cancelButton = document.getElementById('cancelEdit');
-            const userBio = document.getElementById('userBio');
-            const userName = document.getElementById('userName');
-            const userTitle = document.getElementById('userTitle');
-            const userEmail = document.getElementById('userEmail');
-            const userPhone = document.getElementById('userPhone');
-            const userLocation = document.getElementById('userLocation');
-            const userCompany = document.getElementById('userCompany');
-            
-            let originalBio = userBio.value;
-            let originalName = userName.textContent;
-            let originalTitle = userTitle.textContent;
-            let originalEmail = userEmail.textContent;
-            let originalPhone = userPhone.textContent;
-            let originalLocation = userLocation.textContent;
-            let originalCompany = userCompany.textContent;
-            
-            uploadTrigger.addEventListener('click', function() {
-                avatarInput.click();
-            });
-            
-            avatarInput.addEventListener('change', function(event) {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        userAvatar.src = e.target.result;
-                        showNotification('Avatar updated successfully!');
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-            
-            saveButton.addEventListener('click', function() {
-                if (userBio.value.trim() === '') {
-                    alert('Bio cannot be empty!');
-                    return;
-                }
-                
-                originalBio = userBio.value;
-                originalName = userName.textContent;
-                originalTitle = userTitle.textContent;
-                originalEmail = userEmail.textContent;
-                originalPhone = userPhone.textContent;
-                originalLocation = userLocation.textContent;
-                originalCompany = userCompany.textContent;
-                
-                showNotification('Profile saved successfully!');
-                
-                saveButton.innerHTML = '<i class="fas fa-check"></i> Saved!';
-                saveButton.style.background = '#48bb78';
-                
-                setTimeout(() => {
-                    saveButton.innerHTML = '<i class="fas fa-save"></i> Save Changes';
-                    saveButton.style.background = '';
-                }, 2000);
-            });
-            
-            cancelButton.addEventListener('click', function() {
-                userBio.value = originalBio;
-                userName.textContent = originalName;
-                userTitle.textContent = originalTitle;
-                userEmail.textContent = originalEmail;
-                userPhone.textContent = originalPhone;
-                userLocation.textContent = originalLocation;
-                userCompany.textContent = originalCompany;
-                
-                showNotification('Changes discarded');
-            });
-            
-            function showNotification(message) {
-                const notification = document.createElement('div');
-                notification.textContent = message;
-                notification.style.cssText = `
-                    position: fixed;
-                    top: 20px;
-                    right: 20px;
-                    background: #48bb78;
-                    color: white;
-                    padding: 15px 25px;
-                    border-radius: 10px;
-                    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-                    z-index: 1000;
-                    font-weight: 600;
-                    animation: slideIn 0.3s ease-out;
-                `;
-                
-                document.body.appendChild(notification);
-                
-                setTimeout(() => {
-                    notification.style.animation = 'slideOut 0.3s ease-in';
-                    setTimeout(() => {
-                        document.body.removeChild(notification);
-                    }, 300);
-                }, 3000);
+        const avatarInput = document.getElementById('avatarInput');
+        const avatarPreview = document.getElementById('avatarPreview');
+        const bioTextarea = document.getElementById('bioTextarea');
+
+        avatarInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
             }
+        });
+
+        function saveProfile() {
+            const bio = bioTextarea.value.trim();
+            const avatarSrc = avatarPreview.src;
             
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes slideIn {
-                    from { transform: translateX(100%); opacity: 0; }
-                    to { transform: translateX(0); opacity: 1; }
-                }
-                @keyframes slideOut {
-                    from { transform: translateX(0); opacity: 1; }
-                    to { transform: translateX(100%); opacity: 0; }
-                }
-            `;
-            document.head.appendChild(style);
+            console.log('Profile saved:', { bio, avatarSrc });
+            alert('Profile saved successfully!');
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            const savedBio = localStorage.getItem('userBio');
+            const savedAvatar = localStorage.getItem('userAvatar');
             
-            userBio.addEventListener('input', function() {
-                if (userBio.value !== originalBio) {
-                    saveButton.disabled = false;
-                } else {
-                    saveButton.disabled = false;
-                }
-            });
-            
-            const editableElements = [userName, userTitle, userEmail, userPhone, userLocation, userCompany];
-            
-            editableElements.forEach(element => {
-                element.addEventListener('click', function() {
-                    const currentText = this.textContent;
-                    const input = document.createElement('input');
-                    input.type = 'text';
-                    input.value = currentText;
-                    input.style.cssText = `
-                        font-size: inherit;
-                        font-family: inherit;
-                        border: 2px solid #667eea;
-                        border-radius: 5px;
-                        padding: 5px;
-                        width: 100%;
-                    `;
-                    
-                    this.textContent = '';
-                    this.appendChild(input);
-                    input.focus();
-                    
-                    function saveEdit() {
-                        const newText = input.value.trim();
-                        if (newText !== '') {
-                            this.textContent = newText;
-                        }
-                        input.removeEventListener('blur', saveEdit);
-                        input.removeEventListener('keypress', handleEnter);
-                    }
-                    
-                    const saveEditBound = saveEdit.bind(this);
-                    
-                    function handleEnter(e) {
-                        if (e.key === 'Enter') {
-                            saveEditBound();
-                        }
-                    }
-                    
-                    input.addEventListener('blur', saveEditBound);
-                    input.addEventListener('keypress', handleEnter);
-                });
-            });
+            if (savedBio) {
+                bioTextarea.value = savedBio;
+            }
+            if (savedAvatar) {
+                avatarPreview.src = savedAvatar;
+            }
+        });
+
+        window.addEventListener('beforeunload', function() {
+            localStorage.setItem('userBio', bioTextarea.value.trim());
+            localStorage.setItem('userAvatar', avatarPreview.src);
         });
     </script>
 </body>
