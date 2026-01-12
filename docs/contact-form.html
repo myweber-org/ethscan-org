@@ -28,7 +28,7 @@
             <span id="messageError" class="error"></span>
         </div>
         <button type="submit">Send Message</button>
-        <div id="formSuccess" class="success"></div>
+        <div id="successMessage" class="success"></div>
     </form>
 
     <script>
@@ -36,37 +36,33 @@
             event.preventDefault();
             let isValid = true;
 
-            const name = document.getElementById('name');
-            const email = document.getElementById('email');
-            const message = document.getElementById('message');
-            const nameError = document.getElementById('nameError');
-            const emailError = document.getElementById('emailError');
-            const messageError = document.getElementById('messageError');
-            const successMsg = document.getElementById('formSuccess');
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
 
-            nameError.textContent = '';
-            emailError.textContent = '';
-            messageError.textContent = '';
-            successMsg.textContent = '';
+            document.getElementById('nameError').textContent = '';
+            document.getElementById('emailError').textContent = '';
+            document.getElementById('messageError').textContent = '';
+            document.getElementById('successMessage').textContent = '';
 
-            if (name.value.trim() === '') {
-                nameError.textContent = 'Name is required.';
+            if (name.length < 2) {
+                document.getElementById('nameError').textContent = 'Name must be at least 2 characters.';
                 isValid = false;
             }
 
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email.value)) {
-                emailError.textContent = 'Please enter a valid email address.';
+            if (!emailPattern.test(email)) {
+                document.getElementById('emailError').textContent = 'Please enter a valid email address.';
                 isValid = false;
             }
 
-            if (message.value.trim() === '') {
-                messageError.textContent = 'Message cannot be empty.';
+            if (message.length < 10) {
+                document.getElementById('messageError').textContent = 'Message must be at least 10 characters.';
                 isValid = false;
             }
 
             if (isValid) {
-                successMsg.textContent = 'Thank you! Your message has been sent successfully.';
+                document.getElementById('successMessage').textContent = 'Thank you! Your message has been sent.';
                 this.reset();
             }
         });
