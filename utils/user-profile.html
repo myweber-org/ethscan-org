@@ -1,218 +1,4 @@
-
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: Arial, sans-serif;
-        }
-        .avatar-section {
-            display: flex;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-        .avatar-preview {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 3px solid #4a90e2;
-            margin-right: 20px;
-            background-color: #f0f0f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #666;
-        }
-        .avatar-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .avatar-upload {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .avatar-upload input {
-            padding: 8px;
-        }
-        .avatar-upload button {
-            padding: 10px 20px;
-            background-color: #4a90e2;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .avatar-upload button:hover {
-            background-color: #3a7bc8;
-        }
-        .profile-info {
-            margin-top: 20px;
-        }
-        .profile-field {
-            margin-bottom: 15px;
-        }
-        .profile-field label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #333;
-        }
-        .profile-field input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <h1>User Profile</h1>
-        
-        <div class="avatar-section">
-            <div class="avatar-preview" id="avatarPreview">
-                <span>No Avatar</span>
-            </div>
-            <div class="avatar-upload">
-                <input type="file" id="avatarInput" accept="image/*">
-                <button onclick="uploadAvatar()">Upload Avatar</button>
-            </div>
-        </div>
-
-        <div class="profile-info">
-            <div class="profile-field">
-                <label for="username">Username</label>
-                <input type="text" id="username" value="john_doe" readonly>
-            </div>
-            <div class="profile-field">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" value="john@example.com">
-            </div>
-            <div class="profile-field">
-                <label for="fullName">Full Name</label>
-                <input type="text" id="fullName" value="John Doe">
-            </div>
-            <div class="profile-field">
-                <label for="location">Location</label>
-                <input type="text" id="location" value="New York, USA">
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const avatarInput = document.getElementById('avatarInput');
-        const avatarPreview = document.getElementById('avatarPreview');
-        
-        function uploadAvatar() {
-            const file = avatarInput.files[0];
-            if (!file) {
-                alert('Please select an image file first.');
-                return;
-            }
-            
-            if (!file.type.startsWith('image/')) {
-                alert('Please select a valid image file.');
-                return;
-            }
-            
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                avatarPreview.innerHTML = '';
-                const img = document.createElement('img');
-                img.src = e.target.result;
-                img.alt = 'User Avatar';
-                avatarPreview.appendChild(img);
-                
-                // In a real application, you would send the image to server here
-                console.log('Avatar uploaded:', file.name);
-            };
-            reader.readAsDataURL(file);
-        }
-        
-        // Preview image when selected
-        avatarInput.addEventListener('change', function() {
-            if (this.files && this.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    avatarPreview.innerHTML = '';
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.alt = 'User Avatar';
-                    avatarPreview.appendChild(img);
-                };
-                reader.readAsDataURL(this.files[0]);
-            }
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile-section">
-            <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button onclick="uploadAvatar()">Upload Avatar</button>
-            </div>
-            <form id="profile-form">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                <br>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <br>
-                <label for="bio">Bio:</label>
-                <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
-                <br>
-                <button type="submit">Save Profile</button>
-            </form>
-        </section>
-    </main>
-    <script>
-        function uploadAvatar() {
-            const fileInput = document.getElementById('avatar-upload');
-            const file = fileInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            console.log('Profile saved:', { username, email, bio });
-            alert('Profile saved successfully!');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -225,11 +11,8 @@
             padding: 2rem;
             border: 1px solid #e0e0e0;
             border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
             text-align: center;
-            margin-bottom: 1.5rem;
+            font-family: sans-serif;
         }
         .avatar {
             width: 120px;
@@ -237,35 +20,47 @@
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid #4a6fa5;
+            margin-bottom: 1rem;
         }
-        .name {
+        .user-name {
             font-size: 1.8rem;
             margin: 0.5rem 0;
             color: #333;
         }
-        .title {
+        .user-title {
             color: #666;
-            font-style: italic;
-            margin-bottom: 1rem;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
         }
         .bio-section {
-            line-height: 1.6;
-            color: #444;
-            padding-top: 1rem;
+            text-align: left;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
             border-top: 1px solid #eee;
+        }
+        .bio-heading {
+            font-size: 1.2rem;
+            color: #444;
+            margin-bottom: 0.8rem;
+        }
+        .bio-content {
+            line-height: 1.6;
+            color: #555;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Profile Avatar" class="avatar">
-            <h1 class="name">Alex Morgan</h1>
-            <p class="title">Frontend Developer & UI Designer</p>
-        </div>
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="User Avatar" class="avatar">
+        <h1 class="user-name">Alex Johnson</h1>
+        <p class="user-title">Senior Software Developer</p>
         <div class="bio-section">
-            <p>Passionate about creating clean, accessible, and user-friendly web interfaces. Enjoys working with modern JavaScript frameworks and CSS preprocessors. Always eager to learn new technologies and collaborate on interesting projects.</p>
-            <p>In free time, contributes to open-source projects and writes technical articles about web development trends.</p>
+            <h2 class="bio-heading">About</h2>
+            <p class="bio-content">
+                Passionate developer with over 8 years of experience building web applications.
+                Enjoys working with modern JavaScript frameworks, open-source projects, and mentoring junior engineers.
+                Currently focused on scalable system architecture and user experience design.
+            </p>
         </div>
     </div>
 </body>
