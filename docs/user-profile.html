@@ -11,7 +11,7 @@
     </header>
     <main>
         <section id="profile-section">
-            <div class="avatar-container">
+            <div id="avatar-container">
                 <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
                 <form id="avatar-form">
                     <input type="file" id="avatar-input" accept="image/*">
@@ -35,16 +35,18 @@
             </form>
         </section>
     </main>
+    <footer>
+        <p>&copy; 2023 User Profile Page</p>
+    </footer>
     <script>
         document.getElementById('upload-btn').addEventListener('click', function() {
             const fileInput = document.getElementById('avatar-input');
-            const file = fileInput.files[0];
-            if (file) {
+            if (fileInput.files && fileInput.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     document.getElementById('avatar-preview').src = e.target.result;
                 };
-                reader.readAsDataURL(file);
+                reader.readAsDataURL(fileInput.files[0]);
             }
         });
 
