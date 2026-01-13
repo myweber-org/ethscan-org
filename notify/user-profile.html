@@ -4,109 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: Arial, sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .avatar-preview {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4CAF50;
-            margin-bottom: 10px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input[type="text"],
-        input[type="email"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .btn {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .btn:hover {
-            background-color: #45a049;
-        }
-    </style>
 </head>
 <body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
-            <br>
-            <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
-            <button type="button" class="btn" onclick="document.getElementById('avatarUpload').click();">Upload Avatar</button>
-        </div>
-
-        <form id="profileForm">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" placeholder="Enter your username" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" required>
-            </div>
-            <div class="form-group">
-                <label for="fullName">Full Name</label>
-                <input type="text" id="fullName" name="fullName" placeholder="Enter your full name">
-            </div>
-            <div class="form-group">
-                <label for="location">Location</label>
-                <input type="text" id="location" name="location" placeholder="Enter your location">
-            </div>
-            <button type="submit" class="btn">Save Profile</button>
-        </form>
-    </div>
-
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="avatar-section">
+            <h2>Profile Picture</h2>
+            <img id="avatar-preview" src="default-avatar.png" alt="Profile Avatar" width="150" height="150">
+            <form id="avatar-form">
+                <label for="avatar-upload">Choose a new image:</label>
+                <input type="file" id="avatar-upload" name="avatar" accept="image/png, image/jpeg">
+                <button type="submit">Upload Avatar</button>
+            </form>
+        </section>
+        <section id="info-section">
+            <h2>Basic Information</h2>
+            <form id="profile-form">
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div>
+                    <label for="bio">Bio:</label>
+                    <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
+                </div>
+                <button type="submit">Save Profile</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 User Profile Page</p>
+    </footer>
     <script>
-        document.getElementById('avatarUpload').addEventListener('change', function(event) {
+        document.getElementById('avatar-upload').addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('avatarPreview').src = e.target.result;
+                    document.getElementById('avatar-preview').src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
         });
 
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
+        document.getElementById('profile-form').addEventListener('submit', function(event) {
             event.preventDefault();
-            const formData = {
-                username: document.getElementById('username').value,
-                email: document.getElementById('email').value,
-                fullName: document.getElementById('fullName').value,
-                location: document.getElementById('location').value
-            };
-            console.log('Profile data to save:', formData);
-            alert('Profile saved successfully! Check console for data.');
+            alert('Profile information saved!');
+        });
+
+        document.getElementById('avatar-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Avatar upload simulated!');
         });
     </script>
 </body>
