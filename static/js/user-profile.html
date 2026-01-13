@@ -7,46 +7,82 @@
     <style>
         .profile-container {
             max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
+            margin: 2rem auto;
+            padding: 2rem;
+            border: 1px solid #e0e0e0;
             border-radius: 8px;
+            font-family: sans-serif;
+        }
+        .avatar-section {
             text-align: center;
-            font-family: Arial, sans-serif;
+            margin-bottom: 1.5rem;
         }
         .avatar {
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid #4a6fa5;
         }
-        .user-name {
-            font-size: 2em;
-            margin: 15px 0 5px;
+        .name {
+            font-size: 1.8rem;
+            margin: 0.5rem 0;
             color: #333;
         }
-        .user-title {
+        .title {
             color: #666;
             font-style: italic;
-            margin-bottom: 15px;
+            margin-bottom: 1rem;
         }
-        .user-bio {
+        .bio-section {
             line-height: 1.6;
             color: #444;
-            text-align: left;
-            padding: 0 10px;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+        .contact-info {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px dashed #ccc;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0;
+        }
+        .contact-icon {
+            margin-right: 0.5rem;
+            color: #4a6fa5;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
-        <h1 class="user-name">Alex Morgan</h1>
-        <p class="user-title">Senior Software Developer</p>
-        <div class="user-bio">
-            <p>Passionate about building scalable web applications and open-source contributions. Enjoys hiking, photography, and exploring new coffee shops. Currently focused on frontend architecture and user experience design.</p>
-            <p>Main tech stack includes React, Node.js, and PostgreSQL. Always eager to learn new technologies and collaborate on interesting projects.</p>
+        <div class="avatar-section">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Profile Avatar" class="avatar">
+            <h1 class="name">Alex Morgan</h1>
+            <p class="title">Senior Frontend Developer</p>
+        </div>
+        
+        <div class="bio-section">
+            <p>Passionate about creating clean, efficient, and user-friendly web interfaces. Over 8 years of experience in frontend technologies with a focus on modern JavaScript frameworks and responsive design principles.</p>
+            <p>Currently leading UI development for enterprise applications and mentoring junior developers. Enjoys contributing to open-source projects and exploring new web technologies.</p>
+        </div>
+        
+        <div class="contact-info">
+            <div class="contact-item">
+                <span class="contact-icon">📧</span>
+                <span>alex.morgan@example.com</span>
+            </div>
+            <div class="contact-item">
+                <span class="contact-icon">📍</span>
+                <span>San Francisco, CA</span>
+            </div>
+            <div class="contact-item">
+                <span class="contact-icon">🔗</span>
+                <span>github.com/alexmorgan</span>
+            </div>
         </div>
     </div>
 </body>
