@@ -1,113 +1,57 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .avatar-preview {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #ddd;
-            margin-right: 20px;
-        }
-        .bio-section textarea {
-            width: 100%;
-            height: 120px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
-            font-family: inherit;
-        }
-        .button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        .button:hover {
-            background-color: #45a049;
-        }
-    </style>
 </head>
 <body>
-    <div class="profile-container">
-        <h1>Edit Profile</h1>
-        <div class="avatar-section">
-            <img id="avatarPreview" src="default-avatar.png" alt="Avatar Preview" class="avatar-preview">
-            <div>
-                <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
-                <button class="button" onclick="document.getElementById('avatarUpload').click();">Change Avatar</button>
-                <p style="font-size: 0.9em; color: #666; margin-top: 5px;">Supported formats: JPG, PNG, GIF. Max size: 2MB.</p>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section class="profile-section">
+            <div class="avatar-container">
+                <img id="avatar-preview" src="placeholder.jpg" alt="Profile Avatar" width="150" height="150">
+                <input type="file" id="avatar-upload" accept="image/*">
+                <button onclick="document.getElementById('avatar-upload').click()">Change Avatar</button>
             </div>
-        </div>
-        <div class="bio-section">
-            <label for="userBio"><strong>Bio:</strong></label>
-            <textarea id="userBio" placeholder="Tell us a little about yourself..."></textarea>
-        </div>
-        <button class="button" onclick="saveProfile()">Save Changes</button>
-    </div>
-
+            <form id="profile-form">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="bio">Bio:</label>
+                    <textarea id="bio" name="bio" rows="4"></textarea>
+                </div>
+                <button type="submit">Save Profile</button>
+            </form>
+        </section>
+    </main>
     <script>
-        const avatarUpload = document.getElementById('avatarUpload');
-        const avatarPreview = document.getElementById('avatarPreview');
-        const userBio = document.getElementById('userBio');
-
-        avatarUpload.addEventListener('change', function(event) {
+        document.getElementById('avatar-upload').addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
-                if (file.size > 2 * 1024 * 1024) {
-                    alert('File size exceeds 2MB limit.');
-                    return;
-                }
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    avatarPreview.src = e.target.result;
+                    document.getElementById('avatar-preview').src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
         });
 
-        function saveProfile() {
-            const bioText = userBio.value.trim();
-            if (bioText.length > 500) {
-                alert('Bio must be 500 characters or less.');
-                return;
-            }
+        document.getElementById('profile-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const profileData = Object.fromEntries(formData);
+            console.log('Profile data:', profileData);
             alert('Profile saved successfully!');
-        }
-
-        window.addEventListener('DOMContentLoaded', function() {
-            const savedBio = localStorage.getItem('userBio');
-            if (savedBio) {
-                userBio.value = savedBio;
-            }
-            const savedAvatar = localStorage.getItem('avatarData');
-            if (savedAvatar) {
-                avatarPreview.src = savedAvatar;
-            }
-            userBio.addEventListener('input', function() {
-                localStorage.setItem('userBio', userBio.value);
-            });
         });
     </script>
 </body>
