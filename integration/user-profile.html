@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,52 +10,23 @@
         <h1>User Profile</h1>
     </header>
     <main>
-        <section id="profile-section">
-            <div id="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <form id="avatar-form">
-                    <input type="file" id="avatar-input" name="avatar" accept="image/*">
-                    <button type="submit">Upload Avatar</button>
-                </form>
+        <section class="profile">
+            <div class="avatar-container">
+                <img src="avatar.jpg" alt="User Avatar" width="150" height="150">
             </div>
-            <form id="profile-form">
-                <div>
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div>
-                    <label for="bio">Bio:</label>
-                    <textarea id="bio" name="bio" rows="4"></textarea>
-                </div>
-                <button type="submit">Save Profile</button>
-            </form>
+            <div class="user-info">
+                <h2>John Doe</h2>
+                <p class="bio">Software developer with a passion for open-source projects and web technologies.</p>
+                <ul class="details">
+                    <li><strong>Location:</strong> San Francisco, CA</li>
+                    <li><strong>Joined:</strong> January 2023</li>
+                    <li><strong>Repositories:</strong> 42</li>
+                </ul>
+            </div>
         </section>
     </main>
-    <script>
-        document.getElementById('avatar-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const fileInput = document.getElementById('avatar-input');
-            if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(fileInput.files[0]);
-            }
-        });
-
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            console.log('Profile saved:', { username, email, bio });
-            alert('Profile saved successfully!');
-        });
-    </script>
+    <footer>
+        <p>&copy; 2023 Profile Page. All rights reserved.</p>
+    </footer>
 </body>
 </html>
