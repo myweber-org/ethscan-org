@@ -14,385 +14,86 @@
             font-family: sans-serif;
         }
         .avatar-section {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .avatar-preview {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background-color: #e0e0e0;
-            margin-right: 20px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .avatar-preview img {
-            max-width: 100%;
-            max-height: 100%;
-        }
-        .bio-section textarea {
-            width: 100%;
-            height: 100px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
-            font-family: inherit;
-        }
-        .actions {
-            margin-top: 20px;
-            text-align: right;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <h1>Edit Profile</h1>
-        <div class="avatar-section">
-            <div class="avatar-preview" id="avatarPreview">
-                <span>No Image</span>
-            </div>
-            <div>
-                <input type="file" id="avatarInput" accept="image/*">
-                <p>Upload a profile picture (JPG, PNG, max 2MB)</p>
-            </div>
-        </div>
-        <div class="bio-section">
-            <label for="bioTextarea">Bio:</label>
-            <textarea id="bioTextarea" placeholder="Tell us about yourself..."></textarea>
-        </div>
-        <div class="actions">
-            <button id="saveButton">Save Changes</button>
-        </div>
-    </div>
-
-    <script>
-        const avatarInput = document.getElementById('avatarInput');
-        const avatarPreview = document.getElementById('avatarPreview');
-        const bioTextarea = document.getElementById('bioTextarea');
-        const saveButton = document.getElementById('saveButton');
-
-        avatarInput.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                if (file.size > 2 * 1024 * 1024) {
-                    alert('File size exceeds 2MB limit.');
-                    avatarInput.value = '';
-                    return;
-                }
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    avatarPreview.innerHTML = '';
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    avatarPreview.appendChild(img);
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        saveButton.addEventListener('click', function() {
-            const bio = bioTextarea.value.trim();
-            const avatarFile = avatarInput.files[0];
-            let message = 'Profile saved.';
-            if (avatarFile) {
-                message += ` Avatar: ${avatarFile.name}`;
-            }
-            if (bio) {
-                message += ` Bio: ${bio.substring(0, 50)}...`;
-            }
-            alert(message);
-        });
-
-        window.addEventListener('load', function() {
-            const savedBio = localStorage.getItem('userBio');
-            if (savedBio) {
-                bioTextarea.value = savedBio;
-            }
-            const savedAvatar = localStorage.getItem('userAvatar');
-            if (savedAvatar) {
-                avatarPreview.innerHTML = '';
-                const img = document.createElement('img');
-                img.src = savedAvatar;
-                avatarPreview.appendChild(img);
-            }
-        });
-
-        saveButton.addEventListener('click', function() {
-            localStorage.setItem('userBio', bioTextarea.value.trim());
-            const avatarImg = avatarPreview.querySelector('img');
-            if (avatarImg && avatarImg.src.startsWith('data:')) {
-                localStorage.setItem('userAvatar', avatarImg.src);
-            }
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <script>
-        function validateForm() {
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const age = document.getElementById('age').value;
-
-            if (name === '') {
-                alert('Please enter your name.');
-                return false;
-            }
-
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-                alert('Please enter a valid email address.');
-                return false;
-            }
-
-            if (age === '' || age < 1 || age > 120) {
-                alert('Please enter a valid age between 1 and 120.');
-                return false;
-            }
-
-            alert('Profile submitted successfully!');
-            return true;
-        }
-    </script>
-</head>
-<body>
-    <h1>User Profile</h1>
-    <form onsubmit="return validateForm()">
-        <label for="name">Full Name:</label><br>
-        <input type="text" id="name" name="name"><br><br>
-
-        <label for="email">Email Address:</label><br>
-        <input type="text" id="email" name="email"><br><br>
-
-        <label for="age">Age:</label><br>
-        <input type="number" id="age" name="age"><br><br>
-
-        <label for="country">Country:</label><br>
-        <select id="country" name="country">
-            <option value="">Select a country</option>
-            <option value="us">United States</option>
-            <option value="uk">United Kingdom</option>
-            <option value="ca">Canada</option>
-            <option value="au">Australia</option>
-        </select><br><br>
-
-        <input type="submit" value="Save Profile">
-    </form>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
             text-align: center;
             margin-bottom: 20px;
         }
         .avatar-preview {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #ccc;
-            margin-bottom: 10px;
-        }
-        .bio-section textarea {
-            width: 100%;
-            height: 100px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
-            font-family: inherit;
-        }
-        .form-actions {
-            margin-top: 20px;
-            text-align: right;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .hidden {
-            display: none;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <h1>Edit Profile</h1>
-        <div class="avatar-section">
-            <img id="avatarPreview" src="default-avatar.png" alt="Avatar Preview" class="avatar-preview">
-            <div>
-                <input type="file" id="avatarUpload" accept="image/*">
-                <button type="button" id="removeAvatar">Remove Avatar</button>
-            </div>
-        </div>
-        <div class="bio-section">
-            <label for="userBio">Bio:</label>
-            <textarea id="userBio" placeholder="Tell us about yourself..."></textarea>
-        </div>
-        <div class="form-actions">
-            <button id="saveProfile">Save Changes</button>
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const avatarUpload = document.getElementById('avatarUpload');
-            const avatarPreview = document.getElementById('avatarPreview');
-            const removeAvatarBtn = document.getElementById('removeAvatar');
-            const userBio = document.getElementById('userBio');
-            const saveProfileBtn = document.getElementById('saveProfile');
-
-            // Load saved data from localStorage (simulated)
-            const savedBio = localStorage.getItem('userBio');
-            const savedAvatar = localStorage.getItem('userAvatar');
-            if (savedBio) userBio.value = savedBio;
-            if (savedAvatar) avatarPreview.src = savedAvatar;
-
-            avatarUpload.addEventListener('change', function(event) {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        avatarPreview.src = e.target.result;
-                        localStorage.setItem('userAvatar', e.target.result);
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-
-            removeAvatarBtn.addEventListener('click', function() {
-                avatarPreview.src = 'default-avatar.png';
-                localStorage.removeItem('userAvatar');
-                avatarUpload.value = '';
-            });
-
-            saveProfileBtn.addEventListener('click', function() {
-                localStorage.setItem('userBio', userBio.value);
-                alert('Profile saved successfully!');
-            });
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-family: Arial, sans-serif;
-        }
-        .avatar {
             width: 120px;
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid #4a90e2;
+            margin-bottom: 10px;
         }
-        .user-name {
-            font-size: 24px;
-            margin: 10px 0 5px 0;
-            color: #333;
+        .avatar-upload {
+            margin-top: 10px;
         }
-        .user-title {
-            color: #666;
+        .bio-section {
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        .button {
+            background-color: #4a90e2;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
             font-size: 16px;
-            margin-bottom: 15px;
         }
-        .bio {
-            line-height: 1.6;
-            color: #444;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }
-        .stats {
-            display: flex;
-            gap: 20px;
-            margin-top: 15px;
-        }
-        .stat-item {
-            text-align: center;
-        }
-        .stat-value {
-            font-weight: bold;
-            font-size: 18px;
-            color: #4a90e2;
-        }
-        .stat-label {
-            font-size: 14px;
-            color: #777;
+        .button:hover {
+            background-color: #3a7bc8;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
-        <h1 class="user-name">Alex Johnson</h1>
-        <p class="user-title">Senior Software Developer</p>
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-value">142</div>
-                <div class="stat-label">Projects</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">5.8k</div>
-                <div class="stat-label">Followers</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">892</div>
-                <div class="stat-label">Following</div>
+        <h1>Edit Your Profile</h1>
+        <div class="avatar-section">
+            <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
+            <div>
+                <input type="file" id="avatarInput" accept="image/*" class="avatar-upload">
             </div>
         </div>
-        <div class="bio">
-            <p>Passionate about building scalable web applications and open-source contributions. Enjoys hiking, photography, and exploring new technologies. Currently focused on improving developer experience through better tooling.</p>
-            <p>Main tech stack includes JavaScript, React, Node.js, and cloud platforms. Always eager to learn and collaborate on interesting projects.</p>
+        <div class="bio-section">
+            <label for="bioTextarea"><strong>Bio:</strong></label>
+            <textarea id="bioTextarea" placeholder="Tell us something about yourself..."></textarea>
         </div>
+        <button class="button" id="saveButton">Save Profile</button>
     </div>
+
+    <script>
+        document.getElementById('avatarInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatarPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('saveButton').addEventListener('click', function() {
+            const bio = document.getElementById('bioTextarea').value.trim();
+            const avatarFile = document.getElementById('avatarInput').files[0];
+            let message = 'Profile saved!';
+            if (bio) {
+                message += ' Bio: ' + bio.substring(0, 50) + (bio.length > 50 ? '...' : '');
+            }
+            if (avatarFile) {
+                message += ' Avatar file: ' + avatarFile.name;
+            }
+            alert(message);
+        });
+    </script>
 </body>
 </html>
