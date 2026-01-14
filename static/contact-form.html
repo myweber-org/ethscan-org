@@ -106,4 +106,104 @@
         }
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 1em; padding: 10px; background-color: #e7f7e7; border: 1px solid green; }
+    </style>
+</head>
+<body>
+    <h1>Contact Us</h1>
+    <div id="message"></div>
+    <form id="contactForm">
+        <div>
+            <label for="name">Full Name:</label><br>
+            <input type="text" id="name" name="name" required>
+            <div id="nameError" class="error"></div>
+        </div>
+        <div>
+            <label for="email">Email Address:</label><br>
+            <input type="email" id="email" name="email" required>
+            <div id="emailError" class="error"></div>
+        </div>
+        <div>
+            <label for="subject">Subject:</label><br>
+            <input type="text" id="subject" name="subject" required>
+            <div id="subjectError" class="error"></div>
+        </div>
+        <div>
+            <label for="messageText">Message:</label><br>
+            <textarea id="messageText" name="message" rows="5" required></textarea>
+            <div id="messageError" class="error"></div>
+        </div>
+        <button type="submit">Send Message</button>
+    </form>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            clearErrors();
+            clearMessage();
+
+            let isValid = true;
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const subject = document.getElementById('subject').value.trim();
+            const messageText = document.getElementById('messageText').value.trim();
+
+            if (name.length < 2) {
+                showError('nameError', 'Name must be at least 2 characters.');
+                isValid = false;
+            }
+            if (!validateEmail(email)) {
+                showError('emailError', 'Please enter a valid email address.');
+                isValid = false;
+            }
+            if (subject.length < 3) {
+                showError('subjectError', 'Subject must be at least 3 characters.');
+                isValid = false;
+            }
+            if (messageText.length < 10) {
+                showError('messageError', 'Message must be at least 10 characters.');
+                isValid = false;
+            }
+
+            if (isValid) {
+                simulateSubmission(name, email, subject, messageText);
+            }
+        });
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function showError(elementId, message) {
+            document.getElementById(elementId).textContent = message;
+        }
+
+        function clearErrors() {
+            const errorElements = document.querySelectorAll('.error');
+            errorElements.forEach(el => el.textContent = '');
+        }
+
+        function clearMessage() {
+            document.getElementById('message').textContent = '';
+            document.getElementById('message').className = '';
+        }
+
+        function simulateSubmission(name, email, subject, message) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = 'Thank you, ' + name + '! Your message has been sent. We will respond to ' + email + ' soon.';
+            messageDiv.className = 'success';
+            document.getElementById('contactForm').reset();
+            console.log('Form submitted with data:', { name, email, subject, message });
+        }
+    </script>
+</body>
 </html>
