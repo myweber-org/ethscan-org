@@ -88,4 +88,80 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="profile-section">
+            <div class="avatar-container">
+                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
+                <form id="avatar-form" enctype="multipart/form-data">
+                    <label for="avatar-upload">Change Avatar:</label>
+                    <input type="file" id="avatar-upload" name="avatar" accept="image/*">
+                    <button type="submit">Upload</button>
+                </form>
+            </div>
+            <div class="bio-container">
+                <h2>Edit Bio</h2>
+                <form id="bio-form">
+                    <textarea id="bio-text" name="bio" rows="4" cols="50" placeholder="Write something about yourself..."></textarea>
+                    <br>
+                    <button type="submit">Save Bio</button>
+                </form>
+                <p id="current-bio">No bio provided yet.</p>
+            </div>
+        </section>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const avatarForm = document.getElementById('avatar-form');
+            const avatarUpload = document.getElementById('avatar-upload');
+            const avatarPreview = document.getElementById('avatar-preview');
+            const bioForm = document.getElementById('bio-form');
+            const bioText = document.getElementById('bio-text');
+            const currentBio = document.getElementById('current-bio');
+
+            const savedBio = localStorage.getItem('userBio');
+            if (savedBio) {
+                currentBio.textContent = savedBio;
+                bioText.value = savedBio;
+            }
+
+            avatarForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const file = avatarUpload.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        avatarPreview.src = e.target.result;
+                        alert('Avatar uploaded successfully! (Simulated)');
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    alert('Please select an image file.');
+                }
+            });
+
+            bioForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const newBio = bioText.value.trim();
+                if (newBio) {
+                    currentBio.textContent = newBio;
+                    localStorage.setItem('userBio', newBio);
+                    alert('Bio saved!');
+                } else {
+                    alert('Bio cannot be empty.');
+                }
+            });
+        });
+    </script>
+</body>
 </html>
