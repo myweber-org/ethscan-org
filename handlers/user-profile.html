@@ -1,66 +1,44 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: Arial, sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a90e2;
-        }
-        .bio-section {
-            line-height: 1.6;
-            color: #333;
-        }
-        .username {
-            font-size: 24px;
-            font-weight: bold;
-            margin: 10px 0 5px;
-        }
-        .user-title {
-            color: #666;
-            font-style: italic;
-            margin-bottom: 15px;
-        }
-        .bio-text {
-            background-color: #f9f9f9;
-            padding: 15px;
-            border-radius: 5px;
-        }
-    </style>
 </head>
 <body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://via.placeholder.com/120" alt="User Avatar" class="avatar">
-            <div class="username">Alex Johnson</div>
-            <div class="user-title">Frontend Developer</div>
-        </div>
-        <div class="bio-section">
-            <h3>About Me</h3>
-            <div class="bio-text">
-                Passionate about creating clean and efficient web interfaces. 
-                Enjoys hiking, photography, and open-source contributions. 
-                Currently focused on improving accessibility in modern web applications.
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="profile-info">
+            <div class="avatar-container">
+                <img id="avatar-img" src="default-avatar.png" alt="User Avatar">
+                <input type="file" id="avatar-upload" accept="image/*">
+                <button id="upload-btn">Upload Avatar</button>
             </div>
-        </div>
-    </div>
+            <div class="bio-section">
+                <h2>Bio</h2>
+                <textarea id="bio-text" rows="4" cols="50" placeholder="Write something about yourself..."></textarea>
+                <button id="save-bio-btn">Save Bio</button>
+            </div>
+        </section>
+    </main>
+    <script>
+        document.getElementById('upload-btn').addEventListener('click', function() {
+            const fileInput = document.getElementById('avatar-upload');
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatar-img').src = e.target.result;
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        });
+
+        document.getElementById('save-bio-btn').addEventListener('click', function() {
+            const bioText = document.getElementById('bio-text').value;
+            alert('Bio saved: ' + bioText);
+        });
+    </script>
 </body>
 </html>
