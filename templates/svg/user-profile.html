@@ -4,22 +4,76 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+        }
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto 20px;
+        }
+        .username {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .bio {
+            text-align: center;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+        .stat-item {
+            flex: 1;
+        }
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+            display: block;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="avatar-section">
-            <img src="https://via.placeholder.com/150" alt="User Avatar" id="user-avatar">
-        </section>
-        <section id="info-section">
-            <h2 id="user-name">Alex Johnson</h2>
-            <p id="user-bio">Software developer with a passion for open-source projects and web technologies.</p>
-        </section>
-    </main>
-    <footer>
-        <p>Profile last updated: <span id="update-date">2023-10-27</span></p>
-    </footer>
+    <div class="profile-container">
+        <img src="https://via.placeholder.com/150" alt="User Avatar" class="avatar">
+        <div class="username">Alex Johnson</div>
+        <div class="bio">
+            Software developer passionate about open-source projects, hiking, and photography.
+            Currently working on web accessibility initiatives.
+        </div>
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-value">127</span>
+                <span class="stat-label">Posts</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">892</span>
+                <span class="stat-label">Followers</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">304</span>
+                <span class="stat-label">Following</span>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
