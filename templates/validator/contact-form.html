@@ -6,11 +6,11 @@
     <title>Contact Form</title>
     <style>
         .error { color: red; font-size: 0.9em; }
-        .success { color: green; font-size: 1em; padding: 10px; background-color: #e8f5e9; border: 1px solid #4caf50; }
+        .success { color: green; font-size: 1em; padding: 10px; background-color: #e7f7e7; border: 1px solid green; }
         form { max-width: 500px; margin: 20px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
         label { display: block; margin-bottom: 5px; }
-        input, textarea { width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; }
-        button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }
+        input, textarea { width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 3px; }
+        button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 3px; cursor: pointer; }
         button:hover { background-color: #0056b3; }
     </style>
 </head>
@@ -30,7 +30,7 @@
         <input type="text" id="subject" name="subject" required>
         <div id="subjectError" class="error"></div>
 
-        <label for="messageText">Your Message:</label>
+        <label for="messageText">Message:</label>
         <textarea id="messageText" name="message" rows="5" required></textarea>
         <div id="messageError" class="error"></div>
 
@@ -59,8 +59,8 @@
                 isValid = false;
             }
 
-            if (subject.length < 5) {
-                showError('subjectError', 'Subject must be at least 5 characters.');
+            if (subject.length < 3) {
+                showError('subjectError', 'Subject must be at least 3 characters.');
                 isValid = false;
             }
 
@@ -75,13 +75,12 @@
         });
 
         function showError(elementId, message) {
-            const element = document.getElementById(elementId);
-            element.textContent = message;
+            document.getElementById(elementId).textContent = message;
         }
 
         function clearErrors() {
-            const errors = document.querySelectorAll('.error');
-            errors.forEach(error => error.textContent = '');
+            const errorElements = document.querySelectorAll('.error');
+            errorElements.forEach(el => el.textContent = '');
             document.getElementById('message').textContent = '';
         }
 
