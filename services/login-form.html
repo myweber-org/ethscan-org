@@ -261,4 +261,79 @@
         }
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .password-container { position: relative; }
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <form id="loginForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <div id="usernameError" class="error"></div>
+        </div>
+        <div class="password-container">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <span class="toggle-password" id="togglePassword">Show</span>
+            <div id="passwordError" class="error"></div>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('loginForm');
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.textContent = type === 'password' ? 'Show' : 'Hide';
+        });
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            let isValid = true;
+
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const usernameError = document.getElementById('usernameError');
+            const passwordError = document.getElementById('passwordError');
+
+            usernameError.textContent = '';
+            passwordError.textContent = '';
+
+            if (username.length < 3) {
+                usernameError.textContent = 'Username must be at least 3 characters.';
+                isValid = false;
+            }
+
+            if (password.length < 6) {
+                passwordError.textContent = 'Password must be at least 6 characters.';
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert('Login successful!');
+                form.reset();
+            }
+        });
+    </script>
+</body>
 </html>
