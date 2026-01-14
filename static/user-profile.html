@@ -8,98 +8,39 @@
         .profile-container {
             max-width: 600px;
             margin: 40px auto;
-            padding: 30px;
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            text-align: center;
-            font-family: Arial, sans-serif;
-        }
-        .avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #4a90e2;
-            margin-bottom: 20px;
-        }
-        .user-name {
-            font-size: 28px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 10px;
-        }
-        .user-title {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 20px;
-        }
-        .bio-section {
-            background-color: #f9f9f9;
             padding: 20px;
+            border: 1px solid #ccc;
             border-radius: 8px;
-            margin-top: 20px;
-            text-align: left;
-        }
-        .bio-title {
-            font-weight: bold;
-            color: #444;
-            margin-bottom: 10px;
-        }
-        .bio-content {
-            color: #555;
-            line-height: 1.6;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
-        <div class="user-name">Alex Johnson</div>
-        <div class="user-title">Senior Software Developer</div>
-        <div class="bio-section">
-            <div class="bio-title">About Me</div>
-            <div class="bio-content">
-                Passionate about building scalable web applications and open-source contributions. 
-                Experienced in full-stack development with focus on modern JavaScript frameworks. 
-                Enjoys hiking, photography, and exploring new technologies in spare time.
-            </div>
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: Arial, sans-serif;
+            font-family: sans-serif;
         }
         .avatar-section {
-            text-align: center;
+            display: flex;
+            align-items: center;
             margin-bottom: 20px;
         }
         .avatar-preview {
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #eee;
-            margin-bottom: 10px;
+            border: 2px solid #ddd;
+            margin-right: 20px;
         }
-        .form-group {
+        .avatar-upload {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .info-section {
+            margin-top: 20px;
+        }
+        .info-item {
             margin-bottom: 15px;
         }
         label {
             display: block;
-            margin-bottom: 5px;
             font-weight: bold;
+            margin-bottom: 5px;
         }
         input[type="text"],
         input[type="email"] {
@@ -124,90 +65,54 @@
 </head>
 <body>
     <div class="profile-container">
+        <h1>User Profile</h1>
         <div class="avatar-section">
-            <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
-            <div>
-                <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
-                <button type="button" onclick="document.getElementById('avatarUpload').click();">Change Avatar</button>
+            <img id="avatarPreview" src="https://via.placeholder.com/100" alt="Avatar Preview" class="avatar-preview">
+            <div class="avatar-upload">
+                <input type="file" id="avatarInput" accept="image/*">
+                <button onclick="uploadAvatar()">Update Avatar</button>
             </div>
         </div>
-
-        <form id="profileForm">
-            <div class="form-group">
-                <label for="fullName">Full Name</label>
-                <input type="text" id="fullName" name="fullName" placeholder="Enter your full name">
+        <div class="info-section">
+            <div class="info-item">
+                <label for="username">Username</label>
+                <input type="text" id="username" value="john_doe" readonly>
             </div>
-            <div class="form-group">
+            <div class="info-item">
                 <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email">
+                <input type="email" id="email" value="john@example.com">
             </div>
-            <div class="form-group">
-                <label for="location">Location</label>
-                <input type="text" id="location" name="location" placeholder="City, Country">
+            <div class="info-item">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" value="John Doe">
             </div>
-            <div class="form-group">
-                <label for="bio">Bio</label>
-                <input type="text" id="bio" name="bio" placeholder="Short bio about yourself">
-            </div>
-            <button type="submit">Update Profile</button>
-        </form>
+            <button onclick="saveProfile()">Save Changes</button>
+        </div>
     </div>
 
     <script>
-        document.getElementById('avatarUpload').addEventListener('change', function(event) {
-            const file = event.target.files[0];
+        function uploadAvatar() {
+            const fileInput = document.getElementById('avatarInput');
+            const file = fileInput.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     document.getElementById('avatarPreview').src = e.target.result;
                 };
                 reader.readAsDataURL(file);
+                alert('Avatar uploaded successfully! Click "Save Changes" to update profile.');
+            } else {
+                alert('Please select an image file first.');
             }
-        });
+        }
 
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const formData = {
-                fullName: document.getElementById('fullName').value,
-                email: document.getElementById('email').value,
-                location: document.getElementById('location').value,
-                bio: document.getElementById('bio').value
-            };
-            console.log('Profile data to be saved:', formData);
-            alert('Profile updated successfully!');
-        });
+        function saveProfile() {
+            const email = document.getElementById('email').value;
+            const fullName = document.getElementById('fullName').value;
+            // In a real application, you would send this data to a server
+            console.log('Profile saved:', { email, fullName });
+            alert('Profile information saved successfully!');
+        }
     </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
-            <div class="avatar-container">
-                <img src="https://via.placeholder.com/150" alt="User Avatar" class="avatar">
-            </div>
-            <div class="user-info">
-                <h2>John Doe</h2>
-                <p>Email: john.doe@example.com</p>
-                <p>Location: New York, USA</p>
-                <p>Member since: January 2023</p>
-            </div>
-        </section>
-        <section class="bio">
-            <h3>Bio</h3>
-            <p>Software developer with a passion for open-source projects and web technologies.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 Profile Page. All rights reserved.</p>
-    </footer>
 </body>
 </html>
