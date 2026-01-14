@@ -26,4 +26,122 @@
         <p>&copy; 2023 Profile Page. All rights reserved.</p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; }
+        .profile-card { border: 1px solid #ccc; border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+        .avatar-section { display: flex; align-items: center; margin-bottom: 20px; }
+        .avatar-preview { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid #ddd; margin-right: 20px; }
+        .bio-textarea { width: 100%; min-height: 100px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; margin-bottom: 15px; }
+        .btn { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .btn-primary { background-color: #007bff; color: white; }
+        .btn-secondary { background-color: #6c757d; color: white; margin-left: 10px; }
+        .hidden { display: none; }
+        .status-message { padding: 10px; border-radius: 4px; margin-top: 15px; }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+    <h1>User Profile</h1>
+    <div class="profile-card">
+        <div class="avatar-section">
+            <img id="avatarPreview" src="https://via.placeholder.com/100" alt="Avatar Preview" class="avatar-preview">
+            <div>
+                <input type="file" id="avatarInput" accept="image/*" class="hidden">
+                <button type="button" id="changeAvatarBtn" class="btn btn-secondary">Change Avatar</button>
+                <p style="font-size: 0.9em; color: #666; margin-top: 5px;">Allowed: JPG, PNG, GIF. Max 2MB.</p>
+            </div>
+        </div>
+        <div class="bio-section">
+            <label for="userBio"><strong>Bio:</strong></label>
+            <textarea id="userBio" class="bio-textarea" placeholder="Tell us about yourself...">Sample user bio text.</textarea>
+        </div>
+        <div>
+            <button type="button" id="saveBtn" class="btn btn-primary">Save Changes</button>
+            <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
+        </div>
+        <div id="statusMessage" class="status-message hidden"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const avatarInput = document.getElementById('avatarInput');
+            const avatarPreview = document.getElementById('avatarPreview');
+            const changeAvatarBtn = document.getElementById('changeAvatarBtn');
+            const userBio = document.getElementById('userBio');
+            const saveBtn = document.getElementById('saveBtn');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const statusMessage = document.getElementById('statusMessage');
+            let originalBio = userBio.value;
+            let originalAvatarSrc = avatarPreview.src;
+
+            changeAvatarBtn.addEventListener('click', () => avatarInput.click());
+
+            avatarInput.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    if (!file.type.startsWith('image/')) {
+                        showStatus('Please select a valid image file.', 'error');
+                        return;
+                    }
+                    if (file.size > 2 * 1024 * 1024) {
+                        showStatus('Image size must be less than 2MB.', 'error');
+                        return;
+                    }
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        avatarPreview.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                    showStatus('Avatar image selected. Click Save to update.', 'success');
+                }
+            });
+
+            saveBtn.addEventListener('click', function() {
+                const newBio = userBio.value.trim();
+                const newAvatarSrc = avatarPreview.src;
+                let messages = [];
+
+                if (newBio !== originalBio) {
+                    messages.push('Bio updated.');
+                    originalBio = newBio;
+                }
+                if (newAvatarSrc !== originalAvatarSrc) {
+                    messages.push('Avatar updated.');
+                    originalAvatarSrc = newAvatarSrc;
+                }
+
+                if (messages.length === 0) {
+                    showStatus('No changes to save.', 'error');
+                } else {
+                    showStatus('Profile saved successfully! ' + messages.join(' '), 'success');
+                    avatarInput.value = '';
+                }
+            });
+
+            cancelBtn.addEventListener('click', function() {
+                userBio.value = originalBio;
+                avatarPreview.src = originalAvatarSrc;
+                avatarInput.value = '';
+                showStatus('Changes discarded.', 'success');
+            });
+
+            function showStatus(text, type) {
+                statusMessage.textContent = text;
+                statusMessage.className = 'status-message ' + type;
+                statusMessage.classList.remove('hidden');
+                setTimeout(() => {
+                    statusMessage.classList.add('hidden');
+                }, 5000);
+            }
+        });
+    </script>
+</body>
 </html>
