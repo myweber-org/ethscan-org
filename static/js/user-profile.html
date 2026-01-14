@@ -4,133 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 2rem;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a6fa5;
-        }
-        .name {
-            font-size: 1.8rem;
-            margin: 0.5rem 0;
-            color: #333;
-        }
-        .title {
-            color: #666;
-            font-style: italic;
-            margin-bottom: 1rem;
-        }
-        .bio-section {
-            line-height: 1.6;
-            color: #444;
-            padding: 1rem;
-            background-color: #f9f9f9;
-            border-radius: 4px;
-        }
-        .contact-info {
-            margin-top: 1.5rem;
-            padding-top: 1rem;
-            border-top: 1px dashed #ccc;
-        }
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin: 0.5rem 0;
-        }
-        .contact-icon {
-            margin-right: 0.5rem;
-            color: #4a6fa5;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Profile Avatar" class="avatar">
-            <h1 class="name">Alex Morgan</h1>
-            <p class="title">Senior Frontend Developer</p>
-        </div>
-        
-        <div class="bio-section">
-            <p>Passionate about creating clean, efficient, and user-friendly web interfaces. Over 8 years of experience in frontend technologies with a focus on modern JavaScript frameworks and responsive design principles.</p>
-            <p>Currently leading UI development for enterprise applications and mentoring junior developers. Enjoys contributing to open-source projects and exploring new web technologies.</p>
-        </div>
-        
-        <div class="contact-info">
-            <div class="contact-item">
-                <span class="contact-icon">📧</span>
-                <span>alex.morgan@example.com</span>
-            </div>
-            <div class="contact-item">
-                <span class="contact-icon">📍</span>
-                <span>San Francisco, CA</span>
-            </div>
-            <div class="contact-item">
-                <span class="contact-icon">🔗</span>
-                <span>github.com/alexmorgan</span>
-            </div>
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
 </head>
 <body>
     <header>
         <h1>User Profile</h1>
     </header>
     <main>
-        <section id="profile-section">
+        <section class="profile">
             <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button id="upload-button">Upload Avatar</button>
+                <img src="https://via.placeholder.com/150" alt="User Avatar" class="avatar">
             </div>
-            <div class="bio-container">
-                <h2>Edit Bio</h2>
-                <textarea id="bio-textarea" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
-                <button id="save-bio-button">Save Bio</button>
-                <p id="bio-display"></p>
+            <div class="user-info">
+                <h2 class="username">John Doe</h2>
+                <p class="user-bio">Software developer with a passion for open-source projects and web technologies.</p>
+                <ul class="user-details">
+                    <li><strong>Location:</strong> San Francisco, CA</li>
+                    <li><strong>Joined:</strong> January 2021</li>
+                    <li><strong>Repositories:</strong> 42</li>
+                </ul>
             </div>
         </section>
     </main>
-    <script>
-        document.getElementById('upload-button').addEventListener('click', function() {
-            const fileInput = document.getElementById('avatar-upload');
-            const file = fileInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            } else {
-                alert('Please select an image file first.');
-            }
-        });
-
-        document.getElementById('save-bio-button').addEventListener('click', function() {
-            const bioText = document.getElementById('bio-textarea').value;
-            document.getElementById('bio-display').textContent = bioText || 'No bio provided.';
-        });
-    </script>
+    <footer>
+        <p>&copy; 2023 Profile Page. All rights reserved.</p>
+    </footer>
 </body>
 </html>
