@@ -44,4 +44,46 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section class="avatar-section">
+            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
+            <button onclick="changeAvatar()">Change Avatar</button>
+        </section>
+        <section class="bio-section">
+            <h2>Biography</h2>
+            <p id="user-bio">This is a placeholder for the user's biography. The user has not provided any information yet.</p>
+            <textarea id="bio-input" rows="4" cols="50" placeholder="Enter your biography here..."></textarea>
+            <br>
+            <button onclick="updateBio()">Update Bio</button>
+        </section>
+    </main>
+    <script>
+        function changeAvatar() {
+            alert('Avatar change functionality would be implemented here.');
+        }
+
+        function updateBio() {
+            const bioInput = document.getElementById('bio-input');
+            const userBio = document.getElementById('user-bio');
+            if (bioInput.value.trim() !== '') {
+                userBio.textContent = bioInput.value;
+                bioInput.value = '';
+                alert('Biography updated successfully.');
+            } else {
+                alert('Please enter some text for your biography.');
+            }
+        }
+    </script>
+</body>
 </html>
