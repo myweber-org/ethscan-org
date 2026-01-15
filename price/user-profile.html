@@ -5,157 +5,129 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
     <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .avatar-preview {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a6fa5;
-            margin-bottom: 10px;
-        }
-        .avatar-upload {
-            margin-top: 10px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #333;
-        }
-        input[type="text"],
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-        .btn {
-            background-color: #4a6fa5;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .btn:hover {
-            background-color: #3a5a80;
-        }
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 0.9em; }
+        .hidden { display: none; }
+        .avatar-preview { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid #ccc; }
     </style>
 </head>
 <body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
-            <div class="avatar-upload">
-                <input type="file" id="avatarInput" accept="image/*">
-                <button onclick="simulateUpload()" class="btn">Change Avatar</button>
-            </div>
+    <h1>User Profile</h1>
+    <form id="profileForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+            <div id="usernameError" class="error hidden">Username must be 3-20 characters.</div>
         </div>
-
-        <div class="form-group">
-            <label for="displayName">Display Name</label>
-            <input type="text" id="displayName" value="John Doe">
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <div id="emailError" class="error hidden">Please enter a valid email address.</div>
         </div>
-
-        <div class="form-group">
-            <label for="userBio">Bio</label>
-            <textarea id="userBio">Software developer passionate about web technologies and open source projects. Enjoys hiking and photography in free time.</textarea>
+        <div>
+            <label for="avatar">Avatar:</label>
+            <input type="file" id="avatar" name="avatar" accept="image/*">
+            <div id="avatarError" class="error hidden">File must be an image (JPEG, PNG, GIF) and less than 2MB.</div>
+            <img id="avatarPreview" class="avatar-preview hidden" src="#" alt="Avatar Preview">
         </div>
-
-        <div class="form-group">
-            <label for="location">Location</label>
-            <input type="text" id="location" value="San Francisco, CA">
-        </div>
-
-        <button onclick="saveProfile()" class="btn">Save Profile</button>
-    </div>
+        <button type="submit">Update Profile</button>
+        <div id="successMessage" class="success hidden">Profile updated successfully!</div>
+    </form>
 
     <script>
-        function simulateUpload() {
-            const input = document.getElementById('avatarInput');
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatarPreview').src = e.target.result;
-                };
-                reader.readAsDataURL(input.files[0]);
+        const form = document.getElementById('profileForm');
+        const usernameInput = document.getElementById('username');
+        const emailInput = document.getElementById('email');
+        const avatarInput = document.getElementById('avatar');
+        const usernameError = document.getElementById('usernameError');
+        const emailError = document.getElementById('emailError');
+        const avatarError = document.getElementById('avatarError');
+        const avatarPreview = document.getElementById('avatarPreview');
+        const successMessage = document.getElementById('successMessage');
+
+        function validateUsername() {
+            const value = usernameInput.value.trim();
+            if (value.length < 3 || value.length > 20) {
+                usernameError.classList.remove('hidden');
+                return false;
             } else {
-                alert('Please select an image file first.');
+                usernameError.classList.add('hidden');
+                return true;
             }
         }
 
-        function saveProfile() {
-            const displayName = document.getElementById('displayName').value;
-            const userBio = document.getElementById('userBio').value;
-            const location = document.getElementById('location').value;
+        function validateEmail() {
+            const email = emailInput.value.trim();
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                emailError.classList.remove('hidden');
+                return false;
+            } else {
+                emailError.classList.add('hidden');
+                return true;
+            }
+        }
 
-            // In a real application, you would send this data to a server
-            console.log('Profile saved:', { displayName, userBio, location });
-            alert('Profile saved successfully! (Check console for data)');
+        function validateAvatar() {
+            const file = avatarInput.files[0];
+            if (!file) return true; // Avatar is optional
+
+            const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+            const maxSize = 2 * 1024 * 1024; // 2MB
+
+            if (!validTypes.includes(file.type)) {
+                avatarError.textContent = 'File must be an image (JPEG, PNG, GIF).';
+                avatarError.classList.remove('hidden');
+                return false;
+            }
+            if (file.size > maxSize) {
+                avatarError.textContent = 'File must be less than 2MB.';
+                avatarError.classList.remove('hidden');
+                return false;
+            }
+
+            avatarError.classList.add('hidden');
+            return true;
         }
+
+        avatarInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    avatarPreview.src = event.target.result;
+                    avatarPreview.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                avatarPreview.src = '#';
+                avatarPreview.classList.add('hidden');
+            }
+            validateAvatar();
+        });
+
+        usernameInput.addEventListener('input', validateUsername);
+        emailInput.addEventListener('input', validateEmail);
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const isUsernameValid = validateUsername();
+            const isEmailValid = validateEmail();
+            const isAvatarValid = validateAvatar();
+
+            if (isUsernameValid && isEmailValid && isAvatarValid) {
+                // Simulate form submission
+                console.log('Form submitted with:', {
+                    username: usernameInput.value.trim(),
+                    email: emailInput.value.trim(),
+                    avatar: avatarInput.files[0] ? avatarInput.files[0].name : 'No file'
+                });
+                successMessage.classList.remove('hidden');
+                setTimeout(() => {
+                    successMessage.classList.add('hidden');
+                }, 3000);
+            }
+        });
     </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 400px;
-            margin: 50px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            text-align: center;
-            font-family: sans-serif;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 15px;
-            border: 3px solid #4a6fa5;
-        }
-        .user-name {
-            font-size: 1.8em;
-            margin: 10px 0;
-            color: #333;
-        }
-        .user-bio {
-            color: #666;
-            line-height: 1.5;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
-        <h1 class="user-name">Alex Johnson</h1>
-        <p class="user-bio">Software developer passionate about open-source projects, hiking, and photography. Currently building web applications with a focus on accessibility and performance.</p>
-    </div>
 </body>
 </html>
