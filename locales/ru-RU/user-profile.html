@@ -144,4 +144,116 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: sans-serif;
+        }
+        .avatar-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .avatar-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ddd;
+            margin-right: 20px;
+        }
+        .bio-section textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        .button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h1>Edit Your Profile</h1>
+        <div class="avatar-section">
+            <img id="avatarPreview" src="default-avatar.png" alt="Avatar Preview" class="avatar-preview">
+            <div>
+                <input type="file" id="avatarInput" accept="image/*" class="hidden">
+                <button onclick="document.getElementById('avatarInput').click()" class="button">Upload New Avatar</button>
+                <p>Select an image file (JPG, PNG). Max size 2MB.</p>
+            </div>
+        </div>
+        <div class="bio-section">
+            <label for="bioTextarea"><strong>Bio:</strong></label>
+            <textarea id="bioTextarea" placeholder="Tell us something about yourself..."></textarea>
+        </div>
+        <button onclick="saveProfile()" class="button">Save Profile</button>
+        <p id="statusMessage"></p>
+    </div>
+
+    <script>
+        const avatarInput = document.getElementById('avatarInput');
+        const avatarPreview = document.getElementById('avatarPreview');
+        const bioTextarea = document.getElementById('bioTextarea');
+        const statusMessage = document.getElementById('statusMessage');
+
+        avatarInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('File size exceeds 2MB limit.');
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function saveProfile() {
+            const bio = bioTextarea.value.trim();
+            statusMessage.textContent = 'Profile saved successfully!';
+            statusMessage.style.color = 'green';
+            console.log('Profile saved. Bio:', bio);
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            const savedBio = localStorage.getItem('userBio');
+            if (savedBio) {
+                bioTextarea.value = savedBio;
+            }
+            bioTextarea.addEventListener('input', function() {
+                localStorage.setItem('userBio', bioTextarea.value);
+            });
+        });
+    </script>
+</body>
 </html>
