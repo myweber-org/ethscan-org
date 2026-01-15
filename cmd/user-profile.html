@@ -8,92 +8,69 @@
         .profile-container {
             max-width: 600px;
             margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: Arial, sans-serif;
+            padding: 30px;
+            border: 1px solid #e1e4e8;
+            border-radius: 10px;
+            background-color: #fafbfc;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
         .avatar-section {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         .avatar {
             width: 120px;
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #4a90e2;
+            border: 4px solid #0366d6;
         }
-        .name-section {
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #333;
+        .name {
+            font-size: 28px;
+            font-weight: 600;
+            color: #24292e;
+            margin: 15px 0 5px;
+        }
+        .username {
+            font-size: 20px;
+            color: #586069;
+            margin-bottom: 20px;
         }
         .bio-section {
-            line-height: 1.6;
-            color: #666;
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="User Avatar" class="avatar">
-        </div>
-        <div class="name-section">
-            Alex Johnson
-        </div>
-        <div class="bio-section">
-            Software engineer with over 8 years of experience in web development. Passionate about creating efficient, scalable applications and contributing to open-source projects. Enjoys hiking, photography, and exploring new technologies in spare time.
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 400px;
-            margin: 40px auto;
+            background-color: white;
             padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            text-align: center;
-            font-family: sans-serif;
+            border-radius: 6px;
+            border: 1px solid #e1e4e8;
         }
-        .avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 15px;
-        }
-        .user-name {
-            font-size: 1.5em;
-            font-weight: bold;
+        .bio-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #24292e;
             margin-bottom: 10px;
-            color: #333;
+            border-bottom: 1px solid #eaecef;
+            padding-bottom: 8px;
         }
-        .user-bio {
-            color: #666;
+        .bio-content {
+            color: #444d56;
             line-height: 1.5;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <img src="https://via.placeholder.com/100" alt="User Avatar" class="avatar">
-        <div class="user-name">Alex Johnson</div>
-        <div class="user-bio">
-            Software developer passionate about open-source projects, web technologies, and hiking in the mountains.
+        <div class="avatar-section">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Profile Avatar" class="avatar">
+            <h1 class="name">Alex Johnson</h1>
+            <div class="username">@alexj</div>
+        </div>
+        
+        <div class="bio-section">
+            <div class="bio-title">About Me</div>
+            <div class="bio-content">
+                Software engineer with 8 years of experience building web applications. 
+                Passionate about open source, user interface design, and scalable systems. 
+                Currently working on improving developer tools and mentoring junior engineers.
+            </div>
         </div>
     </div>
 </body>
