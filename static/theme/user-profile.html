@@ -10,143 +10,20 @@
         <h1>User Profile</h1>
     </header>
     <main>
-        <section class="profile">
-            <div class="avatar-container">
-                <img src="https://via.placeholder.com/150" alt="User Avatar" class="avatar">
-            </div>
-            <div class="user-info">
-                <h2>John Doe</h2>
-                <p><strong>Email:</strong> john.doe@example.com</p>
-                <p><strong>Location:</strong> New York, USA</p>
-                <p><strong>Member Since:</strong> January 2023</p>
-            </div>
+        <section>
+            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
+            <h2>John Doe</h2>
+            <p>Email: john.doe@example.com</p>
+            <p>Location: New York, USA</p>
+            <p>Member since: January 2023</p>
+        </section>
+        <section>
+            <h3>Bio</h3>
+            <p>Software developer passionate about web technologies and open source projects.</p>
         </section>
     </main>
     <footer>
-        <p>&copy; 2023 MyWebsite. All rights reserved.</p>
-    </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 2rem;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        .avatar-preview {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a6fa5;
-            margin-bottom: 1rem;
-        }
-        .bio-section textarea {
-            width: 100%;
-            height: 100px;
-            padding: 0.5rem;
-            margin-top: 0.5rem;
-            border: 1px solid #aaa;
-            border-radius: 4px;
-            resize: vertical;
-        }
-        .btn {
-            background-color: #4a6fa5;
-            color: white;
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 1rem;
-        }
-        .btn:hover {
-            background-color: #3a5a80;
-        }
-        .hidden {
-            display: none;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <h1>Edit Profile</h1>
-        <div class="avatar-section">
-            <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
-            <br>
-            <input type="file" id="avatarUpload" accept="image/*" class="hidden">
-            <button id="changeAvatarBtn" class="btn">Change Avatar</button>
-        </div>
-        <div class="bio-section">
-            <label for="userBio"><strong>Bio:</strong></label>
-            <textarea id="userBio" placeholder="Tell us about yourself...">Hello! I'm a user of this platform.</textarea>
-        </div>
-        <button id="saveProfileBtn" class="btn">Save Profile</button>
-        <p id="statusMessage"></p>
-    </div>
-
-    <script>
-        document.getElementById('changeAvatarBtn').addEventListener('click', function() {
-            document.getElementById('avatarUpload').click();
-        });
-
-        document.getElementById('avatarUpload').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatarPreview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        document.getElementById('saveProfileBtn').addEventListener('click', function() {
-            const bio = document.getElementById('userBio').value.trim();
-            const statusEl = document.getElementById('statusMessage');
-            statusEl.textContent = 'Profile saved successfully!';
-            statusEl.style.color = 'green';
-            console.log('Profile saved with bio:', bio);
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
-            <div class="avatar-container">
-                <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            </div>
-            <div class="user-info">
-                <h2>John Doe</h2>
-                <p><strong>Email:</strong> john.doe@example.com</p>
-                <p><strong>Location:</strong> New York, USA</p>
-                <p><strong>Member Since:</strong> January 2023</p>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page. All rights reserved.</p>
+        <p>&copy; 2023 User Profile Page</p>
     </footer>
 </body>
 </html>
