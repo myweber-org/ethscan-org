@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,24 +31,30 @@
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
             clearErrors();
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value.trim();
             let isValid = true;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+            const messageDiv = document.getElementById('message');
 
             if (!validateEmail(email)) {
-                showError('emailError', 'Please enter a valid email address.');
+                emailError.textContent = 'Please enter a valid email address.';
                 isValid = false;
             }
             if (password.length < 6) {
-                showError('passwordError', 'Password must be at least 6 characters.');
+                passwordError.textContent = 'Password must be at least 6 characters.';
                 isValid = false;
             }
-
             if (isValid) {
-                document.getElementById('message').textContent = 'Login successful! Redirecting...';
+                messageDiv.textContent = 'Login successful! Redirecting...';
+                messageDiv.className = 'success';
                 setTimeout(() => {
-                    alert('Simulated redirect to dashboard.');
+                    console.log('Submitting login for:', email);
                 }, 1000);
+            } else {
+                messageDiv.textContent = 'Please fix errors above.';
+                messageDiv.className = 'error';
             }
         });
 
@@ -56,12 +63,8 @@
             return re.test(email);
         }
 
-        function showError(elementId, message) {
-            document.getElementById(elementId).textContent = message;
-        }
-
         function clearErrors() {
-            document.querySelectorAll('.error').forEach(span => span.textContent = '');
+            document.querySelectorAll('.error').forEach(el => el.textContent = '');
             document.getElementById('message').textContent = '';
         }
     </script>
