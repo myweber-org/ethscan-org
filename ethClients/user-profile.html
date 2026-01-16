@@ -4,133 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-family: Arial, sans-serif;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a90e2;
-        }
-        .user-info {
-            margin-top: 20px;
-        }
-        .user-name {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-        }
-        .user-bio {
-            margin-top: 10px;
-            color: #666;
-            line-height: 1.5;
-        }
-        .stats {
-            display: flex;
-            margin-top: 20px;
-            gap: 30px;
-        }
-        .stat-item {
-            text-align: center;
-        }
-        .stat-value {
-            font-size: 20px;
-            font-weight: bold;
-            color: #4a90e2;
-        }
-        .stat-label {
-            font-size: 14px;
-            color: #888;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
-        <div class="user-info">
-            <div class="user-name">Alex Johnson</div>
-            <div class="user-bio">
-                Software developer passionate about open-source projects and web technologies. 
-                Enjoys hiking, photography, and contributing to developer communities.
-            </div>
-        </div>
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-value">247</div>
-                <div class="stat-label">Posts</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">1.8k</div>
-                <div class="stat-label">Followers</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">356</div>
-                <div class="stat-label">Following</div>
-            </div>
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
 </head>
 <body>
     <header>
         <h1>User Profile</h1>
     </header>
     <main>
-        <section class="profile-section">
-            <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button onclick="uploadAvatar()">Upload Avatar</button>
-            </div>
-            <form id="profile-form">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                <br>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <br>
-                <label for="bio">Bio:</label>
-                <textarea id="bio" name="bio" rows="4"></textarea>
-                <br>
-                <button type="submit">Update Profile</button>
-            </form>
+        <section>
+            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
+            <h2>John Doe</h2>
+            <p>Email: john.doe@example.com</p>
+            <p>Location: New York, USA</p>
+            <p>Member since: January 2023</p>
+        </section>
+        <section>
+            <h3>Bio</h3>
+            <p>Software developer with a passion for open-source projects and web technologies.</p>
         </section>
     </main>
-    <script>
-        function uploadAvatar() {
-            const fileInput = document.getElementById('avatar-upload');
-            const file = fileInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            console.log('Profile updated:', { username, email, bio });
-            alert('Profile updated successfully!');
-        });
-    </script>
+    <footer>
+        <p>&copy; 2023 Profile Page. All rights reserved.</p>
+    </footer>
 </body>
 </html>
