@@ -7,89 +7,98 @@
     <style>
         .profile-container {
             max-width: 600px;
-            margin: 2rem auto;
-            padding: 2rem;
-            border: 1px solid #e0e0e0;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
             border-radius: 8px;
-            text-align: center;
             font-family: sans-serif;
         }
-        .avatar {
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .avatar-preview {
             width: 120px;
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #4a6fa5;
-            margin-bottom: 1rem;
+            border: 3px solid #ddd;
+            margin-bottom: 10px;
         }
-        .user-name {
-            font-size: 1.8rem;
-            margin: 0.5rem 0;
-            color: #333;
+        .avatar-upload-btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
         }
-        .user-title {
-            color: #666;
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
+        .bio-section textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            box-sizing: border-box;
         }
-        .bio-section {
-            text-align: left;
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #eee;
+        .save-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
         }
-        .bio-heading {
-            font-size: 1.2rem;
-            color: #444;
-            margin-bottom: 0.8rem;
-        }
-        .bio-content {
-            line-height: 1.6;
-            color: #555;
+        .save-btn:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="User Avatar" class="avatar">
-        <h1 class="user-name">Alex Johnson</h1>
-        <p class="user-title">Senior Software Developer</p>
-        <div class="bio-section">
-            <h2 class="bio-heading">About</h2>
-            <p class="bio-content">
-                Passionate developer with over 8 years of experience building web applications.
-                Enjoys working with modern JavaScript frameworks, open-source projects, and mentoring junior engineers.
-                Currently focused on scalable system architecture and user experience design.
-            </p>
+        <h1>Edit Profile</h1>
+        
+        <div class="avatar-section">
+            <img id="avatarPreview" src="default-avatar.png" alt="Avatar Preview" class="avatar-preview">
+            <br>
+            <label for="avatarUpload" class="avatar-upload-btn">Choose Avatar</label>
+            <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
         </div>
+
+        <div class="bio-section">
+            <label for="userBio"><strong>Bio:</strong></label>
+            <textarea id="userBio" placeholder="Tell us something about yourself..."></textarea>
+        </div>
+
+        <button class="save-btn" id="saveProfile">Save Changes</button>
     </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section>
-            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            <h2>John Doe</h2>
-            <p>Email: john.doe@example.com</p>
-            <p>Location: New York, USA</p>
-            <p>Member since: January 2023</p>
-        </section>
-        <section>
-            <h3>Bio</h3>
-            <p>Software developer with a passion for open-source projects and web technologies.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
+
+    <script>
+        document.getElementById('avatarUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatarPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('saveProfile').addEventListener('click', function() {
+            const bio = document.getElementById('userBio').value;
+            const avatarSrc = document.getElementById('avatarPreview').src;
+            
+            // In a real application, you would send this data to a server
+            console.log('Profile saved:', { bio, avatarSrc });
+            alert('Profile saved successfully! (Check console for details)');
+        });
+    </script>
 </body>
 </html>
