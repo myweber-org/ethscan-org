@@ -10,7 +10,7 @@
     </style>
 </head>
 <body>
-    <h2>Login</h2>
+    <h1>Login</h1>
     <form id="loginForm">
         <div>
             <label for="email">Email:</label>
@@ -19,20 +19,20 @@
         </div>
         <div>
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" minlength="6" required>
+            <input type="password" id="password" name="password" required minlength="6">
             <span id="passwordError" class="error"></span>
         </div>
         <button type="submit">Login</button>
+        <div id="message" class="success"></div>
     </form>
-    <div id="message"></div>
 
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
             clearErrors();
             let isValid = true;
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value.trim();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
             if (!emailRegex.test(email)) {
@@ -45,7 +45,7 @@
             }
 
             if (isValid) {
-                document.getElementById('message').innerHTML = '<p class="success">Login successful! Redirecting...</p>';
+                document.getElementById('message').textContent = 'Login successful! Redirecting...';
                 setTimeout(() => {
                     alert('Simulated redirect to dashboard.');
                 }, 1000);
@@ -54,7 +54,7 @@
 
         function clearErrors() {
             document.querySelectorAll('.error').forEach(el => el.textContent = '');
-            document.getElementById('message').innerHTML = '';
+            document.getElementById('message').textContent = '';
         }
     </script>
 </body>
