@@ -36,3 +36,147 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 0.9em; }
+        input.invalid { border: 1px solid red; }
+    </style>
+</head>
+<body>
+    <h1>Register Account</h1>
+    <form id="registrationForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+            <span id="usernameError" class="error"></span>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <span id="emailError" class="error"></span>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required minlength="8">
+            <span id="passwordError" class="error"></span>
+        </div>
+        <div>
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <span id="confirmPasswordError" class="error"></span>
+        </div>
+        <div>
+            <button type="submit">Register</button>
+        </div>
+        <div id="formMessage" class="success"></div>
+    </form>
+
+    <script>
+        const form = document.getElementById('registrationForm');
+        const usernameInput = document.getElementById('username');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const usernameError = document.getElementById('usernameError');
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
+        const confirmPasswordError = document.getElementById('confirmPasswordError');
+        const formMessage = document.getElementById('formMessage');
+
+        function validateUsername() {
+            const username = usernameInput.value.trim();
+            if (username.length < 3) {
+                usernameError.textContent = 'Username must be at least 3 characters.';
+                usernameInput.classList.add('invalid');
+                return false;
+            }
+            if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+                usernameError.textContent = 'Username can only contain letters, numbers, and underscores.';
+                usernameInput.classList.add('invalid');
+                return false;
+            }
+            usernameError.textContent = '';
+            usernameInput.classList.remove('invalid');
+            return true;
+        }
+
+        function validateEmail() {
+            const email = emailInput.value.trim();
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                emailError.textContent = 'Please enter a valid email address.';
+                emailInput.classList.add('invalid');
+                return false;
+            }
+            emailError.textContent = '';
+            emailInput.classList.remove('invalid');
+            return true;
+        }
+
+        function validatePassword() {
+            const password = passwordInput.value;
+            if (password.length < 8) {
+                passwordError.textContent = 'Password must be at least 8 characters.';
+                passwordInput.classList.add('invalid');
+                return false;
+            }
+            passwordError.textContent = '';
+            passwordInput.classList.remove('invalid');
+            return true;
+        }
+
+        function validateConfirmPassword() {
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+            if (password !== confirmPassword) {
+                confirmPasswordError.textContent = 'Passwords do not match.';
+                confirmPasswordInput.classList.add('invalid');
+                return false;
+            }
+            confirmPasswordError.textContent = '';
+            confirmPasswordInput.classList.remove('invalid');
+            return true;
+        }
+
+        usernameInput.addEventListener('blur', validateUsername);
+        emailInput.addEventListener('blur', validateEmail);
+        passwordInput.addEventListener('blur', validatePassword);
+        confirmPasswordInput.addEventListener('blur', validateConfirmPassword);
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const isUsernameValid = validateUsername();
+            const isEmailValid = validateEmail();
+            const isPasswordValid = validatePassword();
+            const isConfirmPasswordValid = validateConfirmPassword();
+
+            if (isUsernameValid && isEmailValid && isPasswordValid && isConfirmPasswordValid) {
+                formMessage.textContent = 'Registration successful!';
+                formMessage.style.color = 'green';
+                
+                // Simulate form submission
+                setTimeout(() => {
+                    const formData = {
+                        username: usernameInput.value.trim(),
+                        email: emailInput.value.trim(),
+                        password: passwordInput.value
+                    };
+                    console.log('Form data:', formData);
+                    formMessage.textContent = 'Registration submitted successfully!';
+                    form.reset();
+                }, 1000);
+            } else {
+                formMessage.textContent = 'Please fix errors before submitting.';
+                formMessage.style.color = 'red';
+            }
+        });
+    </script>
+</body>
+</html>
