@@ -4,29 +4,110 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+        }
+        .avatar-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .avatar-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ddd;
+            margin-right: 20px;
+        }
+        .avatar-upload {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .profile-info {
+            margin-top: 20px;
+        }
+        .info-item {
+            margin-bottom: 10px;
+        }
+        .info-label {
+            font-weight: bold;
+            display: inline-block;
+            width: 100px;
+        }
+    </style>
 </head>
 <body>
-    <header>
+    <div class="profile-container">
         <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
-            <div class="avatar-container">
-                <img src="https://via.placeholder.com/150" alt="User Avatar" class="avatar">
+        <div class="avatar-section">
+            <img id="avatarPreview" src="default-avatar.png" alt="User Avatar" class="avatar-preview">
+            <div class="avatar-upload">
+                <input type="file" id="avatarInput" accept="image/*">
+                <button onclick="uploadAvatar()">Update Avatar</button>
+                <p id="uploadStatus"></p>
             </div>
-            <div class="profile-info">
-                <h2 class="username">John Doe</h2>
-                <p class="bio">Software developer with a passion for open-source projects and web technologies.</p>
-                <ul class="details">
-                    <li><strong>Location:</strong> San Francisco, CA</li>
-                    <li><strong>Joined:</strong> January 2023</li>
-                    <li><strong>Repositories:</strong> 42</li>
-                </ul>
+        </div>
+        <div class="profile-info">
+            <div class="info-item">
+                <span class="info-label">Username:</span>
+                <span id="username">john_doe</span>
             </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
+            <div class="info-item">
+                <span class="info-label">Email:</span>
+                <span id="userEmail">john@example.com</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Member Since:</span>
+                <span id="joinDate">January 2023</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function uploadAvatar() {
+            const fileInput = document.getElementById('avatarInput');
+            const statusElement = document.getElementById('uploadStatus');
+            const previewElement = document.getElementById('avatarPreview');
+
+            if (fileInput.files.length === 0) {
+                statusElement.textContent = 'Please select an image file.';
+                statusElement.style.color = 'red';
+                return;
+            }
+
+            const file = fileInput.files[0];
+            if (!file.type.startsWith('image/')) {
+                statusElement.textContent = 'Selected file is not an image.';
+                statusElement.style.color = 'red';
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewElement.src = e.target.result;
+                statusElement.textContent = 'Avatar updated successfully!';
+                statusElement.style.color = 'green';
+                
+                // Simulate saving to server
+                setTimeout(() => {
+                    statusElement.textContent = 'Avatar saved to profile.';
+                }, 1000);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Simulate loading user data
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Profile page loaded');
+        });
+    </script>
 </body>
 </html>
