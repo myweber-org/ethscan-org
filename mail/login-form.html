@@ -97,4 +97,55 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+</head>
+<body>
+    <form id="loginForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <div id="usernameError" style="color: red; display: none;">Username must be at least 3 characters.</div>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <div id="passwordError" style="color: red; display: none;">Password must be at least 6 characters.</div>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let isValid = true;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const usernameError = document.getElementById('usernameError');
+            const passwordError = document.getElementById('passwordError');
+
+            usernameError.style.display = 'none';
+            passwordError.style.display = 'none';
+
+            if (username.length < 3) {
+                usernameError.style.display = 'block';
+                isValid = false;
+            }
+            if (password.length < 6) {
+                passwordError.style.display = 'block';
+                isValid = false;
+            }
+
+            if (isValid) {
+                console.log('Login attempt with:', { username, password });
+                alert('Form submitted successfully!');
+                this.reset();
+            }
+        });
+    </script>
+</body>
 </html>
