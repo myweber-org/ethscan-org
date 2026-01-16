@@ -7,31 +7,31 @@
 </head>
 <body>
     <header>
-        <h1>User Profile</h1>
+        <h1>User Profile Settings</h1>
     </header>
     <main>
-        <section id="profile-section">
-            <div id="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <form id="avatar-form">
-                    <input type="file" id="avatar-input" accept="image/*">
-                    <button type="button" id="upload-btn">Upload Avatar</button>
-                </form>
+        <section>
+            <h2>Profile Picture</h2>
+            <div>
+                <img id="avatarPreview" src="default-avatar.png" alt="Avatar Preview" width="150" height="150">
+                <br>
+                <input type="file" id="avatarUpload" accept="image/*">
+                <button onclick="uploadAvatar()">Upload Avatar</button>
             </div>
-            <form id="profile-form">
-                <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="bio">Bio:</label>
-                    <textarea id="bio" name="bio" rows="4"></textarea>
-                </div>
-                <button type="submit" id="save-btn">Save Profile</button>
+        </section>
+        <section>
+            <h2>Personal Information</h2>
+            <form id="profileForm">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <br>
+                <label for="bio">Bio:</label>
+                <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
+                <br>
+                <button type="submit">Save Profile</button>
             </form>
         </section>
     </main>
@@ -39,57 +39,26 @@
         <p>&copy; 2023 User Profile Page</p>
     </footer>
     <script>
-        document.getElementById('upload-btn').addEventListener('click', function() {
-            const fileInput = document.getElementById('avatar-input');
-            if (fileInput.files && fileInput.files[0]) {
+        function uploadAvatar() {
+            const fileInput = document.getElementById('avatarUpload');
+            const preview = document.getElementById('avatarPreview');
+            const file = fileInput.files[0];
+            if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
+                    preview.src = e.target.result;
                 };
-                reader.readAsDataURL(fileInput.files[0]);
+                reader.readAsDataURL(file);
             }
-        });
+        }
 
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const username = document.getElementById('username').value;
             const email = document.getElementById('email').value;
             const bio = document.getElementById('bio').value;
-            console.log('Profile saved:', { username, email, bio });
-            alert('Profile saved successfully!');
+            alert('Profile saved!\nUsername: ' + username + '\nEmail: ' + email + '\nBio: ' + bio);
         });
     </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
-            <div class="avatar-container">
-                <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            </div>
-            <div class="user-info">
-                <h2>John Doe</h2>
-                <p class="bio">Software developer with a passion for open-source projects and web technologies.</p>
-                <ul class="details">
-                    <li><strong>Location:</strong> San Francisco, CA</li>
-                    <li><strong>Joined:</strong> January 2023</li>
-                    <li><strong>Repositories:</strong> 42</li>
-                </ul>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 Profile Page. All rights reserved.</p>
-    </footer>
 </body>
 </html>
