@@ -97,4 +97,114 @@
         }
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 1em; padding: 10px; border: 1px solid green; background-color: #e7f7e7; }
+        form { max-width: 500px; margin: 20px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
+        label { display: block; margin-bottom: 5px; }
+        input, textarea { width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>Contact Us</h1>
+    <form id="contactForm">
+        <div id="messageContainer"></div>
+        <div>
+            <label for="name">Full Name *</label>
+            <input type="text" id="name" name="name" required>
+            <span id="nameError" class="error"></span>
+        </div>
+        <div>
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" required>
+            <span id="emailError" class="error"></span>
+        </div>
+        <div>
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject">
+        </div>
+        <div>
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+            <span id="messageError" class="error"></span>
+        </div>
+        <button type="submit">Send Message</button>
+    </form>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            clearErrors();
+            clearMessage();
+
+            let isValid = true;
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            if (name === '') {
+                displayError('nameError', 'Name is required.');
+                isValid = false;
+            }
+
+            if (email === '') {
+                displayError('emailError', 'Email is required.');
+                isValid = false;
+            } else if (!isValidEmail(email)) {
+                displayError('emailError', 'Please enter a valid email address.');
+                isValid = false;
+            }
+
+            if (message === '') {
+                displayError('messageError', 'Message is required.');
+                isValid = false;
+            }
+
+            if (isValid) {
+                simulateSubmission(name, email, message);
+            }
+        });
+
+        function displayError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = message;
+        }
+
+        function clearErrors() {
+            const errorElements = document.querySelectorAll('.error');
+            errorElements.forEach(element => element.textContent = '');
+        }
+
+        function clearMessage() {
+            const messageContainer = document.getElementById('messageContainer');
+            messageContainer.innerHTML = '';
+            messageContainer.className = '';
+        }
+
+        function isValidEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function simulateSubmission(name, email, message) {
+            const messageContainer = document.getElementById('messageContainer');
+            messageContainer.innerHTML = '<p>Sending your message...</p>';
+            messageContainer.className = '';
+
+            setTimeout(() => {
+                messageContainer.innerHTML = `<p class="success">Thank you, ${name}! Your message has been sent successfully. We will respond to ${email} shortly.</p>`;
+                messageContainer.className = 'success';
+                document.getElementById('contactForm').reset();
+            }, 1500);
+        }
+    </script>
+</body>
 </html>
