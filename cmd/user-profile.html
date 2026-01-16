@@ -4,119 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 30px;
-            border: 1px solid #e1e4e8;
-            border-radius: 10px;
-            background-color: #fafbfc;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #0366d6;
-        }
-        .name {
-            font-size: 28px;
-            font-weight: 600;
-            color: #24292e;
-            margin: 15px 0 5px;
-        }
-        .username {
-            font-size: 20px;
-            color: #586069;
-            margin-bottom: 20px;
-        }
-        .bio-section {
-            background-color: white;
-            padding: 20px;
-            border-radius: 6px;
-            border: 1px solid #e1e4e8;
-        }
-        .bio-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #24292e;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #eaecef;
-            padding-bottom: 8px;
-        }
-        .bio-content {
-            color: #444d56;
-            line-height: 1.5;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Profile Avatar" class="avatar">
-            <h1 class="name">Alex Johnson</h1>
-            <div class="username">@alexj</div>
-        </div>
-        
-        <div class="bio-section">
-            <div class="bio-title">About Me</div>
-            <div class="bio-content">
-                Software engineer with 8 years of experience building web applications. 
-                Passionate about open source, user interface design, and scalable systems. 
-                Currently working on improving developer tools and mentoring junior engineers.
-            </div>
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
 </head>
 <body>
     <header>
         <h1>User Profile</h1>
     </header>
     <main>
-        <section class="profile-section">
+        <section id="profile-section">
             <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button onclick="uploadAvatar()">Upload Avatar</button>
+                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
+                <form id="avatar-form">
+                    <input type="file" id="avatar-input" name="avatar" accept="image/*">
+                    <button type="submit">Upload Avatar</button>
+                </form>
             </div>
             <div class="bio-container">
                 <h2>Edit Bio</h2>
-                <textarea id="bio-text" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
-                <button onclick="saveBio()">Save Bio</button>
-                <p id="bio-display"></p>
+                <form id="bio-form">
+                    <textarea id="bio-text" name="bio" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
+                    <br>
+                    <button type="submit">Save Bio</button>
+                </form>
+                <p id="current-bio">Current bio will appear here.</p>
             </div>
         </section>
     </main>
+    <footer>
+        <p>&copy; 2023 User Profile Page</p>
+    </footer>
     <script>
-        function uploadAvatar() {
-            const fileInput = document.getElementById('avatar-upload');
-            const file = fileInput.files[0];
-            if (file) {
+        document.getElementById('avatar-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const fileInput = document.getElementById('avatar-input');
+            if (fileInput.files && fileInput.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     document.getElementById('avatar-preview').src = e.target.result;
                 };
-                reader.readAsDataURL(file);
+                reader.readAsDataURL(fileInput.files[0]);
             }
-        }
+        });
 
-        function saveBio() {
+        document.getElementById('bio-form').addEventListener('submit', function(event) {
+            event.preventDefault();
             const bioText = document.getElementById('bio-text').value;
-            document.getElementById('bio-display').textContent = bioText;
-        }
+            document.getElementById('current-bio').textContent = bioText || 'No bio provided.';
+            document.getElementById('bio-text').value = '';
+        });
     </script>
 </body>
 </html>
