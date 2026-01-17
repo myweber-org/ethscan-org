@@ -15,130 +15,6 @@
         <div>
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required minlength="3" maxlength="20">
-            <div id="usernameError" class="error"></div>
-        </div>
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <div id="emailError" class="error"></div>
-        </div>
-        <div>
-            <label for="age">Age:</label>
-            <input type="number" id="age" name="age" min="18" max="120">
-            <div id="ageError" class="error"></div>
-        </div>
-        <div>
-            <label for="bio">Bio:</label>
-            <textarea id="bio" name="bio" maxlength="500"></textarea>
-            <div id="bioCounter">0/500</div>
-        </div>
-        <button type="submit">Save Profile</button>
-    </form>
-    <div id="message" class="success"></div>
-
-    <script>
-        const form = document.getElementById('profileForm');
-        const usernameInput = document.getElementById('username');
-        const emailInput = document.getElementById('email');
-        const ageInput = document.getElementById('age');
-        const bioTextarea = document.getElementById('bio');
-        const bioCounter = document.getElementById('bioCounter');
-        const messageDiv = document.getElementById('message');
-
-        function showError(elementId, message) {
-            const errorDiv = document.getElementById(elementId);
-            errorDiv.textContent = message;
-        }
-
-        function clearError(elementId) {
-            const errorDiv = document.getElementById(elementId);
-            errorDiv.textContent = '';
-        }
-
-        function validateUsername() {
-            const value = usernameInput.value.trim();
-            if (value.length < 3) {
-                showError('usernameError', 'Username must be at least 3 characters.');
-                return false;
-            }
-            clearError('usernameError');
-            return true;
-        }
-
-        function validateEmail() {
-            const value = emailInput.value.trim();
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(value)) {
-                showError('emailError', 'Please enter a valid email address.');
-                return false;
-            }
-            clearError('emailError');
-            return true;
-        }
-
-        function validateAge() {
-            const value = ageInput.value;
-            if (value && (value < 18 || value > 120)) {
-                showError('ageError', 'Age must be between 18 and 120.');
-                return false;
-            }
-            clearError('ageError');
-            return true;
-        }
-
-        function updateBioCounter() {
-            const length = bioTextarea.value.length;
-            bioCounter.textContent = `${length}/500`;
-        }
-
-        usernameInput.addEventListener('blur', validateUsername);
-        emailInput.addEventListener('blur', validateEmail);
-        ageInput.addEventListener('blur', validateAge);
-        bioTextarea.addEventListener('input', updateBioCounter);
-
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            messageDiv.textContent = '';
-
-            const isUsernameValid = validateUsername();
-            const isEmailValid = validateEmail();
-            const isAgeValid = validateAge();
-
-            if (isUsernameValid && isEmailValid && isAgeValid) {
-                messageDiv.textContent = 'Profile updated successfully!';
-                messageDiv.className = 'success';
-                console.log('Form data:', {
-                    username: usernameInput.value.trim(),
-                    email: emailInput.value.trim(),
-                    age: ageInput.value,
-                    bio: bioTextarea.value.trim()
-                });
-            } else {
-                messageDiv.textContent = 'Please fix the errors above.';
-                messageDiv.className = 'error';
-            }
-        });
-
-        updateBioCounter();
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .error { color: red; font-size: 0.9em; }
-        .success { color: green; font-size: 0.9em; }
-    </style>
-</head>
-<body>
-    <h1>Update Your Profile</h1>
-    <form id="profileForm">
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
             <span id="usernameError" class="error"></span>
         </div>
         <div>
@@ -151,11 +27,21 @@
             <input type="number" id="age" name="age" min="18" max="120">
             <span id="ageError" class="error"></span>
         </div>
+        <div>
+            <label for="bio">Bio:</label><br>
+            <textarea id="bio" name="bio" rows="4" cols="50" maxlength="500"></textarea>
+            <div id="bioCounter">0/500</div>
+        </div>
         <button type="submit">Save Profile</button>
     </form>
     <div id="message" class="success"></div>
 
     <script>
+        document.getElementById('bio').addEventListener('input', function() {
+            const counter = document.getElementById('bioCounter');
+            counter.textContent = this.value.length + '/500';
+        });
+
         document.getElementById('profileForm').addEventListener('submit', function(event) {
             event.preventDefault();
             clearErrors();
@@ -182,9 +68,11 @@
 
             if (isValid) {
                 document.getElementById('message').textContent = 'Profile updated successfully!';
-                setTimeout(() => {
-                    document.getElementById('message').textContent = '';
-                }, 3000);
+                document.getElementById('message').className = 'success';
+                console.log('Form submitted with data:', { username, email, age, bio: document.getElementById('bio').value });
+            } else {
+                document.getElementById('message').textContent = 'Please fix the errors above.';
+                document.getElementById('message').className = 'error';
             }
         });
 
@@ -193,8 +81,8 @@
         }
 
         function clearErrors() {
-            const errorElements = document.querySelectorAll('.error');
-            errorElements.forEach(el => el.textContent = '');
+            const errors = document.querySelectorAll('.error');
+            errors.forEach(error => error.textContent = '');
             document.getElementById('message').textContent = '';
         }
     </script>
