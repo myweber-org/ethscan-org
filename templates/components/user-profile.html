@@ -80,4 +80,346 @@
         </div>
     </div>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="profile-container">
+        <header class="profile-header">
+            <h1><i class="fas fa-user-circle"></i> User Profile</h1>
+        </header>
+
+        <main class="profile-content">
+            <section class="avatar-section">
+                <div class="avatar-display">
+                    <img id="avatarImage" src="https://via.placeholder.com/150" alt="User Avatar">
+                </div>
+                <div class="avatar-controls">
+                    <input type="file" id="avatarUpload" accept="image/*" hidden>
+                    <button id="uploadButton" class="btn"><i class="fas fa-cloud-upload-alt"></i> Upload New Avatar</button>
+                    <button id="removeButton" class="btn btn-secondary"><i class="fas fa-trash-alt"></i> Remove Avatar</button>
+                </div>
+            </section>
+
+            <section class="bio-section">
+                <h2><i class="fas fa-edit"></i> Edit Biography</h2>
+                <textarea id="bioTextarea" rows="6" placeholder="Tell us something about yourself..."></textarea>
+                <div class="bio-controls">
+                    <button id="saveBioButton" class="btn btn-primary"><i class="fas fa-save"></i> Save Biography</button>
+                    <button id="clearBioButton" class="btn btn-secondary"><i class="fas fa-eraser"></i> Clear</button>
+                </div>
+                <div class="bio-preview">
+                    <h3>Preview:</h3>
+                    <p id="bioPreview">No biography saved yet.</p>
+                </div>
+            </section>
+
+            <section class="info-section">
+                <h2><i class="fas fa-info-circle"></i> Account Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Username:</strong>
+                        <span id="username">johndoe</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Email:</strong>
+                        <span id="userEmail">john.doe@example.com</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Member Since:</strong>
+                        <span id="joinDate">January 15, 2023</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="profile-footer">
+            <p>Profile last updated: <span id="lastUpdated">Just now</span></p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const avatarImage = document.getElementById('avatarImage');
+            const avatarUpload = document.getElementById('avatarUpload');
+            const uploadButton = document.getElementById('uploadButton');
+            const removeButton = document.getElementById('removeButton');
+            const bioTextarea = document.getElementById('bioTextarea');
+            const saveBioButton = document.getElementById('saveBioButton');
+            const clearBioButton = document.getElementById('clearBioButton');
+            const bioPreview = document.getElementById('bioPreview');
+            const lastUpdatedSpan = document.getElementById('lastUpdated');
+
+            const defaultAvatar = 'https://via.placeholder.com/150';
+
+            uploadButton.addEventListener('click', () => avatarUpload.click());
+
+            avatarUpload.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        avatarImage.src = e.target.result;
+                        updateTimestamp();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            removeButton.addEventListener('click', function() {
+                if (confirm('Remove your avatar?')) {
+                    avatarImage.src = defaultAvatar;
+                    updateTimestamp();
+                }
+            });
+
+            saveBioButton.addEventListener('click', function() {
+                const bioText = bioTextarea.value.trim();
+                if (bioText) {
+                    bioPreview.textContent = bioText;
+                    bioTextarea.value = '';
+                    updateTimestamp();
+                    alert('Biography saved successfully!');
+                } else {
+                    alert('Please enter some text for your biography.');
+                }
+            });
+
+            clearBioButton.addEventListener('click', function() {
+                if (bioTextarea.value.trim() || bioPreview.textContent !== 'No biography saved yet.') {
+                    if (confirm('Clear the biography text?')) {
+                        bioTextarea.value = '';
+                        bioPreview.textContent = 'No biography saved yet.';
+                        updateTimestamp();
+                    }
+                }
+            });
+
+            function updateTimestamp() {
+                const now = new Date();
+                lastUpdatedSpan.textContent = now.toLocaleString();
+            }
+
+            updateTimestamp();
+        });
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .profile-container {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+        }
+
+        .profile-header {
+            background: linear-gradient(to right, #4b6cb7, #182848);
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+        }
+
+        .profile-header h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+        }
+
+        .profile-header i {
+            margin-right: 15px;
+        }
+
+        .profile-content {
+            padding: 30px;
+        }
+
+        section {
+            margin-bottom: 40px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #eee;
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        h2 i {
+            margin-right: 10px;
+            color: #4b6cb7;
+        }
+
+        .avatar-section {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .avatar-display img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #e0e7ff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .avatar-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .btn-primary {
+            background-color: #4b6cb7;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #3a5aa0;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: #f1f5f9;
+            color: #475569;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e2e8f0;
+            transform: translateY(-2px);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            resize: vertical;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #4b6cb7;
+        }
+
+        .bio-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .bio-preview {
+            background-color: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #4b6cb7;
+        }
+
+        .bio-preview h3 {
+            color: #475569;
+            margin-bottom: 10px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .info-item {
+            background-color: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .info-item strong {
+            display: block;
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .info-item span {
+            font-size: 1.1rem;
+            color: #1e293b;
+            font-weight: 500;
+        }
+
+        .profile-footer {
+            background-color: #f1f5f9;
+            padding: 20px 30px;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .avatar-section {
+                flex-direction: column;
+                text-align: center;
+                gap: 25px;
+            }
+
+            .bio-controls {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</body>
 </html>
