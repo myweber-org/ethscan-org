@@ -172,4 +172,95 @@
         }
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <h1>Update Your Profile</h1>
+    <form id="profileForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+            <span id="usernameError" class="error"></span>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <span id="emailError" class="error"></span>
+        </div>
+        <div>
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" min="18" max="120">
+            <span id="ageError" class="error"></span>
+        </div>
+        <div>
+            <label for="bio">Bio:</label>
+            <textarea id="bio" name="bio" maxlength="500"></textarea>
+            <span id="bioCount">0/500</span>
+        </div>
+        <button type="submit">Save Profile</button>
+    </form>
+    <div id="message" class="success"></div>
+
+    <script>
+        const form = document.getElementById('profileForm');
+        const bioField = document.getElementById('bio');
+        const bioCount = document.getElementById('bioCount');
+        const messageDiv = document.getElementById('message');
+
+        bioField.addEventListener('input', function() {
+            bioCount.textContent = `${this.value.length}/500`;
+        });
+
+        function showError(fieldId, message) {
+            const errorSpan = document.getElementById(fieldId + 'Error');
+            errorSpan.textContent = message;
+        }
+
+        function clearErrors() {
+            document.querySelectorAll('.error').forEach(span => span.textContent = '');
+            messageDiv.textContent = '';
+        }
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            clearErrors();
+
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const age = document.getElementById('age').value;
+
+            let isValid = true;
+
+            if (username.length < 3) {
+                showError('username', 'Username must be at least 3 characters.');
+                isValid = false;
+            }
+
+            if (!email.includes('@')) {
+                showError('email', 'Please enter a valid email address.');
+                isValid = false;
+            }
+
+            if (age && (age < 18 || age > 120)) {
+                showError('age', 'Age must be between 18 and 120.');
+                isValid = false;
+            }
+
+            if (isValid) {
+                messageDiv.textContent = 'Profile updated successfully!';
+                form.reset();
+                bioCount.textContent = '0/500';
+            }
+        });
+    </script>
+</body>
 </html>
