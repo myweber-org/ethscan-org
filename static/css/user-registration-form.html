@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +10,7 @@
     </style>
 </head>
 <body>
-    <h1>Register New Account</h1>
+    <h2>Register New Account</h2>
     <form id="registrationForm">
         <div>
             <label for="username">Username:</label>
@@ -34,8 +33,8 @@
             <span id="confirmPasswordError" class="error"></span>
         </div>
         <button type="submit">Register</button>
+        <div id="message" class="success"></div>
     </form>
-    <div id="message" class="success"></div>
 
     <script>
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
@@ -48,8 +47,8 @@
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
 
-            if (username.length < 3) {
-                showError('usernameError', 'Username must be at least 3 characters.');
+            if (username.length < 3 || username.length > 20) {
+                showError('usernameError', 'Username must be 3-20 characters.');
                 isValid = false;
             }
 
@@ -83,7 +82,7 @@
 
         function clearErrors() {
             const errorElements = document.querySelectorAll('.error');
-            errorElements.forEach(element => element.textContent = '');
+            errorElements.forEach(el => el.textContent = '');
         }
     </script>
 </body>
