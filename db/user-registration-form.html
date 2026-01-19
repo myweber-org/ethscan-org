@@ -11,66 +11,82 @@
         <div>
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required minlength="3" maxlength="20">
-            <span id="usernameError" style="color: red; display: none;">Username must be 3-20 characters.</span>
+            <span class="error" id="usernameError"></span>
         </div>
+        
         <div>
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
-            <span id="emailError" style="color: red; display: none;">Please enter a valid email address.</span>
+            <span class="error" id="emailError"></span>
         </div>
+        
         <div>
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required minlength="8">
-            <span id="passwordError" style="color: red; display: none;">Password must be at least 8 characters.</span>
+            <span class="error" id="passwordError"></span>
         </div>
+        
         <div>
             <label for="confirmPassword">Confirm Password:</label>
             <input type="password" id="confirmPassword" name="confirmPassword" required>
-            <span id="confirmError" style="color: red; display: none;">Passwords do not match.</span>
+            <span class="error" id="confirmPasswordError"></span>
         </div>
+        
         <button type="submit">Register</button>
     </form>
 
     <script>
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
             event.preventDefault();
+            clearErrors();
+            
             let isValid = true;
-
-            const username = document.getElementById('username');
-            const email = document.getElementById('email');
-            const password = document.getElementById('password');
-            const confirmPassword = document.getElementById('confirmPassword');
-
-            document.getElementById('usernameError').style.display = 'none';
-            document.getElementById('emailError').style.display = 'none';
-            document.getElementById('passwordError').style.display = 'none';
-            document.getElementById('confirmError').style.display = 'none';
-
-            if (username.value.length < 3 || username.value.length > 20) {
-                document.getElementById('usernameError').style.display = 'inline';
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (username.length < 3) {
+                showError('usernameError', 'Username must be at least 3 characters');
                 isValid = false;
             }
-
-            if (!email.value.includes('@') || !email.value.includes('.')) {
-                document.getElementById('emailError').style.display = 'inline';
+            
+            if (!validateEmail(email)) {
+                showError('emailError', 'Please enter a valid email address');
                 isValid = false;
             }
-
-            if (password.value.length < 8) {
-                document.getElementById('passwordError').style.display = 'inline';
+            
+            if (password.length < 8) {
+                showError('passwordError', 'Password must be at least 8 characters');
                 isValid = false;
             }
-
-            if (password.value !== confirmPassword.value) {
-                document.getElementById('confirmError').style.display = 'inline';
+            
+            if (password !== confirmPassword) {
+                showError('confirmPasswordError', 'Passwords do not match');
                 isValid = false;
             }
-
+            
             if (isValid) {
                 alert('Registration successful!');
                 this.reset();
             }
         });
+        
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+        
+        function showError(elementId, message) {
+            document.getElementById(elementId).textContent = message;
+        }
+        
+        function clearErrors() {
+            const errorElements = document.querySelectorAll('.error');
+            errorElements.forEach(element => {
+                element.textContent = '';
+            });
+        }
     </script>
 </body>
 </html>
