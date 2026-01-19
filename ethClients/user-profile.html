@@ -128,4 +128,371 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .profile-container {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .profile-header {
+            background: linear-gradient(to right, #4b6cb7, #182848);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+        .profile-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .profile-header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        .profile-content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0;
+        }
+        .profile-sidebar {
+            flex: 1;
+            min-width: 250px;
+            background-color: #f8f9fa;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-right: 1px solid #eee;
+        }
+        .avatar-container {
+            position: relative;
+            margin-bottom: 25px;
+        }
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .avatar-upload {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: #4b6cb7;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .avatar-upload:hover {
+            background-color: #3a5795;
+            transform: scale(1.1);
+        }
+        .user-stats {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .stat {
+            padding: 10px;
+        }
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #182848;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        .profile-main {
+            flex: 2;
+            min-width: 300px;
+            padding: 30px;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            color: #182848;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+        }
+        .section-title i {
+            margin-right: 10px;
+            color: #4b6cb7;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: #4b6cb7;
+            box-shadow: 0 0 0 2px rgba(75, 108, 183, 0.2);
+        }
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        .btn {
+            background-color: #4b6cb7;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn:hover {
+            background-color: #3a5795;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .btn i {
+            margin-right: 8px;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        @media (max-width: 768px) {
+            .profile-content {
+                flex-direction: column;
+            }
+            .profile-sidebar {
+                border-right: none;
+                border-bottom: 1px solid #eee;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>User Profile</h1>
+            <p>Manage your personal information and preferences</p>
+        </div>
+        <div class="profile-content">
+            <div class="profile-sidebar">
+                <div class="avatar-container">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar" id="userAvatar">
+                    <div class="avatar-upload" id="uploadTrigger">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <input type="file" id="avatarInput" accept="image/*" style="display: none;">
+                </div>
+                <h2 id="displayName">Alex Johnson</h2>
+                <p style="color: #666; margin-top: 5px; text-align: center;">Software Developer & UI/UX Enthusiast</p>
+                <div class="user-stats">
+                    <div class="stat">
+                        <div class="stat-value">142</div>
+                        <div class="stat-label">Projects</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">2.7K</div>
+                        <div class="stat-label">Followers</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">89</div>
+                        <div class="stat-label">Following</div>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-main">
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-user-edit"></i> Edit Profile</h2>
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" class="form-control" value="Alex Johnson">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" value="alex.johnson@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" class="form-control" value="San Francisco, CA">
+                    </div>
+                    <div class="form-group">
+                        <label for="jobTitle">Job Title</label>
+                        <input type="text" id="jobTitle" class="form-control" value="Software Developer">
+                    </div>
+                </div>
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-edit"></i> Personal Bio</h2>
+                    <div class="form-group">
+                        <label for="bio">Tell us about yourself</label>
+                        <textarea id="bio" class="form-control">Passionate software developer with over 8 years of experience in building web applications. Specialized in front-end technologies and user experience design. Love to contribute to open-source projects and mentor junior developers in my spare time. Currently exploring machine learning and its applications in web development.</textarea>
+                    </div>
+                </div>
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-cog"></i> Account Settings</h2>
+                    <div class="form-group">
+                        <label for="website">Website</label>
+                        <input type="url" id="website" class="form-control" value="https://alexjohnson.dev">
+                    </div>
+                    <div class="form-group">
+                        <label for="twitter">Twitter Handle</label>
+                        <input type="text" id="twitter" class="form-control" value="@alexjdev">
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn" id="saveProfile">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                    <button class="btn btn-secondary" id="cancelChanges">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const avatarInput = document.getElementById('avatarInput');
+            const uploadTrigger = document.getElementById('uploadTrigger');
+            const userAvatar = document.getElementById('userAvatar');
+            const saveButton = document.getElementById('saveProfile');
+            const cancelButton = document.getElementById('cancelChanges');
+            const fullNameInput = document.getElementById('fullName');
+            const displayName = document.getElementById('displayName');
+            const bioInput = document.getElementById('bio');
+            const jobTitleInput = document.getElementById('jobTitle');
+            const emailInput = document.getElementById('email');
+            const locationInput = document.getElementById('location');
+            const websiteInput = document.getElementById('website');
+            const twitterInput = document.getElementById('twitter');
+            
+            let originalData = {
+                fullName: fullNameInput.value,
+                bio: bioInput.value,
+                jobTitle: jobTitleInput.value,
+                email: emailInput.value,
+                location: locationInput.value,
+                website: websiteInput.value,
+                twitter: twitterInput.value,
+                avatar: userAvatar.src
+            };
+            
+            uploadTrigger.addEventListener('click', function() {
+                avatarInput.click();
+            });
+            
+            avatarInput.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        userAvatar.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            saveButton.addEventListener('click', function() {
+                displayName.textContent = fullNameInput.value;
+                
+                originalData = {
+                    fullName: fullNameInput.value,
+                    bio: bioInput.value,
+                    jobTitle: jobTitleInput.value,
+                    email: emailInput.value,
+                    location: locationInput.value,
+                    website: websiteInput.value,
+                    twitter: twitterInput.value,
+                    avatar: userAvatar.src
+                };
+                
+                alert('Profile updated successfully!');
+            });
+            
+            cancelButton.addEventListener('click', function() {
+                if (confirm('Discard all changes?')) {
+                    fullNameInput.value = originalData.fullName;
+                    bioInput.value = originalData.bio;
+                    jobTitleInput.value = originalData.jobTitle;
+                    emailInput.value = originalData.email;
+                    locationInput.value = originalData.location;
+                    websiteInput.value = originalData.website;
+                    twitterInput.value = originalData.twitter;
+                    userAvatar.src = originalData.avatar;
+                    displayName.textContent = originalData.fullName;
+                }
+            });
+            
+            fullNameInput.addEventListener('input', function() {
+                if (fullNameInput.value.trim() !== '') {
+                    displayName.textContent = fullNameInput.value;
+                }
+            });
+        });
+    </script>
+</body>
 </html>
