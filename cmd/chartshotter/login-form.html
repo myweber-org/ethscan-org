@@ -10,65 +10,6 @@
     </style>
 </head>
 <body>
-    <h1>Login</h1>
-    <form id="loginForm">
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <span id="emailError" class="error"></span>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" minlength="6" required>
-            <span id="passwordError" class="error"></span>
-        </div>
-        <button type="submit">Login</button>
-    </form>
-    <div id="message" class="success"></div>
-
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            clearErrors();
-            let isValid = true;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-            if (!emailRegex.test(email)) {
-                document.getElementById('emailError').textContent = 'Please enter a valid email address.';
-                isValid = false;
-            }
-            if (password.length < 6) {
-                document.getElementById('passwordError').textContent = 'Password must be at least 6 characters.';
-                isValid = false;
-            }
-            if (isValid) {
-                document.getElementById('message').textContent = 'Login successful! Redirecting...';
-                setTimeout(() => {
-                    alert('Simulated redirect to dashboard.');
-                }, 1000);
-            }
-        });
-
-        function clearErrors() {
-            document.querySelectorAll('.error').forEach(el => el.textContent = '');
-            document.getElementById('message').textContent = '';
-        }
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login</title>
-    <style>
-        .error { color: red; font-size: 0.9em; }
-        .success { color: green; font-size: 0.9em; }
-    </style>
-</head>
-<body>
     <h2>Login</h2>
     <form id="loginForm">
         <div>
@@ -82,8 +23,8 @@
             <span id="passwordError" class="error"></span>
         </div>
         <button type="submit">Login</button>
-        <div id="message" class="success"></div>
     </form>
+    <div id="message" class="success"></div>
 
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(event) {
@@ -91,22 +32,33 @@
             clearErrors();
             let isValid = true;
 
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value.trim();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+            const messageDiv = document.getElementById('message');
 
             if (!validateEmail(email)) {
-                showError('emailError', 'Please enter a valid email address.');
+                emailError.textContent = 'Please enter a valid email address.';
                 isValid = false;
             }
 
             if (password.length < 6) {
-                showError('passwordError', 'Password must be at least 6 characters.');
+                passwordError.textContent = 'Password must be at least 6 characters.';
                 isValid = false;
             }
 
             if (isValid) {
-                document.getElementById('message').textContent = 'Login successful! (Simulated)';
-                console.log('Login attempt with:', { email, password });
+                messageDiv.textContent = 'Login successful! Redirecting...';
+                messageDiv.className = 'success';
+                setTimeout(() => {
+                    alert('Form submitted successfully!');
+                    this.reset();
+                    messageDiv.textContent = '';
+                }, 1500);
+            } else {
+                messageDiv.textContent = 'Please fix the errors above.';
+                messageDiv.className = 'error';
             }
         });
 
@@ -115,13 +67,10 @@
             return re.test(email);
         }
 
-        function showError(elementId, message) {
-            document.getElementById(elementId).textContent = message;
-        }
-
         function clearErrors() {
-            document.querySelectorAll('.error').forEach(el => el.textContent = '');
-            document.getElementById('message').textContent = '';
+            document.querySelectorAll('.error').forEach(span => {
+                span.textContent = '';
+            });
         }
     </script>
 </body>
