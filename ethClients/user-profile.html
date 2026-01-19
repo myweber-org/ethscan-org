@@ -4,26 +4,128 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: sans-serif;
+        }
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .avatar-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ddd;
+            margin-bottom: 10px;
+        }
+        .bio-section textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+        .form-actions {
+            margin-top: 20px;
+            text-align: right;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section>
-            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            <h2>John Doe</h2>
-            <p>Email: john.doe@example.com</p>
-            <p>Location: New York, USA</p>
-            <p>Member since: January 2023</p>
-        </section>
-        <section>
-            <h3>Bio</h3>
-            <p>Software developer with a passion for open-source projects and web technologies.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 Profile Page. All rights reserved.</p>
-    </footer>
+    <div class="profile-container">
+        <h1>Edit Profile</h1>
+        <div class="avatar-section">
+            <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
+            <div>
+                <input type="file" id="avatarUpload" accept="image/*">
+                <button type="button" id="removeAvatar">Remove Avatar</button>
+            </div>
+        </div>
+        <div class="bio-section">
+            <label for="userBio">Bio:</label>
+            <textarea id="userBio" placeholder="Tell us about yourself..."></textarea>
+        </div>
+        <div class="form-actions">
+            <button id="saveProfile">Save Changes</button>
+        </div>
+        <div id="message" class="hidden"></div>
+    </div>
+
+    <script>
+        const avatarUpload = document.getElementById('avatarUpload');
+        const avatarPreview = document.getElementById('avatarPreview');
+        const removeAvatarBtn = document.getElementById('removeAvatar');
+        const userBio = document.getElementById('userBio');
+        const saveProfileBtn = document.getElementById('saveProfile');
+        const messageDiv = document.getElementById('message');
+
+        const defaultAvatar = 'https://via.placeholder.com/120';
+
+        avatarUpload.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        removeAvatarBtn.addEventListener('click', function() {
+            avatarPreview.src = defaultAvatar;
+            avatarUpload.value = '';
+        });
+
+        saveProfileBtn.addEventListener('click', function() {
+            const bioText = userBio.value.trim();
+            const avatarSrc = avatarPreview.src;
+
+            messageDiv.textContent = 'Profile saved successfully!';
+            messageDiv.className = '';
+            messageDiv.style.color = 'green';
+            messageDiv.style.padding = '10px';
+            messageDiv.style.marginTop = '15px';
+            messageDiv.style.border = '1px solid green';
+            messageDiv.style.borderRadius = '4px';
+            messageDiv.style.backgroundColor = '#f0fff0';
+
+            setTimeout(() => {
+                messageDiv.className = 'hidden';
+            }, 3000);
+
+            console.log('Profile Data:', {
+                avatar: avatarSrc,
+                bio: bioText
+            });
+        });
+
+        window.addEventListener('DOMContentLoaded', function() {
+            userBio.value = 'Hello! I am a user of this platform.';
+        });
+    </script>
 </body>
 </html>
