@@ -150,4 +150,52 @@
         <p>&copy; 2023 User Profile Page</p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section class="profile">
+            <div class="avatar-container">
+                <img src="avatar.jpg" alt="User Avatar" id="userAvatar" width="150" height="150">
+                <button onclick="changeAvatar()">Change Avatar</button>
+            </div>
+            <div class="profile-info">
+                <h2 id="userName">Alex Johnson</h2>
+                <p id="userBio">Software developer and open source enthusiast. Passionate about building efficient web applications.</p>
+                <p><strong>Location:</strong> <span id="userLocation">San Francisco, CA</span></p>
+                <p><strong>Member since:</strong> <span id="joinDate">January 2022</span></p>
+                <button onclick="editProfile()">Edit Profile</button>
+            </div>
+        </section>
+    </main>
+    <script>
+        function changeAvatar() {
+            const newAvatarUrl = prompt('Enter new avatar URL:');
+            if (newAvatarUrl) {
+                document.getElementById('userAvatar').src = newAvatarUrl;
+                console.log('Avatar updated.');
+            }
+        }
+
+        function editProfile() {
+            const newName = prompt('Enter new name:', document.getElementById('userName').textContent);
+            const newBio = prompt('Enter new bio:', document.getElementById('userBio').textContent);
+            const newLocation = prompt('Enter new location:', document.getElementById('userLocation').textContent);
+
+            if (newName) document.getElementById('userName').textContent = newName;
+            if (newBio) document.getElementById('userBio').textContent = newBio;
+            if (newLocation) document.getElementById('userLocation').textContent = newLocation;
+
+            console.log('Profile updated.');
+        }
+    </script>
+</body>
 </html>
