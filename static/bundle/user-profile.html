@@ -28,4 +28,78 @@
         <p>&copy; 2023 Profile Page. All rights reserved.</p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 0.9em; }
+        input { margin-bottom: 10px; display: block; }
+        input:valid { border: 1px solid green; }
+        input:invalid { border: 1px solid red; }
+    </style>
+</head>
+<body>
+    <h1>User Profile</h1>
+    <form id="profileForm">
+        <label for="username">Username (3-20 chars):</label>
+        <input type="text" id="username" name="username" pattern="[A-Za-z0-9_]{3,20}" required>
+        <span class="error" id="usernameError"></span>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <span class="error" id="emailError"></span>
+
+        <label for="age">Age (18-120):</label>
+        <input type="number" id="age" name="age" min="18" max="120" required>
+        <span class="error" id="ageError"></span>
+
+        <button type="submit">Update Profile</button>
+    </form>
+    <div class="success" id="successMessage"></div>
+
+    <script>
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            clearMessages();
+
+            let isValid = true;
+            const username = document.getElementById('username');
+            const email = document.getElementById('email');
+            const age = document.getElementById('age');
+
+            if (!username.checkValidity()) {
+                document.getElementById('usernameError').textContent = 'Username must be 3-20 alphanumeric characters.';
+                isValid = false;
+            }
+
+            if (!email.checkValidity()) {
+                document.getElementById('emailError').textContent = 'Please enter a valid email address.';
+                isValid = false;
+            }
+
+            if (!age.checkValidity()) {
+                document.getElementById('ageError').textContent = 'Age must be between 18 and 120.';
+                isValid = false;
+            }
+
+            if (isValid) {
+                document.getElementById('successMessage').textContent = 'Profile updated successfully!';
+                console.log('Submitting data:', {
+                    username: username.value,
+                    email: email.value,
+                    age: age.value
+                });
+                this.reset();
+            }
+        });
+
+        function clearMessages() {
+            document.querySelectorAll('.error, .success').forEach(el => el.textContent = '');
+        }
+    </script>
+</body>
 </html>
