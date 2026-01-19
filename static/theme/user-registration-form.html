@@ -4,13 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Registration</title>
-    <style>
-        .error { color: red; font-size: 0.9em; }
-        input.invalid { border: 1px solid red; }
-    </style>
 </head>
 <body>
-    <h1>Register Account</h1>
+    <h1>Register New Account</h1>
     <form id="registrationForm">
         <div>
             <label for="username">Username:</label>
@@ -30,7 +26,7 @@
         <div>
             <label for="confirmPassword">Confirm Password:</label>
             <input type="password" id="confirmPassword" name="confirmPassword" required>
-            <span class="error" id="confirmPasswordError"></span>
+            <span class="error" id="confirmError"></span>
         </div>
         <button type="submit">Register</button>
     </form>
@@ -39,30 +35,30 @@
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
             event.preventDefault();
             clearErrors();
-            let isValid = true;
 
-            const username = document.getElementById('username').value.trim();
+            let isValid = true;
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
             if (username.length < 3) {
                 showError('usernameError', 'Username must be at least 3 characters.');
                 isValid = false;
             }
 
-            const email = document.getElementById('email').value;
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
+            if (!validateEmail(email)) {
                 showError('emailError', 'Please enter a valid email address.');
                 isValid = false;
             }
 
-            const password = document.getElementById('password').value;
             if (password.length < 8) {
                 showError('passwordError', 'Password must be at least 8 characters.');
                 isValid = false;
             }
 
-            const confirmPassword = document.getElementById('confirmPassword').value;
             if (password !== confirmPassword) {
-                showError('confirmPasswordError', 'Passwords do not match.');
+                showError('confirmError', 'Passwords do not match.');
                 isValid = false;
             }
 
@@ -72,24 +68,18 @@
             }
         });
 
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
         function showError(elementId, message) {
-            const errorElement = document.getElementById(elementId);
-            errorElement.textContent = message;
-            const inputField = errorElement.previousElementSibling;
-            if (inputField && inputField.tagName === 'INPUT') {
-                inputField.classList.add('invalid');
-            }
+            document.getElementById(elementId).textContent = message;
         }
 
         function clearErrors() {
             const errors = document.querySelectorAll('.error');
-            errors.forEach(error => {
-                error.textContent = '';
-                const inputField = error.previousElementSibling;
-                if (inputField && inputField.tagName === 'INPUT') {
-                    inputField.classList.remove('invalid');
-                }
-            });
+            errors.forEach(error => error.textContent = '');
         }
     </script>
 </body>
