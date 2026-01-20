@@ -125,4 +125,71 @@
         <p>&copy; 2023 User Profile Page. All rights reserved.</p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            font-family: sans-serif;
+        }
+        .avatar-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1.5rem;
+            border: 3px solid #0366d6;
+        }
+        .user-name {
+            font-size: 1.8rem;
+            margin: 0 0 0.5rem 0;
+            color: #24292e;
+        }
+        .user-title {
+            color: #586069;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+        .bio-section {
+            padding: 1rem;
+            background-color: #f6f8fa;
+            border-radius: 6px;
+            line-height: 1.5;
+            color: #24292e;
+        }
+        .bio-heading {
+            margin-top: 0;
+            font-size: 1.2rem;
+            color: #0366d6;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="avatar-section">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
+            <div>
+                <h1 class="user-name">Alex Morgan</h1>
+                <p class="user-title">Senior Frontend Developer</p>
+            </div>
+        </div>
+        <div class="bio-section">
+            <h2 class="bio-heading">About Me</h2>
+            <p>Passionate about building intuitive user interfaces and scalable web applications. Experienced with modern JavaScript frameworks and a strong advocate for clean code and accessibility. Currently focused on performance optimization and component-driven architecture.</p>
+        </div>
+    </div>
+</body>
 </html>
