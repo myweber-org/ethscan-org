@@ -9,81 +9,74 @@
             max-width: 600px;
             margin: 40px auto;
             padding: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
             border-radius: 8px;
+            text-align: center;
             font-family: Arial, sans-serif;
         }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .avatar-preview {
+        .avatar {
             width: 120px;
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid #ddd;
+            border: 3px solid #4a90e2;
+            margin-bottom: 15px;
+        }
+        .user-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
             margin-bottom: 10px;
         }
-        .bio-section textarea {
-            width: 100%;
-            height: 100px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
-            font-family: inherit;
-        }
-        .save-button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+        .user-bio {
             font-size: 16px;
-            margin-top: 15px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 20px;
         }
-        .save-button:hover {
-            background-color: #45a049;
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #4a90e2;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: #888;
+            margin-top: 5px;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <h1>Edit Profile</h1>
-        <div class="avatar-section">
-            <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
-            <br>
-            <input type="file" id="avatarUpload" accept="image/*">
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
+        <div class="user-name">Alex Johnson</div>
+        <div class="user-bio">
+            Software developer passionate about open-source projects, web technologies, and hiking in the mountains. Always eager to learn and share knowledge with the community.
         </div>
-        <div class="bio-section">
-            <label for="userBio"><strong>Bio:</strong></label>
-            <textarea id="userBio" placeholder="Tell something about yourself..."></textarea>
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value">127</div>
+                <div class="stat-label">Posts</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">892</div>
+                <div class="stat-label">Followers</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">345</div>
+                <div class="stat-label">Following</div>
+            </div>
         </div>
-        <button class="save-button" onclick="saveProfile()">Save Changes</button>
     </div>
-
-    <script>
-        const avatarUpload = document.getElementById('avatarUpload');
-        const avatarPreview = document.getElementById('avatarPreview');
-        const userBio = document.getElementById('userBio');
-
-        avatarUpload.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    avatarPreview.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        function saveProfile() {
-            const bioText = userBio.value.trim();
-            alert('Profile saved successfully!\nBio: ' + (bioText || '(Empty)'));
-        }
-    </script>
 </body>
 </html>
