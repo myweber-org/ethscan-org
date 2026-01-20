@@ -202,4 +202,64 @@
         </div>
     </div>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile Settings</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Profile Information</h2>
+            <form id="profileForm">
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div>
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div>
+                    <label for="bio">Bio:</label>
+                    <textarea id="bio" name="bio" rows="4"></textarea>
+                </div>
+                <div>
+                    <label for="avatar">Upload Avatar:</label>
+                    <input type="file" id="avatar" name="avatar" accept="image/*">
+                </div>
+                <button type="submit">Update Profile</button>
+            </form>
+        </section>
+        <section>
+            <h2>Account Preferences</h2>
+            <div>
+                <label>
+                    <input type="checkbox" id="newsletter">
+                    Subscribe to newsletter
+                </label>
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" id="publicProfile">
+                    Make profile public
+                </label>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 User Portal. All rights reserved.</p>
+    </footer>
+    <script>
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Profile update functionality would be implemented here.');
+        });
+    </script>
+</body>
 </html>
