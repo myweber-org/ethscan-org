@@ -7,73 +7,43 @@
 </head>
 <body>
     <header>
-        <h1>User Profile Settings</h1>
+        <h1>User Profile</h1>
     </header>
     <main>
-        <form id="profileForm">
-            <fieldset>
-                <legend>Personal Information</legend>
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                <br>
-                <label for="email">Email Address:</label>
-                <input type="email" id="email" name="email" required>
-                <br>
-                <label for="birthdate">Date of Birth:</label>
-                <input type="date" id="birthdate" name="birthdate">
-            </fieldset>
-
-            <fieldset>
-                <legend>Preferences</legend>
-                <label for="theme">Theme:</label>
-                <select id="theme" name="theme">
-                    <option value="light">Light</option>
-                    <option value="dark">Dark</option>
-                    <option value="auto">Auto</option>
-                </select>
-                <br>
-                <label>
-                    <input type="checkbox" name="newsletter" checked>
-                    Subscribe to newsletter
-                </label>
-                <br>
-                <label>
-                    <input type="checkbox" name="notifications">
-                    Enable push notifications
-                </label>
-            </fieldset>
-
-            <fieldset>
-                <legend>Update Password</legend>
-                <label for="currentPassword">Current Password:</label>
-                <input type="password" id="currentPassword" name="currentPassword">
-                <br>
-                <label for="newPassword">New Password:</label>
-                <input type="password" id="newPassword" name="newPassword">
-                <br>
-                <label for="confirmPassword">Confirm New Password:</label>
-                <input type="password" id="confirmPassword" name="confirmPassword">
-            </fieldset>
-
-            <button type="submit">Save Changes</button>
-            <button type="reset">Reset Form</button>
-        </form>
+        <section id="profile-info">
+            <div class="avatar-container">
+                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar">
+                <input type="file" id="avatar-upload" accept="image/*">
+                <button id="upload-btn">Upload Avatar</button>
+            </div>
+            <div class="bio-section">
+                <h2>Bio</h2>
+                <textarea id="bio-text" rows="4" cols="50" placeholder="Write something about yourself..."></textarea>
+                <button id="save-bio-btn">Save Bio</button>
+            </div>
+        </section>
     </main>
     <footer>
-        <p>&copy; 2023 User Profile Management</p>
+        <p>&copy; 2023 User Profile Page</p>
     </footer>
     <script>
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const newPassword = document.getElementById('newPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            if (newPassword && newPassword !== confirmPassword) {
-                alert('New passwords do not match.');
-                return;
+        document.getElementById('upload-btn').addEventListener('click', function() {
+            const fileInput = document.getElementById('avatar-upload');
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatar-preview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                alert('Please select an image file first.');
             }
-            
-            alert('Profile updated successfully!');
+        });
+
+        document.getElementById('save-bio-btn').addEventListener('click', function() {
+            const bioText = document.getElementById('bio-text').value;
+            alert('Bio saved: ' + bioText);
         });
     </script>
 </body>
