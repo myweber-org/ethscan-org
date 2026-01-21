@@ -1,34 +1,5 @@
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
-            <div class="avatar-container">
-                <img src="avatar-placeholder.jpg" alt="User Avatar" id="user-avatar" width="150" height="150">
-            </div>
-            <div class="profile-info">
-                <h2 id="username">John Doe</h2>
-                <p id="user-bio">Software developer with a passion for open-source projects and web technologies.</p>
-                <p><strong>Location:</strong> <span id="user-location">San Francisco, CA</span></p>
-                <p><strong>Joined:</strong> <span id="join-date">January 2020</span></p>
-            </div>
-        </section>
-    </main>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('User profile page loaded.');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -41,49 +12,156 @@
             padding: 20px;
             border: 1px solid #ddd;
             border-radius: 8px;
-            font-family: sans-serif;
+            font-family: Arial, sans-serif;
         }
         .avatar-section {
-            text-align: center;
-            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
         }
-        .avatar {
+        .avatar-preview {
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            object-fit: cover;
+            overflow: hidden;
             border: 3px solid #4a90e2;
+            margin-right: 20px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .name {
-            font-size: 24px;
-            font-weight: bold;
-            margin: 10px 0 5px;
+        .avatar-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
-        .title {
-            color: #666;
-            font-size: 16px;
+        .avatar-placeholder {
+            color: #888;
+            font-size: 14px;
+        }
+        .avatar-upload {
+            display: flex;
+            flex-direction: column;
+        }
+        .avatar-upload input {
+            margin-bottom: 10px;
+        }
+        .profile-info {
+            margin-top: 20px;
+        }
+        .info-item {
             margin-bottom: 15px;
         }
-        .bio-section {
-            line-height: 1.6;
+        .info-item label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
             color: #333;
-            padding: 15px;
+        }
+        .info-item span {
+            display: block;
+            padding: 8px;
             background-color: #f9f9f9;
-            border-radius: 5px;
+            border-radius: 4px;
+            border: 1px solid #eee;
+        }
+        button {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #3a7bc8;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
+        <h1>User Profile</h1>
+        
         <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="User Avatar" class="avatar">
-            <h1 class="name">Alex Johnson</h1>
-            <p class="title">Senior Frontend Developer</p>
+            <div class="avatar-preview" id="avatarPreview">
+                <div class="avatar-placeholder">No avatar selected</div>
+            </div>
+            <div class="avatar-upload">
+                <input type="file" id="avatarInput" accept="image/*">
+                <button onclick="uploadAvatar()">Upload Avatar</button>
+            </div>
         </div>
-        <div class="bio-section">
-            <p>Passionate about creating clean, efficient, and user-friendly web interfaces. Experienced with modern JavaScript frameworks and responsive design principles. Enjoys contributing to open-source projects and mentoring junior developers.</p>
-            <p>Currently focused on accessibility improvements and performance optimization techniques.</p>
+
+        <div class="profile-info">
+            <div class="info-item">
+                <label>Username</label>
+                <span id="username">john_doe</span>
+            </div>
+            <div class="info-item">
+                <label>Email</label>
+                <span id="email">john.doe@example.com</span>
+            </div>
+            <div class="info-item">
+                <label>Member Since</label>
+                <span id="joinDate">January 15, 2023</span>
+            </div>
+            <div class="info-item">
+                <label>Account Status</label>
+                <span id="status">Active</span>
+            </div>
         </div>
     </div>
+
+    <script>
+        const avatarInput = document.getElementById('avatarInput');
+        const avatarPreview = document.getElementById('avatarPreview');
+        
+        avatarInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarPreview.innerHTML = '';
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.alt = 'User Avatar';
+                    avatarPreview.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function uploadAvatar() {
+            const file = avatarInput.files[0];
+            if (!file) {
+                alert('Please select an image file first.');
+                return;
+            }
+            
+            // Simulate upload process
+            alert('Avatar upload simulated. In a real application, this would send the image to a server.');
+            
+            // Here you would typically send the file to your server
+            // Example using fetch:
+            /*
+            const formData = new FormData();
+            formData.append('avatar', file);
+            
+            fetch('/api/upload-avatar', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Upload successful:', data);
+            })
+            .catch(error => {
+                console.error('Upload error:', error);
+            });
+            */
+        }
+    </script>
 </body>
 </html>
