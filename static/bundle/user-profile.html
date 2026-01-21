@@ -102,4 +102,97 @@
         }
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: sans-serif;
+        }
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .avatar-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #eee;
+            margin-bottom: 10px;
+        }
+        .bio-section textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        .action-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .action-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h1>User Profile</h1>
+        <div class="avatar-section">
+            <img id="avatarPreview" src="https://via.placeholder.com/120" class="avatar-preview" alt="Avatar Preview">
+            <br>
+            <input type="file" id="avatarInput" accept="image/*">
+            <button onclick="uploadAvatar()" class="action-button">Upload Avatar</button>
+        </div>
+        <div class="bio-section">
+            <label for="bioTextarea"><strong>Bio:</strong></label>
+            <textarea id="bioTextarea" placeholder="Tell us about yourself..."></textarea>
+            <button onclick="saveBio()" class="action-button">Save Bio</button>
+        </div>
+    </div>
+
+    <script>
+        function uploadAvatar() {
+            const input = document.getElementById('avatarInput');
+            const preview = document.getElementById('avatarPreview');
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+                alert('Avatar uploaded successfully! (This is a demo)');
+            } else {
+                alert('Please select an image file.');
+            }
+        }
+
+        function saveBio() {
+            const bioText = document.getElementById('bioTextarea').value;
+            if (bioText.trim()) {
+                alert('Bio saved successfully! (This is a demo)');
+            } else {
+                alert('Please enter some text for your bio.');
+            }
+        }
+    </script>
+</body>
 </html>
