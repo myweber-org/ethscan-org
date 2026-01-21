@@ -4,59 +4,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            font-family: sans-serif;
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #0366d6;
+            display: block;
+            margin: 0 auto 20px;
+        }
+        .username {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #24292e;
+            margin-bottom: 5px;
+        }
+        .user-handle {
+            text-align: center;
+            color: #586069;
+            margin-bottom: 20px;
+        }
+        .bio {
+            background-color: #f6f8fa;
+            padding: 15px;
+            border-radius: 6px;
+            line-height: 1.5;
+            color: #24292e;
+        }
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #eaecef;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #0366d6;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: #586069;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>User Profile Settings</h1>
-    </header>
-    <main>
-        <section>
-            <h2>Profile Picture</h2>
-            <div>
-                <img id="avatarPreview" src="default-avatar.png" alt="Avatar Preview" width="150" height="150">
-                <br>
-                <input type="file" id="avatarUpload" accept="image/*">
-                <button onclick="uploadAvatar()">Upload Avatar</button>
+    <div class="profile-container">
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
+        <h1 class="username">Alex Johnson</h1>
+        <div class="user-handle">@alexj</div>
+        <div class="bio">
+            Software engineer passionate about open source, web technologies, and user experience. Enjoys hiking, photography, and contributing to developer communities.
+        </div>
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value">142</div>
+                <div class="stat-label">Repositories</div>
             </div>
-        </section>
-        <section>
-            <h2>Personal Information</h2>
-            <form id="profileForm">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                <br>
-                <label for="email">Email Address:</label>
-                <input type="email" id="email" name="email" required>
-                <br>
-                <label for="bio">Bio:</label>
-                <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
-                <br>
-                <button type="submit">Update Profile</button>
-            </form>
-        </section>
-    </main>
-    <script>
-        function uploadAvatar() {
-            const fileInput = document.getElementById('avatarUpload');
-            const preview = document.getElementById('avatarPreview');
-            const file = fileInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            console.log('Profile Updated:', { username, email, bio });
-            alert('Profile updated successfully!');
-        });
-    </script>
+            <div class="stat-item">
+                <div class="stat-value">1.2k</div>
+                <div class="stat-label">Followers</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">348</div>
+                <div class="stat-label">Following</div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
