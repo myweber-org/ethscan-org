@@ -223,3 +223,81 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .avatar-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 24px;
+            border: 3px solid #f0f0f0;
+        }
+        .name-section {
+            margin-bottom: 16px;
+        }
+        .full-name {
+            font-size: 28px;
+            font-weight: 600;
+            color: #24292e;
+            margin: 0 0 4px 0;
+        }
+        .username {
+            font-size: 20px;
+            color: #586069;
+            margin: 0;
+        }
+        .bio-section {
+            padding: 16px;
+            background-color: #f6f8fa;
+            border-radius: 6px;
+            line-height: 1.5;
+            color: #24292e;
+        }
+        .bio-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #0366d6;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="avatar-section">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
+                 alt="Profile Avatar" 
+                 class="avatar">
+            <div>
+                <div class="name-section">
+                    <h1 class="full-name">Alex Morgan</h1>
+                    <p class="username">@alexmorgan</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bio-section">
+            <div class="bio-title">About Me</div>
+            <p>Software engineer with 8 years of experience building web applications. Passionate about open-source projects, user experience design, and mentoring junior developers. Currently working on scalable cloud infrastructure solutions.</p>
+            <p>Interests: Hiking, photography, and exploring new coffee shops.</p>
+        </div>
+    </div>
+</body>
+</html>
