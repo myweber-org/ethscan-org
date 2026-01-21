@@ -58,4 +58,64 @@
         }
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+    <style>
+        .error {
+            color: red;
+            font-size: 0.9em;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form id="loginForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <span id="usernameError" class="error">Username must be at least 3 characters.</span>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <span id="passwordError" class="error">Password must be at least 6 characters.</span>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let isValid = true;
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const usernameError = document.getElementById('usernameError');
+            const passwordError = document.getElementById('passwordError');
+
+            usernameError.style.display = 'none';
+            passwordError.style.display = 'none';
+
+            if (username.length < 3) {
+                usernameError.style.display = 'block';
+                isValid = false;
+            }
+
+            if (password.length < 6) {
+                passwordError.style.display = 'block';
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert('Login successful!');
+                // Here you would typically send data to a server
+                // For example: fetch('/login', { method: 'POST', body: new FormData(this) });
+            }
+        });
+    </script>
+</body>
 </html>
