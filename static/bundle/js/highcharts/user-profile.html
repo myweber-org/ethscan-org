@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,9 +10,9 @@
             max-width: 600px;
             margin: 40px auto;
             padding: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
             border-radius: 8px;
-            font-family: sans-serif;
+            font-family: Arial, sans-serif;
         }
         .avatar-section {
             display: flex;
@@ -22,43 +23,42 @@
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            background-color: #e0e0e0;
-            margin-right: 20px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 36px;
-            color: #666;
-        }
-        .avatar-preview img {
-            width: 100%;
-            height: 100%;
             object-fit: cover;
+            border: 2px solid #ccc;
+            margin-right: 20px;
+        }
+        .upload-btn {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .upload-btn:hover {
+            background-color: #45a049;
         }
         .bio-section {
             margin-bottom: 20px;
         }
         textarea {
             width: 100%;
-            height: 100px;
+            height: 120px;
             padding: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
             border-radius: 4px;
             resize: vertical;
-            font-family: inherit;
         }
-        button {
-            background-color: #007bff;
+        .save-btn {
+            padding: 10px 20px;
+            background-color: #008CBA;
             color: white;
             border: none;
-            padding: 10px 20px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 16px;
         }
-        button:hover {
-            background-color: #0056b3;
+        .save-btn:hover {
+            background-color: #007B9A;
         }
         .hidden {
             display: none;
@@ -68,21 +68,22 @@
 <body>
     <div class="profile-container">
         <h1>User Profile</h1>
+        
         <div class="avatar-section">
-            <div class="avatar-preview" id="avatarPreview">
-                <span>JD</span>
-            </div>
+            <img id="avatarPreview" src="default-avatar.png" alt="Avatar" class="avatar-preview">
             <div>
                 <input type="file" id="avatarInput" accept="image/*" class="hidden">
-                <button onclick="document.getElementById('avatarInput').click()">Change Avatar</button>
-                <p>Upload a new profile picture. Max size 2MB.</p>
+                <button class="upload-btn" onclick="document.getElementById('avatarInput').click()">Upload Avatar</button>
+                <p style="font-size: 12px; color: #666; margin-top: 5px;">Supported formats: JPG, PNG, GIF</p>
             </div>
         </div>
+
         <div class="bio-section">
             <label for="bioTextarea"><strong>Bio:</strong></label>
-            <textarea id="bioTextarea" placeholder="Tell us something about yourself...">Web developer and open source enthusiast.</textarea>
+            <textarea id="bioTextarea" placeholder="Tell something about yourself..."></textarea>
         </div>
-        <button onclick="saveProfile()">Save Profile</button>
+
+        <button class="save-btn" onclick="saveProfile()">Save Profile</button>
     </div>
 
     <script>
@@ -93,16 +94,9 @@
         avatarInput.addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
-                if (file.size > 2 * 1024 * 1024) {
-                    alert('File size exceeds 2MB limit.');
-                    return;
-                }
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    avatarPreview.innerHTML = '';
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    avatarPreview.appendChild(img);
+                    avatarPreview.src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
@@ -111,72 +105,24 @@
         function saveProfile() {
             const bio = bioTextarea.value.trim();
             const avatarFile = avatarInput.files[0];
-
-            console.log('Profile saved with bio:', bio);
-            if (avatarFile) {
-                console.log('New avatar file:', avatarFile.name);
+            
+            if (bio || avatarFile) {
+                alert('Profile saved successfully!');
+            } else {
+                alert('No changes detected.');
             }
-            alert('Profile saved successfully!');
         }
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="profile-section">
-            <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <form id="avatar-form">
-                    <input type="file" id="avatar-input" name="avatar" accept="image/*">
-                    <button type="submit">Upload Avatar</button>
-                </form>
-            </div>
-            <div class="bio-container">
-                <h2>Edit Bio</h2>
-                <form id="bio-form">
-                    <textarea id="bio-input" name="bio" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
-                    <br>
-                    <button type="submit">Save Bio</button>
-                </form>
-                <p id="current-bio">Current bio will appear here.</p>
-            </div>
-        </section>
-    </main>
-    <script>
-        document.getElementById('avatar-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const fileInput = document.getElementById('avatar-input');
-            const file = fileInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-                alert('Avatar uploaded successfully!');
-            } else {
-                alert('Please select an image file.');
-            }
-        });
 
-        document.getElementById('bio-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const bioInput = document.getElementById('bio-input').value;
-            if (bioInput.trim() !== '') {
-                document.getElementById('current-bio').textContent = bioInput;
-                alert('Bio saved successfully!');
-                document.getElementById('bio-input').value = '';
-            } else {
-                alert('Please enter a bio.');
+        window.addEventListener('DOMContentLoaded', function() {
+            const savedBio = localStorage.getItem('userBio');
+            const savedAvatar = localStorage.getItem('userAvatar');
+            
+            if (savedBio) {
+                bioTextarea.value = savedBio;
+            }
+            
+            if (savedAvatar) {
+                avatarPreview.src = savedAvatar;
             }
         });
     </script>
