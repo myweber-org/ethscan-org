@@ -4,135 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .avatar-preview {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #ddd;
-            margin-bottom: 10px;
-        }
-        .bio-section textarea {
-            width: 100%;
-            height: 100px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
-            box-sizing: border-box;
-        }
-        .button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        .button:hover {
-            background-color: #45a049;
-        }
-        .hidden {
-            display: none;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <h1>User Profile</h1>
-        <div class="avatar-section">
-            <img id="avatarPreview" src="default-avatar.png" alt="Avatar Preview" class="avatar-preview">
-            <div>
-                <input type="file" id="avatarInput" accept="image/*" class="hidden">
-                <button onclick="document.getElementById('avatarInput').click()" class="button">Change Avatar</button>
-            </div>
-        </div>
-        <div class="bio-section">
-            <label for="bioTextarea"><strong>Bio:</strong></label>
-            <textarea id="bioTextarea" placeholder="Tell us something about yourself..."></textarea>
-        </div>
-        <button onclick="saveProfile()" class="button">Save Profile</button>
-        <p id="statusMessage"></p>
-    </div>
-
-    <script>
-        const avatarInput = document.getElementById('avatarInput');
-        const avatarPreview = document.getElementById('avatarPreview');
-        const bioTextarea = document.getElementById('bioTextarea');
-        const statusMessage = document.getElementById('statusMessage');
-
-        avatarInput.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    avatarPreview.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        function saveProfile() {
-            const bio = bioTextarea.value.trim();
-            statusMessage.textContent = 'Profile saved successfully!';
-            statusMessage.style.color = 'green';
-            console.log('Bio saved:', bio);
-        }
-
-        window.onload = function() {
-            const savedBio = localStorage.getItem('userBio');
-            if (savedBio) {
-                bioTextarea.value = savedBio;
-            }
-            bioTextarea.addEventListener('input', function() {
-                localStorage.setItem('userBio', bioTextarea.value);
-            });
-        };
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
 </head>
 <body>
     <header>
-        <h1>User Profile</h1>
+        <h1>User Profile Settings</h1>
     </header>
     <main>
-        <section class="profile">
-            <div class="avatar-container">
-                <img src="https://via.placeholder.com/150" alt="User Avatar" class="avatar">
-            </div>
-            <div class="profile-info">
-                <h2>John Doe</h2>
-                <p class="bio">Software developer with a passion for open-source projects and web technologies.</p>
-                <ul class="details">
-                    <li><strong>Location:</strong> San Francisco, CA</li>
-                    <li><strong>Email:</strong> john.doe@example.com</li>
-                    <li><strong>Joined:</strong> January 2023</li>
-                </ul>
-            </div>
+        <section>
+            <h2>Profile Information</h2>
+            <form id="profileForm">
+                <div>
+                    <label for="avatar">Profile Picture:</label>
+                    <input type="file" id="avatar" name="avatar" accept="image/*">
+                </div>
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div>
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div>
+                    <label for="bio">Biography:</label>
+                    <textarea id="bio" name="bio" rows="4"></textarea>
+                </div>
+                <button type="submit">Update Profile</button>
+            </form>
         </section>
     </main>
     <footer>
         <p>&copy; 2023 User Profile Page</p>
     </footer>
+    <script>
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            console.log('Form submitted with data:', Object.fromEntries(formData));
+            alert('Profile update simulated. Check console for data.');
+        });
+    </script>
 </body>
 </html>
