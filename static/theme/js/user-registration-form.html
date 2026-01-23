@@ -172,4 +172,86 @@
         }
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <style>
+        .error {
+            color: red;
+            font-size: 0.9em;
+            display: none;
+        }
+        input:invalid {
+            border-color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Register New Account</h1>
+    <form id="registrationForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+            <span class="error" id="usernameError">Username must be 3-20 characters.</span>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <span class="error" id="emailError">Please enter a valid email address.</span>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
+            <span class="error" id="passwordError">Password must be at least 8 characters with letters and numbers.</span>
+        </div>
+        <div>
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <span class="error" id="confirmError">Passwords do not match.</span>
+        </div>
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let isValid = true;
+
+            const username = document.getElementById('username');
+            const email = document.getElementById('email');
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirmPassword');
+
+            document.querySelectorAll('.error').forEach(error => error.style.display = 'none');
+
+            if (!username.checkValidity()) {
+                document.getElementById('usernameError').style.display = 'block';
+                isValid = false;
+            }
+
+            if (!email.checkValidity()) {
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            }
+
+            if (!password.checkValidity()) {
+                document.getElementById('passwordError').style.display = 'block';
+                isValid = false;
+            }
+
+            if (password.value !== confirmPassword.value) {
+                document.getElementById('confirmError').style.display = 'block';
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert('Registration successful!');
+                this.reset();
+            }
+        });
+    </script>
+</body>
 </html>
