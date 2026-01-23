@@ -6,71 +6,14 @@
     <title>User Profile</title>
 </head>
 <body>
-    <header>
-        <h1>User Profile Settings</h1>
-    </header>
-    <main>
-        <section>
-            <h2>Profile Information</h2>
-            <form id="profileForm">
-                <div>
-                    <label for="avatar">Profile Picture:</label>
-                    <input type="file" id="avatar" name="avatar" accept="image/*">
-                </div>
-                <div>
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div>
-                    <label for="email">Email Address:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div>
-                    <label for="bio">Biography:</label>
-                    <textarea id="bio" name="bio" rows="4"></textarea>
-                </div>
-                <button type="submit">Update Profile</button>
-            </form>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
-    <script>
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const formData = new FormData(this);
-            console.log('Form submitted with data:', Object.fromEntries(formData));
-            alert('Profile update simulated. Check console for data.');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section>
-            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            <h2>John Doe</h2>
-            <p>Email: john.doe@example.com</p>
-            <p>Location: New York, USA</p>
-            <p>Member since: January 2023</p>
-        </section>
-        <section>
-            <h3>Bio</h3>
-            <p>Software developer passionate about web technologies and open source.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 Profile Page. All rights reserved.</p>
-    </footer>
+    <div class="profile-container">
+        <img src="avatar.jpg" alt="User Avatar" class="profile-avatar">
+        <h1 class="profile-name">Alex Johnson</h1>
+        <p class="profile-bio">Software developer with a passion for open-source projects and web technologies.</p>
+        <ul class="profile-links">
+            <li><a href="https://github.com/alexj">GitHub</a></li>
+            <li><a href="https://linkedin.com/in/alexj">LinkedIn</a></li>
+        </ul>
+    </div>
 </body>
 </html>
