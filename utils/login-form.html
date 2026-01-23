@@ -23,99 +23,52 @@
             <span id="passwordError" class="error"></span>
         </div>
         <button type="submit">Login</button>
-        <div id="message" class="success"></div>
     </form>
+    <div id="message" class="success"></div>
 
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
             clearErrors();
             let isValid = true;
+
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+            const messageDiv = document.getElementById('message');
 
-            if (!emailRegex.test(email)) {
-                document.getElementById('emailError').textContent = 'Please enter a valid email address.';
+            if (!validateEmail(email)) {
+                emailError.textContent = 'Please enter a valid email address.';
                 isValid = false;
             }
+
             if (password.length < 6) {
-                document.getElementById('passwordError').textContent = 'Password must be at least 6 characters.';
+                passwordError.textContent = 'Password must be at least 6 characters.';
                 isValid = false;
             }
 
             if (isValid) {
-                document.getElementById('message').textContent = 'Login successful! Redirecting...';
+                messageDiv.textContent = 'Login successful! Redirecting...';
+                messageDiv.className = 'success';
                 setTimeout(() => {
                     alert('Simulated redirect to dashboard.');
                 }, 1000);
+            } else {
+                messageDiv.textContent = 'Please fix the errors above.';
+                messageDiv.className = 'error';
             }
         });
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
 
         function clearErrors() {
-            document.querySelectorAll('.error').forEach(el => el.textContent = '');
+            document.querySelectorAll('.error').forEach(span => span.textContent = '');
             document.getElementById('message').textContent = '';
         }
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login</title>
-    <style>
-        .error {
-            color: red;
-            font-size: 0.9em;
-            display: none;
-        }
-    </style>
-</head>
-<body>
-    <form id="loginForm">
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            <span id="usernameError" class="error">Username must be at least 3 characters.</span>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            <span id="passwordError" class="error">Password must be at least 6 characters.</span>
-        </div>
-        <button type="submit">Login</button>
-    </form>
-
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            let isValid = true;
-
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const usernameError = document.getElementById('usernameError');
-            const passwordError = document.getElementById('passwordError');
-
-            usernameError.style.display = 'none';
-            passwordError.style.display = 'none';
-
-            if (username.length < 3) {
-                usernameError.style.display = 'block';
-                isValid = false;
-            }
-
-            if (password.length < 6) {
-                passwordError.style.display = 'block';
-                isValid = false;
-            }
-
-            if (isValid) {
-                alert('Login successful!');
-                // Here you would typically send data to a server
-                // For example: fetch('/login', { method: 'POST', body: new FormData(this) });
-            }
-        });
     </script>
 </body>
 </html>
