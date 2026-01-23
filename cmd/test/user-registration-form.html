@@ -1,51 +1,58 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Registration</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 0.9em; }
+    </style>
 </head>
 <body>
-    <h1>Create Account</h1>
+    <h1>Register New Account</h1>
     <form id="registrationForm">
         <div>
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required minlength="3" maxlength="20">
-            <span class="error" id="usernameError"></span>
+            <span id="usernameError" class="error"></span>
         </div>
         
         <div>
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
-            <span class="error" id="emailError"></span>
+            <span id="emailError" class="error"></span>
         </div>
         
         <div>
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required minlength="8">
-            <span class="error" id="passwordError"></span>
+            <span id="passwordError" class="error"></span>
         </div>
         
         <div>
             <label for="confirmPassword">Confirm Password:</label>
             <input type="password" id="confirmPassword" name="confirmPassword" required>
-            <span class="error" id="confirmPasswordError"></span>
+            <span id="confirmPasswordError" class="error"></span>
         </div>
         
-        <button type="submit">Register</button>
+        <div>
+            <button type="submit">Register</button>
+        </div>
     </form>
+    
+    <div id="message" class="success"></div>
 
     <script>
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
             event.preventDefault();
             clearErrors();
             
-            let isValid = true;
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
+            let isValid = true;
             
             if (username.length < 3) {
                 showError('usernameError', 'Username must be at least 3 characters');
@@ -68,7 +75,7 @@
             }
             
             if (isValid) {
-                alert('Registration successful!');
+                document.getElementById('message').textContent = 'Registration successful!';
                 this.reset();
             }
         });
@@ -83,8 +90,9 @@
         }
         
         function clearErrors() {
-            const errors = document.querySelectorAll('.error');
-            errors.forEach(error => error.textContent = '');
+            const errorElements = document.querySelectorAll('.error');
+            errorElements.forEach(element => element.textContent = '');
+            document.getElementById('message').textContent = '';
         }
     </script>
 </body>
