@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,33 +42,25 @@
             const password = document.getElementById('password');
             const confirmPassword = document.getElementById('confirmPassword');
 
-            const usernameError = document.getElementById('usernameError');
-            const emailError = document.getElementById('emailError');
-            const passwordError = document.getElementById('passwordError');
-            const confirmPasswordError = document.getElementById('confirmPasswordError');
-
-            usernameError.textContent = '';
-            emailError.textContent = '';
-            passwordError.textContent = '';
-            confirmPasswordError.textContent = '';
+            document.querySelectorAll('.error').forEach(el => el.textContent = '');
 
             if (username.value.length < 3) {
-                usernameError.textContent = 'Username must be at least 3 characters.';
+                document.getElementById('usernameError').textContent = 'Username must be at least 3 characters.';
                 isValid = false;
             }
 
             if (!email.value.includes('@')) {
-                emailError.textContent = 'Please enter a valid email address.';
+                document.getElementById('emailError').textContent = 'Please enter a valid email address.';
                 isValid = false;
             }
 
             if (password.value.length < 8) {
-                passwordError.textContent = 'Password must be at least 8 characters.';
+                document.getElementById('passwordError').textContent = 'Password must be at least 8 characters.';
                 isValid = false;
             }
 
             if (password.value !== confirmPassword.value) {
-                confirmPasswordError.textContent = 'Passwords do not match.';
+                document.getElementById('confirmPasswordError').textContent = 'Passwords do not match.';
                 isValid = false;
             }
 
@@ -77,30 +70,5 @@
             }
         });
     </script>
-
-    <style>
-        .error {
-            color: red;
-            font-size: 0.9em;
-            display: block;
-            margin-top: 5px;
-        }
-        input {
-            display: block;
-            margin-bottom: 10px;
-            padding: 5px;
-            width: 250px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
 </body>
 </html>
