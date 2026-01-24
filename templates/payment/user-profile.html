@@ -4,64 +4,106 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: sans-serif;
+        }
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .avatar-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #eee;
+            margin-bottom: 10px;
+        }
+        .avatar-upload {
+            margin-top: 10px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section>
-            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            <h2>John Doe</h2>
-            <p>Email: john.doe@example.com</p>
-            <p>Location: New York, USA</p>
-            <p>Member since: January 2023</p>
-        </section>
-        <section>
-            <h3>Bio</h3>
-            <p>Software developer with a passion for open-source projects and web technologies.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
-            <div class="avatar-container">
-                <img src="avatar.jpg" alt="User Avatar" id="user-avatar" width="150" height="150">
+    <div class="profile-container">
+        <h1>Edit Profile</h1>
+        <div class="avatar-section">
+            <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
+            <div class="avatar-upload">
+                <input type="file" id="avatarInput" accept="image/*">
             </div>
-            <div class="profile-info">
-                <h2 id="user-name">John Doe</h2>
-                <p id="user-bio">Software developer with a passion for open-source projects and web technologies.</p>
-                <p id="user-location">Based in San Francisco, CA</p>
-                <p id="user-joined">Member since: January 2023</p>
+        </div>
+        <form id="profileForm">
+            <div class="form-group">
+                <label for="displayName">Display Name</label>
+                <input type="text" id="displayName" name="displayName" placeholder="Enter your display name">
             </div>
-        </section>
-        <section class="skills">
-            <h3>Skills</h3>
-            <ul id="skills-list">
-                <li>JavaScript</li>
-                <li>HTML/CSS</li>
-                <li>Node.js</li>
-                <li>React</li>
-                <li>Git</li>
-            </ul>
-        </section>
-    </main>
-    <footer>
-        <p>Contact: <a href="mailto:john.doe@example.com" id="user-email">john.doe@example.com</a></p>
-    </footer>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="bio">Bio</label>
+                <textarea id="bio" name="bio" placeholder="Tell us about yourself"></textarea>
+            </div>
+            <button type="submit" class="btn">Save Profile</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('avatarInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatarPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const displayName = document.getElementById('displayName').value;
+            const email = document.getElementById('email').value;
+            const bio = document.getElementById('bio').value;
+            console.log('Profile saved:', { displayName, email, bio });
+            alert('Profile saved successfully!');
+        });
+    </script>
 </body>
 </html>
