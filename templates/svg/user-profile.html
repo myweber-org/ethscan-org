@@ -1,67 +1,143 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+        }
+        .avatar-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .avatar-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ddd;
+            margin-right: 20px;
+        }
+        .avatar-upload {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .bio-section {
+            margin-top: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .status-message {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
 </head>
 <body>
-    <header>
+    <div class="profile-container">
         <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="avatar-section">
-            <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-            <form id="avatar-form">
-                <label for="avatar-upload">Upload New Avatar:</label>
-                <input type="file" id="avatar-upload" name="avatar" accept="image/png, image/jpeg">
-                <button type="submit">Update Avatar</button>
-            </form>
-        </section>
-        <section id="info-section">
-            <h2>Basic Information</h2>
-            <form id="info-form">
-                <div>
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div>
-                    <label for="bio">Bio:</label>
-                    <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
-                </div>
-                <button type="submit">Save Changes</button>
-            </form>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
+        <div class="avatar-section">
+            <img id="avatarPreview" src="https://via.placeholder.com/100" alt="Avatar Preview" class="avatar-preview">
+            <div class="avatar-upload">
+                <input type="file" id="avatarInput" accept="image/*">
+                <button onclick="uploadAvatar()">Upload Avatar</button>
+            </div>
+        </div>
+        <div class="bio-section">
+            <label for="bioTextarea"><strong>Bio:</strong></label>
+            <textarea id="bioTextarea" placeholder="Tell us something about yourself..."></textarea>
+            <button onclick="saveBio()">Save Bio</button>
+        </div>
+        <div id="statusMessage" class="status-message"></div>
+    </div>
+
     <script>
-        document.getElementById('avatar-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const fileInput = document.getElementById('avatar-upload');
-            if (fileInput.files && fileInput.files[0]) {
+        const avatarInput = document.getElementById('avatarInput');
+        const avatarPreview = document.getElementById('avatarPreview');
+        const bioTextarea = document.getElementById('bioTextarea');
+        const statusMessage = document.getElementById('statusMessage');
+
+        avatarInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
+                    avatarPreview.src = e.target.result;
                 };
-                reader.readAsDataURL(fileInput.files[0]);
+                reader.readAsDataURL(file);
             }
         });
 
-        document.getElementById('info-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            console.log('Profile updated:', { username, email, bio });
-            alert('Profile information saved!');
-        });
+        function uploadAvatar() {
+            const file = avatarInput.files[0];
+            if (!file) {
+                showMessage('Please select an image file first.', 'error');
+                return;
+            }
+            showMessage('Avatar uploaded successfully! (Simulated)', 'success');
+        }
+
+        function saveBio() {
+            const bio = bioTextarea.value.trim();
+            if (bio.length === 0) {
+                showMessage('Bio cannot be empty.', 'error');
+                return;
+            }
+            if (bio.length > 500) {
+                showMessage('Bio must be less than 500 characters.', 'error');
+                return;
+            }
+            showMessage('Bio saved successfully! (Simulated)', 'success');
+        }
+
+        function showMessage(text, type) {
+            statusMessage.textContent = text;
+            statusMessage.className = 'status-message ' + type;
+            statusMessage.style.display = 'block';
+            setTimeout(() => {
+                statusMessage.style.display = 'none';
+            }, 3000);
+        }
     </script>
 </body>
 </html>
