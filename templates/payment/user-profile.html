@@ -9,54 +9,48 @@
             max-width: 600px;
             margin: 40px auto;
             padding: 20px;
-            border: 1px solid #ddd;
+            border: 1px solid #ccc;
             border-radius: 8px;
             font-family: sans-serif;
         }
         .avatar-section {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
         .avatar-preview {
             width: 120px;
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #eee;
+            border: 3px solid #ddd;
             margin-bottom: 10px;
         }
-        .avatar-upload {
-            margin-top: 10px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input, textarea {
+        .bio-section textarea {
             width: 100%;
-            padding: 8px;
+            height: 100px;
+            padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            resize: vertical;
             box-sizing: border-box;
         }
-        textarea {
-            height: 100px;
-            resize: vertical;
+        .form-actions {
+            margin-top: 20px;
+            text-align: right;
         }
-        .btn {
+        button {
+            padding: 10px 20px;
             background-color: #007bff;
             color: white;
-            padding: 10px 20px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
         }
-        .btn:hover {
+        button:hover {
             background-color: #0056b3;
+        }
+        .hidden {
+            display: none;
         }
     </style>
 </head>
@@ -64,46 +58,51 @@
     <div class="profile-container">
         <h1>Edit Profile</h1>
         <div class="avatar-section">
-            <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
-            <div class="avatar-upload">
-                <input type="file" id="avatarInput" accept="image/*">
+            <img id="avatarPreview" src="default-avatar.png" alt="Avatar Preview" class="avatar-preview">
+            <div>
+                <input type="file" id="avatarUpload" accept="image/*" class="hidden">
+                <button type="button" onclick="document.getElementById('avatarUpload').click()">Change Avatar</button>
             </div>
         </div>
-        <form id="profileForm">
-            <div class="form-group">
-                <label for="displayName">Display Name</label>
-                <input type="text" id="displayName" name="displayName" placeholder="Enter your display name">
-            </div>
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email">
-            </div>
-            <div class="form-group">
-                <label for="bio">Bio</label>
-                <textarea id="bio" name="bio" placeholder="Tell us about yourself"></textarea>
-            </div>
-            <button type="submit" class="btn">Save Profile</button>
-        </form>
+        <div class="bio-section">
+            <label for="userBio">Bio:</label>
+            <textarea id="userBio" placeholder="Tell something about yourself..."></textarea>
+        </div>
+        <div class="form-actions">
+            <button onclick="saveProfile()">Save Changes</button>
+        </div>
     </div>
+
     <script>
-        document.getElementById('avatarInput').addEventListener('change', function(event) {
+        const avatarUpload = document.getElementById('avatarUpload');
+        const avatarPreview = document.getElementById('avatarPreview');
+        const userBio = document.getElementById('userBio');
+
+        avatarUpload.addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('avatarPreview').src = e.target.result;
+                    avatarPreview.src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
         });
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const displayName = document.getElementById('displayName').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            console.log('Profile saved:', { displayName, email, bio });
+
+        function saveProfile() {
+            const bio = userBio.value.trim();
+            const avatarSrc = avatarPreview.src;
+
+            console.log('Profile saved.');
+            console.log('Bio:', bio);
+            console.log('Avatar Source:', avatarSrc);
+
             alert('Profile saved successfully!');
-        });
+        }
+
+        window.onload = function() {
+            userBio.value = 'This is a sample bio. Edit me!';
+        };
     </script>
 </body>
 </html>
