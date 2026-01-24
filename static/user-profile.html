@@ -180,4 +180,290 @@
         </ul>
     </div>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="profile-container">
+        <header class="profile-header">
+            <h1><i class="fas fa-user-circle"></i> User Profile</h1>
+        </header>
+        <main class="profile-content">
+            <section class="avatar-section">
+                <div class="avatar-preview">
+                    <img id="avatarImage" src="https://via.placeholder.com/150" alt="User Avatar">
+                </div>
+                <div class="avatar-controls">
+                    <input type="file" id="avatarUpload" accept="image/*" hidden>
+                    <button id="uploadButton" class="btn"><i class="fas fa-cloud-upload-alt"></i> Upload New Avatar</button>
+                    <button id="removeButton" class="btn btn-secondary"><i class="fas fa-trash-alt"></i> Remove Avatar</button>
+                </div>
+            </section>
+            <section class="bio-section">
+                <h2><i class="fas fa-edit"></i> Edit Biography</h2>
+                <textarea id="bioText" rows="6" placeholder="Tell us something about yourself..."></textarea>
+                <div class="bio-controls">
+                    <button id="saveBioButton" class="btn btn-primary"><i class="fas fa-save"></i> Save Biography</button>
+                    <span id="charCount">0/500 characters</span>
+                </div>
+            </section>
+            <section class="info-section">
+                <h2><i class="fas fa-info-circle"></i> Account Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Username:</strong>
+                        <span id="username">johndoe_84</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Member Since:</strong>
+                        <span id="joinDate">January 15, 2022</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Email:</strong>
+                        <span id="userEmail">john.doe@example.com</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Location:</strong>
+                        <span id="userLocation">New York, USA</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer class="profile-footer">
+            <p>Profile last updated: <span id="lastUpdated">Just now</span></p>
+        </footer>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const avatarImage = document.getElementById('avatarImage');
+            const avatarUpload = document.getElementById('avatarUpload');
+            const uploadButton = document.getElementById('uploadButton');
+            const removeButton = document.getElementById('removeButton');
+            const bioText = document.getElementById('bioText');
+            const saveBioButton = document.getElementById('saveBioButton');
+            const charCount = document.getElementById('charCount');
+
+            const defaultAvatar = 'https://via.placeholder.com/150';
+
+            uploadButton.addEventListener('click', () => avatarUpload.click());
+
+            avatarUpload.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        avatarImage.src = e.target.result;
+                        updateTimestamp();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            removeButton.addEventListener('click', function() {
+                if (confirm('Remove your avatar?')) {
+                    avatarImage.src = defaultAvatar;
+                    updateTimestamp();
+                }
+            });
+
+            bioText.addEventListener('input', function() {
+                const currentLength = bioText.value.length;
+                charCount.textContent = `${currentLength}/500 characters`;
+                if (currentLength > 500) {
+                    charCount.style.color = '#e74c3c';
+                } else {
+                    charCount.style.color = '#7f8c8d';
+                }
+            });
+
+            saveBioButton.addEventListener('click', function() {
+                const bio = bioText.value.trim();
+                if (bio.length > 500) {
+                    alert('Biography must be 500 characters or less.');
+                    return;
+                }
+                alert('Biography saved successfully!');
+                updateTimestamp();
+            });
+
+            function updateTimestamp() {
+                const now = new Date();
+                const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                document.getElementById('lastUpdated').textContent = `Today at ${timeString}`;
+            }
+
+            bioText.value = "Web developer and open source enthusiast. Love hiking and photography.";
+            bioText.dispatchEvent(new Event('input'));
+        });
+    </script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .profile-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+        }
+        .profile-header {
+            background: linear-gradient(to right, #4776E6, #8E54E9);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .profile-header h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+        .profile-header i {
+            margin-right: 15px;
+        }
+        .profile-content {
+            padding: 40px;
+        }
+        section {
+            margin-bottom: 40px;
+        }
+        h2 {
+            color: #2d3436;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            border-bottom: 2px solid #dfe6e9;
+            padding-bottom: 10px;
+        }
+        h2 i {
+            color: #6c5ce7;
+            margin-right: 10px;
+        }
+        .avatar-section {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 40px;
+        }
+        .avatar-preview img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #a29bfe;
+        }
+        .avatar-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .btn-primary {
+            background: linear-gradient(to right, #4776E6, #8E54E9);
+            color: white;
+        }
+        .btn-secondary {
+            background: #dfe6e9;
+            color: #2d3436;
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+        }
+        .btn:active {
+            transform: translateY(-1px);
+        }
+        textarea {
+            width: 100%;
+            padding: 20px;
+            border: 2px solid #dfe6e9;
+            border-radius: 15px;
+            font-size: 1rem;
+            resize: vertical;
+            transition: border 0.3s;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #6c5ce7;
+        }
+        .bio-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+        #charCount {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .info-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #6c5ce7;
+        }
+        .info-item strong {
+            display: block;
+            color: #636e72;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        .info-item span {
+            font-size: 1.2rem;
+            color: #2d3436;
+            font-weight: 500;
+        }
+        .profile-footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #636e72;
+            border-top: 1px solid #dfe6e9;
+        }
+        @media (max-width: 768px) {
+            .avatar-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            .profile-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</body>
 </html>
