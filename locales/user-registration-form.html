@@ -4,13 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Registration</title>
-    <style>
-        .error { color: red; font-size: 0.9em; }
-        .success { color: green; }
-    </style>
 </head>
 <body>
-    <h1>Register Account</h1>
     <form id="registrationForm">
         <div>
             <label for="username">Username:</label>
@@ -30,64 +25,86 @@
         <div>
             <label for="confirmPassword">Confirm Password:</label>
             <input type="password" id="confirmPassword" name="confirmPassword" required>
-            <span id="confirmError" class="error"></span>
+            <span id="confirmPasswordError" class="error"></span>
         </div>
         <button type="submit">Register</button>
     </form>
-    <div id="message" class="success"></div>
 
     <script>
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
             event.preventDefault();
-            clearErrors();
             let isValid = true;
 
-            const username = document.getElementById('username').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
+            const username = document.getElementById('username');
+            const email = document.getElementById('email');
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirmPassword');
 
-            if (username.length < 3) {
-                showError('usernameError', 'Username must be at least 3 characters.');
+            const usernameError = document.getElementById('usernameError');
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+            const confirmPasswordError = document.getElementById('confirmPasswordError');
+
+            usernameError.textContent = '';
+            emailError.textContent = '';
+            passwordError.textContent = '';
+            confirmPasswordError.textContent = '';
+
+            if (username.value.length < 3) {
+                usernameError.textContent = 'Username must be at least 3 characters.';
                 isValid = false;
             }
 
-            if (!validateEmail(email)) {
-                showError('emailError', 'Please enter a valid email address.');
+            if (!email.value.includes('@')) {
+                emailError.textContent = 'Please enter a valid email address.';
                 isValid = false;
             }
 
-            if (password.length < 8) {
-                showError('passwordError', 'Password must be at least 8 characters.');
+            if (password.value.length < 8) {
+                passwordError.textContent = 'Password must be at least 8 characters.';
                 isValid = false;
             }
 
-            if (password !== confirmPassword) {
-                showError('confirmError', 'Passwords do not match.');
+            if (password.value !== confirmPassword.value) {
+                confirmPasswordError.textContent = 'Passwords do not match.';
                 isValid = false;
             }
 
             if (isValid) {
-                document.getElementById('message').textContent = 'Registration successful!';
+                alert('Registration successful!');
                 this.reset();
-            } else {
-                document.getElementById('message').textContent = '';
             }
         });
-
-        function showError(elementId, message) {
-            document.getElementById(elementId).textContent = message;
-        }
-
-        function clearErrors() {
-            const errors = document.querySelectorAll('.error');
-            errors.forEach(error => error.textContent = '');
-        }
-
-        function validateEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
-        }
     </script>
+
+    <style>
+        .error {
+            color: red;
+            font-size: 0.9em;
+            display: block;
+        }
+        form div {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </body>
 </html>
