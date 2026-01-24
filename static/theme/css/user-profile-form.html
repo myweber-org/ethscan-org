@@ -28,9 +28,9 @@
             <span id="ageError" class="error"></span>
         </div>
         <div>
-            <label for="bio">Bio:</label>
-            <textarea id="bio" name="bio" maxlength="500"></textarea>
-            <span id="bioCounter">0/500</span>
+            <label for="bio">Bio:</label><br>
+            <textarea id="bio" name="bio" rows="4" cols="50" maxlength="500"></textarea>
+            <div id="bioCounter">0/500</div>
         </div>
         <button type="submit">Save Profile</button>
     </form>
@@ -38,71 +38,59 @@
 
     <script>
         const form = document.getElementById('profileForm');
-        const bioTextarea = document.getElementById('bio');
+        const usernameError = document.getElementById('usernameError');
+        const emailError = document.getElementById('emailError');
+        const ageError = document.getElementById('ageError');
         const bioCounter = document.getElementById('bioCounter');
         const messageDiv = document.getElementById('message');
+        const bioField = document.getElementById('bio');
 
-        function showError(elementId, message) {
-            const errorSpan = document.getElementById(elementId);
-            errorSpan.textContent = message;
-        }
+        bioField.addEventListener('input', function() {
+            bioCounter.textContent = `${this.value.length}/500`;
+        });
 
-        function clearError(elementId) {
-            const errorSpan = document.getElementById(elementId);
-            errorSpan.textContent = '';
-        }
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            clearErrors();
+            messageDiv.textContent = '';
 
-        function validateForm() {
             let isValid = true;
             const username = document.getElementById('username').value.trim();
             const email = document.getElementById('email').value.trim();
             const age = document.getElementById('age').value;
 
             if (username.length < 3) {
-                showError('usernameError', 'Username must be at least 3 characters.');
+                usernameError.textContent = 'Username must be at least 3 characters.';
                 isValid = false;
-            } else {
-                clearError('usernameError');
             }
 
-            if (!email.includes('@')) {
-                showError('emailError', 'Please enter a valid email address.');
+            if (!validateEmail(email)) {
+                emailError.textContent = 'Please enter a valid email address.';
                 isValid = false;
-            } else {
-                clearError('emailError');
             }
 
             if (age && (age < 18 || age > 120)) {
-                showError('ageError', 'Age must be between 18 and 120.');
+                ageError.textContent = 'Age must be between 18 and 120.';
                 isValid = false;
-            } else {
-                clearError('ageError');
             }
 
-            return isValid;
+            if (isValid) {
+                messageDiv.textContent = 'Profile updated successfully!';
+                form.reset();
+                bioCounter.textContent = '0/500';
+            }
+        });
+
+        function clearErrors() {
+            usernameError.textContent = '';
+            emailError.textContent = '';
+            ageError.textContent = '';
         }
 
-        bioTextarea.addEventListener('input', function() {
-            const length = this.value.length;
-            bioCounter.textContent = `${length}/500`;
-        });
-
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            messageDiv.textContent = '';
-            messageDiv.className = '';
-
-            if (validateForm()) {
-                const formData = new FormData(form);
-                const data = Object.fromEntries(formData.entries());
-                console.log('Form data:', data);
-                messageDiv.textContent = 'Profile updated successfully!';
-                messageDiv.className = 'success';
-            } else {
-                messageDiv.textContent = 'Please fix the errors above.';
-                messageDiv.className = 'error';
-            }
-        });
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
     </script>
 </body>
 </html>
