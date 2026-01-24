@@ -3,37 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us</title>
+    <title>Contact Form</title>
     <style>
         .error { color: red; font-size: 0.9em; }
-        .success { color: green; font-size: 1em; padding: 10px; border: 1px solid green; background-color: #e7f7e7; }
+        .success { color: green; font-size: 1em; text-align: center; }
     </style>
 </head>
 <body>
-    <h1>Get in Touch</h1>
-    <div id="message"></div>
+    <h1>Contact Us</h1>
     <form id="contactForm">
         <div>
-            <label for="name">Full Name *</label><br>
+            <label for="name">Full Name:</label><br>
             <input type="text" id="name" name="name" required>
             <span id="nameError" class="error"></span>
         </div>
         <div>
-            <label for="email">Email Address *</label><br>
+            <label for="email">Email Address:</label><br>
             <input type="email" id="email" name="email" required>
             <span id="emailError" class="error"></span>
         </div>
         <div>
-            <label for="subject">Subject</label><br>
-            <input type="text" id="subject" name="subject">
-        </div>
-        <div>
-            <label for="messageText">Your Message *</label><br>
-            <textarea id="messageText" name="message" rows="5" required></textarea>
+            <label for="message">Your Message:</label><br>
+            <textarea id="message" name="message" rows="5" required></textarea>
             <span id="messageError" class="error"></span>
         </div>
         <button type="submit">Send Message</button>
     </form>
+    <div id="successMessage" class="success"></div>
 
     <script>
         document.getElementById('contactForm').addEventListener('submit', function(event) {
@@ -43,7 +39,7 @@
 
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
-            const message = document.getElementById('messageText').value.trim();
+            const message = document.getElementById('message').value.trim();
 
             if (name.length < 2) {
                 showError('nameError', 'Name must be at least 2 characters.');
@@ -62,12 +58,10 @@
             }
 
             if (isValid) {
-                const messageDiv = document.getElementById('message');
-                messageDiv.innerHTML = '<p class="success">Thank you! Your message has been sent successfully.</p>';
-                messageDiv.scrollIntoView({ behavior: 'smooth' });
-                this.reset();
+                document.getElementById('successMessage').textContent = 'Thank you! Your message has been sent.';
+                document.getElementById('contactForm').reset();
                 setTimeout(() => {
-                    messageDiv.innerHTML = '';
+                    document.getElementById('successMessage').textContent = '';
                 }, 5000);
             }
         });
@@ -77,9 +71,9 @@
         }
 
         function clearErrors() {
-            const errors = document.querySelectorAll('.error');
-            errors.forEach(error => error.textContent = '');
-            document.getElementById('message').innerHTML = '';
+            const errorElements = document.querySelectorAll('.error');
+            errorElements.forEach(el => el.textContent = '');
+            document.getElementById('successMessage').textContent = '';
         }
     </script>
 </body>
