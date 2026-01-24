@@ -10,7 +10,7 @@
     </style>
 </head>
 <body>
-    <h1>Login</h1>
+    <h2>Login</h2>
     <form id="loginForm">
         <div>
             <label for="email">Email:</label>
@@ -23,68 +23,40 @@
             <span id="passwordError" class="error"></span>
         </div>
         <button type="submit">Login</button>
-        <div id="message" class="success"></div>
     </form>
+    <div id="message" class="success"></div>
 
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
             clearErrors();
             let isValid = true;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value.trim();
-
-            if (!validateEmail(email)) {
+            if (!emailRegex.test(email)) {
                 document.getElementById('emailError').textContent = 'Please enter a valid email address.';
                 isValid = false;
             }
-
             if (password.length < 6) {
                 document.getElementById('passwordError').textContent = 'Password must be at least 6 characters.';
                 isValid = false;
             }
-
             if (isValid) {
                 document.getElementById('message').textContent = 'Login successful! Redirecting...';
                 setTimeout(() => {
-                    console.log('Submitting credentials for:', email);
-                }, 1000);
+                    alert('Form submitted successfully!');
+                    this.reset();
+                    document.getElementById('message').textContent = '';
+                }, 1500);
             }
         });
-
-        function validateEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
-        }
 
         function clearErrors() {
             document.querySelectorAll('.error').forEach(el => el.textContent = '');
             document.getElementById('message').textContent = '';
         }
     </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login</title>
-</head>
-<body>
-    <h1>Login to Your Account</h1>
-    <form action="/login" method="POST">
-        <div>
-            <label for="email">Email Address:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <div>
-            <button type="submit">Sign In</button>
-        </div>
-    </form>
 </body>
 </html>
