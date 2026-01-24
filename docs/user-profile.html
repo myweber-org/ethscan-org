@@ -4,83 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            text-align: center;
-            font-family: Arial, sans-serif;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a90e2;
-        }
-        .username {
-            font-size: 24px;
-            margin: 15px 0 5px;
-            color: #333;
-        }
-        .user-title {
-            color: #666;
-            font-size: 16px;
-            margin-bottom: 15px;
-        }
-        .bio {
-            color: #444;
-            line-height: 1.6;
-            margin: 20px 0;
-            padding: 0 10px;
-        }
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 25px;
-        }
-        .stat-item {
-            text-align: center;
-        }
-        .stat-value {
-            font-size: 20px;
-            font-weight: bold;
-            color: #4a90e2;
-        }
-        .stat-label {
-            font-size: 14px;
-            color: #777;
-            margin-top: 5px;
-        }
-    </style>
 </head>
 <body>
-    <div class="profile-container">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
-        <h1 class="username">Alex Johnson</h1>
-        <p class="user-title">Frontend Developer & UI Designer</p>
-        <p class="bio">
-            Passionate about creating clean, efficient, and user-friendly web interfaces.
-            Enjoys hiking, photography, and open-source projects. Always learning new technologies.
-        </p>
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-value">247</div>
-                <div class="stat-label">Projects</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">5.8k</div>
-                <div class="stat-label">Followers</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">892</div>
-                <div class="stat-label">Following</div>
-            </div>
-        </div>
-    </div>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section class="avatar-section">
+            <img src="https://via.placeholder.com/150" alt="Profile Avatar" id="user-avatar">
+            <button onclick="changeAvatar()">Change Avatar</button>
+        </section>
+        <section class="info-section">
+            <h2>User Information</h2>
+            <p><strong>Name:</strong> <span id="user-name">Alex Johnson</span></p>
+            <p><strong>Email:</strong> <span id="user-email">alex.johnson@example.com</span></p>
+            <p><strong>Location:</strong> <span id="user-location">New York, USA</span></p>
+        </section>
+        <section class="bio-section">
+            <h2>Biography</h2>
+            <p id="user-bio">Software developer with a passion for open-source projects and web technologies. Enjoys hiking and photography in free time.</p>
+            <textarea id="bio-editor" style="display:none;"></textarea>
+            <button onclick="editBio()">Edit Bio</button>
+            <button onclick="saveBio()" style="display:none;">Save Bio</button>
+        </section>
+    </main>
+    <footer>
+        <p>Profile last updated: <span id="update-date">2023-10-05</span></p>
+    </footer>
+    <script>
+        function changeAvatar() {
+            const newAvatar = prompt('Enter new avatar URL:', 'https://via.placeholder.com/150');
+            if (newAvatar) {
+                document.getElementById('user-avatar').src = newAvatar;
+            }
+        }
+
+        function editBio() {
+            const bioText = document.getElementById('user-bio').textContent;
+            document.getElementById('bio-editor').value = bioText;
+            document.getElementById('user-bio').style.display = 'none';
+            document.getElementById('bio-editor').style.display = 'block';
+            document.querySelector('button[onclick="editBio()"]').style.display = 'none';
+            document.querySelector('button[onclick="saveBio()"]').style.display = 'inline';
+        }
+
+        function saveBio() {
+            const newBio = document.getElementById('bio-editor').value;
+            document.getElementById('user-bio').textContent = newBio;
+            document.getElementById('user-bio').style.display = 'block';
+            document.getElementById('bio-editor').style.display = 'none';
+            document.querySelector('button[onclick="editBio()"]').style.display = 'inline';
+            document.querySelector('button[onclick="saveBio()"]').style.display = 'none';
+            document.getElementById('update-date').textContent = new Date().toISOString().split('T')[0];
+        }
+    </script>
 </body>
 </html>
