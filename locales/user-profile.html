@@ -7,54 +7,54 @@
 </head>
 <body>
     <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
-            <div class="avatar-container">
-                <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            </div>
-            <div class="user-info">
-                <h2>John Doe</h2>
-                <p class="bio">Software developer with a passion for open-source projects and web technologies.</p>
-                <ul class="details">
-                    <li><strong>Location:</strong> San Francisco, CA</li>
-                    <li><strong>Joined:</strong> January 2022</li>
-                    <li><strong>Repositories:</strong> 42</li>
-                </ul>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 Example Platform</p>
-    </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
+        <h1>User Profile Settings</h1>
     </header>
     <main>
         <section>
-            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            <h2>John Doe</h2>
-            <p>Email: john.doe@example.com</p>
-            <p>Location: New York, USA</p>
-            <p>Member since: January 2023</p>
+            <h2>Profile Picture</h2>
+            <div>
+                <img id="avatarPreview" src="default-avatar.png" alt="Avatar" width="150" height="150">
+                <br>
+                <input type="file" id="avatarUpload" accept="image/*">
+                <button onclick="uploadAvatar()">Upload Avatar</button>
+            </div>
         </section>
         <section>
-            <h3>Bio</h3>
-            <p>Software developer passionate about web technologies and open source.</p>
+            <h2>Basic Information</h2>
+            <form id="profileForm">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <br>
+                <label for="bio">Bio:</label>
+                <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
+                <br>
+                <button type="submit">Update Profile</button>
+            </form>
         </section>
     </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
+    <script>
+        function uploadAvatar() {
+            const fileInput = document.getElementById('avatarUpload');
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatarPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const bio = document.getElementById('bio').value;
+            alert('Profile updated successfully!\nUsername: ' + username + '\nEmail: ' + email + '\nBio: ' + bio);
+        });
+    </script>
 </body>
 </html>
