@@ -26,4 +26,130 @@
         <p>&copy; 2023 Profile Page. All rights reserved.</p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+        }
+        .avatar-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .avatar-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ddd;
+            margin-right: 20px;
+        }
+        .bio-section textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h1>User Profile</h1>
+        <div class="avatar-section">
+            <img id="avatarPreview" src="https://via.placeholder.com/100" alt="Avatar Preview" class="avatar-preview">
+            <div>
+                <input type="file" id="avatarInput" accept="image/*" class="hidden">
+                <button id="uploadBtn" class="btn">Upload New Avatar</button>
+                <p id="fileInfo" class="hidden">No file selected</p>
+            </div>
+        </div>
+        <div class="bio-section">
+            <label for="bioTextarea"><strong>Bio:</strong></label>
+            <textarea id="bioTextarea" placeholder="Tell us something about yourself..."></textarea>
+            <button id="saveBioBtn" class="btn">Save Bio</button>
+        </div>
+        <div id="statusMessage" class="hidden"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const avatarInput = document.getElementById('avatarInput');
+            const uploadBtn = document.getElementById('uploadBtn');
+            const avatarPreview = document.getElementById('avatarPreview');
+            const fileInfo = document.getElementById('fileInfo');
+            const bioTextarea = document.getElementById('bioTextarea');
+            const saveBioBtn = document.getElementById('saveBioBtn');
+            const statusMessage = document.getElementById('statusMessage');
+
+            uploadBtn.addEventListener('click', function() {
+                avatarInput.click();
+            });
+
+            avatarInput.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    if (file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            avatarPreview.src = e.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                        fileInfo.textContent = `Selected: ${file.name} (${(file.size / 1024).toFixed(2)} KB)`;
+                        fileInfo.classList.remove('hidden');
+                        showStatus('Avatar updated successfully!', 'success');
+                    } else {
+                        showStatus('Please select a valid image file.', 'error');
+                    }
+                }
+            });
+
+            saveBioBtn.addEventListener('click', function() {
+                const bio = bioTextarea.value.trim();
+                if (bio.length > 0) {
+                    showStatus('Bio saved successfully!', 'success');
+                } else {
+                    showStatus('Bio cannot be empty.', 'error');
+                }
+            });
+
+            function showStatus(message, type) {
+                statusMessage.textContent = message;
+                statusMessage.className = '';
+                statusMessage.classList.add(type === 'success' ? 'success' : 'error');
+                statusMessage.classList.remove('hidden');
+                setTimeout(() => {
+                    statusMessage.classList.add('hidden');
+                }, 3000);
+            }
+        });
+    </script>
+</body>
 </html>
