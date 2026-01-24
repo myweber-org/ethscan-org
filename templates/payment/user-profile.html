@@ -4,105 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .avatar-preview {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #ddd;
-            margin-bottom: 10px;
-        }
-        .bio-section textarea {
-            width: 100%;
-            height: 100px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
-            box-sizing: border-box;
-        }
-        .form-actions {
-            margin-top: 20px;
-            text-align: right;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .hidden {
-            display: none;
-        }
-    </style>
 </head>
 <body>
-    <div class="profile-container">
-        <h1>Edit Profile</h1>
-        <div class="avatar-section">
-            <img id="avatarPreview" src="default-avatar.png" alt="Avatar Preview" class="avatar-preview">
-            <div>
-                <input type="file" id="avatarUpload" accept="image/*" class="hidden">
-                <button type="button" onclick="document.getElementById('avatarUpload').click()">Change Avatar</button>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section class="profile">
+            <div class="avatar-container">
+                <img src="avatar.jpg" alt="User Avatar" id="userAvatar" width="150" height="150">
             </div>
-        </div>
-        <div class="bio-section">
-            <label for="userBio">Bio:</label>
-            <textarea id="userBio" placeholder="Tell something about yourself..."></textarea>
-        </div>
-        <div class="form-actions">
-            <button onclick="saveProfile()">Save Changes</button>
-        </div>
-    </div>
-
-    <script>
-        const avatarUpload = document.getElementById('avatarUpload');
-        const avatarPreview = document.getElementById('avatarPreview');
-        const userBio = document.getElementById('userBio');
-
-        avatarUpload.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    avatarPreview.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        function saveProfile() {
-            const bio = userBio.value.trim();
-            const avatarSrc = avatarPreview.src;
-
-            console.log('Profile saved.');
-            console.log('Bio:', bio);
-            console.log('Avatar Source:', avatarSrc);
-
-            alert('Profile saved successfully!');
-        }
-
-        window.onload = function() {
-            userBio.value = 'This is a sample bio. Edit me!';
-        };
-    </script>
+            <div class="user-info">
+                <h2 id="userName">John Doe</h2>
+                <p id="userBio">Software developer with a passion for open-source projects and web technologies.</p>
+                <p><strong>Location:</strong> <span id="userLocation">San Francisco, CA</span></p>
+                <p><strong>Joined:</strong> <span id="joinDate">January 2020</span></p>
+            </div>
+        </section>
+        <section class="skills">
+            <h3>Skills</h3>
+            <ul id="skillsList">
+                <li>JavaScript</li>
+                <li>HTML/CSS</li>
+                <li>Node.js</li>
+                <li>React</li>
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>Contact: <a href="mailto:john.doe@example.com" id="userEmail">john.doe@example.com</a></p>
+    </footer>
 </body>
 </html>
