@@ -4,158 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 0.9em; }
+        input { margin-bottom: 10px; display: block; }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="profile-section">
-            <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button id="upload-btn">Upload Avatar</button>
-            </div>
-            <form id="profile-form">
-                <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="bio">Bio:</label>
-                    <textarea id="bio" name="bio" rows="4"></textarea>
-                </div>
-                <button type="submit">Save Profile</button>
-            </form>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
-    <script>
-        document.getElementById('upload-btn').addEventListener('click', function() {
-            document.getElementById('avatar-upload').click();
-        });
+    <h1>Update Your Profile</h1>
+    <form id="profileForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required minlength="3">
+        <div id="usernameError" class="error"></div>
 
-        document.getElementById('avatar-upload').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <div id="emailError" class="error"></div>
 
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            console.log('Profile saved:', { username, email, bio });
-            alert('Profile saved successfully!');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <form id="profileForm">
-            <div>
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required minlength="3" maxlength="20">
-                <div class="error" id="usernameError"></div>
-            </div>
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <div class="error" id="emailError"></div>
-            </div>
-            <div>
-                <label for="age">Age:</label>
-                <input type="number" id="age" name="age" min="18" max="120">
-            </div>
-            <button type="submit">Update Profile</button>
-        </form>
-        <div id="successMessage" class="hidden">Profile updated successfully!</div>
-    </main>
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" min="1" max="120">
+        <div id="ageError" class="error"></div>
+
+        <button type="submit">Update Profile</button>
+    </form>
+    <div id="successMessage" class="success"></div>
+
     <script>
         document.getElementById('profileForm').addEventListener('submit', function(event) {
             event.preventDefault();
+            clearMessages();
+
             let isValid = true;
-            const username = document.getElementById('username');
-            const email = document.getElementById('email');
-            const usernameError = document.getElementById('usernameError');
-            const emailError = document.getElementById('emailError');
-            usernameError.textContent = '';
-            emailError.textContent = '';
-            if (username.value.length < 3) {
-                usernameError.textContent = 'Username must be at least 3 characters.';
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const age = document.getElementById('age').value;
+
+            if (username.length < 3) {
+                document.getElementById('usernameError').textContent = 'Username must be at least 3 characters.';
                 isValid = false;
             }
-            if (!email.value.includes('@')) {
-                emailError.textContent = 'Please enter a valid email address.';
+
+            if (!validateEmail(email)) {
+                document.getElementById('emailError').textContent = 'Please enter a valid email address.';
                 isValid = false;
             }
+
+            if (age && (age < 1 || age > 120)) {
+                document.getElementById('ageError').textContent = 'Age must be between 1 and 120.';
+                isValid = false;
+            }
+
             if (isValid) {
-                document.getElementById('successMessage').classList.remove('hidden');
-                setTimeout(() => {
-                    document.getElementById('successMessage').classList.add('hidden');
-                }, 3000);
+                document.getElementById('successMessage').textContent = 'Profile updated successfully!';
+                // In a real application, you would send data to a server here.
+                console.log('Submitting data:', { username, email, age });
             }
         });
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function clearMessages() {
+            document.querySelectorAll('.error, .success').forEach(el => {
+                el.textContent = '';
+            });
+        }
     </script>
-    <style>
-        .error {
-            color: red;
-            font-size: 0.9em;
-            margin-top: 5px;
-        }
-        .hidden {
-            display: none;
-        }
-        form div {
-            margin-bottom: 15px;
-        }
-        label {
-            display: inline-block;
-            width: 100px;
-        }
-        input {
-            padding: 5px;
-            width: 200px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        #successMessage {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-    </style>
 </body>
 </html>
