@@ -9,34 +9,37 @@
             max-width: 600px;
             margin: 40px auto;
             padding: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
             border-radius: 8px;
             font-family: sans-serif;
         }
         .avatar-section {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
         .avatar-preview {
             width: 120px;
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #ddd;
+            border: 3px solid #4a6fa5;
             margin-bottom: 10px;
         }
+        .avatar-upload {
+            margin-top: 10px;
+        }
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
+            color: #333;
         }
-        input[type="text"],
-        textarea {
+        input, textarea {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
@@ -45,44 +48,47 @@
             height: 100px;
             resize: vertical;
         }
-        button {
-            background-color: #4CAF50;
+        .btn {
+            background-color: #4a6fa5;
             color: white;
-            padding: 10px 20px;
+            padding: 12px 24px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            font-size: 16px;
         }
-        button:hover {
-            background-color: #45a049;
+        .btn:hover {
+            background-color: #3a5a80;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <h1>Edit Your Profile</h1>
+        <h1>Edit Profile</h1>
         <div class="avatar-section">
-            <img id="avatarPreview" src="default-avatar.png" alt="Avatar Preview" class="avatar-preview">
-            <div>
-                <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
-                <button type="button" onclick="document.getElementById('avatarUpload').click();">Change Avatar</button>
+            <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
+            <div class="avatar-upload">
+                <input type="file" id="avatarInput" accept="image/*">
             </div>
         </div>
         <form id="profileForm">
             <div class="form-group">
                 <label for="displayName">Display Name</label>
-                <input type="text" id="displayName" name="displayName" placeholder="Enter your display name">
+                <input type="text" id="displayName" placeholder="Enter your display name">
             </div>
             <div class="form-group">
-                <label for="bio">Bio</label>
-                <textarea id="bio" name="bio" placeholder="Tell us about yourself"></textarea>
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email">
             </div>
-            <button type="submit">Save Profile</button>
+            <div class="form-group">
+                <label for="bio">Biography</label>
+                <textarea id="bio" placeholder="Tell us about yourself..."></textarea>
+            </div>
+            <button type="submit" class="btn">Save Profile</button>
         </form>
     </div>
-
     <script>
-        document.getElementById('avatarUpload').addEventListener('change', function(event) {
+        document.getElementById('avatarInput').addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
@@ -92,94 +98,14 @@
                 reader.readAsDataURL(file);
             }
         });
-
         document.getElementById('profileForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const displayName = document.getElementById('displayName').value;
+            const email = document.getElementById('email').value;
             const bio = document.getElementById('bio').value;
-            console.log('Profile saved:', { displayName, bio });
+            console.log('Profile saved:', { displayName, email, bio });
             alert('Profile saved successfully!');
         });
     </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            text-align: center;
-            font-family: Arial, sans-serif;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a90e2;
-            margin-bottom: 15px;
-        }
-        .username {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-            margin: 10px 0;
-        }
-        .bio {
-            color: #666;
-            line-height: 1.6;
-            margin: 15px 0;
-        }
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 20px;
-        }
-        .stat-item {
-            text-align: center;
-        }
-        .stat-value {
-            font-size: 20px;
-            font-weight: bold;
-            color: #4a90e2;
-        }
-        .stat-label {
-            font-size: 14px;
-            color: #888;
-            margin-top: 5px;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <img src="https://via.placeholder.com/120" alt="User Avatar" class="avatar">
-        <div class="username">Alex Johnson</div>
-        <div class="bio">
-            Software developer passionate about open-source projects and web technologies.
-            Enjoys hiking and photography in free time.
-        </div>
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-value">127</div>
-                <div class="stat-label">Posts</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">892</div>
-                <div class="stat-label">Followers</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">156</div>
-                <div class="stat-label">Following</div>
-            </div>
-        </div>
-    </div>
 </body>
 </html>
