@@ -11,7 +11,7 @@
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 8px;
-            font-family: sans-serif;
+            font-family: Arial, sans-serif;
         }
         .avatar-section {
             text-align: center;
@@ -32,35 +32,25 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             resize: vertical;
-            box-sizing: border-box;
+            font-family: inherit;
         }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input[type="text"],
-        input[type="email"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
+        .form-actions {
+            margin-top: 20px;
+            text-align: right;
         }
         button {
-            background-color: #4CAF50;
-            color: white;
             padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 16px;
         }
         button:hover {
-            background-color: #45a049;
+            background-color: #0056b3;
+        }
+        .hidden {
+            display: none;
         }
     </style>
 </head>
@@ -68,49 +58,53 @@
     <div class="profile-container">
         <h1>Edit Profile</h1>
         <div class="avatar-section">
-            <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
+            <img id="avatarPreview" src="default-avatar.png" alt="Avatar Preview" class="avatar-preview">
             <div>
-                <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
-                <button type="button" onclick="document.getElementById('avatarUpload').click();">Change Avatar</button>
+                <input type="file" id="avatarUpload" accept="image/*">
+                <button type="button" onclick="document.getElementById('avatarUpload').click()">Change Avatar</button>
             </div>
         </div>
-        <form id="profileForm">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" value="john_doe" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" value="john@example.com" required>
-            </div>
-            <div class="form-group bio-section">
-                <label for="bio">Bio</label>
-                <textarea id="bio" name="bio" placeholder="Tell us about yourself...">Web developer and open source enthusiast.</textarea>
-            </div>
-            <button type="submit">Save Changes</button>
-        </form>
+        <div class="bio-section">
+            <label for="userBio">Bio:</label>
+            <textarea id="userBio" placeholder="Tell something about yourself..."></textarea>
+        </div>
+        <div class="form-actions">
+            <button onclick="saveProfile()">Save Changes</button>
+        </div>
+        <div id="successMessage" class="hidden">Profile updated successfully!</div>
     </div>
+
     <script>
-        document.getElementById('avatarUpload').addEventListener('change', function(event) {
+        const avatarUpload = document.getElementById('avatarUpload');
+        const avatarPreview = document.getElementById('avatarPreview');
+        const userBio = document.getElementById('userBio');
+        const successMessage = document.getElementById('successMessage');
+
+        avatarUpload.addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('avatarPreview').src = e.target.result;
+                    avatarPreview.src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
         });
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const formData = {
-                username: document.getElementById('username').value,
-                email: document.getElementById('email').value,
-                bio: document.getElementById('bio').value
-            };
-            console.log('Profile data to save:', formData);
-            alert('Profile saved successfully! (Check console for data)');
-        });
+
+        function saveProfile() {
+            const bioText = userBio.value.trim();
+            console.log('Profile saved. Bio:', bioText);
+            console.log('Avatar source:', avatarPreview.src);
+
+            successMessage.classList.remove('hidden');
+            setTimeout(() => {
+                successMessage.classList.add('hidden');
+            }, 3000);
+        }
+
+        window.onload = function() {
+            userBio.value = 'Web developer and open source enthusiast.';
+        };
     </script>
 </body>
 </html>
