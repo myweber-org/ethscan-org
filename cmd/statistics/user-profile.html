@@ -10,25 +10,21 @@
         <h1>User Profile</h1>
     </header>
     <main>
-        <section class="profile-section">
+        <section id="profile-info">
             <div class="avatar-container">
                 <img id="avatar-preview" src="default-avatar.png" alt="User Avatar">
                 <input type="file" id="avatar-upload" accept="image/*">
-                <button onclick="uploadAvatar()">Change Avatar</button>
+                <button id="upload-btn">Upload Avatar</button>
             </div>
-            <form id="profile-form">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <label for="bio">Bio:</label>
-                <textarea id="bio" name="bio" rows="4"></textarea>
-                <button type="submit">Update Profile</button>
-            </form>
+            <div class="bio-section">
+                <h2>Bio</h2>
+                <textarea id="bio-input" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
+                <button id="save-bio-btn">Save Bio</button>
+            </div>
         </section>
     </main>
     <script>
-        function uploadAvatar() {
+        document.getElementById('upload-btn').addEventListener('click', function() {
             const fileInput = document.getElementById('avatar-upload');
             const file = fileInput.files[0];
             if (file) {
@@ -37,43 +33,15 @@
                     document.getElementById('avatar-preview').src = e.target.result;
                 };
                 reader.readAsDataURL(file);
+            } else {
+                alert('Please select an image file first.');
             }
-        }
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            alert('Profile updated successfully!');
+        });
+
+        document.getElementById('save-bio-btn').addEventListener('click', function() {
+            const bioText = document.getElementById('bio-input').value;
+            alert('Bio saved: ' + bioText);
         });
     </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile-card">
-            <div class="avatar-container">
-                <img src="https://via.placeholder.com/150" alt="User Avatar" class="avatar">
-            </div>
-            <div class="profile-info">
-                <h2 class="user-name">Alex Johnson</h2>
-                <p class="user-bio">Software developer with a passion for open-source projects and web technologies. Enjoys hiking and photography in free time.</p>
-                <div class="user-stats">
-                    <span class="stat">Posts: 42</span>
-                    <span class="stat">Followers: 128</span>
-                    <span class="stat">Following: 56</span>
-                </div>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page. All rights reserved.</p>
-    </footer>
 </body>
 </html>
