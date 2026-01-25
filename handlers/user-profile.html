@@ -4,102 +4,127 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+        }
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .avatar-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ddd;
+            margin-bottom: 10px;
+        }
+        .bio-section textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>User Profile Settings</h1>
-    </header>
-    <main>
-        <section id="profile-section">
-            <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button onclick="uploadAvatar()">Update Avatar</button>
+    <div class="profile-container">
+        <h1>User Profile</h1>
+        <div class="avatar-section">
+            <img id="avatarPreview" src="default-avatar.png" alt="Avatar Preview" class="avatar-preview">
+            <div>
+                <input type="file" id="avatarInput" accept="image/*" class="hidden">
+                <button onclick="document.getElementById('avatarInput').click()" class="button">Change Avatar</button>
             </div>
-            <form id="profile-form">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                <br>
-                <label for="email">Email Address:</label>
-                <input type="email" id="email" name="email" required>
-                <br>
-                <label for="bio">Bio:</label>
-                <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
-                <br>
-                <button type="submit">Save Profile</button>
-            </form>
-        </section>
-    </main>
+        </div>
+        <div class="bio-section">
+            <label for="bioTextarea"><strong>Bio:</strong></label>
+            <textarea id="bioTextarea" placeholder="Tell something about yourself..."></textarea>
+        </div>
+        <div>
+            <button onclick="saveProfile()" class="button">Save Profile</button>
+            <span id="saveStatus"></span>
+        </div>
+    </div>
+
     <script>
-        function uploadAvatar() {
-            const fileInput = document.getElementById('avatar-upload');
-            const file = fileInput.files[0];
+        const avatarInput = document.getElementById('avatarInput');
+        const avatarPreview = document.getElementById('avatarPreview');
+        const bioTextarea = document.getElementById('bioTextarea');
+        const saveStatus = document.getElementById('saveStatus');
+
+        avatarInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
+                    avatarPreview.src = e.target.result;
                 };
                 reader.readAsDataURL(file);
-            } else {
-                alert('Please select an image file first.');
             }
+        });
+
+        function saveProfile() {
+            const bio = bioTextarea.value.trim();
+            saveStatus.textContent = 'Saving...';
+            saveStatus.style.color = 'blue';
+
+            setTimeout(() => {
+                saveStatus.textContent = 'Profile saved successfully!';
+                saveStatus.style.color = 'green';
+                console.log('Profile saved. Bio:', bio);
+            }, 500);
         }
 
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            console.log('Profile saved:', { username, email, bio });
-            alert('Profile information saved successfully!');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="profile-section">
-            <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button id="upload-btn">Upload Avatar</button>
-            </div>
-            <div class="bio-container">
-                <h2>Edit Bio</h2>
-                <textarea id="bio-text" rows="4" cols="50" placeholder="Write something about yourself..."></textarea>
-                <button id="save-bio-btn">Save Bio</button>
-            </div>
-            <div class="user-info">
-                <p><strong>Username:</strong> <span id="username">johndoe</span></p>
-                <p><strong>Email:</strong> <span id="user-email">john.doe@example.com</span></p>
-                <p><strong>Member since:</strong> <span id="join-date">January 2023</span></p>
-            </div>
-        </section>
-    </main>
-    <script>
-        document.getElementById('upload-btn').addEventListener('click', function() {
-            const fileInput = document.getElementById('avatar-upload');
-            if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(fileInput.files[0]);
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedBio = localStorage.getItem('userBio');
+            if (savedBio) {
+                bioTextarea.value = savedBio;
             }
-        });
+            const savedAvatar = localStorage.getItem('userAvatar');
+            if (savedAvatar) {
+                avatarPreview.src = savedAvatar;
+            }
 
-        document.getElementById('save-bio-btn').addEventListener('click', function() {
-            const bioText = document.getElementById('bio-text').value;
-            alert('Bio saved: ' + bioText);
+            bioTextarea.addEventListener('input', () => {
+                localStorage.setItem('userBio', bioTextarea.value);
+            });
+            avatarInput.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const dataURL = e.target.result;
+                        avatarPreview.src = dataURL;
+                        localStorage.setItem('userAvatar', dataURL);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
         });
     </script>
 </body>
