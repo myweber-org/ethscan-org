@@ -4,46 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Registration</title>
-</head>
-<body>
-    <form id="registrationForm">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required minlength="3">
-        <br>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
-        <br>
-        <button type="submit">Register</button>
-    </form>
-    <script>
-        document.getElementById('registrationForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const password = document.getElementById('password').value;
-            const confirmPassword = prompt('Confirm your password:');
-            if (password !== confirmPassword) {
-                alert('Passwords do not match!');
-                return;
-            }
-            alert('Registration successful!');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration</title>
     <style>
         .error { color: red; font-size: 0.9em; }
         .success { color: green; font-size: 0.9em; }
     </style>
 </head>
 <body>
-    <h2>Register New Account</h2>
+    <h1>Register New Account</h1>
     <form id="registrationForm">
         <div>
             <label for="username">Username:</label>
@@ -63,7 +30,7 @@
         <div>
             <label for="confirmPassword">Confirm Password:</label>
             <input type="password" id="confirmPassword" name="confirmPassword" required>
-            <span id="confirmError" class="error"></span>
+            <span id="confirmPasswordError" class="error"></span>
         </div>
         <button type="submit">Register</button>
     </form>
@@ -96,13 +63,15 @@
             }
 
             if (password !== confirmPassword) {
-                showError('confirmError', 'Passwords do not match.');
+                showError('confirmPasswordError', 'Passwords do not match.');
                 isValid = false;
             }
 
             if (isValid) {
                 document.getElementById('message').textContent = 'Registration successful!';
                 this.reset();
+            } else {
+                document.getElementById('message').textContent = '';
             }
         });
 
@@ -111,9 +80,8 @@
         }
 
         function clearErrors() {
-            const errors = document.querySelectorAll('.error');
-            errors.forEach(error => error.textContent = '');
-            document.getElementById('message').textContent = '';
+            const errorElements = document.querySelectorAll('.error');
+            errorElements.forEach(element => element.textContent = '');
         }
 
         function validateEmail(email) {
