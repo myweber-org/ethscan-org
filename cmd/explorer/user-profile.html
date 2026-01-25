@@ -4,71 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        body { font-family: sans-serif; margin: 20px; }
-        .profile-container { max-width: 600px; margin: auto; border: 1px solid #ccc; padding: 20px; border-radius: 8px; }
-        .avatar-section { margin-bottom: 20px; text-align: center; }
-        .avatar-preview { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 2px solid #ddd; }
-        .bio-section textarea { width: 100%; height: 100px; padding: 8px; box-sizing: border-box; margin-top: 5px; }
-        button { background-color: #4CAF50; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }
-        button:hover { background-color: #45a049; }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <h1>User Profile</h1>
-        <div class="avatar-section">
-            <h3>Profile Picture</h3>
-            <img id="avatarPreview" src="https://via.placeholder.com/120" class="avatar-preview" alt="Avatar Preview">
-            <br>
-            <input type="file" id="avatarUpload" accept="image/*">
-            <p>Click 'Choose File' to upload a new profile picture.</p>
-        </div>
-        <div class="bio-section">
-            <h3>About Me</h3>
-            <textarea id="userBio" placeholder="Write something about yourself..."></textarea>
-            <br>
-            <button id="saveButton">Save Changes</button>
-        </div>
-    </div>
-
-    <script>
-        document.getElementById('avatarUpload').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatarPreview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        document.getElementById('saveButton').addEventListener('click', function() {
-            const bio = document.getElementById('userBio').value;
-            alert('Profile saved! Bio: ' + bio.substring(0, 50) + (bio.length > 50 ? '...' : ''));
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
 </head>
 <body>
     <header>
-        <h1>User Profile</h1>
+        <h1>User Profile Settings</h1>
     </header>
     <main>
-        <section id="profile-section">
-            <div id="avatar-container">
-                <img id="avatar-preview" src="placeholder.jpg" alt="Profile Avatar" width="150" height="150">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button id="upload-button">Upload Avatar</button>
+        <section>
+            <h2>Profile Picture</h2>
+            <div>
+                <img id="avatarPreview" src="default-avatar.png" alt="Avatar" width="150" height="150">
+                <br>
+                <input type="file" id="avatarUpload" accept="image/*">
+                <button onclick="uploadAvatar()">Upload Avatar</button>
             </div>
-            <form id="profile-form">
+        </section>
+        <section>
+            <h2>Basic Information</h2>
+            <form id="profileForm">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
                 <br>
@@ -82,28 +35,25 @@
             </form>
         </section>
     </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
     <script>
-        document.getElementById('upload-button').addEventListener('click', function() {
-            document.getElementById('avatar-upload').click();
-        });
-
-        document.getElementById('avatar-upload').addEventListener('change', function(event) {
-            const file = event.target.files[0];
+        function uploadAvatar() {
+            const fileInput = document.getElementById('avatarUpload');
+            const file = fileInput.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
+                    document.getElementById('avatarPreview').src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
-        });
+        }
 
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
             event.preventDefault();
-            alert('Profile saved successfully!');
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const bio = document.getElementById('bio').value;
+            alert('Profile saved!\nUsername: ' + username + '\nEmail: ' + email + '\nBio: ' + bio);
         });
     </script>
 </body>
