@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        input.invalid, textarea.invalid { border: 1px solid red; }
+    </style>
+</head>
+<body>
+    <h1>Contact Form</h1>
+    <form id="contactForm" novalidate>
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <span class="error" id="nameError"></span>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <span class="error" id="emailError"></span>
+        </div>
+        <div>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+            <span class="error" id="messageError"></span>
+        </div>
+        <button type="submit">Send Message</button>
+    </form>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            clearErrors();
+            let isValid = true;
+
+            const name = document.getElementById('name');
+            const email = document.getElementById('email');
+            const message = document.getElementById('message');
+
+            if (!name.value.trim()) {
+                showError('nameError', 'Name is required.');
+                name.classList.add('invalid');
+                isValid = false;
+            }
+
+            if (!email.value.trim()) {
+                showError('emailError', 'Email is required.');
+                email.classList.add('invalid');
+                isValid = false;
+            } else if (!isValidEmail(email.value)) {
+                showError('emailError', 'Please enter a valid email address.');
+                email.classList.add('invalid');
+                isValid = false;
+            }
+
+            if (!message.value.trim()) {
+                showError('messageError', 'Message is required.');
+                message.classList.add('invalid');
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert('Form submitted successfully!');
+                this.reset();
+                clearInvalidClasses();
+            }
+        });
+
+        function showError(elementId, message) {
+            document.getElementById(elementId).textContent = message;
+        }
+
+        function clearErrors() {
+            const errorElements = document.querySelectorAll('.error');
+            errorElements.forEach(el => el.textContent = '');
+        }
+
+        function clearInvalidClasses() {
+            const invalidElements = document.querySelectorAll('.invalid');
+            invalidElements.forEach(el => el.classList.remove('invalid'));
+        }
+
+        function isValidEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        const inputs = document.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                this.classList.remove('invalid');
+                const errorId = this.id + 'Error';
+                document.getElementById(errorId).textContent = '';
+            });
+        });
+    </script>
+</body>
+</html>
