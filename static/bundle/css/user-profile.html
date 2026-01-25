@@ -111,4 +111,140 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: sans-serif;
+        }
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .avatar-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #4a90e2;
+            margin-bottom: 10px;
+        }
+        .avatar-upload {
+            margin-top: 10px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        .btn {
+            background-color: #4a90e2;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #357ae8;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h1>Edit Profile</h1>
+        <div class="avatar-section">
+            <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
+            <div class="avatar-upload">
+                <input type="file" id="avatarInput" accept="image/*">
+                <button onclick="simulateUpload()" class="btn">Change Avatar</button>
+            </div>
+        </div>
+        <form id="profileForm">
+            <div class="form-group">
+                <label for="displayName">Display Name</label>
+                <input type="text" id="displayName" name="displayName" placeholder="Enter your display name">
+            </div>
+            <div class="form-group">
+                <label for="userBio">Bio</label>
+                <textarea id="userBio" name="userBio" placeholder="Tell something about yourself..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" placeholder="City, Country">
+            </div>
+            <button type="button" onclick="saveProfile()" class="btn">Save Profile</button>
+        </form>
+    </div>
+
+    <script>
+        function simulateUpload() {
+            const input = document.getElementById('avatarInput');
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatarPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                alert('Please select an image file first.');
+            }
+        }
+
+        function saveProfile() {
+            const displayName = document.getElementById('displayName').value.trim();
+            const userBio = document.getElementById('userBio').value.trim();
+            const location = document.getElementById('location').value.trim();
+
+            if (!displayName) {
+                alert('Display name is required.');
+                return;
+            }
+
+            // Simulate saving data (in a real app, this would be an API call)
+            const profileData = {
+                name: displayName,
+                bio: userBio,
+                location: location,
+                avatar: document.getElementById('avatarPreview').src
+            };
+
+            console.log('Profile saved:', profileData);
+            alert('Profile saved successfully!');
+        }
+
+        // Load sample data (simulating fetched data)
+        window.onload = function() {
+            document.getElementById('displayName').value = 'Alex Johnson';
+            document.getElementById('userBio').value = 'Web developer and open source enthusiast.';
+            document.getElementById('location').value = 'San Francisco, USA';
+        };
+    </script>
+</body>
 </html>
