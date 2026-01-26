@@ -269,4 +269,289 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .profile-container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+        }
+        .profile-header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        .profile-header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .profile-header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        .profile-content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 30px;
+        }
+        .avatar-section {
+            flex: 0 0 250px;
+            padding-right: 30px;
+            text-align: center;
+        }
+        .avatar-container {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            border: 5px solid #f0f2f5;
+            position: relative;
+        }
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .avatar-placeholder {
+            width: 100%;
+            height: 100%;
+            background-color: #e4e6eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #6c757d;
+        }
+        .avatar-upload {
+            margin-top: 15px;
+        }
+        .avatar-upload input {
+            display: none;
+        }
+        .avatar-upload label {
+            background-color: #4d7cfe;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-block;
+            transition: background-color 0.2s;
+            font-weight: 500;
+        }
+        .avatar-upload label:hover {
+            background-color: #3a6bf0;
+        }
+        .info-section {
+            flex: 1;
+            min-width: 300px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #495057;
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: #4d7cfe;
+            box-shadow: 0 0 0 3px rgba(77, 124, 254, 0.1);
+        }
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -10px;
+        }
+        .form-col {
+            flex: 1;
+            padding: 0 10px;
+            min-width: 200px;
+        }
+        .profile-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eaeaea;
+        }
+        .btn {
+            padding: 12px 28px;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background-color: #4d7cfe;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #3a6bf0;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        @media (max-width: 768px) {
+            .avatar-section {
+                flex: 0 0 100%;
+                padding-right: 0;
+                margin-bottom: 30px;
+            }
+            .profile-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>User Profile</h1>
+            <p>Update your personal information and profile picture</p>
+        </div>
+        <div class="profile-content">
+            <div class="avatar-section">
+                <div class="avatar-container">
+                    <div class="avatar-placeholder" id="avatarPlaceholder">
+                        <span>JD</span>
+                    </div>
+                    <img src="" alt="User Avatar" class="avatar-img" id="avatarImage" style="display: none;">
+                </div>
+                <div class="avatar-upload">
+                    <input type="file" id="avatarInput" accept="image/*">
+                    <label for="avatarInput">Upload Photo</label>
+                </div>
+                <p style="margin-top: 10px; color: #6c757d; font-size: 0.9rem;">Recommended: Square image, 500x500px</p>
+            </div>
+            <div class="info-section">
+                <form id="profileForm">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" class="form-control" value="John" required>
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" class="form-control" value="Doe" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" value="john.doe@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" class="form-control" value="+1 (555) 123-4567">
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" class="form-control" value="San Francisco, CA">
+                    </div>
+                    <div class="form-group">
+                        <label for="bio">Bio</label>
+                        <textarea id="bio" class="form-control" rows="4">Software developer with 5+ years of experience building web applications. Passionate about UX design and clean code.</textarea>
+                    </div>
+                    <div class="profile-actions">
+                        <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="saveBtn">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const avatarInput = document.getElementById('avatarInput');
+            const avatarImage = document.getElementById('avatarImage');
+            const avatarPlaceholder = document.getElementById('avatarPlaceholder');
+            const profileForm = document.getElementById('profileForm');
+            const cancelBtn = document.getElementById('cancelBtn');
+            
+            avatarInput.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        avatarImage.src = e.target.result;
+                        avatarImage.style.display = 'block';
+                        avatarPlaceholder.style.display = 'none';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            profileForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                const formData = {
+                    firstName: document.getElementById('firstName').value,
+                    lastName: document.getElementById('lastName').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    location: document.getElementById('location').value,
+                    bio: document.getElementById('bio').value
+                };
+                
+                console.log('Profile data to save:', formData);
+                
+                alert('Profile updated successfully!');
+            });
+            
+            cancelBtn.addEventListener('click', function() {
+                if (confirm('Are you sure you want to cancel? Any unsaved changes will be lost.')) {
+                    profileForm.reset();
+                    avatarImage.style.display = 'none';
+                    avatarPlaceholder.style.display = 'flex';
+                }
+            });
+        });
+    </script>
+</body>
 </html>
