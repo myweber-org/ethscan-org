@@ -4,53 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Login</title>
-    <style>
-        .error { color: red; font-size: 0.9em; }
-    </style>
-</head>
-<body>
-    <h2>Login</h2>
-    <form id="loginForm" onsubmit="return validateForm()">
-        <div>
-            <label for="email">Email Address:</label>
-            <input type="email" id="email" name="email" required>
-            <span id="emailError" class="error"></span>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" minlength="6" required>
-            <span id="passwordError" class="error"></span>
-        </div>
-        <button type="submit">Sign In</button>
-    </form>
-
     <script>
         function validateForm() {
-            let isValid = true;
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            const emailError = document.getElementById('emailError');
-            const passwordError = document.getElementById('passwordError');
+            const errorElement = document.getElementById('error-message');
 
-            emailError.textContent = '';
-            passwordError.textContent = '';
+            errorElement.textContent = '';
+
+            if (!email || !password) {
+                errorElement.textContent = 'Please fill in all fields.';
+                return false;
+            }
 
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailPattern.test(email)) {
-                emailError.textContent = 'Please enter a valid email address.';
-                isValid = false;
+                errorElement.textContent = 'Please enter a valid email address.';
+                return false;
             }
 
             if (password.length < 6) {
-                passwordError.textContent = 'Password must be at least 6 characters.';
-                isValid = false;
+                errorElement.textContent = 'Password must be at least 6 characters long.';
+                return false;
             }
 
-            if (isValid) {
-                alert('Login successful!');
-            }
-            return isValid;
+            alert('Login successful!');
+            return true;
         }
     </script>
+</head>
+<body>
+    <h1>Login</h1>
+    <form onsubmit="return validateForm()">
+        <div>
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email">
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+        </div>
+        <div id="error-message" style="color: red;"></div>
+        <button type="submit">Login</button>
+    </form>
 </body>
 </html>
