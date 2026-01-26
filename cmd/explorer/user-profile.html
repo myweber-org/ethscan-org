@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,34 +10,31 @@
         <h1>User Profile Settings</h1>
     </header>
     <main>
-        <section>
-            <h2>Profile Picture</h2>
-            <div>
-                <img id="avatar-preview" src="default-avatar.png" alt="Avatar Preview" width="150" height="150">
-                <br>
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button onclick="uploadAvatar()">Upload Avatar</button>
+        <section id="profile-section">
+            <div class="avatar-container">
+                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
+                <div>
+                    <input type="file" id="avatar-upload" accept="image/*">
+                    <button onclick="uploadAvatar()">Upload Avatar</button>
+                </div>
             </div>
-        </section>
-        <section>
-            <h2>Basic Information</h2>
             <form id="profile-form">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                <br>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <br>
-                <label for="bio">Bio:</label>
-                <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
-                <br>
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="bio">Biography:</label>
+                    <textarea id="bio" name="bio" rows="4"></textarea>
+                </div>
                 <button type="submit">Save Profile</button>
             </form>
         </section>
     </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
     <script>
         function uploadAvatar() {
             const fileInput = document.getElementById('avatar-upload');
@@ -59,7 +55,8 @@
             const username = document.getElementById('username').value;
             const email = document.getElementById('email').value;
             const bio = document.getElementById('bio').value;
-            alert('Profile saved!\nUsername: ' + username + '\nEmail: ' + email + '\nBio: ' + bio);
+            console.log('Profile saved:', { username, email, bio });
+            alert('Profile information saved successfully!');
         });
     </script>
 </body>
