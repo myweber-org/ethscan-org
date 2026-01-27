@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,42 +11,21 @@
         <h1>User Profile</h1>
     </header>
     <main>
-        <section class="profile-section">
+        <section class="profile">
             <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button onclick="uploadAvatar()">Upload Avatar</button>
+                <img src="https://via.placeholder.com/150" alt="User Avatar" class="avatar">
             </div>
-            <div class="bio-container">
-                <h2>Edit Bio</h2>
-                <textarea id="bio-text" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
-                <br>
-                <button onclick="saveBio()">Save Bio</button>
-                <p id="bio-status"></p>
+            <div class="user-info">
+                <h2>John Doe</h2>
+                <p><strong>Email:</strong> john.doe@example.com</p>
+                <p><strong>Location:</strong> New York, USA</p>
+                <p><strong>Member Since:</strong> January 2023</p>
+                <p><strong>Bio:</strong> Software developer passionate about open-source projects and web technologies.</p>
             </div>
         </section>
     </main>
-    <script>
-        function uploadAvatar() {
-            const fileInput = document.getElementById('avatar-upload');
-            const file = fileInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-                console.log('Avatar uploaded:', file.name);
-            } else {
-                alert('Please select an image file.');
-            }
-        }
-
-        function saveBio() {
-            const bioText = document.getElementById('bio-text').value;
-            document.getElementById('bio-status').textContent = 'Bio saved successfully!';
-            console.log('Bio saved:', bioText);
-        }
-    </script>
+    <footer>
+        <p>&copy; 2023 User Profile Page</p>
+    </footer>
 </body>
 </html>
