@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,21 +14,25 @@
             <input type="text" id="username" name="username" required minlength="3" maxlength="20">
             <span class="error" id="usernameError"></span>
         </div>
+        
         <div>
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
             <span class="error" id="emailError"></span>
         </div>
+        
         <div>
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required minlength="8">
             <span class="error" id="passwordError"></span>
         </div>
+        
         <div>
             <label for="confirmPassword">Confirm Password:</label>
             <input type="password" id="confirmPassword" name="confirmPassword" required>
-            <span class="error" id="confirmError"></span>
+            <span class="error" id="confirmPasswordError"></span>
         </div>
+        
         <button type="submit">Register</button>
     </form>
 
@@ -58,7 +63,7 @@
             }
             
             if (password !== confirmPassword) {
-                showError('confirmError', 'Passwords do not match');
+                showError('confirmPasswordError', 'Passwords do not match');
                 isValid = false;
             }
             
@@ -78,8 +83,10 @@
         }
         
         function clearErrors() {
-            const errors = document.querySelectorAll('.error');
-            errors.forEach(error => error.textContent = '');
+            const errorElements = document.querySelectorAll('.error');
+            errorElements.forEach(element => {
+                element.textContent = '';
+            });
         }
     </script>
 </body>
