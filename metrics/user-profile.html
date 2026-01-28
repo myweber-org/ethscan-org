@@ -4,79 +4,132 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: sans-serif;
+        }
+        .avatar-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .avatar-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            margin-right: 20px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .avatar-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            display: none;
+        }
+        .avatar-placeholder {
+            color: #666;
+            font-size: 14px;
+        }
+        .bio-section textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        .button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <form id="profileForm">
-            <div>
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required minlength="3" maxlength="20">
-                <span class="error" id="usernameError"></span>
+    <div class="profile-container">
+        <h1>Edit Profile</h1>
+        <div class="avatar-section">
+            <div class="avatar-preview" id="avatarPreview">
+                <div class="avatar-placeholder">No image</div>
+                <img id="avatarImage" src="" alt="Avatar">
             </div>
             <div>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <span class="error" id="emailError"></span>
+                <input type="file" id="avatarInput" accept="image/*">
+                <button class="button" onclick="document.getElementById('avatarInput').click()">Choose Image</button>
+                <button class="button" onclick="removeAvatar()">Remove</button>
             </div>
-            <div>
-                <label for="age">Age:</label>
-                <input type="number" id="age" name="age" min="18" max="120">
-            </div>
-            <div>
-                <label for="country">Country:</label>
-                <select id="country" name="country">
-                    <option value="">Select a country</option>
-                    <option value="us">United States</option>
-                    <option value="uk">United Kingdom</option>
-                    <option value="ca">Canada</option>
-                    <option value="au">Australia</option>
-                </select>
-            </div>
-            <button type="submit">Update Profile</button>
-        </form>
-        <div id="successMessage" style="display: none; color: green;">
-            Profile updated successfully!
         </div>
-    </main>
+        <div class="bio-section">
+            <label for="bioTextarea"><strong>Bio:</strong></label>
+            <textarea id="bioTextarea" placeholder="Tell something about yourself..."></textarea>
+            <button class="button" onclick="saveProfile()">Save Changes</button>
+        </div>
+    </div>
+
     <script>
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            let isValid = true;
+        const avatarInput = document.getElementById('avatarInput');
+        const avatarImage = document.getElementById('avatarImage');
+        const avatarPlaceholder = document.querySelector('.avatar-placeholder');
+        const bioTextarea = document.getElementById('bioTextarea');
 
-            const username = document.getElementById('username');
-            const email = document.getElementById('email');
-            const usernameError = document.getElementById('usernameError');
-            const emailError = document.getElementById('emailError');
-
-            usernameError.textContent = '';
-            emailError.textContent = '';
-
-            if (username.value.trim().length < 3) {
-                usernameError.textContent = 'Username must be at least 3 characters.';
-                isValid = false;
-            }
-
-            if (!email.validity.valid) {
-                emailError.textContent = 'Please enter a valid email address.';
-                isValid = false;
-            }
-
-            if (isValid) {
-                console.log('Form submitted with data:', {
-                    username: username.value,
-                    email: email.value,
-                    age: document.getElementById('age').value,
-                    country: document.getElementById('country').value
-                });
-                document.getElementById('successMessage').style.display = 'block';
-                setTimeout(() => {
-                    document.getElementById('successMessage').style.display = 'none';
-                }, 3000);
+        avatarInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarImage.src = e.target.result;
+                    avatarImage.style.display = 'block';
+                    avatarPlaceholder.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
             }
         });
+
+        function removeAvatar() {
+            avatarImage.src = '';
+            avatarImage.style.display = 'none';
+            avatarPlaceholder.style.display = 'block';
+            avatarInput.value = '';
+        }
+
+        function saveProfile() {
+            const bio = bioTextarea.value.trim();
+            const hasAvatar = avatarImage.style.display === 'block';
+            alert('Profile saved!\nBio: ' + (bio || '(empty)') + '\nAvatar: ' + (hasAvatar ? 'Yes' : 'No'));
+        }
+
+        window.onload = function() {
+            bioTextarea.value = localStorage.getItem('userBio') || '';
+            const savedAvatar = localStorage.getItem('userAvatar');
+            if (savedAvatar) {
+                avatarImage.src = savedAvatar;
+                avatarImage.style.display = 'block';
+                avatarPlaceholder.style.display = 'none';
+            }
+        };
+
+        window.onbeforeunload = function() {
+            localStorage.setItem('userBio', bioTextarea.value);
+            if (avatarImage.src && avatarImage.src.startsWith('data:')) {
+                localStorage.setItem('userAvatar', avatarImage.src);
+            }
+        };
     </script>
 </body>
 </html>
