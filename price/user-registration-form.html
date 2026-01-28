@@ -79,8 +79,8 @@
         }
 
         function clearErrors() {
-            const errors = document.querySelectorAll('.error');
-            errors.forEach(error => error.textContent = '');
+            const errorElements = document.querySelectorAll('.error');
+            errorElements.forEach(el => el.textContent = '');
             document.getElementById('message').textContent = '';
         }
     </script>
