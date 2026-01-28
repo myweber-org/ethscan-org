@@ -14,178 +14,14 @@
             <div class="avatar-container">
                 <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
                 <input type="file" id="avatar-upload" accept="image/*">
-                <button id="upload-button">Upload Avatar</button>
+                <button id="upload-btn">Upload Avatar</button>
             </div>
             <div class="bio-container">
                 <h2>Edit Bio</h2>
                 <textarea id="bio-textarea" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
-                <button id="save-bio-button">Save Bio</button>
-            </div>
-            <div class="user-info">
-                <p>Username: <span id="username-display">user123</span></p>
-                <p>Email: <span id="email-display">user@example.com</span></p>
-            </div>
-        </section>
-    </main>
-    <script>
-        document.getElementById('upload-button').addEventListener('click', function() {
-            const fileInput = document.getElementById('avatar-upload');
-            if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(fileInput.files[0]);
-            }
-        });
-
-        document.getElementById('save-bio-button').addEventListener('click', function() {
-            const bioText = document.getElementById('bio-textarea').value;
-            alert('Bio saved: ' + bioText);
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="profile-section">
-            <div id="avatar-container">
-                <img id="avatar-preview" src="placeholder.jpg" alt="Profile Avatar" width="150" height="150">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button id="upload-btn">Upload Avatar</button>
-            </div>
-            <form id="profile-form">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                <br>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <br>
-                <label for="bio">Bio:</label>
-                <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
-                <br>
-                <button type="submit">Save Profile</button>
-            </form>
-        </section>
-    </main>
-    <script>
-        document.getElementById('upload-btn').addEventListener('click', function() {
-            document.getElementById('avatar-upload').click();
-        });
-
-        document.getElementById('avatar-upload').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            console.log('Profile saved:', { username, email, bio });
-            alert('Profile saved successfully!');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile-section">
-            <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <div>
-                    <input type="file" id="avatar-upload" accept="image/*">
-                    <button onclick="uploadAvatar()">Upload Avatar</button>
-                </div>
-            </div>
-            <div class="bio-section">
-                <h2>Edit Bio</h2>
-                <textarea id="bio-text" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
-                <br>
-                <button onclick="saveBio()">Save Bio</button>
-                <p id="bio-status"></p>
-            </div>
-        </section>
-    </main>
-    <script>
-        function uploadAvatar() {
-            const fileInput = document.getElementById('avatar-upload');
-            const file = fileInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                    console.log('Avatar uploaded successfully.');
-                };
-                reader.readAsDataURL(file);
-            } else {
-                alert('Please select an image file.');
-            }
-        }
-
-        function saveBio() {
-            const bioText = document.getElementById('bio-text').value;
-            const statusElement = document.getElementById('bio-status');
-            if (bioText.trim() !== '') {
-                statusElement.textContent = 'Bio saved successfully!';
-                statusElement.style.color = 'green';
-                console.log('Bio saved:', bioText);
-            } else {
-                statusElement.textContent = 'Bio cannot be empty.';
-                statusElement.style.color = 'red';
-            }
-        }
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="profile-section">
-            <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button id="upload-btn">Upload Avatar</button>
-            </div>
-            <div class="bio-container">
-                <h2>Edit Bio</h2>
-                <textarea id="bio-textarea" rows="4" cols="50" placeholder="Write something about yourself..."></textarea>
                 <button id="save-bio-btn">Save Bio</button>
+                <p id="bio-display"></p>
             </div>
-            <div id="status-message"></div>
         </section>
     </main>
     <script>
@@ -196,32 +32,18 @@
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     document.getElementById('avatar-preview').src = e.target.result;
-                    showMessage('Avatar uploaded successfully!', 'success');
                 };
                 reader.readAsDataURL(file);
             } else {
-                showMessage('Please select an image file first.', 'error');
+                alert('Please select an image file first.');
             }
         });
 
         document.getElementById('save-bio-btn').addEventListener('click', function() {
-            const bioText = document.getElementById('bio-textarea').value.trim();
-            if (bioText) {
-                showMessage('Bio saved successfully!', 'success');
-            } else {
-                showMessage('Bio cannot be empty.', 'error');
-            }
+            const bioText = document.getElementById('bio-textarea').value;
+            document.getElementById('bio-display').textContent = bioText || 'No bio provided.';
+            alert('Bio saved!');
         });
-
-        function showMessage(text, type) {
-            const messageDiv = document.getElementById('status-message');
-            messageDiv.textContent = text;
-            messageDiv.className = type;
-            setTimeout(() => {
-                messageDiv.textContent = '';
-                messageDiv.className = '';
-            }, 3000);
-        }
     </script>
 </body>
 </html>
