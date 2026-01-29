@@ -10,23 +10,50 @@
         <h1>User Profile</h1>
     </header>
     <main>
-        <section>
-            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            <h2>John Doe</h2>
-            <p>Email: john.doe@example.com</p>
-            <p>Member since: January 2023</p>
+        <section id="avatar-section">
+            <h2>Profile Picture</h2>
+            <img id="avatar-preview" src="default-avatar.png" alt="Avatar Preview" width="150" height="150">
+            <br>
+            <input type="file" id="avatar-upload" accept="image/*">
+            <button id="upload-btn">Upload New Picture</button>
         </section>
-        <section>
-            <h3>Preferences</h3>
-            <ul>
-                <li>Theme: Dark</li>
-                <li>Language: English</li>
-                <li>Timezone: UTC</li>
-            </ul>
+        <section id="info-section">
+            <h2>Basic Information</h2>
+            <form id="profile-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <br>
+                <label for="bio">Bio:</label>
+                <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
+                <br>
+                <button type="submit">Save Changes</button>
+            </form>
         </section>
     </main>
     <footer>
         <p>&copy; 2023 User Profile Page</p>
     </footer>
+    <script>
+        document.getElementById('upload-btn').addEventListener('click', function() {
+            document.getElementById('avatar-upload').click();
+        });
+        document.getElementById('avatar-upload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatar-preview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        document.getElementById('profile-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Profile information saved!');
+        });
+    </script>
 </body>
 </html>
