@@ -154,4 +154,41 @@
         <p>Profile last updated: <span id="update-date">2023-10-05</span></p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <div class="profile-container">
+        <header>
+            <h1>User Profile</h1>
+        </header>
+        <main>
+            <section class="profile-info">
+                <div class="avatar-section">
+                    <img src="avatar-placeholder.jpg" alt="User Avatar" id="user-avatar">
+                    <button onclick="changeAvatar()">Change Avatar</button>
+                </div>
+                <div class="details-section">
+                    <h2 id="username">John Doe</h2>
+                    <p id="user-bio">Software developer passionate about open-source projects and web technologies.</p>
+                    <p><strong>Location:</strong> <span id="user-location">San Francisco, CA</span></p>
+                    <p><strong>Joined:</strong> <span id="join-date">January 2023</span></p>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script>
+        function changeAvatar() {
+            const newAvatarUrl = prompt('Enter new avatar URL:');
+            if (newAvatarUrl) {
+                document.getElementById('user-avatar').src = newAvatarUrl;
+                console.log('Avatar updated to:', newAvatarUrl);
+            }
+        }
+    </script>
+</body>
 </html>
