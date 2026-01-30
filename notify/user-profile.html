@@ -4,63 +4,385 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .profile-container {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .profile-header {
+            background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+        }
+        .avatar-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+        }
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+        }
+        .avatar-upload {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: #667eea;
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .avatar-upload:hover {
+            background-color: #5a67d8;
+        }
+        .profile-name {
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+        }
+        .profile-title {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        .profile-content {
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        .section {
+            margin-bottom: 25px;
+        }
+        .section-title {
+            font-size: 1.3rem;
+            color: #4a5568;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .info-item {
+            display: flex;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+        .info-icon {
+            color: #667eea;
+            width: 30px;
+            font-size: 1.2rem;
+        }
+        .info-text {
+            color: #2d3748;
+            font-size: 1.05rem;
+        }
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 120px;
+            transition: border-color 0.3s;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            background-color: #f7fafc;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 10px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+        .stat-label {
+            color: #718096;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            padding: 30px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+        }
+        .btn {
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .btn-save {
+            background-color: #48bb78;
+            color: white;
+        }
+        .btn-save:hover {
+            background-color: #38a169;
+        }
+        .btn-cancel {
+            background-color: #e2e8f0;
+            color: #4a5568;
+        }
+        .btn-cancel:hover {
+            background-color: #cbd5e0;
+        }
+        @media (max-width: 768px) {
+            .profile-content {
+                grid-template-columns: 1fr;
+                padding: 25px;
+            }
+            .profile-header {
+                padding: 30px 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="avatar-section">
-            <h2>Profile Picture</h2>
-            <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-            <form id="avatar-form">
-                <label for="avatar-upload">Upload new avatar:</label>
-                <input type="file" id="avatar-upload" name="avatar" accept="image/*">
-                <button type="submit">Update Avatar</button>
-            </form>
-        </section>
-        <section id="info-section">
-            <h2>Personal Information</h2>
-            <form id="profile-form">
-                <div>
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="avatar-container">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar" id="userAvatar">
+                <div class="avatar-upload" id="uploadTrigger">
+                    <i class="fas fa-camera"></i>
                 </div>
-                <div>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
+            </div>
+            <h1 class="profile-name" id="userName">Alex Johnson</h1>
+            <p class="profile-title" id="userTitle">Senior Frontend Developer</p>
+        </div>
+        
+        <div class="profile-content">
+            <div class="left-column">
+                <div class="section">
+                    <h2 class="section-title">Personal Information</h2>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="info-text" id="userEmail">alex.johnson@example.com</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-phone"></i></div>
+                        <div class="info-text" id="userPhone">+1 (555) 123-4567</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="info-text" id="userLocation">San Francisco, CA</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-briefcase"></i></div>
+                        <div class="info-text" id="userCompany">TechVision Inc.</div>
+                    </div>
                 </div>
-                <div>
-                    <label for="bio">Bio:</label>
-                    <textarea id="bio" name="bio" rows="4"></textarea>
+                
+                <div class="section">
+                    <h2 class="section-title">Bio</h2>
+                    <textarea id="userBio" placeholder="Tell us about yourself...">Passionate frontend developer with 8+ years of experience building responsive web applications. Specialized in React, Vue.js, and modern CSS. Enjoys hiking, photography, and open-source contributions.</textarea>
                 </div>
-                <button type="submit">Save Changes</button>
-            </form>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
-    <script>
-        document.getElementById('avatar-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const fileInput = document.getElementById('avatar-upload');
-            if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(fileInput.files[0]);
-            }
-        });
+            </div>
+            
+            <div class="right-column">
+                <div class="section">
+                    <h2 class="section-title">Skills</h2>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fab fa-js"></i></div>
+                        <div class="info-text">JavaScript, TypeScript</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fab fa-react"></i></div>
+                        <div class="info-text">React, Vue.js, Next.js</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-code"></i></div>
+                        <div class="info-text">HTML5, CSS3, Sass</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-server"></i></div>
+                        <div class="info-text">Node.js, Express, REST APIs</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title">Statistics</h2>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <div class="stat-value" id="projectCount">47</div>
+                            <div class="stat-label">Projects</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="followersCount">2.8k</div>
+                            <div class="stat-label">Followers</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="followingCount">348</div>
+                            <div class="stat-label">Following</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="btn btn-cancel" id="cancelBtn">Cancel</button>
+            <button class="btn btn-save" id="saveBtn">Save Changes</button>
+        </div>
+    </div>
 
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            console.log('Profile updated:', { username, email, bio });
-            alert('Profile information saved successfully!');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const uploadTrigger = document.getElementById('uploadTrigger');
+            const userAvatar = document.getElementById('userAvatar');
+            const saveBtn = document.getElementById('saveBtn');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const userBio = document.getElementById('userBio');
+            const userName = document.getElementById('userName');
+            const userTitle = document.getElementById('userTitle');
+            const userEmail = document.getElementById('userEmail');
+            const userPhone = document.getElementById('userPhone');
+            const userLocation = document.getElementById('userLocation');
+            const userCompany = document.getElementById('userCompany');
+            
+            let originalBio = userBio.value;
+            let originalName = userName.textContent;
+            let originalTitle = userTitle.textContent;
+            let originalEmail = userEmail.textContent;
+            let originalPhone = userPhone.textContent;
+            let originalLocation = userLocation.textContent;
+            let originalCompany = userCompany.textContent;
+            
+            uploadTrigger.addEventListener('click', function() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*';
+                
+                input.addEventListener('change', function(e) {
+                    if (e.target.files && e.target.files[0]) {
+                        const reader = new FileReader();
+                        
+                        reader.onload = function(event) {
+                            userAvatar.src = event.target.result;
+                            showNotification('Avatar updated successfully!');
+                        };
+                        
+                        reader.readAsDataURL(e.target.files[0]);
+                    }
+                });
+                
+                input.click();
+            });
+            
+            saveBtn.addEventListener('click', function() {
+                if (userBio.value.trim() === '') {
+                    alert('Bio cannot be empty!');
+                    return;
+                }
+                
+                originalBio = userBio.value;
+                originalName = userName.textContent;
+                originalTitle = userTitle.textContent;
+                originalEmail = userEmail.textContent;
+                originalPhone = userPhone.textContent;
+                originalLocation = userLocation.textContent;
+                originalCompany = userCompany.textContent;
+                
+                showNotification('Profile updated successfully!');
+            });
+            
+            cancelBtn.addEventListener('click', function() {
+                userBio.value = originalBio;
+                userName.textContent = originalName;
+                userTitle.textContent = originalTitle;
+                userEmail.textContent = originalEmail;
+                userPhone.textContent = originalPhone;
+                userLocation.textContent = originalLocation;
+                userCompany.textContent = originalCompany;
+                
+                showNotification('Changes discarded.');
+            });
+            
+            function showNotification(message) {
+                const notification = document.createElement('div');
+                notification.textContent = message;
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background-color: #48bb78;
+                    color: white;
+                    padding: 15px 25px;
+                    border-radius: 8px;
+                    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                    z-index: 1000;
+                    font-weight: 600;
+                    animation: slideIn 0.3s ease;
+                `;
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.animation = 'slideOut 0.3s ease';
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 3000);
+            }
+            
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
         });
     </script>
 </body>
