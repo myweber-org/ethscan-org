@@ -4,53 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 2rem;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            text-align: center;
-            font-family: sans-serif;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a6fa5;
-            margin-bottom: 1rem;
-        }
-        .user-name {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 0.5rem;
-        }
-        .user-title {
-            color: #666;
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
-        }
-        .bio-section {
-            text-align: left;
-            line-height: 1.6;
-            color: #444;
-            border-top: 1px solid #eee;
-            padding-top: 1.5rem;
-        }
-    </style>
 </head>
 <body>
-    <div class="profile-container">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="User Avatar" class="avatar">
-        <h1 class="user-name">Alex Morgan</h1>
-        <p class="user-title">Senior Frontend Developer</p>
-        <div class="bio-section">
-            <p>Experienced developer specializing in creating responsive web applications. Passionate about clean code, user experience, and modern JavaScript frameworks. Enjoys contributing to open-source projects and mentoring junior developers.</p>
-            <p>Currently focused on building accessible design systems and improving web performance metrics.</p>
-        </div>
-    </div>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section class="profile">
+            <div class="avatar-container">
+                <img src="avatar-placeholder.jpg" alt="User Avatar" id="user-avatar" width="150" height="150">
+                <button onclick="changeAvatar()">Change Avatar</button>
+            </div>
+            <div class="user-info">
+                <h2 id="username">John Doe</h2>
+                <p><strong>Email:</strong> <span id="user-email">john.doe@example.com</span></p>
+                <p><strong>Member Since:</strong> <span id="join-date">January 2023</span></p>
+                <div class="bio">
+                    <h3>Bio</h3>
+                    <p id="user-bio">Software developer passionate about open-source projects and web technologies.</p>
+                    <textarea id="bio-edit" style="display: none;" rows="4" cols="50"></textarea>
+                    <button onclick="editBio()">Edit Bio</button>
+                    <button onclick="saveBio()" style="display: none;" id="save-bio-btn">Save Bio</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+        function changeAvatar() {
+            const newAvatarUrl = prompt('Enter new avatar URL:');
+            if (newAvatarUrl) {
+                document.getElementById('user-avatar').src = newAvatarUrl;
+                alert('Avatar updated!');
+            }
+        }
+
+        function editBio() {
+            const bioText = document.getElementById('user-bio').textContent;
+            document.getElementById('user-bio').style.display = 'none';
+            document.getElementById('bio-edit').value = bioText;
+            document.getElementById('bio-edit').style.display = 'block';
+            document.querySelector('button[onclick="editBio()"]').style.display = 'none';
+            document.getElementById('save-bio-btn').style.display = 'inline';
+        }
+
+        function saveBio() {
+            const newBio = document.getElementById('bio-edit').value;
+            document.getElementById('user-bio').textContent = newBio;
+            document.getElementById('user-bio').style.display = 'block';
+            document.getElementById('bio-edit').style.display = 'none';
+            document.querySelector('button[onclick="editBio()"]').style.display = 'inline';
+            document.getElementById('save-bio-btn').style.display = 'none';
+            alert('Bio saved!');
+        }
+    </script>
 </body>
 </html>
