@@ -4,63 +4,109 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+        }
+        .avatar-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .avatar-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ccc;
+            margin-right: 20px;
+        }
+        .avatar-upload {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .profile-info {
+            margin-top: 20px;
+        }
+        .info-item {
+            margin-bottom: 10px;
+        }
+        .info-label {
+            font-weight: bold;
+            display: inline-block;
+            width: 100px;
+        }
+    </style>
 </head>
 <body>
-    <header>
+    <div class="profile-container">
         <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="avatar-section">
-            <h2>Profile Picture</h2>
-            <img id="avatar-preview" src="default-avatar.png" alt="Avatar Preview" width="150" height="150">
-            <form id="avatar-form">
-                <label for="avatar-upload">Choose a new image:</label>
-                <input type="file" id="avatar-upload" name="avatar" accept="image/png, image/jpeg">
-                <button type="submit">Upload Avatar</button>
-            </form>
-        </section>
-        <section id="info-section">
-            <h2>Basic Information</h2>
-            <form id="profile-form">
-                <div>
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div>
-                    <label for="bio">Bio:</label>
-                    <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
-                </div>
-                <button type="submit">Save Changes</button>
-            </form>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
-    <script>
-        document.getElementById('avatar-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const fileInput = document.getElementById('avatar-upload');
-            if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(fileInput.files[0]);
-            }
-        });
+        <div class="avatar-section">
+            <img id="avatarPreview" src="https://via.placeholder.com/100" alt="Avatar Preview" class="avatar-preview">
+            <div class="avatar-upload">
+                <input type="file" id="avatarInput" accept="image/*">
+                <button onclick="uploadAvatar()">Update Avatar</button>
+                <p id="uploadStatus"></p>
+            </div>
+        </div>
+        <div class="profile-info">
+            <div class="info-item">
+                <span class="info-label">Username:</span>
+                <span id="username">john_doe</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Email:</span>
+                <span id="userEmail">john@example.com</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Member Since:</span>
+                <span id="joinDate">January 2023</span>
+            </div>
+        </div>
+    </div>
 
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            console.log('Profile saved:', { username, email, bio });
-            alert('Profile information saved successfully!');
+    <script>
+        function uploadAvatar() {
+            const fileInput = document.getElementById('avatarInput');
+            const statusElement = document.getElementById('uploadStatus');
+            const previewElement = document.getElementById('avatarPreview');
+
+            if (fileInput.files.length === 0) {
+                statusElement.textContent = 'Please select an image file.';
+                statusElement.style.color = 'red';
+                return;
+            }
+
+            const file = fileInput.files[0];
+            if (!file.type.startsWith('image/')) {
+                statusElement.textContent = 'Selected file is not an image.';
+                statusElement.style.color = 'red';
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewElement.src = e.target.result;
+                statusElement.textContent = 'Avatar updated successfully!';
+                statusElement.style.color = 'green';
+                
+                // In a real application, you would send the image data to a server here
+                // Example: sendToServer(e.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Simulate loading user data (in a real app, this would come from an API)
+        document.addEventListener('DOMContentLoaded', function() {
+            // This is where you would fetch user data from a server
+            // For demonstration, we're using hardcoded values
+            console.log('Profile page loaded');
         });
     </script>
 </body>
