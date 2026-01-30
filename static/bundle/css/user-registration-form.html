@@ -32,11 +32,9 @@
             <input type="password" id="confirmPassword" name="confirmPassword" required>
             <span id="confirmPasswordError" class="error"></span>
         </div>
-        <div>
-            <button type="submit">Register</button>
-        </div>
-        <div id="formMessage"></div>
+        <button type="submit">Register</button>
     </form>
+    <div id="message" class="success"></div>
 
     <script>
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
@@ -70,26 +68,22 @@
                 isValid = false;
             }
 
-            const messageDiv = document.getElementById('formMessage');
             if (isValid) {
-                messageDiv.textContent = 'Registration successful!';
-                messageDiv.className = 'success';
-                console.log('Registration data:', { username, email, password });
+                document.getElementById('message').textContent = 'Registration successful!';
+                document.getElementById('message').className = 'success';
+                this.reset();
             } else {
-                messageDiv.textContent = 'Please correct the errors above.';
-                messageDiv.className = 'error';
+                document.getElementById('message').textContent = '';
             }
         });
 
         function showError(elementId, message) {
-            const element = document.getElementById(elementId);
-            element.textContent = message;
+            document.getElementById(elementId).textContent = message;
         }
 
         function clearErrors() {
-            const errors = document.querySelectorAll('.error');
-            errors.forEach(error => error.textContent = '');
-            document.getElementById('formMessage').textContent = '';
+            const errorElements = document.querySelectorAll('.error');
+            errorElements.forEach(element => element.textContent = '');
         }
     </script>
 </body>
