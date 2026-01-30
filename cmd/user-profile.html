@@ -11,94 +11,44 @@
             padding: 20px;
             border: 1px solid #ddd;
             border-radius: 8px;
-            font-family: Arial, sans-serif;
+            font-family: sans-serif;
         }
         .avatar {
             width: 120px;
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #4a90e2;
+            border: 3px solid #4a6fa5;
             margin-bottom: 20px;
         }
-        .user-info {
-            margin-bottom: 15px;
-        }
-        .label {
+        .user-name {
+            font-size: 24px;
             font-weight: bold;
-            color: #555;
-            display: inline-block;
-            width: 100px;
-        }
-        .value {
             color: #333;
+            margin-bottom: 10px;
+        }
+        .user-title {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .bio-section {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            line-height: 1.6;
+            color: #444;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <img src="https://via.placeholder.com/120" alt="User Avatar" class="avatar">
-        <div class="user-info">
-            <span class="label">Name:</span>
-            <span class="value">Alex Johnson</span>
-        </div>
-        <div class="user-info">
-            <span class="label">Email:</span>
-            <span class="value">alex.johnson@example.com</span>
-        </div>
-        <div class="user-info">
-            <span class="label">Location:</span>
-            <span class="value">San Francisco, CA</span>
-        </div>
-        <div class="user-info">
-            <span class="label">Member Since:</span>
-            <span class="value">January 2023</span>
-        </div>
-        <div class="user-info">
-            <span class="label">Bio:</span>
-            <span class="value">Software developer passionate about open-source projects and web technologies.</span>
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
+        <div class="user-name">Alex Morgan</div>
+        <div class="user-title">Senior Software Developer</div>
+        <div class="bio-section">
+            Passionate about building scalable web applications and open-source projects. Enjoys hiking, photography, and exploring new technologies. Currently focused on frontend architecture and user experience design.
         </div>
     </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <form id="profileForm">
-            <div>
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div>
-                <label for="email">Email Address:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div>
-                <label for="bio">Biography:</label>
-                <textarea id="bio" name="bio" rows="4"></textarea>
-            </div>
-            <div>
-                <button type="submit">Update Profile</button>
-            </div>
-        </form>
-    </main>
-    <script>
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            console.log('Profile Update Submitted:', { username, email, bio });
-            alert('Profile update simulated. Check console for data.');
-        });
-    </script>
 </body>
 </html>
