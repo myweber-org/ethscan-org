@@ -53,4 +53,86 @@
         </div>
     </div>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            font-family: sans-serif;
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #0366d6;
+        }
+        .user-name {
+            font-size: 24px;
+            margin: 15px 0 5px;
+            color: #24292e;
+        }
+        .user-login {
+            color: #586069;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .bio {
+            background-color: #f6f8fa;
+            padding: 15px;
+            border-radius: 6px;
+            color: #24292e;
+            line-height: 1.5;
+        }
+        .stats {
+            display: flex;
+            margin-top: 20px;
+            gap: 20px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-weight: bold;
+            font-size: 20px;
+            color: #0366d6;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: #586069;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <img src="https://avatars.githubusercontent.com/u/583231?v=4" alt="User Avatar" class="avatar">
+        <h1 class="user-name">John Doe</h1>
+        <div class="user-login">@johndoe</div>
+        <div class="bio">
+            Software developer passionate about open source, web technologies, and building tools that improve developer productivity. Currently working on distributed systems.
+        </div>
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value">42</div>
+                <div class="stat-label">Repositories</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">128</div>
+                <div class="stat-label">Followers</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">56</div>
+                <div class="stat-label">Following</div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
