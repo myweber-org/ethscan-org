@@ -4,90 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Login</title>
-</head>
-<body>
-    <h1>Login to Your Account</h1>
-    <form action="/login" method="post">
-        <div>
-            <label for="email">Email Address:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <div>
-            <button type="submit">Login</button>
-        </div>
-    </form>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login</title>
-    <style>
-        .error {
-            color: red;
-            font-size: 0.9em;
-            display: none;
-        }
-    </style>
-</head>
-<body>
-    <h2>Login</h2>
-    <form id="loginForm">
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <span id="emailError" class="error">Please enter a valid email address.</span>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" minlength="8" required>
-            <span id="passwordError" class="error">Password must be at least 8 characters long.</span>
-        </div>
-        <button type="submit">Login</button>
-    </form>
-
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            let isValid = true;
-
-            const email = document.getElementById('email');
-            const emailError = document.getElementById('emailError');
-            const password = document.getElementById('password');
-            const passwordError = document.getElementById('passwordError');
-
-            emailError.style.display = 'none';
-            passwordError.style.display = 'none';
-
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email.value)) {
-                emailError.style.display = 'block';
-                isValid = false;
-            }
-
-            if (password.value.length < 8) {
-                passwordError.style.display = 'block';
-                isValid = false;
-            }
-
-            if (isValid) {
-                alert('Login submitted successfully!');
-                this.reset();
-            }
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login</title>
     <style>
         .error { color: red; font-size: 0.9em; }
         .success { color: green; font-size: 0.9em; }
@@ -136,11 +52,10 @@
                 messageDiv.textContent = 'Login successful! Redirecting...';
                 messageDiv.className = 'success';
                 setTimeout(() => {
-                    console.log('Submitting credentials for:', email);
-                    alert('Form submitted (simulated)');
+                    alert('Simulated redirect to dashboard.');
                 }, 1000);
             } else {
-                messageDiv.textContent = 'Please fix errors above.';
+                messageDiv.textContent = 'Please fix the errors above.';
                 messageDiv.className = 'error';
             }
         });
@@ -151,41 +66,9 @@
         }
 
         function clearErrors() {
-            document.querySelectorAll('.error').forEach(span => span.textContent = '');
+            document.querySelectorAll('.error').forEach(el => el.textContent = '');
             document.getElementById('message').textContent = '';
         }
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login</title>
-</head>
-<body>
-    <h1>Login to Your Account</h1>
-    <form id="loginForm">
-        <div>
-            <label for="email">Email Address:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <div>
-            <button type="submit">Sign In</button>
-        </div>
-    </form>
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            console.log('Login attempt with email:', email);
-            alert('Login submitted for: ' + email);
-        });
     </script>
 </body>
 </html>
