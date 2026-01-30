@@ -4,57 +4,105 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: sans-serif;
+        }
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .avatar-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ddd;
+            margin-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        textarea,
+        input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #aaa;
+            border-radius: 4px;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
+    <div class="profile-container">
+        <h1>Edit Profile</h1>
+        <div class="avatar-section">
+            <img id="avatarPreview" src="default-avatar.png" alt="Avatar Preview" class="avatar-preview">
+            <input type="file" id="avatarUpload" accept="image/*">
+        </div>
         <form id="profileForm">
-            <div>
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required minlength="3" maxlength="20">
-                <div id="usernameError" class="error-message"></div>
+            <div class="form-group">
+                <label for="displayName">Display Name</label>
+                <input type="text" id="displayName" name="displayName" placeholder="Enter your name">
             </div>
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <div id="emailError" class="error-message"></div>
+            <div class="form-group">
+                <label for="userBio">Bio</label>
+                <textarea id="userBio" name="userBio" placeholder="Tell us about yourself"></textarea>
             </div>
-            <div>
-                <label for="age">Age:</label>
-                <input type="number" id="age" name="age" min="18" max="120">
-            </div>
-            <button type="submit">Update Profile</button>
+            <button type="submit">Save Profile</button>
         </form>
-        <div id="successMessage" class="success-message"></div>
-    </main>
+    </div>
+
     <script>
+        document.getElementById('avatarUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatarPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
         document.getElementById('profileForm').addEventListener('submit', function(event) {
             event.preventDefault();
-            let isValid = true;
-            const username = document.getElementById('username');
-            const email = document.getElementById('email');
-            const usernameError = document.getElementById('usernameError');
-            const emailError = document.getElementById('emailError');
-            const successMessage = document.getElementById('successMessage');
+            const displayName = document.getElementById('displayName').value;
+            const userBio = document.getElementById('userBio').value;
+            const avatarFile = document.getElementById('avatarUpload').files[0];
 
-            usernameError.textContent = '';
-            emailError.textContent = '';
-            successMessage.textContent = '';
+            console.log('Profile Update Attempt:');
+            console.log('Name:', displayName);
+            console.log('Bio:', userBio);
+            console.log('Avatar File:', avatarFile ? avatarFile.name : 'No file selected');
 
-            if (username.value.trim().length < 3) {
-                usernameError.textContent = 'Username must be at least 3 characters.';
-                isValid = false;
-            }
-            if (!email.checkValidity()) {
-                emailError.textContent = 'Please enter a valid email address.';
-                isValid = false;
-            }
-            if (isValid) {
-                successMessage.textContent = 'Profile updated successfully!';
-                this.reset();
-            }
+            alert('Profile saved (check console for details)');
         });
     </script>
 </body>
