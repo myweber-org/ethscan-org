@@ -387,4 +387,65 @@
         </div>
     </div>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section class="profile-section">
+            <div class="avatar-container">
+                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
+                <div>
+                    <input type="file" id="avatar-upload" accept="image/*">
+                    <button onclick="document.getElementById('avatar-upload').click()">Change Avatar</button>
+                </div>
+            </div>
+            <form id="profile-form">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="bio">Bio:</label>
+                    <textarea id="bio" name="bio" rows="4"></textarea>
+                </div>
+                <button type="submit">Update Profile</button>
+            </form>
+        </section>
+    </main>
+    <script>
+        const avatarUpload = document.getElementById('avatar-upload');
+        const avatarPreview = document.getElementById('avatar-preview');
+        const profileForm = document.getElementById('profile-form');
+
+        avatarUpload.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        profileForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            console.log('Profile update data:', Object.fromEntries(formData));
+            alert('Profile updated successfully!');
+        });
+    </script>
+</body>
 </html>
