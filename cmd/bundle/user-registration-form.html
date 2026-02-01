@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,10 +83,8 @@
         }
         
         function clearErrors() {
-            const errorElements = document.querySelectorAll('.error');
-            errorElements.forEach(element => {
-                element.textContent = '';
-            });
+            const errors = document.querySelectorAll('.error');
+            errors.forEach(error => error.textContent = '');
         }
     </script>
 </body>
