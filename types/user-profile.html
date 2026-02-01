@@ -6,31 +6,27 @@
     <title>User Profile</title>
 </head>
 <body>
-    <h1>User Profile</h1>
-    <form id="profileForm">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required minlength="3" maxlength="20">
-        <br>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        <br>
-        <label for="age">Age:</label>
-        <input type="number" id="age" name="age" min="1" max="120">
-        <br>
-        <button type="submit">Update Profile</button>
-    </form>
-    <script>
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const age = document.getElementById('age').value;
-            if (username && email) {
-                alert('Profile updated successfully!');
-            } else {
-                alert('Please fill in all required fields.');
-            }
-        });
-    </script>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section class="profile-card">
+            <div class="avatar-container">
+                <img src="https://via.placeholder.com/150" alt="User Avatar" class="avatar">
+            </div>
+            <div class="profile-info">
+                <h2 class="user-name">Alex Johnson</h2>
+                <p class="user-bio">Software developer with a passion for open-source projects and web technologies. Enjoys hiking and photography in free time.</p>
+                <div class="profile-stats">
+                    <span class="stat">Posts: 42</span>
+                    <span class="stat">Followers: 128</span>
+                    <span class="stat">Following: 56</span>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 User Profile Page</p>
+    </footer>
 </body>
 </html>
