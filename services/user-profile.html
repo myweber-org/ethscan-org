@@ -9,264 +9,99 @@
             max-width: 600px;
             margin: 40px auto;
             padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            text-align: center;
-            font-family: Arial, sans-serif;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a90e2;
-            margin-bottom: 15px;
-        }
-        .user-name {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 10px;
-        }
-        .user-bio {
-            font-size: 16px;
-            color: #666;
-            line-height: 1.5;
-            margin-bottom: 20px;
-        }
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }
-        .stat-item {
-            text-align: center;
-        }
-        .stat-value {
-            font-size: 20px;
-            font-weight: bold;
-            color: #4a90e2;
-        }
-        .stat-label {
-            font-size: 14px;
-            color: #888;
-            margin-top: 5px;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
-        <div class="user-name">Alex Johnson</div>
-        <div class="user-bio">
-            Software developer passionate about open-source projects, web technologies, and hiking in the mountains. Always eager to learn and share knowledge with the community.
-        </div>
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-value">127</div>
-                <div class="stat-label">Posts</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">892</div>
-                <div class="stat-label">Followers</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">345</div>
-                <div class="stat-label">Following</div>
-            </div>
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
+            border: 1px solid #ccc;
             border-radius: 8px;
             font-family: sans-serif;
         }
         .avatar-section {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
         .avatar-preview {
             width: 120px;
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #4a90e2;
+            border: 3px solid #ddd;
             margin-bottom: 10px;
         }
-        .avatar-upload {
-            margin-top: 10px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #333;
-        }
-        input[type="text"],
-        textarea {
+        .bio-section textarea {
             width: 100%;
+            height: 100px;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
-            box-sizing: border-box;
-        }
-        textarea {
-            height: 100px;
             resize: vertical;
+            font-family: inherit;
         }
-        .btn {
-            background-color: #4a90e2;
-            color: white;
+        .form-actions {
+            margin-top: 20px;
+            text-align: right;
+        }
+        button {
             padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 16px;
         }
-        .btn:hover {
-            background-color: #3a7bc8;
+        button:hover {
+            background-color: #0056b3;
+        }
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
+        <h1>Edit Profile</h1>
         <div class="avatar-section">
-            <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
-            <div class="avatar-upload">
+            <img id="avatarPreview" src="default-avatar.png" alt="Avatar Preview" class="avatar-preview">
+            <div>
                 <input type="file" id="avatarInput" accept="image/*">
+                <button onclick="document.getElementById('avatarInput').click()">Change Avatar</button>
             </div>
         </div>
-
-        <div class="form-group">
-            <label for="displayName">Display Name</label>
-            <input type="text" id="displayName" placeholder="Enter your display name">
+        <div class="bio-section">
+            <label for="bioText">Bio:</label>
+            <textarea id="bioText" placeholder="Tell us about yourself..."></textarea>
         </div>
-
-        <div class="form-group">
-            <label for="userBio">Bio</label>
-            <textarea id="userBio" placeholder="Tell something about yourself..."></textarea>
+        <div class="form-actions">
+            <button onclick="saveProfile()">Save Changes</button>
         </div>
-
-        <button class="btn" id="saveProfile">Save Profile</button>
+        <div id="message" class="hidden"></div>
     </div>
 
     <script>
-        document.getElementById('avatarInput').addEventListener('change', function(event) {
+        const avatarInput = document.getElementById('avatarInput');
+        const avatarPreview = document.getElementById('avatarPreview');
+        const bioText = document.getElementById('bioText');
+        const messageDiv = document.getElementById('message');
+
+        avatarInput.addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('avatarPreview').src = e.target.result;
+                    avatarPreview.src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
         });
 
-        document.getElementById('saveProfile').addEventListener('click', function() {
-            const displayName = document.getElementById('displayName').value.trim();
-            const userBio = document.getElementById('userBio').value.trim();
-            const avatarSrc = document.getElementById('avatarPreview').src;
+        function saveProfile() {
+            const bio = bioText.value.trim();
+            messageDiv.textContent = 'Profile saved successfully!';
+            messageDiv.className = '';
+            messageDiv.style.color = 'green';
+            messageDiv.style.marginTop = '10px';
 
-            if (!displayName) {
-                alert('Please enter a display name.');
-                return;
-            }
-
-            // Simulate saving data (in a real app, this would be an API call)
-            const profileData = {
-                displayName: displayName,
-                bio: userBio,
-                avatar: avatarSrc
-            };
-
-            console.log('Profile saved:', profileData);
-            alert('Profile saved successfully! Check console for data.');
-        });
-
-        // Simulate loading existing data
-        window.addEventListener('DOMContentLoaded', function() {
-            // This would typically come from an API
-            const mockData = {
-                displayName: 'John Doe',
-                bio: 'Web developer and open source enthusiast.',
-                avatar: 'https://via.placeholder.com/120'
-            };
-
-            document.getElementById('displayName').value = mockData.displayName;
-            document.getElementById('userBio').value = mockData.bio;
-            document.getElementById('avatarPreview').src = mockData.avatar;
-        });
+            setTimeout(() => {
+                messageDiv.className = 'hidden';
+            }, 3000);
+        }
     </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: Arial, sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a90e2;
-        }
-        .name-section {
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        .bio-section {
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            line-height: 1.6;
-            color: #555;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://via.placeholder.com/120" alt="User Avatar" class="avatar">
-        </div>
-        <div class="name-section">
-            Alex Johnson
-        </div>
-        <div class="bio-section">
-            Software developer with over 5 years of experience in web technologies. Passionate about creating efficient and user-friendly applications. Enjoys hiking and photography in free time.
-        </div>
-    </div>
 </body>
 </html>
