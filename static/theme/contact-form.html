@@ -6,89 +6,78 @@
     <title>Contact Us</title>
     <style>
         .error { color: red; font-size: 0.9em; }
-        .success { color: green; font-size: 1em; padding: 10px; border: 1px solid green; background-color: #e7f7e7; }
-        form { max-width: 500px; margin: 20px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input, textarea { width: 100%; padding: 8px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
-        button { background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
-        button:hover { background-color: #45a049; }
+        input.invalid, textarea.invalid { border: 1px solid red; }
     </style>
 </head>
 <body>
     <h1>Get in Touch</h1>
-    <div id="message"></div>
-    <form id="contactForm">
-        <label for="name">Full Name *</label>
-        <input type="text" id="name" name="name" required>
-        <div id="nameError" class="error"></div>
-
-        <label for="email">Email Address *</label>
-        <input type="email" id="email" name="email" required>
-        <div id="emailError" class="error"></div>
-
-        <label for="subject">Subject</label>
-        <input type="text" id="subject" name="subject">
-
-        <label for="messageText">Your Message *</label>
-        <textarea id="messageText" name="message" rows="5" required></textarea>
-        <div id="messageError" class="error"></div>
-
+    <form id="contactForm" novalidate>
+        <div>
+            <label for="name">Full Name:</label><br>
+            <input type="text" id="name" name="name" required>
+            <div class="error" id="nameError"></div>
+        </div>
+        <div>
+            <label for="email">Email Address:</label><br>
+            <input type="email" id="email" name="email" required>
+            <div class="error" id="emailError"></div>
+        </div>
+        <div>
+            <label for="message">Your Message:</label><br>
+            <textarea id="message" name="message" rows="5" required></textarea>
+            <div class="error" id="messageError"></div>
+        </div>
         <button type="submit">Send Message</button>
     </form>
 
     <script>
-        document.getElementById('contactForm').addEventListener('submit', function(event) {
+        const form = document.getElementById('contactForm');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const messageInput = document.getElementById('message');
+
+        function showError(inputElement, errorElement, message) {
+            errorElement.textContent = message;
+            inputElement.classList.add('invalid');
+        }
+
+        function clearError(inputElement, errorElement) {
+            errorElement.textContent = '';
+            inputElement.classList.remove('invalid');
+        }
+
+        function validateField(inputElement, errorElement) {
+            if (inputElement.validity.valid) {
+                clearError(inputElement, errorElement);
+                return true;
+            } else {
+                if (inputElement.validity.valueMissing) {
+                    showError(inputElement, errorElement, 'This field is required.');
+                } else if (inputElement.validity.typeMismatch) {
+                    showError(inputElement, errorElement, 'Please enter a valid email address.');
+                }
+                return false;
+            }
+        }
+
+        nameInput.addEventListener('input', () => validateField(nameInput, document.getElementById('nameError')));
+        emailInput.addEventListener('input', () => validateField(emailInput, document.getElementById('emailError')));
+        messageInput.addEventListener('input', () => validateField(messageInput, document.getElementById('messageError')));
+
+        form.addEventListener('submit', function(event) {
             event.preventDefault();
-            clearErrors();
-            let isValid = true;
+            const isNameValid = validateField(nameInput, document.getElementById('nameError'));
+            const isEmailValid = validateField(emailInput, document.getElementById('emailError'));
+            const isMessageValid = validateField(messageInput, document.getElementById('messageError'));
 
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const message = document.getElementById('messageText').value.trim();
-
-            if (name.length < 2) {
-                showError('nameError', 'Name must be at least 2 characters long.');
-                isValid = false;
-            }
-
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-                showError('emailError', 'Please enter a valid email address.');
-                isValid = false;
-            }
-
-            if (message.length < 10) {
-                showError('messageError', 'Message must be at least 10 characters long.');
-                isValid = false;
-            }
-
-            if (isValid) {
-                submitForm(name, email, document.getElementById('subject').value.trim(), message);
+            if (isNameValid && isEmailValid && isMessageValid) {
+                alert('Form submitted successfully! (This is a demo)');
+                form.reset();
+                [nameInput, emailInput, messageInput].forEach(input => input.classList.remove('invalid'));
+            } else {
+                alert('Please correct the errors in the form.');
             }
         });
-
-        function showError(elementId, message) {
-            document.getElementById(elementId).textContent = message;
-        }
-
-        function clearErrors() {
-            const errorElements = document.querySelectorAll('.error');
-            errorElements.forEach(el => el.textContent = '');
-            document.getElementById('message').textContent = '';
-        }
-
-        function submitForm(name, email, subject, message) {
-            const messageDiv = document.getElementById('message');
-            messageDiv.textContent = 'Sending your message...';
-            messageDiv.className = '';
-
-            setTimeout(() => {
-                console.log('Form submitted with:', { name, email, subject, message });
-                messageDiv.textContent = 'Thank you! Your message has been sent successfully.';
-                messageDiv.className = 'success';
-                document.getElementById('contactForm').reset();
-            }, 1500);
-        }
     </script>
 </body>
 </html>
