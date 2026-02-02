@@ -4,127 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile Settings</h1>
-    </header>
-    <main>
-        <section>
-            <h2>Profile Picture</h2>
-            <div>
-                <img id="avatarPreview" src="default-avatar.png" alt="Avatar Preview" width="150" height="150">
-                <br>
-                <input type="file" id="avatarUpload" accept="image/*">
-                <button onclick="uploadAvatar()">Upload Avatar</button>
-            </div>
-        </section>
-        <section>
-            <h2>Basic Information</h2>
-            <form id="profileForm">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                <br>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <br>
-                <label for="bio">Bio:</label>
-                <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
-                <br>
-                <button type="submit">Save Profile</button>
-            </form>
-        </section>
-    </main>
-    <script>
-        function uploadAvatar() {
-            const fileInput = document.getElementById('avatarUpload');
-            const file = fileInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatarPreview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            alert('Profile saved!\nUsername: ' + username + '\nEmail: ' + email + '\nBio: ' + bio);
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
     <style>
         .profile-container {
             max-width: 600px;
             margin: 40px auto;
             padding: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
             border-radius: 8px;
-            font-family: Arial, sans-serif;
-        }
-        .avatar-section {
             text-align: center;
-            margin-bottom: 20px;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a90e2;
-        }
-        .name-section {
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        .bio-section {
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            line-height: 1.6;
-            color: #555;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://via.placeholder.com/120" alt="User Avatar" class="avatar">
-        </div>
-        <div class="name-section">
-            Alex Johnson
-        </div>
-        <div class="bio-section">
-            Software developer with over 5 years of experience in web technologies. Passionate about creating efficient and user-friendly applications. Enjoys hiking and photography in free time.
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
             font-family: sans-serif;
         }
         .avatar {
@@ -134,27 +21,44 @@
             object-fit: cover;
             border: 3px solid #4a6fa5;
         }
-        .user-info {
-            margin-top: 20px;
+        .user-name {
+            font-size: 24px;
+            margin: 15px 0 5px;
+            color: #333;
         }
-        .bio {
-            margin-top: 10px;
-            line-height: 1.5;
+        .user-title {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        .bio-section {
+            text-align: left;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .bio-heading {
+            color: #444;
+            margin-bottom: 10px;
+        }
+        .bio-content {
+            line-height: 1.6;
             color: #555;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
-        <div class="user-info">
-            <h2>Alex Johnson</h2>
-            <p><strong>Email:</strong> alex.johnson@example.com</p>
-            <p><strong>Location:</strong> San Francisco, CA</p>
-            <p><strong>Member since:</strong> January 2023</p>
-            <div class="bio">
-                Software engineer with a passion for open-source projects and web development. Enjoys hiking, photography, and coffee.
-            </div>
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="User Avatar" class="avatar">
+        <h1 class="user-name">Alex Morgan</h1>
+        <p class="user-title">Senior Frontend Developer</p>
+        <div class="bio-section">
+            <h2 class="bio-heading">About</h2>
+            <p class="bio-content">
+                Passionate about building intuitive user interfaces and scalable web applications.
+                Enjoys working with modern JavaScript frameworks and contributing to open-source projects.
+                Currently focused on improving accessibility and performance in web applications.
+            </p>
         </div>
     </div>
 </body>
