@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,19 +11,54 @@
         <h1>User Profile</h1>
     </header>
     <main>
-        <section class="profile">
-            <img src="avatar.jpg" alt="User Avatar" width="150" height="150">
-            <h2>John Doe</h2>
-            <p class="bio">Software developer with over 5 years of experience in web technologies. Enjoys hiking and photography.</p>
-            <ul class="details">
-                <li><strong>Location:</strong> New York, USA</li>
-                <li><strong>Email:</strong> john.doe@example.com</li>
-                <li><strong>Joined:</strong> January 2020</li>
-            </ul>
+        <section class="profile-section">
+            <div class="avatar-container">
+                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
+                <div>
+                    <input type="file" id="avatar-upload" accept="image/*">
+                    <button onclick="uploadAvatar()">Upload Avatar</button>
+                </div>
+            </div>
+            <form id="profile-form">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="bio">Bio:</label>
+                    <textarea id="bio" name="bio" rows="4"></textarea>
+                </div>
+                <button type="submit">Save Profile</button>
+            </form>
         </section>
     </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
+    <script>
+        function uploadAvatar() {
+            const fileInput = document.getElementById('avatar-upload');
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatar-preview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        document.getElementById('profile-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = {
+                username: document.getElementById('username').value,
+                email: document.getElementById('email').value,
+                bio: document.getElementById('bio').value
+            };
+            console.log('Profile data to save:', formData);
+            alert('Profile saved successfully!');
+        });
+    </script>
 </body>
 </html>
