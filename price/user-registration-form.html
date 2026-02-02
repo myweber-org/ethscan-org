@@ -69,7 +69,10 @@
 
             if (isValid) {
                 document.getElementById('message').textContent = 'Registration successful!';
-                console.log('Registration data:', { username, email, password });
+                document.getElementById('message').className = 'success';
+                this.reset();
+            } else {
+                document.getElementById('message').textContent = '';
             }
         });
 
@@ -79,8 +82,7 @@
 
         function clearErrors() {
             const errorElements = document.querySelectorAll('.error');
-            errorElements.forEach(el => el.textContent = '');
-            document.getElementById('message').textContent = '';
+            errorElements.forEach(element => element.textContent = '');
         }
 
         function validateEmail(email) {
