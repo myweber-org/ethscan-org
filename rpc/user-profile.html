@@ -90,4 +90,81 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            border: 1px solid #e1e8ed;
+            border-radius: 12px;
+            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #4a90e2;
+        }
+        .user-name {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1c1e21;
+            margin: 15px 0 5px;
+        }
+        .user-title {
+            font-size: 16px;
+            color: #65676b;
+            margin-bottom: 20px;
+        }
+        .bio-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #4a90e2;
+        }
+        .bio-title {
+            font-weight: 600;
+            color: #1c1e21;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        .bio-content {
+            color: #444950;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="avatar-section">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
+                 alt="Profile Avatar" 
+                 class="avatar">
+            <h1 class="user-name">Alex Morgan</h1>
+            <p class="user-title">Senior Frontend Developer | React Specialist</p>
+        </div>
+        
+        <div class="bio-section">
+            <div class="bio-title">Professional Bio</div>
+            <div class="bio-content">
+                Passionate frontend developer with 8+ years of experience building responsive web applications. 
+                Specialized in React ecosystem, modern JavaScript, and performance optimization. 
+                Currently leading UI development for enterprise SaaS products. 
+                Strong advocate for accessibility, clean code practices, and component-driven architecture.
+            </div>
+        </div>
+    </div>
+</body>
 </html>
