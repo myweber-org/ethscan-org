@@ -62,4 +62,81 @@
         </div>
     </div>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        input:invalid { border-color: red; }
+    </style>
+</head>
+<body>
+    <h1>Update Your Profile</h1>
+    <form id="profileForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+            <div class="error" id="usernameError"></div>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <div class="error" id="emailError"></div>
+        </div>
+        <div>
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" min="18" max="120">
+            <div class="error" id="ageError"></div>
+        </div>
+        <button type="submit">Save Profile</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('profileForm');
+        const usernameError = document.getElementById('usernameError');
+        const emailError = document.getElementById('emailError');
+        const ageError = document.getElementById('ageError');
+
+        function showError(element, message) {
+            element.textContent = message;
+        }
+
+        function clearErrors() {
+            usernameError.textContent = '';
+            emailError.textContent = '';
+            ageError.textContent = '';
+        }
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            clearErrors();
+            let isValid = true;
+
+            const username = document.getElementById('username').value;
+            if (username.length < 3) {
+                showError(usernameError, 'Username must be at least 3 characters.');
+                isValid = false;
+            }
+
+            const email = document.getElementById('email').value;
+            if (!email.includes('@')) {
+                showError(emailError, 'Please enter a valid email address.');
+                isValid = false;
+            }
+
+            const age = document.getElementById('age').value;
+            if (age && (age < 18 || age > 120)) {
+                showError(ageError, 'Age must be between 18 and 120.');
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert('Profile saved successfully!');
+            }
+        });
+    </script>
+</body>
 </html>
