@@ -6,11 +6,11 @@
     <title>User Registration</title>
     <style>
         .error { color: red; font-size: 0.9em; }
-        .success { color: green; font-size: 0.9em; }
+        input.invalid { border: 1px solid red; }
     </style>
 </head>
 <body>
-    <h2>Register New Account</h2>
+    <h1>Register New Account</h1>
     <form id="registrationForm">
         <div>
             <label for="username">Username:</label>
@@ -33,56 +33,105 @@
             <span id="confirmPasswordError" class="error"></span>
         </div>
         <button type="submit">Register</button>
-        <div id="message" class="success"></div>
     </form>
 
     <script>
-        document.getElementById('registrationForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            clearErrors();
-            let isValid = true;
+        const form = document.getElementById('registrationForm');
+        const usernameInput = document.getElementById('username');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
 
-            const username = document.getElementById('username').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
+        function showError(element, message) {
+            element.textContent = message;
+            element.previousElementSibling.classList.add('invalid');
+        }
 
+        function clearError(element) {
+            element.textContent = '';
+            element.previousElementSibling.classList.remove('invalid');
+        }
+
+        function validateUsername() {
+            const username = usernameInput.value.trim();
+            const errorElement = document.getElementById('usernameError');
+            clearError(errorElement);
+            
             if (username.length < 3) {
-                showError('usernameError', 'Username must be at least 3 characters.');
-                isValid = false;
+                showError(errorElement, 'Username must be at least 3 characters.');
+                return false;
             }
+            if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+                showError(errorElement, 'Username can only contain letters, numbers, and underscores.');
+                return false;
+            }
+            return true;
+        }
 
+        function validateEmail() {
+            const email = emailInput.value.trim();
+            const errorElement = document.getElementById('emailError');
+            clearError(errorElement);
+            
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailPattern.test(email)) {
-                showError('emailError', 'Please enter a valid email address.');
-                isValid = false;
+                showError(errorElement, 'Please enter a valid email address.');
+                return false;
             }
+            return true;
+        }
 
+        function validatePassword() {
+            const password = passwordInput.value;
+            const errorElement = document.getElementById('passwordError');
+            clearError(errorElement);
+            
             if (password.length < 8) {
-                showError('passwordError', 'Password must be at least 8 characters.');
-                isValid = false;
+                showError(errorElement, 'Password must be at least 8 characters.');
+                return false;
             }
+            if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(password)) {
+                showError(errorElement, 'Password must contain uppercase, lowercase, and numbers.');
+                return false;
+            }
+            return true;
+        }
 
+        function validateConfirmPassword() {
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+            const errorElement = document.getElementById('confirmPasswordError');
+            clearError(errorElement);
+            
             if (password !== confirmPassword) {
-                showError('confirmPasswordError', 'Passwords do not match.');
-                isValid = false;
+                showError(errorElement, 'Passwords do not match.');
+                return false;
             }
+            return true;
+        }
 
-            if (isValid) {
-                document.getElementById('message').textContent = 'Registration successful!';
-                this.reset();
+        usernameInput.addEventListener('blur', validateUsername);
+        emailInput.addEventListener('blur', validateEmail);
+        passwordInput.addEventListener('blur', validatePassword);
+        confirmPasswordInput.addEventListener('blur', validateConfirmPassword);
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const isUsernameValid = validateUsername();
+            const isEmailValid = validateEmail();
+            const isPasswordValid = validatePassword();
+            const isConfirmPasswordValid = validateConfirmPassword();
+            
+            if (isUsernameValid && isEmailValid && isPasswordValid && isConfirmPasswordValid) {
+                alert('Registration successful!');
+                form.reset();
+                document.querySelectorAll('.error').forEach(el => el.textContent = '');
+                document.querySelectorAll('input').forEach(el => el.classList.remove('invalid'));
+            } else {
+                alert('Please fix the errors before submitting.');
             }
         });
-
-        function showError(elementId, message) {
-            document.getElementById(elementId).textContent = message;
-        }
-
-        function clearErrors() {
-            const errorElements = document.querySelectorAll('.error');
-            errorElements.forEach(el => el.textContent = '');
-            document.getElementById('message').textContent = '';
-        }
     </script>
 </body>
 </html>
