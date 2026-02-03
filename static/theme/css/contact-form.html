@@ -297,4 +297,98 @@
         }
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 1em; padding: 10px; background-color: #e6ffe6; border: 1px solid green; }
+    </style>
+</head>
+<body>
+    <h1>Contact Us</h1>
+    <div id="message"></div>
+    <form id="contactForm">
+        <div>
+            <label for="name">Full Name:</label><br>
+            <input type="text" id="name" name="name" required>
+            <span id="nameError" class="error"></span>
+        </div>
+        <div>
+            <label for="email">Email Address:</label><br>
+            <input type="email" id="email" name="email" required>
+            <span id="emailError" class="error"></span>
+        </div>
+        <div>
+            <label for="subject">Subject:</label><br>
+            <input type="text" id="subject" name="subject" required>
+            <span id="subjectError" class="error"></span>
+        </div>
+        <div>
+            <label for="messageText">Your Message:</label><br>
+            <textarea id="messageText" name="messageText" rows="5" required></textarea>
+            <span id="messageError" class="error"></span>
+        </div>
+        <button type="submit">Send Message</button>
+    </form>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            clearErrors();
+            let isValid = true;
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const subject = document.getElementById('subject').value.trim();
+            const messageText = document.getElementById('messageText').value.trim();
+
+            if (name.length < 2) {
+                showError('nameError', 'Name must be at least 2 characters.');
+                isValid = false;
+            }
+            if (!validateEmail(email)) {
+                showError('emailError', 'Please enter a valid email address.');
+                isValid = false;
+            }
+            if (subject.length < 5) {
+                showError('subjectError', 'Subject must be at least 5 characters.');
+                isValid = false;
+            }
+            if (messageText.length < 10) {
+                showError('messageError', 'Message must be at least 10 characters.');
+                isValid = false;
+            }
+
+            if (isValid) {
+                submitForm({ name, email, subject, message: messageText });
+            }
+        });
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function showError(elementId, message) {
+            document.getElementById(elementId).textContent = message;
+        }
+
+        function clearErrors() {
+            const errors = document.querySelectorAll('.error');
+            errors.forEach(error => error.textContent = '');
+            document.getElementById('message').textContent = '';
+        }
+
+        function submitForm(data) {
+            document.getElementById('message').className = 'success';
+            document.getElementById('message').textContent = 'Thank you, ' + data.name + '! Your message has been sent.';
+            document.getElementById('contactForm').reset();
+            console.log('Form submitted with data:', data);
+        }
+    </script>
+</body>
 </html>
