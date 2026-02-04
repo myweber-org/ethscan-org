@@ -10,7 +10,7 @@
     </style>
 </head>
 <body>
-    <h2>Login</h2>
+    <h1>Login</h1>
     <form id="loginForm">
         <div>
             <label for="email">Email:</label>
@@ -23,39 +23,50 @@
             <span id="passwordError" class="error"></span>
         </div>
         <button type="submit">Login</button>
-        <div id="message" class="success"></div>
     </form>
+    <div id="message" class="success"></div>
 
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
             clearErrors();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
             let isValid = true;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-            if (!emailRegex.test(email)) {
-                document.getElementById('emailError').textContent = 'Please enter a valid email address.';
+            if (!validateEmail(email)) {
+                showError('emailError', 'Please enter a valid email address.');
                 isValid = false;
             }
             if (password.length < 6) {
-                document.getElementById('passwordError').textContent = 'Password must be at least 6 characters.';
+                showError('passwordError', 'Password must be at least 6 characters.');
                 isValid = false;
             }
+
             if (isValid) {
-                document.getElementById('message').textContent = 'Login successful! Redirecting...';
-                setTimeout(() => {
-                    console.log('Login data:', { email, password });
-                    this.reset();
-                    document.getElementById('message').textContent = '';
-                }, 1500);
+                simulateLogin(email);
             }
         });
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function showError(elementId, message) {
+            document.getElementById(elementId).textContent = message;
+        }
 
         function clearErrors() {
             document.querySelectorAll('.error').forEach(el => el.textContent = '');
             document.getElementById('message').textContent = '';
+        }
+
+        function simulateLogin(email) {
+            document.getElementById('message').textContent = `Login successful for ${email}. Redirecting...`;
+            setTimeout(() => {
+                alert('Redirecting to dashboard...');
+            }, 1000);
         }
     </script>
 </body>
