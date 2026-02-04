@@ -196,4 +196,155 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+        }
+        .avatar-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .avatar-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ddd;
+            margin-right: 20px;
+        }
+        .avatar-upload {
+            display: flex;
+            flex-direction: column;
+        }
+        .bio-section {
+            margin-top: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .status-message {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h1>User Profile</h1>
+        <div class="avatar-section">
+            <img id="avatarPreview" src="https://via.placeholder.com/100" alt="Avatar Preview" class="avatar-preview">
+            <div class="avatar-upload">
+                <input type="file" id="avatarInput" accept="image/*">
+                <button id="uploadButton">Upload Avatar</button>
+                <div id="avatarStatus" class="status-message"></div>
+            </div>
+        </div>
+        <div class="bio-section">
+            <label for="bioInput"><strong>Bio:</strong></label>
+            <textarea id="bioInput" placeholder="Tell us something about yourself..."></textarea>
+            <button id="saveBioButton">Save Bio</button>
+            <div id="bioStatus" class="status-message"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const avatarInput = document.getElementById('avatarInput');
+            const avatarPreview = document.getElementById('avatarPreview');
+            const uploadButton = document.getElementById('uploadButton');
+            const avatarStatus = document.getElementById('avatarStatus');
+            const bioInput = document.getElementById('bioInput');
+            const saveBioButton = document.getElementById('saveBioButton');
+            const bioStatus = document.getElementById('bioStatus');
+
+            function showStatus(element, message, isSuccess) {
+                element.textContent = message;
+                element.className = 'status-message ' + (isSuccess ? 'success' : 'error');
+                element.style.display = 'block';
+                setTimeout(() => {
+                    element.style.display = 'none';
+                }, 3000);
+            }
+
+            avatarInput.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        avatarPreview.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            uploadButton.addEventListener('click', function() {
+                const file = avatarInput.files[0];
+                if (!file) {
+                    showStatus(avatarStatus, 'Please select an image file.', false);
+                    return;
+                }
+                if (!file.type.startsWith('image/')) {
+                    showStatus(avatarStatus, 'Selected file is not an image.', false);
+                    return;
+                }
+                showStatus(avatarStatus, 'Avatar uploaded successfully!', true);
+            });
+
+            saveBioButton.addEventListener('click', function() {
+                const bio = bioInput.value.trim();
+                if (bio.length === 0) {
+                    showStatus(bioStatus, 'Bio cannot be empty.', false);
+                    return;
+                }
+                if (bio.length > 500) {
+                    showStatus(bioStatus, 'Bio must be less than 500 characters.', false);
+                    return;
+                }
+                showStatus(bioStatus, 'Bio saved successfully!', true);
+            });
+        });
+    </script>
+</body>
 </html>
