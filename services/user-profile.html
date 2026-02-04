@@ -282,4 +282,87 @@
         </div>
     </div>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #4a6fa5;
+        }
+        .user-name {
+            font-size: 24px;
+            margin: 15px 0 5px;
+            color: #333;
+        }
+        .user-title {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        .user-bio {
+            color: #444;
+            line-height: 1.6;
+            margin: 20px 0;
+            padding: 0 10px;
+        }
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 25px;
+        }
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .stat-value {
+            font-weight: bold;
+            font-size: 20px;
+            color: #4a6fa5;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: #777;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
+        <h1 class="user-name">Alex Morgan</h1>
+        <p class="user-title">Senior Frontend Developer</p>
+        <p class="user-bio">Passionate about building intuitive user interfaces and scalable web applications. Enjoys hiking, photography, and open-source contributions.</p>
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-value">247</span>
+                <span class="stat-label">Projects</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">5.8k</span>
+                <span class="stat-label">Followers</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">892</span>
+                <span class="stat-label">Following</span>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
