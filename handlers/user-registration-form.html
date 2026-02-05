@@ -227,3 +227,175 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 0.9em; }
+        input.invalid { border: 1px solid red; }
+    </style>
+</head>
+<body>
+    <h1>Register New Account</h1>
+    <form id="registrationForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+            <div id="usernameError" class="error"></div>
+        </div>
+        
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <div id="emailError" class="error"></div>
+        </div>
+        
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required minlength="8">
+            <div id="passwordError" class="error"></div>
+        </div>
+        
+        <div>
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <div id="confirmError" class="error"></div>
+        </div>
+        
+        <div>
+            <label>
+                <input type="checkbox" id="terms" name="terms" required>
+                I agree to the Terms of Service
+            </label>
+            <div id="termsError" class="error"></div>
+        </div>
+        
+        <button type="submit">Register</button>
+        <div id="successMessage" class="success"></div>
+    </form>
+
+    <script>
+        const form = document.getElementById('registrationForm');
+        const usernameInput = document.getElementById('username');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const confirmInput = document.getElementById('confirmPassword');
+        const termsInput = document.getElementById('terms');
+        
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = message;
+        }
+        
+        function clearError(elementId) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = '';
+        }
+        
+        function validateUsername() {
+            const username = usernameInput.value.trim();
+            if (username.length < 3) {
+                showError('usernameError', 'Username must be at least 3 characters');
+                usernameInput.classList.add('invalid');
+                return false;
+            }
+            if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+                showError('usernameError', 'Username can only contain letters, numbers, and underscores');
+                usernameInput.classList.add('invalid');
+                return false;
+            }
+            clearError('usernameError');
+            usernameInput.classList.remove('invalid');
+            return true;
+        }
+        
+        function validateEmail() {
+            const email = emailInput.value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showError('emailError', 'Please enter a valid email address');
+                emailInput.classList.add('invalid');
+                return false;
+            }
+            clearError('emailError');
+            emailInput.classList.remove('invalid');
+            return true;
+        }
+        
+        function validatePassword() {
+            const password = passwordInput.value;
+            if (password.length < 8) {
+                showError('passwordError', 'Password must be at least 8 characters');
+                passwordInput.classList.add('invalid');
+                return false;
+            }
+            clearError('passwordError');
+            passwordInput.classList.remove('invalid');
+            return true;
+        }
+        
+        function validateConfirmPassword() {
+            const password = passwordInput.value;
+            const confirmPassword = confirmInput.value;
+            if (password !== confirmPassword) {
+                showError('confirmError', 'Passwords do not match');
+                confirmInput.classList.add('invalid');
+                return false;
+            }
+            clearError('confirmError');
+            confirmInput.classList.remove('invalid');
+            return true;
+        }
+        
+        function validateTerms() {
+            if (!termsInput.checked) {
+                showError('termsError', 'You must agree to the terms');
+                return false;
+            }
+            clearError('termsError');
+            return true;
+        }
+        
+        usernameInput.addEventListener('input', validateUsername);
+        emailInput.addEventListener('input', validateEmail);
+        passwordInput.addEventListener('input', function() {
+            validatePassword();
+            if (confirmInput.value) validateConfirmPassword();
+        });
+        confirmInput.addEventListener('input', validateConfirmPassword);
+        termsInput.addEventListener('change', validateTerms);
+        
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const isUsernameValid = validateUsername();
+            const isEmailValid = validateEmail();
+            const isPasswordValid = validatePassword();
+            const isConfirmValid = validateConfirmPassword();
+            const isTermsValid = validateTerms();
+            
+            if (isUsernameValid && isEmailValid && isPasswordValid && isConfirmValid && isTermsValid) {
+                const successMessage = document.getElementById('successMessage');
+                successMessage.textContent = 'Registration successful! Form data would be submitted to server.';
+                
+                const formData = {
+                    username: usernameInput.value.trim(),
+                    email: emailInput.value.trim(),
+                    password: passwordInput.value
+                };
+                
+                console.log('Form data ready for submission:', formData);
+                
+                form.reset();
+                setTimeout(() => {
+                    successMessage.textContent = '';
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>
