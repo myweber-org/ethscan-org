@@ -10,49 +10,56 @@
         <h1>User Profile</h1>
     </header>
     <main>
-        <section id="profile-section">
-            <div id="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
+        <section class="profile-section">
+            <div class="avatar-container">
+                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar">
                 <input type="file" id="avatar-upload" accept="image/*">
-                <button id="upload-btn">Upload Avatar</button>
+                <button onclick="uploadAvatar()">Change Avatar</button>
             </div>
-            <div id="bio-container">
-                <h2>Edit Bio</h2>
-                <textarea id="bio-text" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
-                <button id="save-bio-btn">Save Bio</button>
-            </div>
-            <div id="user-info">
-                <p><strong>Username:</strong> <span id="username-display">user123</span></p>
-                <p><strong>Email:</strong> <span id="email-display">user@example.com</span></p>
-                <p><strong>Member Since:</strong> <span id="join-date">January 2023</span></p>
-            </div>
+            <form id="profile-form">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="bio">Bio:</label>
+                    <textarea id="bio" name="bio" rows="4"></textarea>
+                </div>
+                <button type="submit">Save Profile</button>
+            </form>
         </section>
     </main>
-    <footer>
-        <p>&copy; 2023 MyWebsite. All rights reserved.</p>
-    </footer>
     <script>
-        document.getElementById('upload-btn').addEventListener('click', function() {
+        function uploadAvatar() {
             const fileInput = document.getElementById('avatar-upload');
-            const file = fileInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            } else {
-                alert('Please select an image file first.');
-            }
-        });
+            const preview = document.getElementById('avatar-preview');
+            
+            fileInput.click();
+            fileInput.onchange = function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                    }
+                    reader.readAsDataURL(file);
+                }
+            };
+        }
 
-        document.getElementById('save-bio-btn').addEventListener('click', function() {
-            const bioText = document.getElementById('bio-text').value;
-            if (bioText.trim() !== '') {
-                alert('Bio saved successfully!');
-            } else {
-                alert('Bio cannot be empty.');
-            }
+        document.getElementById('profile-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = {
+                username: document.getElementById('username').value,
+                email: document.getElementById('email').value,
+                bio: document.getElementById('bio').value
+            };
+            console.log('Profile data:', formData);
+            alert('Profile saved successfully!');
         });
     </script>
 </body>
