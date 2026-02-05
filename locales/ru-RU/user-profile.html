@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,51 +10,75 @@
         <h1>User Profile</h1>
     </header>
     <main>
-        <section id="profile-section">
-            <div id="avatar-container">
-                <img id="avatar-preview" src="placeholder.jpg" alt="Profile Avatar" width="150" height="150">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button id="upload-btn">Upload Avatar</button>
-            </div>
-            <form id="profile-form">
+        <form id="profileForm">
+            <div>
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                <br>
+                <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+                <div class="error" id="usernameError"></div>
+            </div>
+            <div>
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required>
-                <br>
-                <label for="bio">Bio:</label>
-                <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
-                <br>
-                <button type="submit">Save Profile</button>
-            </form>
-        </section>
+                <div class="error" id="emailError"></div>
+            </div>
+            <div>
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" min="18" max="120">
+            </div>
+            <div>
+                <label for="country">Country:</label>
+                <select id="country" name="country">
+                    <option value="">Select a country</option>
+                    <option value="us">United States</option>
+                    <option value="uk">United Kingdom</option>
+                    <option value="ca">Canada</option>
+                    <option value="au">Australia</option>
+                </select>
+            </div>
+            <div>
+                <button type="submit">Update Profile</button>
+                <button type="reset">Reset Form</button>
+            </div>
+        </form>
+        <div id="successMessage" style="display:none; color:green;">
+            Profile updated successfully!
+        </div>
     </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
     <script>
-        document.getElementById('upload-btn').addEventListener('click', function() {
-            document.getElementById('avatar-upload').click();
-        });
-
-        document.getElementById('avatar-upload').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
             event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            alert('Profile saved!\nUsername: ' + username + '\nEmail: ' + email + '\nBio: ' + bio);
+            let isValid = true;
+
+            const username = document.getElementById('username');
+            const email = document.getElementById('email');
+            const usernameError = document.getElementById('usernameError');
+            const emailError = document.getElementById('emailError');
+
+            usernameError.textContent = '';
+            emailError.textContent = '';
+
+            if (username.value.length < 3) {
+                usernameError.textContent = 'Username must be at least 3 characters long.';
+                isValid = false;
+            }
+
+            if (!email.value.includes('@')) {
+                emailError.textContent = 'Please enter a valid email address.';
+                isValid = false;
+            }
+
+            if (isValid) {
+                console.log('Form submitted with data:', {
+                    username: username.value,
+                    email: email.value,
+                    age: document.getElementById('age').value,
+                    country: document.getElementById('country').value
+                });
+                document.getElementById('successMessage').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('successMessage').style.display = 'none';
+                }, 3000);
+            }
         });
     </script>
 </body>
