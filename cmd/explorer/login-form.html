@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +20,7 @@
         </div>
         <div>
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" minlength="6" required>
+            <input type="password" id="password" name="password" required minlength="6">
             <span id="passwordError" class="error"></span>
         </div>
         <button type="submit">Login</button>
@@ -31,14 +32,15 @@
             event.preventDefault();
             clearErrors();
             let isValid = true;
+
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value.trim();
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-            if (!emailRegex.test(email)) {
+            if (!validateEmail(email)) {
                 document.getElementById('emailError').textContent = 'Please enter a valid email address.';
                 isValid = false;
             }
+
             if (password.length < 6) {
                 document.getElementById('passwordError').textContent = 'Password must be at least 6 characters.';
                 isValid = false;
@@ -51,6 +53,11 @@
                 }, 1000);
             }
         });
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
 
         function clearErrors() {
             document.querySelectorAll('.error').forEach(el => el.textContent = '');
