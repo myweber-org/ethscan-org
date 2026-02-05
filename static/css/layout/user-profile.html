@@ -1,147 +1,179 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
-            <div class="avatar-container">
-                <img src="https://via.placeholder.com/150" alt="User Avatar" class="avatar">
-            </div>
-            <div class="user-info">
-                <h2>John Doe</h2>
-                <p><strong>Email:</strong> john.doe@example.com</p>
-                <p><strong>Location:</strong> New York, USA</p>
-                <p><strong>Member Since:</strong> January 2023</p>
-                <p><strong>Bio:</strong> Software developer with a passion for open-source projects and web technologies.</p>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page. All rights reserved.</p>
-    </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile-header">
-            <div class="avatar-container">
-                <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            </div>
-            <div class="user-info">
-                <h2>Alex Johnson</h2>
-                <p class="user-title">Software Developer</p>
-                <p class="user-location">San Francisco, CA</p>
-            </div>
-        </section>
-        <section class="profile-bio">
-            <h3>About Me</h3>
-            <p>Passionate about building scalable web applications and open-source projects. Enjoys hiking and photography in free time.</p>
-        </section>
-        <section class="profile-stats">
-            <h3>Activity</h3>
-            <ul>
-                <li>Projects: <strong>24</strong></li>
-                <li>Followers: <strong>1.2k</strong></li>
-                <li>Following: <strong>350</strong></li>
-            </ul>
-        </section>
-    </main>
-    <footer>
-        <p>Last updated: <time datetime="2023-10-15">October 15, 2023</time></p>
-    </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
     <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: Arial, sans-serif;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .avatar {
+        body {
+            background-color: #f5f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .profile-card {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 400px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .profile-card:hover {
+            transform: translateY(-5px);
+        }
+        .profile-header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            padding: 40px 20px 30px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        .avatar-container {
             width: 120px;
             height: 120px;
             border-radius: 50%;
+            border: 5px solid white;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .avatar {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            border: 3px solid #4CAF50;
-            margin-bottom: 20px;
         }
         .user-name {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        .user-title {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+        .profile-content {
+            padding: 30px;
+        }
+        .section-title {
+            font-size: 1.2rem;
             color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #f0f0f0;
         }
-        .user-bio {
-            font-size: 16px;
+        .bio-text {
+            color: #555;
             line-height: 1.6;
-            color: #666;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
-        .stats {
+        .stats-container {
             display: flex;
-            gap: 30px;
+            justify-content: space-around;
+            text-align: center;
             margin-top: 20px;
         }
         .stat-item {
-            text-align: center;
+            flex: 1;
         }
         .stat-value {
-            font-size: 20px;
-            font-weight: bold;
-            color: #4CAF50;
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2575fc;
         }
         .stat-label {
-            font-size: 14px;
-            color: #888;
+            display: block;
+            font-size: 0.9rem;
+            color: #777;
+            margin-top: 5px;
+        }
+        .contact-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: opacity 0.3s;
+        }
+        .contact-btn:hover {
+            opacity: 0.9;
         }
     </style>
 </head>
 <body>
-    <div class="profile-container">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
-        <div class="user-name">Alex Johnson</div>
-        <div class="user-bio">
-            Software engineer passionate about open-source projects and web technologies.
-            Enjoys hiking, photography, and contributing to developer communities.
+    <div class="profile-card">
+        <div class="profile-header">
+            <div class="avatar-container">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="User Avatar" class="avatar">
+            </div>
+            <h1 class="user-name">Alex Morgan</h1>
+            <p class="user-title">Frontend Developer & UI Designer</p>
         </div>
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-value">247</div>
-                <div class="stat-label">Posts</div>
+        <div class="profile-content">
+            <h2 class="section-title">About Me</h2>
+            <p class="bio-text">
+                Passionate frontend developer with 5+ years of experience creating responsive web applications. 
+                Specialized in modern JavaScript frameworks and user-centered design. 
+                Enjoys solving complex problems and building intuitive interfaces.
+            </p>
+            
+            <div class="stats-container">
+                <div class="stat-item">
+                    <span class="stat-value">42</span>
+                    <span class="stat-label">Projects</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">5.2k</span>
+                    <span class="stat-label">Followers</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">127</span>
+                    <span class="stat-label">Following</span>
+                </div>
             </div>
-            <div class="stat-item">
-                <div class="stat-value">1.8k</div>
-                <div class="stat-label">Followers</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">356</div>
-                <div class="stat-label">Following</div>
-            </div>
+            
+            <button class="contact-btn">Send Message</button>
         </div>
     </div>
+
+    <script>
+        document.querySelector('.contact-btn').addEventListener('click', function() {
+            alert('Thank you for your interest! This contact feature is under development.');
+        });
+        
+        const statValues = document.querySelectorAll('.stat-value');
+        statValues.forEach(stat => {
+            const target = parseInt(stat.textContent);
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    stat.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    stat.textContent = Math.floor(current);
+                }
+            }, 30);
+        });
+    </script>
 </body>
 </html>
