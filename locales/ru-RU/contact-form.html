@@ -18,19 +18,18 @@
     <h1>Contact Us</h1>
     <div id="message"></div>
     <form id="contactForm">
-        <label for="name">Full Name:</label>
+        <label for="name">Full Name *</label>
         <input type="text" id="name" name="name" required>
         <div id="nameError" class="error"></div>
 
-        <label for="email">Email Address:</label>
+        <label for="email">Email Address *</label>
         <input type="email" id="email" name="email" required>
         <div id="emailError" class="error"></div>
 
-        <label for="subject">Subject:</label>
-        <input type="text" id="subject" name="subject" required>
-        <div id="subjectError" class="error"></div>
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" name="subject">
 
-        <label for="messageText">Your Message:</label>
+        <label for="messageText">Message *</label>
         <textarea id="messageText" name="message" rows="5" required></textarea>
         <div id="messageError" class="error"></div>
 
@@ -45,7 +44,6 @@
 
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
-            const subject = document.getElementById('subject').value.trim();
             const message = document.getElementById('messageText').value.trim();
 
             if (name.length < 2) {
@@ -59,11 +57,6 @@
                 isValid = false;
             }
 
-            if (subject.length < 3) {
-                showError('subjectError', 'Subject must be at least 3 characters.');
-                isValid = false;
-            }
-
             if (message.length < 10) {
                 showError('messageError', 'Message must be at least 10 characters.');
                 isValid = false;
@@ -71,7 +64,7 @@
 
             if (isValid) {
                 const messageDiv = document.getElementById('message');
-                messageDiv.innerHTML = '<p class="success">Thank you! Your message has been sent successfully.</p>';
+                messageDiv.innerHTML = '<div class="success">Thank you! Your message has been sent successfully.</div>';
                 document.getElementById('contactForm').reset();
                 setTimeout(() => {
                     messageDiv.innerHTML = '';
@@ -85,7 +78,9 @@
 
         function clearErrors() {
             const errorElements = document.querySelectorAll('.error');
-            errorElements.forEach(el => el.textContent = '');
+            errorElements.forEach(element => {
+                element.textContent = '';
+            });
         }
     </script>
 </body>
