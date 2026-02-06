@@ -352,4 +352,65 @@
         <p>&copy; 2023 User Profile Page</p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <script>
+        function validateForm() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const age = document.getElementById('age').value;
+            const errorElement = document.getElementById('error');
+
+            errorElement.textContent = '';
+
+            if (name.trim() === '') {
+                errorElement.textContent = 'Name is required.';
+                return false;
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                errorElement.textContent = 'Please enter a valid email address.';
+                return false;
+            }
+
+            if (age === '' || isNaN(age) || age < 1 || age > 120) {
+                errorElement.textContent = 'Please enter a valid age between 1 and 120.';
+                return false;
+            }
+
+            alert('Profile submitted successfully!');
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h1>User Profile</h1>
+    <form onsubmit="return validateForm()">
+        <label for="name">Full Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">Email Address:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="age">Age:</label><br>
+        <input type="number" id="age" name="age" min="1" max="120"><br><br>
+
+        <label for="country">Country:</label><br>
+        <select id="country" name="country">
+            <option value="">Select a country</option>
+            <option value="us">United States</option>
+            <option value="uk">United Kingdom</option>
+            <option value="ca">Canada</option>
+            <option value="au">Australia</option>
+        </select><br><br>
+
+        <input type="submit" value="Save Profile">
+    </form>
+    <div id="error" style="color: red; margin-top: 10px;"></div>
+</body>
 </html>
