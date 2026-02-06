@@ -703,4 +703,202 @@
         <p>&copy; 2023 User Profile Page</p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-user-circle"></i> User Profile</h1>
+    </header>
+    <main>
+        <section class="profile-container">
+            <div class="avatar-section">
+                <img id="avatar-preview" src="https://via.placeholder.com/150" alt="User Avatar">
+                <div class="avatar-actions">
+                    <input type="file" id="avatar-upload" accept="image/*" hidden>
+                    <button onclick="document.getElementById('avatar-upload').click()">
+                        <i class="fas fa-upload"></i> Upload New Avatar
+                    </button>
+                    <button onclick="resetAvatar()">
+                        <i class="fas fa-redo"></i> Reset to Default
+                    </button>
+                </div>
+            </div>
+            <div class="bio-section">
+                <h2><i class="fas fa-edit"></i> Edit Biography</h2>
+                <textarea id="bio-text" rows="6" placeholder="Tell us something about yourself..."></textarea>
+                <div class="bio-actions">
+                    <button onclick="saveBio()">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                    <button onclick="clearBio()">
+                        <i class="fas fa-trash"></i> Clear
+                    </button>
+                </div>
+                <p id="char-count">Characters: 0</p>
+            </div>
+            <div class="profile-info">
+                <h3><i class="fas fa-info-circle"></i> Profile Information</h3>
+                <p><strong>Username:</strong> <span id="username">john_doe</span></p>
+                <p><strong>Member Since:</strong> <span id="join-date">January 2023</span></p>
+                <p><strong>Last Updated:</strong> <span id="update-time">Never</span></p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Profile Manager. All rights reserved.</p>
+    </footer>
+    <script>
+        const avatarUpload = document.getElementById('avatar-upload');
+        const avatarPreview = document.getElementById('avatar-preview');
+        const bioText = document.getElementById('bio-text');
+        const charCount = document.getElementById('char-count');
+        const updateTime = document.getElementById('update-time');
+
+        avatarUpload.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarPreview.src = e.target.result;
+                    updateTimestamp();
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        bioText.addEventListener('input', function() {
+            charCount.textContent = `Characters: ${bioText.value.length}`;
+        });
+
+        function saveBio() {
+            if (bioText.value.trim() === '') {
+                alert('Biography cannot be empty!');
+                return;
+            }
+            localStorage.setItem('userBio', bioText.value);
+            updateTimestamp();
+            alert('Biography saved successfully!');
+        }
+
+        function clearBio() {
+            if (confirm('Are you sure you want to clear your biography?')) {
+                bioText.value = '';
+                charCount.textContent = 'Characters: 0';
+                localStorage.removeItem('userBio');
+                updateTimestamp();
+            }
+        }
+
+        function resetAvatar() {
+            avatarPreview.src = 'https://via.placeholder.com/150';
+            updateTimestamp();
+        }
+
+        function updateTimestamp() {
+            const now = new Date();
+            updateTime.textContent = now.toLocaleString();
+        }
+
+        window.addEventListener('load', function() {
+            const savedBio = localStorage.getItem('userBio');
+            if (savedBio) {
+                bioText.value = savedBio;
+                charCount.textContent = `Characters: ${savedBio.length}`;
+            }
+            updateTimestamp();
+        });
+    </script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #4a6fa5;
+        }
+        .profile-container {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        #avatar-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #4a6fa5;
+            margin-bottom: 15px;
+        }
+        .avatar-actions, .bio-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4a6fa5;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #3a5a80;
+        }
+        .bio-section {
+            margin-bottom: 30px;
+        }
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 16px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+        #char-count {
+            text-align: right;
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .profile-info {
+            background-color: #f0f4f8;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #777;
+            font-size: 14px;
+        }
+        i {
+            margin-right: 8px;
+        }
+    </style>
+</body>
 </html>
