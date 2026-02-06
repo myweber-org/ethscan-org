@@ -248,4 +248,106 @@
         }
     </style>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+    <style>
+        body { font-family: sans-serif; max-width: 400px; margin: 50px auto; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; width: 100%; }
+        button:hover { background-color: #0056b3; }
+        .error { color: red; font-size: 0.9em; margin-top: 5px; display: none; }
+        .toggle-password { margin-top: 5px; font-size: 0.9em; color: #007bff; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h2>Login</h2>
+    <form id="loginForm">
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required>
+            <div class="error" id="emailError">Please enter a valid email address.</div>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            <div class="toggle-password" id="togglePassword">Show Password</div>
+            <div class="error" id="passwordError">Password must be at least 8 characters.</div>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
+        const togglePassword = document.getElementById('togglePassword');
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function validatePassword(password) {
+            return password.length >= 8;
+        }
+
+        emailInput.addEventListener('input', () => {
+            if (validateEmail(emailInput.value)) {
+                emailError.style.display = 'none';
+            } else {
+                emailError.style.display = 'block';
+            }
+        });
+
+        passwordInput.addEventListener('input', () => {
+            if (validatePassword(passwordInput.value)) {
+                passwordError.style.display = 'none';
+            } else {
+                passwordError.style.display = 'block';
+            }
+        });
+
+        togglePassword.addEventListener('click', () => {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            togglePassword.textContent = type === 'password' ? 'Show Password' : 'Hide Password';
+        });
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            let isValid = true;
+
+            if (!validateEmail(emailInput.value)) {
+                emailError.style.display = 'block';
+                isValid = false;
+            } else {
+                emailError.style.display = 'none';
+            }
+
+            if (!validatePassword(passwordInput.value)) {
+                passwordError.style.display = 'block';
+                isValid = false;
+            } else {
+                passwordError.style.display = 'none';
+            }
+
+            if (isValid) {
+                alert('Login successful!');
+                form.reset();
+                emailError.style.display = 'none';
+                passwordError.style.display = 'none';
+                passwordInput.setAttribute('type', 'password');
+                togglePassword.textContent = 'Show Password';
+            }
+        });
+    </script>
+</body>
 </html>
