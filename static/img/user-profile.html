@@ -1,275 +1,35 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            font-family: Arial, sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a90e2;
-        }
-        .name-section {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-        .full-name {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 5px;
-        }
-        .username {
-            font-size: 16px;
-            color: #666;
-        }
-        .bio-section {
-            background-color: #f9f9f9;
-            padding: 15px;
-            border-radius: 6px;
-            line-height: 1.5;
-            color: #444;
-        }
-        .bio-title {
-            font-weight: bold;
-            margin-bottom: 8px;
-            color: #333;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://via.placeholder.com/120" alt="User Avatar" class="avatar">
-        </div>
-        <div class="name-section">
-            <div class="full-name">Alex Johnson</div>
-            <div class="username">@alexj</div>
-        </div>
-        <div class="bio-section">
-            <div class="bio-title">About Me</div>
-            <div class="bio-content">
-                Software developer with passion for open-source projects. Enjoys hiking, photography, and exploring new technologies. Currently working on web accessibility initiatives.
-            </div>
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 400px;
-            margin: 50px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            text-align: center;
-            font-family: Arial, sans-serif;
-        }
-        .avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 15px;
-        }
-        .user-name {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .user-bio {
-            color: #666;
-            line-height: 1.5;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <img src="https://via.placeholder.com/100" alt="User Avatar" class="avatar">
-        <div class="user-name">Alex Johnson</div>
-        <div class="user-bio">
-            Software developer passionate about open-source projects, hiking, and photography. Always eager to learn new technologies and collaborate on interesting challenges.
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
 </head>
 <body>
     <header>
         <h1>User Profile</h1>
     </header>
     <main>
-        <section id="profile-info">
+        <section class="profile">
             <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button id="upload-btn">Upload Avatar</button>
+                <img src="avatar.jpg" alt="User Avatar" width="150" height="150">
             </div>
-            <div class="bio-section">
-                <h2>Bio</h2>
-                <textarea id="bio-text" rows="4" cols="50" placeholder="Write something about yourself..."></textarea>
-                <button id="save-bio-btn">Save Bio</button>
-                <p id="bio-status"></p>
+            <div class="user-info">
+                <h2>John Doe</h2>
+                <p class="title">Software Developer</p>
+                <p class="bio">Passionate about building efficient web applications and open-source projects.</p>
+                <p class="location">Based in San Francisco, CA</p>
+                <ul class="skills">
+                    <li>JavaScript</li>
+                    <li>Python</li>
+                    <li>React</li>
+                    <li>Node.js</li>
+                </ul>
             </div>
         </section>
     </main>
     <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
-    <script>
-        document.getElementById('upload-btn').addEventListener('click', function() {
-            const fileInput = document.getElementById('avatar-upload');
-            const file = fileInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            } else {
-                alert('Please select an image file first.');
-            }
-        });
-
-        document.getElementById('save-bio-btn').addEventListener('click', function() {
-            const bioText = document.getElementById('bio-text').value;
-            const statusElement = document.getElementById('bio-status');
-            if (bioText.trim() !== '') {
-                statusElement.textContent = 'Bio saved successfully!';
-                statusElement.style.color = 'green';
-            } else {
-                statusElement.textContent = 'Bio cannot be empty.';
-                statusElement.style.color = 'red';
-            }
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="avatar-section">
-            <h2>Profile Picture</h2>
-            <img id="avatar-preview" src="default-avatar.png" alt="Avatar Preview" width="150" height="150">
-            <form id="avatar-form">
-                <label for="avatar-upload">Choose new image:</label>
-                <input type="file" id="avatar-upload" name="avatar" accept="image/*">
-                <button type="submit">Upload Avatar</button>
-            </form>
-        </section>
-        <section id="info-section">
-            <h2>Personal Information</h2>
-            <form id="profile-form">
-                <div>
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div>
-                    <label for="bio">Bio:</label>
-                    <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
-                </div>
-                <button type="submit">Save Profile</button>
-            </form>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
-    <script>
-        document.getElementById('avatar-upload').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            alert('Profile saved!\nUsername: ' + username + '\nEmail: ' + email + '\nBio: ' + bio);
-        });
-
-        document.getElementById('avatar-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const fileInput = document.getElementById('avatar-upload');
-            if (fileInput.files.length > 0) {
-                alert('Avatar uploaded successfully!');
-            } else {
-                alert('Please select an image to upload.');
-            }
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section>
-            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            <h2>John Doe</h2>
-            <p>Email: john.doe@example.com</p>
-            <p>Location: New York, USA</p>
-            <p>Member since: January 2023</p>
-        </section>
-        <section>
-            <h3>Bio</h3>
-            <p>Software developer with interest in web technologies and open source projects.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
+        <p>Contact: john.doe@example.com</p>
     </footer>
 </body>
 </html>
