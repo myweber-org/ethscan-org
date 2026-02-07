@@ -67,3 +67,119 @@
     </div>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 0.9em; }
+        .hidden { display: none; }
+        .avatar-preview { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid #ddd; }
+    </style>
+</head>
+<body>
+    <h1>User Profile</h1>
+    <form id="profileForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+            <div id="usernameError" class="error hidden">Username must be 3-20 characters.</div>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <div id="emailError" class="error hidden">Please enter a valid email address.</div>
+        </div>
+        <div>
+            <label for="avatar">Avatar:</label>
+            <input type="file" id="avatar" name="avatar" accept="image/*">
+            <div id="avatarError" class="error hidden">Image must be less than 2MB.</div>
+            <img id="avatarPreview" class="avatar-preview hidden" src="#" alt="Avatar Preview">
+        </div>
+        <button type="submit">Update Profile</button>
+        <div id="successMessage" class="success hidden">Profile updated successfully!</div>
+    </form>
+
+    <script>
+        const form = document.getElementById('profileForm');
+        const usernameInput = document.getElementById('username');
+        const emailInput = document.getElementById('email');
+        const avatarInput = document.getElementById('avatar');
+        const usernameError = document.getElementById('usernameError');
+        const emailError = document.getElementById('emailError');
+        const avatarError = document.getElementById('avatarError');
+        const avatarPreview = document.getElementById('avatarPreview');
+        const successMessage = document.getElementById('successMessage');
+
+        function validateUsername() {
+            const value = usernameInput.value.trim();
+            if (value.length < 3 || value.length > 20) {
+                usernameError.classList.remove('hidden');
+                return false;
+            } else {
+                usernameError.classList.add('hidden');
+                return true;
+            }
+        }
+
+        function validateEmail() {
+            const email = emailInput.value.trim();
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                emailError.classList.remove('hidden');
+                return false;
+            } else {
+                emailError.classList.add('hidden');
+                return true;
+            }
+        }
+
+        function validateAvatar() {
+            const file = avatarInput.files[0];
+            if (file && file.size > 2 * 1024 * 1024) {
+                avatarError.classList.remove('hidden');
+                return false;
+            } else {
+                avatarError.classList.add('hidden');
+                return true;
+            }
+        }
+
+        avatarInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarPreview.src = e.target.result;
+                    avatarPreview.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                avatarPreview.src = '#';
+                avatarPreview.classList.add('hidden');
+            }
+            validateAvatar();
+        });
+
+        usernameInput.addEventListener('input', validateUsername);
+        emailInput.addEventListener('input', validateEmail);
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const isUsernameValid = validateUsername();
+            const isEmailValid = validateEmail();
+            const isAvatarValid = validateAvatar();
+
+            if (isUsernameValid && isEmailValid && isAvatarValid) {
+                successMessage.classList.remove('hidden');
+                setTimeout(() => {
+                    successMessage.classList.add('hidden');
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
