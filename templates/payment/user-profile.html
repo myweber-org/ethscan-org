@@ -659,4 +659,110 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .hidden { display: none; }
+        .avatar-preview { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid #ccc; }
+    </style>
+</head>
+<body>
+    <h1>User Profile</h1>
+    <form id="profileForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <div id="usernameError" class="error hidden">Username must be at least 3 characters.</div>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <div id="emailError" class="error hidden">Please enter a valid email address.</div>
+        </div>
+        <div>
+            <label for="avatar">Avatar:</label>
+            <input type="file" id="avatar" name="avatar" accept="image/*">
+            <img id="avatarPreview" class="avatar-preview" src="" alt="Avatar Preview">
+            <div id="avatarError" class="error hidden">File must be an image (JPEG, PNG, GIF).</div>
+        </div>
+        <button type="submit">Update Profile</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('profileForm');
+        const usernameInput = document.getElementById('username');
+        const emailInput = document.getElementById('email');
+        const avatarInput = document.getElementById('avatar');
+        const avatarPreview = document.getElementById('avatarPreview');
+        const usernameError = document.getElementById('usernameError');
+        const emailError = document.getElementById('emailError');
+        const avatarError = document.getElementById('avatarError');
+
+        function validateUsername() {
+            if (usernameInput.value.length < 3) {
+                usernameError.classList.remove('hidden');
+                return false;
+            } else {
+                usernameError.classList.add('hidden');
+                return true;
+            }
+        }
+
+        function validateEmail() {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailInput.value)) {
+                emailError.classList.remove('hidden');
+                return false;
+            } else {
+                emailError.classList.add('hidden');
+                return true;
+            }
+        }
+
+        function validateAvatar() {
+            if (avatarInput.files.length > 0) {
+                const file = avatarInput.files[0];
+                const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                if (!validTypes.includes(file.type)) {
+                    avatarError.classList.remove('hidden');
+                    return false;
+                }
+            }
+            avatarError.classList.add('hidden');
+            return true;
+        }
+
+        avatarInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(this.files[0]);
+            }
+            validateAvatar();
+        });
+
+        usernameInput.addEventListener('input', validateUsername);
+        emailInput.addEventListener('input', validateEmail);
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const isUsernameValid = validateUsername();
+            const isEmailValid = validateEmail();
+            const isAvatarValid = validateAvatar();
+
+            if (isUsernameValid && isEmailValid && isAvatarValid) {
+                alert('Profile updated successfully!');
+            } else {
+                alert('Please fix the errors before submitting.');
+            }
+        });
+    </script>
+</body>
 </html>
