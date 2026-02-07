@@ -115,4 +115,59 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="profile-info">
+            <div class="avatar-container">
+                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
+                <form id="avatar-form">
+                    <label for="avatar-upload">Change Avatar:</label>
+                    <input type="file" id="avatar-upload" name="avatar" accept="image/*">
+                    <button type="submit">Upload</button>
+                </form>
+            </div>
+            <div class="bio-container">
+                <h2>Bio</h2>
+                <p id="current-bio">No bio provided yet.</p>
+                <textarea id="bio-edit" rows="4" cols="50" placeholder="Write something about yourself..."></textarea>
+                <button id="save-bio">Save Bio</button>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 User Profile Page</p>
+    </footer>
+    <script>
+        document.getElementById('avatar-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const fileInput = document.getElementById('avatar-upload');
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatar-preview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('save-bio').addEventListener('click', function() {
+            const newBio = document.getElementById('bio-edit').value.trim();
+            if (newBio) {
+                document.getElementById('current-bio').textContent = newBio;
+                document.getElementById('bio-edit').value = '';
+            }
+        });
+    </script>
+</body>
 </html>
