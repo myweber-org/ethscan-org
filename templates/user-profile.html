@@ -115,4 +115,48 @@
         <p>&copy; 2023 User Profile Page</p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="avatar-section">
+            <h2>Avatar</h2>
+            <img src="https://via.placeholder.com/150" alt="Profile Avatar">
+            <button onclick="changeAvatar()">Change Avatar</button>
+        </section>
+        <section id="bio-section">
+            <h2>Biography</h2>
+            <p id="bio-text">This is the user's biography. It can be edited to provide more information.</p>
+            <textarea id="bio-input" rows="4" cols="50" placeholder="Enter your biography here..."></textarea>
+            <br>
+            <button onclick="updateBio()">Update Bio</button>
+        </section>
+    </main>
+    <script>
+        function changeAvatar() {
+            const newAvatarUrl = prompt('Enter new avatar URL:');
+            if (newAvatarUrl) {
+                document.querySelector('#avatar-section img').src = newAvatarUrl;
+            }
+        }
+
+        function updateBio() {
+            const bioInput = document.getElementById('bio-input').value;
+            if (bioInput.trim() !== '') {
+                document.getElementById('bio-text').textContent = bioInput;
+                document.getElementById('bio-input').value = '';
+            } else {
+                alert('Please enter a valid biography.');
+            }
+        }
+    </script>
+</body>
 </html>
