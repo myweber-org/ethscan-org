@@ -268,4 +268,106 @@
         }
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+</head>
+<body>
+    <h1>Register New Account</h1>
+    <form id="registrationForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+            <span id="usernameError" style="color: red; display: none;">Username must be 3-20 characters.</span>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <span id="emailError" style="color: red; display: none;">Please enter a valid email address.</span>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required minlength="8">
+            <span id="passwordError" style="color: red; display: none;">Password must be at least 8 characters.</span>
+        </div>
+        <div>
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <span id="confirmError" style="color: red; display: none;">Passwords do not match.</span>
+        </div>
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('registrationForm');
+        const usernameInput = document.getElementById('username');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const confirmInput = document.getElementById('confirmPassword');
+
+        function validateUsername() {
+            const error = document.getElementById('usernameError');
+            if (usernameInput.value.length < 3 || usernameInput.value.length > 20) {
+                error.style.display = 'inline';
+                return false;
+            }
+            error.style.display = 'none';
+            return true;
+        }
+
+        function validateEmail() {
+            const error = document.getElementById('emailError');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailInput.value)) {
+                error.style.display = 'inline';
+                return false;
+            }
+            error.style.display = 'none';
+            return true;
+        }
+
+        function validatePassword() {
+            const error = document.getElementById('passwordError');
+            if (passwordInput.value.length < 8) {
+                error.style.display = 'inline';
+                return false;
+            }
+            error.style.display = 'none';
+            return true;
+        }
+
+        function validateConfirm() {
+            const error = document.getElementById('confirmError');
+            if (passwordInput.value !== confirmInput.value) {
+                error.style.display = 'inline';
+                return false;
+            }
+            error.style.display = 'none';
+            return true;
+        }
+
+        usernameInput.addEventListener('blur', validateUsername);
+        emailInput.addEventListener('blur', validateEmail);
+        passwordInput.addEventListener('blur', validatePassword);
+        confirmInput.addEventListener('blur', validateConfirm);
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const isUsernameValid = validateUsername();
+            const isEmailValid = validateEmail();
+            const isPasswordValid = validatePassword();
+            const isConfirmValid = validateConfirm();
+
+            if (isUsernameValid && isEmailValid && isPasswordValid && isConfirmValid) {
+                alert('Registration successful!');
+                form.reset();
+            } else {
+                alert('Please fix errors before submitting.');
+            }
+        });
+    </script>
+</body>
 </html>
