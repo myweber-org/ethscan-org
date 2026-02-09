@@ -143,4 +143,108 @@
         <p>&copy; 2023 User Profile Page. All rights reserved.</p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+        }
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .avatar-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ddd;
+            margin-bottom: 10px;
+        }
+        .bio-section textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h1>Edit Profile</h1>
+        <div class="avatar-section">
+            <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
+            <br>
+            <input type="file" id="avatarUpload" accept="image/*">
+            <button onclick="uploadAvatar()" class="button">Upload Avatar</button>
+        </div>
+        <div class="bio-section">
+            <label for="userBio"><strong>Bio:</strong></label>
+            <textarea id="userBio" placeholder="Tell something about yourself..."></textarea>
+            <button onclick="saveProfile()" class="button">Save Profile</button>
+        </div>
+    </div>
+
+    <script>
+        function uploadAvatar() {
+            const fileInput = document.getElementById('avatarUpload');
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatarPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+                alert('Avatar uploaded successfully! Remember to save profile.');
+            } else {
+                alert('Please select an image file first.');
+            }
+        }
+
+        function saveProfile() {
+            const bio = document.getElementById('userBio').value;
+            localStorage.setItem('userBio', bio);
+            const avatarSrc = document.getElementById('avatarPreview').src;
+            if (avatarSrc && !avatarSrc.includes('via.placeholder.com')) {
+                localStorage.setItem('userAvatar', avatarSrc);
+            }
+            alert('Profile saved!');
+        }
+
+        window.onload = function() {
+            const savedBio = localStorage.getItem('userBio');
+            const savedAvatar = localStorage.getItem('userAvatar');
+            if (savedBio) {
+                document.getElementById('userBio').value = savedBio;
+            }
+            if (savedAvatar) {
+                document.getElementById('avatarPreview').src = savedAvatar;
+            }
+        };
+    </script>
+</body>
 </html>
