@@ -57,4 +57,65 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #4a90e2;
+            margin-bottom: 20px;
+        }
+        .user-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .user-title {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+        .info-section {
+            margin-top: 20px;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #555;
+            display: inline-block;
+            width: 100px;
+        }
+        .info-value {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <img src="https://via.placeholder.com/120" alt="User Avatar" class="avatar">
+        <div class="user-name">Alex Johnson</div>
+        <div class="user-title">Senior Software Developer</div>
+        <div class="info-section">
+            <div><span class="info-label">Email:</span> <span class="info-value">alex.johnson@example.com</span></div>
+            <div><span class="info-label">Location:</span> <span class="info-value">San Francisco, CA</span></div>
+            <div><span class="info-label">Joined:</span> <span class="info-value">March 2021</span></div>
+            <div><span class="info-label">Status:</span> <span class="info-value">Active</span></div>
+        </div>
+    </div>
+</body>
 </html>
