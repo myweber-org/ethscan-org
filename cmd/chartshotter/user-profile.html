@@ -509,4 +509,60 @@
         <p>&copy; 2023 Example Corp. All rights reserved.</p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section class="avatar-section">
+            <img src="https://via.placeholder.com/150" alt="Profile Avatar" id="user-avatar">
+            <button onclick="changeAvatar()">Change Avatar</button>
+        </section>
+        <section class="info-section">
+            <div class="info-item">
+                <strong>Name:</strong>
+                <span id="user-name">John Doe</span>
+                <button onclick="editName()">Edit</button>
+            </div>
+            <div class="info-item">
+                <strong>Email:</strong>
+                <span id="user-email">john.doe@example.com</span>
+            </div>
+            <div class="info-item">
+                <strong>Bio:</strong>
+                <p id="user-bio">Software developer and open source enthusiast.</p>
+                <button onclick="editBio()">Edit Bio</button>
+            </div>
+        </section>
+    </main>
+    <script>
+        function changeAvatar() {
+            const newAvatarUrl = prompt('Enter new avatar URL:');
+            if (newAvatarUrl) {
+                document.getElementById('user-avatar').src = newAvatarUrl;
+            }
+        }
+
+        function editName() {
+            const newName = prompt('Enter new name:', document.getElementById('user-name').textContent);
+            if (newName !== null) {
+                document.getElementById('user-name').textContent = newName;
+            }
+        }
+
+        function editBio() {
+            const newBio = prompt('Enter new bio:', document.getElementById('user-bio').textContent);
+            if (newBio !== null) {
+                document.getElementById('user-bio').textContent = newBio;
+            }
+        }
+    </script>
+</body>
 </html>
