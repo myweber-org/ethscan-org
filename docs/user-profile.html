@@ -44,4 +44,365 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .profile-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+        }
+        .profile-header {
+            background: linear-gradient(to right, #4a6fa5, #6c5ce7);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+        .avatar-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            object-fit: cover;
+            background-color: #ddd;
+        }
+        .avatar-upload {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: #ff6b6b;
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .avatar-upload:hover {
+            background: #ff5252;
+            transform: scale(1.1);
+        }
+        .profile-name {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .profile-title {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        .profile-content {
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        @media (max-width: 768px) {
+            .profile-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        .section {
+            margin-bottom: 25px;
+        }
+        .section-title {
+            font-size: 1.3rem;
+            color: #4a6fa5;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        .info-item {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            background: #f0f5ff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: #4a6fa5;
+        }
+        .info-text {
+            flex: 1;
+        }
+        .info-label {
+            font-size: 0.9rem;
+            color: #777;
+        }
+        .info-value {
+            font-size: 1.1rem;
+            color: #333;
+            font-weight: 500;
+        }
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 120px;
+            transition: border 0.3s ease;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #4a6fa5;
+        }
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            grid-column: 1 / -1;
+        }
+        .btn {
+            padding: 15px 30px;
+            border-radius: 10px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .btn-primary {
+            background: #4a6fa5;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #3a5a85;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(74, 111, 165, 0.3);
+        }
+        .btn-secondary {
+            background: #f0f5ff;
+            color: #4a6fa5;
+        }
+        .btn-secondary:hover {
+            background: #e0eaff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="avatar-container">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar" id="userAvatar">
+                <div class="avatar-upload" id="uploadTrigger">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <input type="file" id="avatarInput" accept="image/*" style="display: none;">
+            </div>
+            <h1 class="profile-name" id="userName">Alex Johnson</h1>
+            <p class="profile-title" id="userTitle">Senior Frontend Developer</p>
+        </div>
+        
+        <div class="profile-content">
+            <div class="left-column">
+                <div class="section">
+                    <h2 class="section-title">Contact Information</h2>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="info-text">
+                            <div class="info-label">Email</div>
+                            <div class="info-value" id="userEmail">alex.johnson@example.com</div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="info-text">
+                            <div class="info-label">Phone</div>
+                            <div class="info-value" id="userPhone">+1 (555) 123-4567</div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="info-text">
+                            <div class="info-label">Location</div>
+                            <div class="info-value" id="userLocation">San Francisco, CA</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title">Skills</h2>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="info-text">
+                            <div class="info-label">Primary Skills</div>
+                            <div class="info-value" id="userSkills">HTML, CSS, JavaScript, React, Vue.js</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="right-column">
+                <div class="section">
+                    <h2 class="section-title">About Me</h2>
+                    <textarea id="userBio">Passionate frontend developer with over 8 years of experience building responsive and accessible web applications. I enjoy creating intuitive user interfaces and solving complex problems with clean, efficient code. Currently focused on modern JavaScript frameworks and design systems.</textarea>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title">Social Links</h2>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <div class="info-text">
+                            <div class="info-label">GitHub</div>
+                            <div class="info-value" id="userGithub">github.com/alexjohnson</div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                        <div class="info-text">
+                            <div class="info-label">LinkedIn</div>
+                            <div class="info-value" id="userLinkedin">linkedin.com/in/alexjohnson</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn btn-primary" id="saveProfile">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
+                <button class="btn btn-secondary" id="resetProfile">
+                    <i class="fas fa-redo"></i> Reset
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const avatarInput = document.getElementById('avatarInput');
+            const uploadTrigger = document.getElementById('uploadTrigger');
+            const userAvatar = document.getElementById('userAvatar');
+            const userBio = document.getElementById('userBio');
+            const saveButton = document.getElementById('saveProfile');
+            const resetButton = document.getElementById('resetProfile');
+            
+            const originalValues = {
+                avatar: userAvatar.src,
+                bio: userBio.value,
+                name: document.getElementById('userName').textContent,
+                title: document.getElementById('userTitle').textContent,
+                email: document.getElementById('userEmail').textContent,
+                phone: document.getElementById('userPhone').textContent,
+                location: document.getElementById('userLocation').textContent,
+                skills: document.getElementById('userSkills').textContent,
+                github: document.getElementById('userGithub').textContent,
+                linkedin: document.getElementById('userLinkedin').textContent
+            };
+            
+            uploadTrigger.addEventListener('click', function() {
+                avatarInput.click();
+            });
+            
+            avatarInput.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        userAvatar.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            saveButton.addEventListener('click', function() {
+                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+                this.disabled = true;
+                
+                setTimeout(() => {
+                    alert('Profile updated successfully!');
+                    this.innerHTML = '<i class="fas fa-save"></i> Save Changes';
+                    this.disabled = false;
+                    
+                    originalValues.avatar = userAvatar.src;
+                    originalValues.bio = userBio.value;
+                }, 1500);
+            });
+            
+            resetButton.addEventListener('click', function() {
+                if (confirm('Are you sure you want to reset all changes?')) {
+                    userAvatar.src = originalValues.avatar;
+                    userBio.value = originalValues.bio;
+                    
+                    document.getElementById('userName').textContent = originalValues.name;
+                    document.getElementById('userTitle').textContent = originalValues.title;
+                    document.getElementById('userEmail').textContent = originalValues.email;
+                    document.getElementById('userPhone').textContent = originalValues.phone;
+                    document.getElementById('userLocation').textContent = originalValues.location;
+                    document.getElementById('userSkills').textContent = originalValues.skills;
+                    document.getElementById('userGithub').textContent = originalValues.github;
+                    document.getElementById('userLinkedin').textContent = originalValues.linkedin;
+                    
+                    alert('Profile reset to original values.');
+                }
+            });
+            
+            userBio.addEventListener('input', function() {
+                if (this.value !== originalValues.bio) {
+                    saveButton.style.background = '#ff6b6b';
+                } else {
+                    saveButton.style.background = '';
+                }
+            });
+        });
+    </script>
+</body>
 </html>
