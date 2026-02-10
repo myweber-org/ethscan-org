@@ -10,31 +10,23 @@
         <h1>User Profile</h1>
     </header>
     <main>
-        <section id="profile-section">
+        <section id="profile-info">
             <div class="avatar-container">
                 <img id="avatar-preview" src="default-avatar.png" alt="User Avatar">
                 <input type="file" id="avatar-upload" accept="image/*">
                 <button id="upload-btn">Upload Avatar</button>
             </div>
-            <div class="bio-container">
-                <h2>Edit Bio</h2>
+            <div class="bio-section">
+                <h2>Bio</h2>
                 <textarea id="bio-text" rows="4" cols="50" placeholder="Write something about yourself..."></textarea>
                 <button id="save-bio-btn">Save Bio</button>
-            </div>
-            <div class="info-container">
-                <p><strong>Username:</strong> <span id="username">john_doe</span></p>
-                <p><strong>Email:</strong> <span id="user-email">john@example.com</span></p>
-                <p><strong>Member since:</strong> <span id="join-date">January 2023</span></p>
             </div>
         </section>
     </main>
     <script>
         document.getElementById('upload-btn').addEventListener('click', function() {
-            document.getElementById('avatar-upload').click();
-        });
-
-        document.getElementById('avatar-upload').addEventListener('change', function(event) {
-            const file = event.target.files[0];
+            const fileInput = document.getElementById('avatar-upload');
+            const file = fileInput.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
