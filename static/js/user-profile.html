@@ -10,148 +10,42 @@
         <h1>User Profile</h1>
     </header>
     <main>
-        <section id="avatar-section">
-            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-        </section>
-        <section id="name-section">
-            <h2>Alex Johnson</h2>
-        </section>
-        <section id="bio-section">
-            <p>Software developer with a passion for open-source projects and web technologies.</p>
-        </section>
-    </main>
-    <footer>
-        <p>Last updated: October 2023</p>
-    </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a6fa5;
-        }
-        .name {
-            font-size: 24px;
-            font-weight: bold;
-            margin: 10px 0 5px;
-        }
-        .title {
-            color: #666;
-            font-size: 16px;
-            margin-bottom: 15px;
-        }
-        .bio-section {
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            line-height: 1.5;
-        }
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }
-        .stat-item {
-            text-align: center;
-        }
-        .stat-value {
-            font-size: 20px;
-            font-weight: bold;
-            display: block;
-        }
-        .stat-label {
-            font-size: 14px;
-            color: #777;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="User Avatar" class="avatar">
-            <div class="name">Alex Johnson</div>
-            <div class="title">Senior Frontend Developer</div>
-        </div>
-        <div class="bio-section">
-            Passionate about building clean, accessible user interfaces. Enjoys hiking, photography, and open-source contributions. Currently focused on React performance optimization.
-        </div>
-        <div class="stats">
-            <div class="stat-item">
-                <span class="stat-value">247</span>
-                <span class="stat-label">Projects</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-value">5.2k</span>
-                <span class="stat-label">Followers</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-value">892</span>
-                <span class="stat-label">Following</span>
-            </div>
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
         <section id="profile-section">
-            <div id="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
+            <div class="avatar-container">
+                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar">
                 <input type="file" id="avatar-upload" accept="image/*">
-                <button id="upload-button">Upload Avatar</button>
+                <button id="upload-btn">Upload Avatar</button>
             </div>
-            <div id="bio-container">
+            <div class="bio-container">
                 <h2>Edit Bio</h2>
-                <textarea id="bio-textarea" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
-                <button id="save-bio-button">Save Bio</button>
+                <textarea id="bio-text" rows="4" cols="50" placeholder="Write something about yourself..."></textarea>
+                <button id="save-bio-btn">Save Bio</button>
+            </div>
+            <div class="info-container">
+                <p><strong>Username:</strong> <span id="username">john_doe</span></p>
+                <p><strong>Email:</strong> <span id="user-email">john@example.com</span></p>
+                <p><strong>Member since:</strong> <span id="join-date">January 2023</span></p>
             </div>
         </section>
     </main>
     <script>
-        document.getElementById('upload-button').addEventListener('click', function() {
-            const fileInput = document.getElementById('avatar-upload');
-            if (fileInput.files && fileInput.files[0]) {
+        document.getElementById('upload-btn').addEventListener('click', function() {
+            document.getElementById('avatar-upload').click();
+        });
+
+        document.getElementById('avatar-upload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     document.getElementById('avatar-preview').src = e.target.result;
                 };
-                reader.readAsDataURL(fileInput.files[0]);
+                reader.readAsDataURL(file);
             }
         });
 
-        document.getElementById('save-bio-button').addEventListener('click', function() {
-            const bioText = document.getElementById('bio-textarea').value;
+        document.getElementById('save-bio-btn').addEventListener('click', function() {
+            const bioText = document.getElementById('bio-text').value;
             alert('Bio saved: ' + bioText);
         });
     </script>
