@@ -7,19 +7,21 @@
 </head>
 <body>
     <header>
-        <h1>User Profile</h1>
+        <h1>User Profile Settings</h1>
     </header>
     <main>
-        <section id="avatar-section">
+        <section>
             <h2>Profile Picture</h2>
-            <img id="avatar-preview" src="placeholder.jpg" alt="Avatar Preview" width="150" height="150">
-            <br>
-            <input type="file" id="avatar-upload" accept="image/*">
-            <button onclick="uploadAvatar()">Upload Avatar</button>
+            <div>
+                <img id="avatarPreview" src="default-avatar.png" alt="Avatar" width="150" height="150">
+                <br>
+                <input type="file" id="avatarUpload" accept="image/*">
+                <button onclick="uploadAvatar()">Upload Avatar</button>
+            </div>
         </section>
-        <section id="info-section">
+        <section>
             <h2>Basic Information</h2>
-            <form id="profile-form">
+            <form id="profileForm">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
                 <br>
@@ -35,20 +37,18 @@
     </main>
     <script>
         function uploadAvatar() {
-            const fileInput = document.getElementById('avatar-upload');
+            const fileInput = document.getElementById('avatarUpload');
             const file = fileInput.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
+                    document.getElementById('avatarPreview').src = e.target.result;
                 };
                 reader.readAsDataURL(file);
-            } else {
-                alert('Please select an image file first.');
             }
         }
 
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const username = document.getElementById('username').value;
             const email = document.getElementById('email').value;
@@ -56,66 +56,5 @@
             alert('Profile saved!\nUsername: ' + username + '\nEmail: ' + email + '\nBio: ' + bio);
         });
     </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: Arial, sans-serif;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a90e2;
-            margin-bottom: 20px;
-        }
-        .user-name {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 8px;
-        }
-        .user-title {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 16px;
-        }
-        .info-section {
-            margin-top: 20px;
-        }
-        .info-label {
-            font-weight: bold;
-            color: #555;
-            display: inline-block;
-            width: 100px;
-        }
-        .info-value {
-            color: #333;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <img src="https://via.placeholder.com/120" alt="User Avatar" class="avatar">
-        <div class="user-name">Alex Johnson</div>
-        <div class="user-title">Senior Software Developer</div>
-        <div class="info-section">
-            <div><span class="info-label">Email:</span> <span class="info-value">alex.johnson@example.com</span></div>
-            <div><span class="info-label">Location:</span> <span class="info-value">San Francisco, CA</span></div>
-            <div><span class="info-label">Joined:</span> <span class="info-value">March 2021</span></div>
-            <div><span class="info-label">Status:</span> <span class="info-value">Active</span></div>
-        </div>
-    </div>
 </body>
 </html>
