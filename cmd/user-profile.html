@@ -4,59 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a6fa5;
-            margin-bottom: 20px;
-        }
-        .user-name {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 10px;
-        }
-        .user-title {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 20px;
-        }
-        .bio-section {
-            background-color: #f9f9f9;
-            padding: 15px;
-            border-radius: 5px;
-            line-height: 1.6;
-            color: #444;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
-        <div class="user-name">Alex Morgan</div>
-        <div class="user-title">Senior Software Developer</div>
-        <div class="bio-section">
-            Passionate about building scalable web applications and open-source projects. Enjoys hiking, photography, and exploring new technologies. Currently focused on frontend architecture and user experience design.
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
 </head>
 <body>
     <header>
@@ -64,129 +11,48 @@
     </header>
     <main>
         <section>
-            <h2>Profile Picture</h2>
-            <div>
-                <img id="avatarPreview" src="default-avatar.png" alt="Avatar Preview" width="150" height="150">
-                <br>
-                <input type="file" id="avatarUpload" accept="image/*">
-                <button onclick="uploadAvatar()">Upload Avatar</button>
-            </div>
-        </section>
-        <section>
-            <h2>Basic Information</h2>
+            <h2>Profile Information</h2>
             <form id="profileForm">
-                <label for="fullName">Full Name:</label>
-                <input type="text" id="fullName" name="fullName" required>
-                <br><br>
-                <label for="email">Email Address:</label>
-                <input type="email" id="email" name="email" required>
-                <br><br>
-                <label for="bio">Bio:</label>
-                <textarea id="bio" name="bio" rows="4" cols="50" placeholder="Tell something about yourself..."></textarea>
-                <br><br>
-                <button type="submit">Save Profile</button>
+                <div>
+                    <label for="avatar">Profile Picture:</label>
+                    <input type="file" id="avatar" name="avatar" accept="image/*">
+                    <div id="avatarPreview"></div>
+                </div>
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div>
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div>
+                    <label for="bio">Bio:</label>
+                    <textarea id="bio" name="bio" rows="4"></textarea>
+                </div>
+                <button type="submit">Update Profile</button>
             </form>
         </section>
     </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page. All rights reserved.</p>
-    </footer>
     <script>
-        function uploadAvatar() {
-            const fileInput = document.getElementById('avatarUpload');
+        document.getElementById('avatar').addEventListener('change', function(event) {
+            const file = event.target.files[0];
             const preview = document.getElementById('avatarPreview');
-            const file = fileInput.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    preview.src = e.target.result;
+                    preview.innerHTML = `<img src="${e.target.result}" alt="Avatar Preview" style="max-width: 150px; margin-top: 10px;">`;
                 };
                 reader.readAsDataURL(file);
-                alert('Avatar uploaded successfully!');
             } else {
-                alert('Please select an image file first.');
-            }
-        }
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const fullName = document.getElementById('fullName').value;
-            const email = document.getElementById('email').value;
-            alert('Profile saved for: ' + fullName + ' (' + email + ')');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="profile-info">
-            <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <form id="avatar-form">
-                    <label for="avatar-upload">Change Avatar:</label>
-                    <input type="file" id="avatar-upload" name="avatar" accept="image/*">
-                    <button type="submit">Upload</button>
-                </form>
-            </div>
-            <div class="bio-container">
-                <h2>Bio</h2>
-                <p id="current-bio">No bio provided yet.</p>
-                <textarea id="bio-edit" rows="4" cols="50" placeholder="Write something about yourself..."></textarea>
-                <button id="save-bio">Save Bio</button>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
-    <script>
-        document.getElementById('avatar-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const fileInput = document.getElementById('avatar-upload');
-            const file = fileInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
+                preview.innerHTML = '';
             }
         });
 
-        document.getElementById('save-bio').addEventListener('click', function() {
-            const newBio = document.getElementById('bio-edit').value.trim();
-            if (newBio) {
-                document.getElementById('current-bio').textContent = newBio;
-                document.getElementById('bio-edit').value = '';
-            }
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Profile updated successfully!');
         });
     </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <div class="profile-container">
-        <img src="https://via.placeholder.com/150" alt="User Avatar" class="profile-avatar">
-        <h1 class="profile-name">Alex Johnson</h1>
-        <p class="profile-bio">Software developer with a passion for open-source projects and web technologies.</p>
-        <div class="profile-stats">
-            <span class="stat">Posts: 42</span>
-            <span class="stat">Followers: 128</span>
-            <span class="stat">Following: 56</span>
-        </div>
-    </div>
 </body>
 </html>
