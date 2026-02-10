@@ -13,23 +13,23 @@
     <h1>Get in Touch</h1>
     <form id="contactForm">
         <div>
-            <label for="name">Full Name:</label>
+            <label for="name">Full Name:</label><br>
             <input type="text" id="name" name="name" required>
-            <div id="nameError" class="error">Please enter a valid name (letters and spaces only).</div>
+            <div id="nameError" class="error">Please enter your name.</div>
         </div>
         <div>
-            <label for="email">Email Address:</label>
+            <label for="email">Email Address:</label><br>
             <input type="email" id="email" name="email" required>
             <div id="emailError" class="error">Please enter a valid email address.</div>
         </div>
         <div>
-            <label for="message">Your Message:</label>
+            <label for="message">Your Message:</label><br>
             <textarea id="message" name="message" rows="5" required></textarea>
-            <div id="messageError" class="error">Message must be at least 10 characters long.</div>
+            <div id="messageError" class="error">Please enter your message.</div>
         </div>
         <button type="submit">Send Message</button>
-        <div id="successMessage" class="success">Thank you! Your message has been sent successfully.</div>
     </form>
+    <div id="successMessage" class="success">Thank you! Your message has been sent successfully.</div>
 
     <script>
         document.getElementById('contactForm').addEventListener('submit', function(event) {
@@ -49,29 +49,24 @@
             messageError.style.display = 'none';
             successMessage.style.display = 'none';
 
-            const nameRegex = /^[A-Za-z\s]+$/;
-            if (!nameRegex.test(name.value.trim())) {
+            if (!name.value.trim()) {
                 nameError.style.display = 'block';
                 isValid = false;
             }
 
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email.value.trim())) {
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email.value)) {
                 emailError.style.display = 'block';
                 isValid = false;
             }
 
-            if (message.value.trim().length < 10) {
+            if (!message.value.trim()) {
                 messageError.style.display = 'block';
                 isValid = false;
             }
 
             if (isValid) {
-                console.log('Form submitted with:', {
-                    name: name.value,
-                    email: email.value,
-                    message: message.value
-                });
+                console.log('Form submitted with:', { name: name.value, email: email.value, message: message.value });
                 successMessage.style.display = 'block';
                 this.reset();
             }
