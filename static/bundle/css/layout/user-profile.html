@@ -4,64 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 2rem;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a6fa5;
-        }
-        .name {
-            font-size: 1.8rem;
-            margin: 0.5rem 0;
-            color: #333;
-        }
-        .title {
-            color: #666;
-            font-style: italic;
-            margin-bottom: 1rem;
-        }
-        .bio-section {
-            line-height: 1.6;
-            color: #444;
-            padding: 1rem;
-            background-color: #f9f9f9;
-            border-radius: 4px;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="User Avatar" class="avatar">
-            <h1 class="name">Alex Johnson</h1>
-            <div class="title">Senior Frontend Developer</div>
-        </div>
-        <div class="bio-section">
-            <p>Passionate about creating intuitive user interfaces and seamless web experiences. With over 8 years of experience in frontend development, specializing in modern JavaScript frameworks and responsive design principles.</p>
-            <p>Currently focused on accessibility improvements and performance optimization for large-scale applications.</p>
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
 </head>
 <body>
     <header>
@@ -73,162 +15,18 @@
                 <img src="https://via.placeholder.com/150" alt="User Avatar" class="avatar">
             </div>
             <div class="user-info">
-                <h2>John Doe</h2>
-                <p><strong>Email:</strong> john.doe@example.com</p>
-                <p><strong>Location:</strong> New York, USA</p>
-                <p><strong>Member Since:</strong> January 2023</p>
-                <p><strong>Bio:</strong> Software developer passionate about open source projects and web technologies.</p>
+                <h2 class="username">John Doe</h2>
+                <p class="user-bio">Software developer with a passion for open-source projects and web technologies. Enjoys hiking and photography in free time.</p>
+                <div class="user-stats">
+                    <span class="stat">Posts: 42</span>
+                    <span class="stat">Followers: 128</span>
+                    <span class="stat">Following: 56</span>
+                </div>
             </div>
         </section>
     </main>
     <footer>
-        <p>&copy; 2023 User Profile Page. All rights reserved.</p>
+        <p>&copy; 2023 Profile Page. All rights reserved.</p>
     </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
-            <div class="avatar-container">
-                <img src="https://via.placeholder.com/150" alt="User Avatar" class="avatar">
-            </div>
-            <div class="user-info">
-                <h2>John Doe</h2>
-                <p class="username">@johndoe</p>
-                <p class="bio">Software developer and open source enthusiast. Passionate about building efficient web applications.</p>
-                <ul class="details">
-                    <li><strong>Location:</strong> San Francisco, CA</li>
-                    <li><strong>Joined:</strong> January 2022</li>
-                    <li><strong>Website:</strong> <a href="https://johndoe.example.com">johndoe.example.com</a></li>
-                </ul>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile. All rights reserved.</p>
-    </footer>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="avatar-section">
-            <h2>Avatar</h2>
-            <img src="https://via.placeholder.com/150" alt="Profile Avatar" width="150" height="150">
-            <button onclick="changeAvatar()">Change Avatar</button>
-        </section>
-        <section id="bio-section">
-            <h2>Biography</h2>
-            <p id="bio-text">This is a sample biography. Click edit to update.</p>
-            <button onclick="editBio()">Edit Bio</button>
-        </section>
-    </main>
-    <script>
-        function changeAvatar() {
-            const newSrc = prompt('Enter new avatar URL:');
-            if (newSrc) {
-                document.querySelector('#avatar-section img').src = newSrc;
-            }
-        }
-
-        function editBio() {
-            const currentBio = document.getElementById('bio-text').textContent;
-            const newBio = prompt('Edit your biography:', currentBio);
-            if (newBio !== null) {
-                document.getElementById('bio-text').textContent = newBio;
-            }
-        }
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <form id="profileForm">
-            <div>
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required minlength="3" maxlength="20">
-                <div id="usernameError" class="error"></div>
-            </div>
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <div id="emailError" class="error"></div>
-            </div>
-            <div>
-                <label for="age">Age:</label>
-                <input type="number" id="age" name="age" min="18" max="120">
-            </div>
-            <div>
-                <label for="country">Country:</label>
-                <select id="country" name="country">
-                    <option value="">Select a country</option>
-                    <option value="us">United States</option>
-                    <option value="uk">United Kingdom</option>
-                    <option value="ca">Canada</option>
-                    <option value="au">Australia</option>
-                </select>
-            </div>
-            <button type="submit">Update Profile</button>
-        </form>
-    </main>
-    <script>
-        const form = document.getElementById('profileForm');
-        const usernameError = document.getElementById('usernameError');
-        const emailError = document.getElementById('emailError');
-
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            let isValid = true;
-
-            const username = document.getElementById('username').value;
-            if (username.length < 3) {
-                usernameError.textContent = 'Username must be at least 3 characters.';
-                isValid = false;
-            } else {
-                usernameError.textContent = '';
-            }
-
-            const email = document.getElementById('email').value;
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-                emailError.textContent = 'Please enter a valid email address.';
-                isValid = false;
-            } else {
-                emailError.textContent = '';
-            }
-
-            if (isValid) {
-                alert('Profile updated successfully!');
-                form.reset();
-            }
-        });
-    </script>
 </body>
 </html>
