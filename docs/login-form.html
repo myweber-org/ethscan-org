@@ -46,4 +46,35 @@
         }
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+</head>
+<body>
+    <form id="loginForm" action="/api/login" method="POST">
+        <h2>Account Login</h2>
+        
+        <div class="form-group">
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required placeholder="Enter your email">
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required placeholder="Enter your password" minlength="8">
+        </div>
+        
+        <div class="form-group">
+            <button type="submit">Sign In</button>
+        </div>
+        
+        <div class="form-links">
+            <a href="/forgot-password">Forgot Password?</a>
+            <a href="/register">Create New Account</a>
+        </div>
+    </form>
+</body>
 </html>
