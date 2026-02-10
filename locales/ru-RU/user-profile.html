@@ -4,226 +4,117 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <form id="profileForm">
-            <div>
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required minlength="3" maxlength="20">
-                <div class="error" id="usernameError"></div>
-            </div>
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <div class="error" id="emailError"></div>
-            </div>
-            <div>
-                <label for="age">Age:</label>
-                <input type="number" id="age" name="age" min="18" max="120">
-            </div>
-            <div>
-                <label for="country">Country:</label>
-                <select id="country" name="country">
-                    <option value="">Select a country</option>
-                    <option value="us">United States</option>
-                    <option value="uk">United Kingdom</option>
-                    <option value="ca">Canada</option>
-                    <option value="au">Australia</option>
-                </select>
-            </div>
-            <div>
-                <button type="submit">Update Profile</button>
-                <button type="reset">Reset Form</button>
-            </div>
-        </form>
-        <div id="successMessage" style="display:none; color:green;">
-            Profile updated successfully!
-        </div>
-    </main>
-    <script>
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            let isValid = true;
-
-            const username = document.getElementById('username');
-            const email = document.getElementById('email');
-            const usernameError = document.getElementById('usernameError');
-            const emailError = document.getElementById('emailError');
-
-            usernameError.textContent = '';
-            emailError.textContent = '';
-
-            if (username.value.length < 3) {
-                usernameError.textContent = 'Username must be at least 3 characters long.';
-                isValid = false;
-            }
-
-            if (!email.value.includes('@')) {
-                emailError.textContent = 'Please enter a valid email address.';
-                isValid = false;
-            }
-
-            if (isValid) {
-                console.log('Form submitted with data:', {
-                    username: username.value,
-                    email: email.value,
-                    age: document.getElementById('age').value,
-                    country: document.getElementById('country').value
-                });
-                document.getElementById('successMessage').style.display = 'block';
-                setTimeout(() => {
-                    document.getElementById('successMessage').style.display = 'none';
-                }, 3000);
-            }
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
     <style>
         .profile-container {
             max-width: 600px;
             margin: 40px auto;
             padding: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
             border-radius: 8px;
-            text-align: center;
-            font-family: Arial, sans-serif;
+            font-family: sans-serif;
         }
-        .avatar {
-            width: 150px;
-            height: 150px;
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .avatar-preview {
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #007bff;
+            border: 3px solid #eee;
+            margin-bottom: 10px;
+        }
+        .form-group {
             margin-bottom: 20px;
         }
-        .username {
-            font-size: 24px;
+        label {
+            display: block;
+            margin-bottom: 5px;
             font-weight: bold;
-            margin-bottom: 10px;
             color: #333;
         }
-        .bio {
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
             font-size: 16px;
-            color: #666;
-            line-height: 1.5;
-            margin-bottom: 20px;
         }
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-        }
-        .stat-item {
-            text-align: center;
-        }
-        .stat-value {
-            font-size: 20px;
-            font-weight: bold;
-            color: #007bff;
-        }
-        .stat-label {
-            font-size: 14px;
-            color: #888;
+        .btn:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <img src="https://via.placeholder.com/150" alt="User Avatar" class="avatar">
-        <div class="username">John Doe</div>
-        <div class="bio">
-            Software developer passionate about open-source projects, web technologies, and hiking in the mountains. Always eager to learn new things and collaborate on interesting projects.
-        </div>
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-value">127</div>
-                <div class="stat-label">Posts</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">548</div>
-                <div class="stat-label">Followers</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">89</div>
-                <div class="stat-label">Following</div>
+        <div class="avatar-section">
+            <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
+            <div>
+                <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
+                <button type="button" class="btn" onclick="document.getElementById('avatarUpload').click();">Change Avatar</button>
             </div>
         </div>
+
+        <form id="profileForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="bio">Bio</label>
+                <textarea id="bio" name="bio" placeholder="Tell something about yourself..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" placeholder="City, Country">
+            </div>
+            <button type="submit" class="btn">Update Profile</button>
+        </form>
     </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
-            <div class="avatar-container">
-                <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            </div>
-            <div class="user-info">
-                <h2>John Doe</h2>
-                <p class="bio">Software developer with a passion for open-source projects and web technologies.</p>
-                <p class="location">Based in San Francisco, CA</p>
-                <ul class="skills">
-                    <li>JavaScript</li>
-                    <li>Python</li>
-                    <li>React</li>
-                    <li>Node.js</li>
-                </ul>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>Contact: john.doe@example.com</p>
-    </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile-header">
-            <img src="https://via.placeholder.com/150" alt="User Avatar" class="avatar">
-            <h2 class="user-name">Alex Johnson</h2>
-        </section>
-        <section class="profile-bio">
-            <h3>About Me</h3>
-            <p>Software developer passionate about open-source projects, hiking, and photography. Currently working on web accessibility initiatives.</p>
-        </section>
-        <section class="profile-details">
-            <h3>Details</h3>
-            <ul>
-                <li><strong>Location:</strong> San Francisco, CA</li>
-                <li><strong>Joined:</strong> January 2022</li>
-                <li><strong>Website:</strong> <a href="https://example.dev">example.dev</a></li>
-            </ul>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile. All rights reserved.</p>
-    </footer>
+
+    <script>
+        document.getElementById('avatarUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatarPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = {
+                username: document.getElementById('username').value,
+                email: document.getElementById('email').value,
+                bio: document.getElementById('bio').value,
+                location: document.getElementById('location').value
+            };
+            console.log('Profile data to submit:', formData);
+            alert('Profile updated successfully! (Check console for data)');
+        });
+    </script>
 </body>
 </html>
