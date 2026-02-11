@@ -10,7 +10,7 @@
     </style>
 </head>
 <body>
-    <h2>Login</h2>
+    <h1>Login</h1>
     <form id="loginForm">
         <div>
             <label for="email">Email:</label>
@@ -23,8 +23,8 @@
             <span id="passwordError" class="error"></span>
         </div>
         <button type="submit">Login</button>
+        <div id="message" class="success"></div>
     </form>
-    <div id="message" class="success"></div>
 
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(event) {
@@ -52,10 +52,8 @@
                 messageDiv.textContent = 'Login successful! Redirecting...';
                 messageDiv.className = 'success';
                 setTimeout(() => {
-                    alert('Form submitted successfully!');
-                    this.reset();
-                    messageDiv.textContent = '';
-                }, 1500);
+                    alert('Simulated redirect to dashboard.');
+                }, 1000);
             } else {
                 messageDiv.textContent = 'Please fix the errors above.';
                 messageDiv.className = 'error';
@@ -68,72 +66,9 @@
         }
 
         function clearErrors() {
-            document.querySelectorAll('.error').forEach(span => {
-                span.textContent = '';
-            });
+            document.querySelectorAll('.error').forEach(el => el.textContent = '');
+            document.getElementById('message').textContent = '';
         }
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login</title>
-    <style>
-        .error { color: red; font-size: 0.9em; margin-top: 5px; display: none; }
-        input.invalid { border-color: red; }
-    </style>
-</head>
-<body>
-    <h2>Login</h2>
-    <form id="loginForm">
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <div id="emailError" class="error">Please enter a valid email address.</div>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" minlength="6" required>
-            <div id="passwordError" class="error">Password must be at least 6 characters.</div>
-        </div>
-        <button type="submit">Login</button>
-    </form>
-
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            let isValid = true;
-
-            const email = document.getElementById('email');
-            const emailError = document.getElementById('emailError');
-            if (!email.validity.valid) {
-                email.classList.add('invalid');
-                emailError.style.display = 'block';
-                isValid = false;
-            } else {
-                email.classList.remove('invalid');
-                emailError.style.display = 'none';
-            }
-
-            const password = document.getElementById('password');
-            const passwordError = document.getElementById('passwordError');
-            if (password.value.length < 6) {
-                password.classList.add('invalid');
-                passwordError.style.display = 'block';
-                isValid = false;
-            } else {
-                password.classList.remove('invalid');
-                passwordError.style.display = 'none';
-            }
-
-            if (isValid) {
-                alert('Login submitted successfully!');
-                // In a real application, you would send data to a server here.
-                // For example: fetch('/login', { method: 'POST', body: new FormData(this) });
-            }
-        });
     </script>
 </body>
 </html>
