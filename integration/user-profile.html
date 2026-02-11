@@ -4,45 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile-header">
-            <div class="avatar-container">
-                <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            </div>
-            <div class="user-info">
-                <h2>Alex Johnson</h2>
-                <p class="user-title">Frontend Developer</p>
-                <p class="location">San Francisco, CA</p>
-            </div>
-        </section>
-        <section class="profile-bio">
-            <h3>About Me</h3>
-            <p>Passionate about creating responsive and accessible web applications. Enjoys hiking, photography, and open-source projects.</p>
-        </section>
-        <section class="profile-stats">
-            <h3>Activity</h3>
-            <ul>
-                <li>Projects: <strong>24</strong></li>
-                <li>Followers: <strong>1.2k</strong></li>
-                <li>Following: <strong>350</strong></li>
-            </ul>
-        </section>
-    </main>
-    <footer>
-        <p>Last updated: <time datetime="2023-10-27">October 27, 2023</time></p>
-    </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
     <style>
         .profile-container {
             max-width: 600px;
@@ -50,133 +11,97 @@
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 8px;
-            text-align: center;
-            font-family: Arial, sans-serif;
+            font-family: sans-serif;
         }
-        .avatar {
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .avatar-preview {
             width: 120px;
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #4CAF50;
+            border: 3px solid #ddd;
+            margin-bottom: 10px;
         }
-        .username {
-            font-size: 24px;
-            margin: 10px 0 5px;
-            color: #333;
+        .bio-section textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            box-sizing: border-box;
         }
-        .bio {
-            color: #666;
-            line-height: 1.5;
-            margin-bottom: 20px;
+        .save-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
         }
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-        }
-        .stat-item {
-            text-align: center;
-        }
-        .stat-value {
-            font-size: 20px;
-            font-weight: bold;
-            color: #4CAF50;
-        }
-        .stat-label {
-            font-size: 14px;
-            color: #777;
+        .save-button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <img src="https://via.placeholder.com/120" alt="User Avatar" class="avatar">
-        <h1 class="username">Alex Johnson</h1>
-        <p class="bio">Software developer passionate about open-source projects, hiking, and photography. Building tools to simplify everyday tasks.</p>
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-value">127</div>
-                <div class="stat-label">Posts</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">892</div>
-                <div class="stat-label">Followers</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">304</div>
-                <div class="stat-label">Following</div>
+        <h1>Edit Profile</h1>
+        <div class="avatar-section">
+            <img id="avatarPreview" src="default-avatar.png" alt="Avatar Preview" class="avatar-preview">
+            <div>
+                <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
+                <button onclick="document.getElementById('avatarUpload').click()">Change Avatar</button>
             </div>
         </div>
+        <div class="bio-section">
+            <label for="bioInput">Bio:</label>
+            <textarea id="bioInput" placeholder="Tell something about yourself..."></textarea>
+        </div>
+        <button class="save-button" onclick="saveProfile()">Save Changes</button>
     </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="profile-section">
-            <div id="avatar-container">
-                <img id="user-avatar" src="placeholder-avatar.png" alt="User Avatar" width="150" height="150">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button id="upload-button">Upload New Avatar</button>
-            </div>
-            <div id="user-info">
-                <p><strong>Username:</strong> <span id="username">johndoe</span></p>
-                <p><strong>Email:</strong> <span id="user-email">john.doe@example.com</span></p>
-                <p><strong>Member Since:</strong> <span id="join-date">January 2023</span></p>
-            </div>
-        </section>
-    </main>
+
     <script>
-        document.getElementById('upload-button').addEventListener('click', function() {
-            const fileInput = document.getElementById('avatar-upload');
-            const file = fileInput.files[0];
+        const avatarUpload = document.getElementById('avatarUpload');
+        const avatarPreview = document.getElementById('avatarPreview');
+        const bioInput = document.getElementById('bioInput');
+
+        avatarUpload.addEventListener('change', function(event) {
+            const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('user-avatar').src = e.target.result;
+                    avatarPreview.src = e.target.result;
                 };
                 reader.readAsDataURL(file);
-            } else {
-                alert('Please select an image file first.');
             }
         });
+
+        function saveProfile() {
+            const bio = bioInput.value.trim();
+            const avatarSrc = avatarPreview.src;
+
+            console.log('Profile saved:', { bio, avatarSrc });
+            alert('Profile saved successfully!');
+        }
+
+        window.onload = function() {
+            bioInput.value = localStorage.getItem('userBio') || '';
+            const savedAvatar = localStorage.getItem('userAvatar');
+            if (savedAvatar) {
+                avatarPreview.src = savedAvatar;
+            }
+        };
+
+        window.onbeforeunload = function() {
+            localStorage.setItem('userBio', bioInput.value);
+            localStorage.setItem('userAvatar', avatarPreview.src);
+        };
     </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section>
-            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            <h2>John Doe</h2>
-            <p>Email: john.doe@example.com</p>
-            <p>Location: New York, USA</p>
-            <p>Member since: January 2023</p>
-        </section>
-        <section>
-            <h3>Bio</h3>
-            <p>Software developer passionate about web technologies and open source projects.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
 </body>
 </html>
