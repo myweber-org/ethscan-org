@@ -87,4 +87,57 @@
         <p>&copy; 2023 User Profile Page</p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; }
+        .profile-container { max-width: 600px; margin: auto; }
+        .avatar-section { margin-bottom: 20px; }
+        .avatar-preview { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 2px solid #ccc; }
+        .bio-section textarea { width: 100%; height: 100px; padding: 10px; }
+        .save-btn { background-color: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h1>User Profile</h1>
+        <div class="avatar-section">
+            <h3>Profile Picture</h3>
+            <img id="avatarPreview" src="default-avatar.png" alt="Avatar Preview" class="avatar-preview">
+            <br>
+            <input type="file" id="avatarUpload" accept="image/*">
+        </div>
+        <div class="bio-section">
+            <h3>Bio</h3>
+            <textarea id="userBio" placeholder="Tell us about yourself..."></textarea>
+        </div>
+        <button class="save-btn" onclick="saveProfile()">Save Profile</button>
+    </div>
+
+    <script>
+        const avatarUpload = document.getElementById('avatarUpload');
+        const avatarPreview = document.getElementById('avatarPreview');
+        const userBio = document.getElementById('userBio');
+
+        avatarUpload.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function saveProfile() {
+            const bioText = userBio.value.trim();
+            alert('Profile saved! Bio: ' + (bioText || 'No bio provided.'));
+        }
+    </script>
+</body>
 </html>
