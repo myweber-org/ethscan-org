@@ -7,81 +7,6 @@
     <style>
         .error { color: red; font-size: 0.9em; }
         .success { color: green; font-size: 0.9em; }
-        input { margin-bottom: 10px; display: block; }
-    </style>
-</head>
-<body>
-    <h1>Update Profile</h1>
-    <form id="profileForm">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required minlength="3">
-        <div id="usernameError" class="error"></div>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        <div id="emailError" class="error"></div>
-
-        <label for="age">Age:</label>
-        <input type="number" id="age" name="age" min="1" max="120">
-        <div id="ageError" class="error"></div>
-
-        <button type="submit">Save Profile</button>
-    </form>
-    <div id="message" class="success"></div>
-
-    <script>
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            clearErrors();
-            let isValid = true;
-
-            const username = document.getElementById('username').value.trim();
-            if (username.length < 3) {
-                showError('usernameError', 'Username must be at least 3 characters.');
-                isValid = false;
-            }
-
-            const email = document.getElementById('email').value.trim();
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-                showError('emailError', 'Please enter a valid email address.');
-                isValid = false;
-            }
-
-            const age = document.getElementById('age').value;
-            if (age && (age < 1 || age > 120)) {
-                showError('ageError', 'Age must be between 1 and 120.');
-                isValid = false;
-            }
-
-            if (isValid) {
-                document.getElementById('message').textContent = 'Profile updated successfully!';
-                setTimeout(() => {
-                    document.getElementById('message').textContent = '';
-                }, 3000);
-            }
-        });
-
-        function showError(elementId, message) {
-            document.getElementById(elementId).textContent = message;
-        }
-
-        function clearErrors() {
-            const errors = document.querySelectorAll('.error');
-            errors.forEach(error => error.textContent = '');
-            document.getElementById('message').textContent = '';
-        }
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .error { color: red; font-size: 0.9em; }
-        .success { color: green; font-size: 0.9em; }
     </style>
 </head>
 <body>
@@ -90,105 +15,74 @@
         <div>
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required minlength="3" maxlength="20">
-            <span id="usernameError" class="error"></span>
+            <div id="usernameError" class="error"></div>
         </div>
         <div>
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
-            <span id="emailError" class="error"></span>
+            <div id="emailError" class="error"></div>
         </div>
         <div>
             <label for="age">Age:</label>
-            <input type="number" id="age" name="age" min="18" max="120">
-            <span id="ageError" class="error"></span>
-        </div>
-        <div>
-            <label for="bio">Biography:</label>
-            <textarea id="bio" name="bio" maxlength="500"></textarea>
-            <span id="bioCount">0/500</span>
+            <input type="number" id="age" name="age" min="1" max="120">
+            <div id="ageError" class="error"></div>
         </div>
         <button type="submit">Save Profile</button>
     </form>
     <div id="message" class="success"></div>
 
     <script>
-        const form = document.getElementById('profileForm');
-        const bioTextarea = document.getElementById('bio');
-        const bioCount = document.getElementById('bioCount');
-        const messageDiv = document.getElementById('message');
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            clearErrors();
+            clearMessage();
 
-        function showError(fieldId, message) {
-            const errorSpan = document.getElementById(fieldId + 'Error');
-            errorSpan.textContent = message;
-        }
-
-        function clearError(fieldId) {
-            const errorSpan = document.getElementById(fieldId + 'Error');
-            errorSpan.textContent = '';
-        }
-
-        function validateForm() {
             let isValid = true;
             const username = document.getElementById('username').value.trim();
             const email = document.getElementById('email').value.trim();
             const age = document.getElementById('age').value;
 
             if (username.length < 3) {
-                showError('username', 'Username must be at least 3 characters.');
+                showError('usernameError', 'Username must be at least 3 characters.');
                 isValid = false;
-            } else {
-                clearError('username');
             }
 
-            if (!email.includes('@')) {
-                showError('email', 'Please enter a valid email address.');
+            if (!validateEmail(email)) {
+                showError('emailError', 'Please enter a valid email address.');
                 isValid = false;
-            } else {
-                clearError('email');
             }
 
-            if (age && (age < 18 || age > 120)) {
-                showError('age', 'Age must be between 18 and 120.');
+            if (age && (age < 1 || age > 120)) {
+                showError('ageError', 'Age must be between 1 and 120.');
                 isValid = false;
-            } else {
-                clearError('age');
             }
 
-            return isValid;
+            if (isValid) {
+                showMessage('Profile updated successfully!');
+                console.log('Submitting data:', { username, email, age });
+            }
+        });
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
         }
 
-        bioTextarea.addEventListener('input', function() {
-            const length = this.value.length;
-            bioCount.textContent = `${length}/500`;
-        });
+        function showError(elementId, message) {
+            document.getElementById(elementId).textContent = message;
+        }
 
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            messageDiv.textContent = '';
+        function clearErrors() {
+            document.querySelectorAll('.error').forEach(el => el.textContent = '');
+        }
 
-            if (validateForm()) {
-                const formData = new FormData(form);
-                const data = Object.fromEntries(formData.entries());
+        function showMessage(message) {
+            document.getElementById('message').textContent = message;
+        }
 
-                console.log('Submitting profile data:', data);
-                messageDiv.textContent = 'Profile saved successfully!';
-                messageDiv.className = 'success';
-
-                setTimeout(() => {
-                    messageDiv.textContent = '';
-                }, 3000);
-            } else {
-                messageDiv.textContent = 'Please correct the errors above.';
-                messageDiv.className = 'error';
-            }
-        });
-
-        form.addEventListener('input', function(event) {
-            const field = event.target.name;
-            if (field) {
-                clearError(field);
-            }
-        });
+        function clearMessage() {
+            document.getElementById('message').textContent = '';
+        }
     </script>
 </body>
 </html>
