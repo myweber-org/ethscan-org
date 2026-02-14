@@ -10,64 +10,17 @@
         <h1>User Profile</h1>
     </header>
     <main>
-        <section id="profile-section">
-            <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button id="upload-btn">Upload Avatar</button>
-            </div>
-            <div class="bio-container">
-                <h2>Bio</h2>
-                <textarea id="bio-textarea" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
-                <button id="save-bio-btn">Save Bio</button>
-            </div>
-            <div class="user-info">
-                <p>Username: <span id="username">john_doe</span></p>
-                <p>Email: <span id="user-email">john@example.com</span></p>
-                <p>Member since: <span id="join-date">January 2023</span></p>
-            </div>
+        <section id="avatar-section">
+            <h2>Profile Picture</h2>
+            <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
+            <form id="avatar-form">
+                <input type="file" id="avatar-input" name="avatar" accept="image/*">
+                <button type="submit">Upload Avatar</button>
+            </form>
         </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 MyWebsite. All rights reserved.</p>
-    </footer>
-    <script>
-        document.getElementById('upload-btn').addEventListener('click', function() {
-            const fileInput = document.getElementById('avatar-upload');
-            if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(fileInput.files[0]);
-            }
-        });
-
-        document.getElementById('save-bio-btn').addEventListener('click', function() {
-            const bioText = document.getElementById('bio-textarea').value;
-            alert('Bio saved: ' + bioText);
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile-section">
-            <div class="avatar-container">
-                <img id="avatarPreview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <input type="file" id="avatarUpload" accept="image/*">
-                <button onclick="uploadAvatar()">Upload Avatar</button>
-            </div>
-            <form id="profileForm">
+        <section id="info-section">
+            <h2>Personal Information</h2>
+            <form id="profile-form">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
                 <br>
@@ -77,30 +30,36 @@
                 <label for="bio">Bio:</label>
                 <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
                 <br>
-                <button type="submit">Save Profile</button>
+                <button type="submit">Update Profile</button>
             </form>
         </section>
     </main>
+    <footer>
+        <p>&copy; 2023 User Profile Page</p>
+    </footer>
     <script>
-        function uploadAvatar() {
-            const fileInput = document.getElementById('avatarUpload');
-            const file = fileInput.files[0];
+        document.getElementById('avatar-input').addEventListener('change', function(event) {
+            const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('avatarPreview').src = e.target.result;
+                    document.getElementById('avatar-preview').src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
-        }
+        });
 
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
+        document.getElementById('profile-form').addEventListener('submit', function(event) {
             event.preventDefault();
             const username = document.getElementById('username').value;
             const email = document.getElementById('email').value;
             const bio = document.getElementById('bio').value;
-            console.log('Profile saved:', { username, email, bio });
-            alert('Profile saved successfully!');
+            alert('Profile updated!\nUsername: ' + username + '\nEmail: ' + email + '\nBio: ' + bio);
+        });
+
+        document.getElementById('avatar-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Avatar upload functionality would be implemented here.');
         });
     </script>
 </body>
