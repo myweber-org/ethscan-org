@@ -260,3 +260,100 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+</head>
+<body>
+    <h1>Get in Touch</h1>
+    <form id="contactForm">
+        <div>
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required minlength="2">
+            <span class="error" id="nameError"></span>
+        </div>
+        <div>
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required>
+            <span class="error" id="emailError"></span>
+        </div>
+        <div>
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject" required>
+            <span class="error" id="subjectError"></span>
+        </div>
+        <div>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="5" required minlength="10"></textarea>
+            <span class="error" id="messageError"></span>
+        </div>
+        <button type="submit">Send Message</button>
+        <div id="formStatus"></div>
+    </form>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            clearErrors();
+            
+            let isValid = true;
+            const name = document.getElementById('name');
+            const email = document.getElementById('email');
+            const subject = document.getElementById('subject');
+            const message = document.getElementById('message');
+            
+            if (name.value.trim().length < 2) {
+                showError('nameError', 'Name must be at least 2 characters');
+                isValid = false;
+            }
+            
+            if (!validateEmail(email.value)) {
+                showError('emailError', 'Please enter a valid email address');
+                isValid = false;
+            }
+            
+            if (subject.value.trim() === '') {
+                showError('subjectError', 'Subject is required');
+                isValid = false;
+            }
+            
+            if (message.value.trim().length < 10) {
+                showError('messageError', 'Message must be at least 10 characters');
+                isValid = false;
+            }
+            
+            if (isValid) {
+                document.getElementById('formStatus').textContent = 'Sending message...';
+                document.getElementById('formStatus').style.color = 'blue';
+                
+                setTimeout(() => {
+                    document.getElementById('formStatus').textContent = 'Message sent successfully!';
+                    document.getElementById('formStatus').style.color = 'green';
+                    this.reset();
+                }, 1500);
+            }
+        });
+        
+        function showError(elementId, message) {
+            document.getElementById(elementId).textContent = message;
+            document.getElementById(elementId).style.color = 'red';
+        }
+        
+        function clearErrors() {
+            const errors = document.querySelectorAll('.error');
+            errors.forEach(error => {
+                error.textContent = '';
+            });
+            document.getElementById('formStatus').textContent = '';
+        }
+        
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+    </script>
+</body>
+</html>
