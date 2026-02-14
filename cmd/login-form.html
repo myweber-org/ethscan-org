@@ -5,347 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Login</title>
     <style>
-        .error { color: red; font-size: 0.9em; }
-        .success { color: green; font-size: 0.9em; }
-    </style>
-</head>
-<body>
-    <h1>Login</h1>
-    <form id="loginForm">
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <span id="emailError" class="error"></span>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" minlength="6" required>
-            <span id="passwordError" class="error"></span>
-        </div>
-        <button type="submit">Login</button>
-    </form>
-    <div id="message" class="success"></div>
-
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            clearErrors();
-            let isValid = true;
-
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const emailError = document.getElementById('emailError');
-            const passwordError = document.getElementById('passwordError');
-            const messageDiv = document.getElementById('message');
-
-            if (!validateEmail(email)) {
-                emailError.textContent = 'Please enter a valid email address.';
-                isValid = false;
-            }
-
-            if (password.length < 6) {
-                passwordError.textContent = 'Password must be at least 6 characters long.';
-                isValid = false;
-            }
-
-            if (isValid) {
-                messageDiv.textContent = 'Login successful! Redirecting...';
-                messageDiv.className = 'success';
-                setTimeout(() => {
-                    alert('Simulated redirect to dashboard.');
-                }, 1000);
-            } else {
-                messageDiv.textContent = 'Please fix the errors above.';
-                messageDiv.className = 'error';
-            }
-        });
-
-        function validateEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
-        }
-
-        function clearErrors() {
-            document.querySelectorAll('.error').forEach(span => span.textContent = '');
-            document.getElementById('message').textContent = '';
-        }
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login</title>
-    <style>
-        .error { color: red; font-size: 0.9em; }
-        .success { color: green; font-size: 0.9em; }
-    </style>
-</head>
-<body>
-    <h2>Login</h2>
-    <form id="loginForm">
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <span id="emailError" class="error"></span>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required minlength="6">
-            <span id="passwordError" class="error"></span>
-        </div>
-        <button type="submit">Login</button>
-    </form>
-    <div id="message" class="success"></div>
-
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            clearErrors();
-            let isValid = true;
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value.trim();
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-            if (!emailRegex.test(email)) {
-                document.getElementById('emailError').textContent = 'Please enter a valid email address.';
-                isValid = false;
-            }
-            if (password.length < 6) {
-                document.getElementById('passwordError').textContent = 'Password must be at least 6 characters.';
-                isValid = false;
-            }
-            if (isValid) {
-                document.getElementById('message').textContent = 'Login successful! Redirecting...';
-                setTimeout(() => {
-                    alert('Simulated redirect to dashboard.');
-                }, 1000);
-            }
-        });
-
-        function clearErrors() {
-            document.querySelectorAll('.error').forEach(span => span.textContent = '');
-            document.getElementById('message').textContent = '';
-        }
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login</title>
-</head>
-<body>
-    <h1>Login to Your Account</h1>
-    <form id="loginForm">
-        <div>
-            <label for="email">Email Address:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <div>
-            <button type="submit">Sign In</button>
-        </div>
-    </form>
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            console.log('Login attempt with:', { email, password });
-            alert('Login submitted (check console for details)');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login</title>
-</head>
-<body>
-    <form id="loginForm">
-        <div>
-            <label for="email">Email Address:</label>
-            <input type="email" id="email" name="email" required>
-            <span id="emailError" class="error"></span>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" minlength="8" required>
-            <span id="passwordError" class="error"></span>
-        </div>
-        <button type="submit">Login</button>
-    </form>
-
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            let isValid = true;
-
-            const email = document.getElementById('email');
-            const emailError = document.getElementById('emailError');
-            const password = document.getElementById('password');
-            const passwordError = document.getElementById('passwordError');
-
-            emailError.textContent = '';
-            passwordError.textContent = '';
-
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email.value)) {
-                emailError.textContent = 'Please enter a valid email address.';
-                isValid = false;
-            }
-
-            if (password.value.length < 8) {
-                passwordError.textContent = 'Password must be at least 8 characters long.';
-                isValid = false;
-            }
-
-            if (isValid) {
-                console.log('Form submitted with:', {
-                    email: email.value,
-                    password: password.value
-                });
-                alert('Login successful!');
-                this.reset();
-            }
-        });
-    </script>
-
-    <style>
         .error {
             color: red;
             font-size: 0.9em;
-            margin-left: 10px;
+            display: none;
         }
-        form div {
-            margin-bottom: 15px;
-        }
-        label {
-            display: inline-block;
-            width: 150px;
-        }
-        input {
-            padding: 5px;
-            width: 250px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login</title>
-    <style>
-        body { font-family: sans-serif; max-width: 400px; margin: 50px auto; padding: 20px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
-        button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; width: 100%; }
-        button:hover { background-color: #0056b3; }
-        .error { color: red; font-size: 0.9em; margin-top: 5px; display: none; }
-        .toggle-password { margin-top: 5px; font-size: 0.9em; color: #007bff; cursor: pointer; }
     </style>
 </head>
 <body>
-    <h2>Login</h2>
     <form id="loginForm">
-        <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" required>
-            <div class="error" id="emailError">Please enter a valid email address.</div>
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <span id="usernameError" class="error">Username must be at least 3 characters.</span>
         </div>
-        <div class="form-group">
-            <label for="password">Password</label>
+        <div>
+            <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
-            <div class="toggle-password" id="togglePassword">Show Password</div>
-            <div class="error" id="passwordError">Password must be at least 8 characters.</div>
+            <span id="passwordError" class="error">Password must be at least 6 characters.</span>
         </div>
         <button type="submit">Login</button>
     </form>
 
     <script>
-        const form = document.getElementById('loginForm');
-        const emailInput = document.getElementById('email');
-        const passwordInput = document.getElementById('password');
-        const emailError = document.getElementById('emailError');
-        const passwordError = document.getElementById('passwordError');
-        const togglePassword = document.getElementById('togglePassword');
-
-        function validateEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
-        }
-
-        function validatePassword(password) {
-            return password.length >= 8;
-        }
-
-        emailInput.addEventListener('input', () => {
-            if (validateEmail(emailInput.value)) {
-                emailError.style.display = 'none';
-            } else {
-                emailError.style.display = 'block';
-            }
-        });
-
-        passwordInput.addEventListener('input', () => {
-            if (validatePassword(passwordInput.value)) {
-                passwordError.style.display = 'none';
-            } else {
-                passwordError.style.display = 'block';
-            }
-        });
-
-        togglePassword.addEventListener('click', () => {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            togglePassword.textContent = type === 'password' ? 'Show Password' : 'Hide Password';
-        });
-
-        form.addEventListener('submit', (event) => {
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
             let isValid = true;
 
-            if (!validateEmail(emailInput.value)) {
-                emailError.style.display = 'block';
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const usernameError = document.getElementById('usernameError');
+            const passwordError = document.getElementById('passwordError');
+
+            usernameError.style.display = 'none';
+            passwordError.style.display = 'none';
+
+            if (username.length < 3) {
+                usernameError.style.display = 'block';
                 isValid = false;
-            } else {
-                emailError.style.display = 'none';
             }
 
-            if (!validatePassword(passwordInput.value)) {
+            if (password.length < 6) {
                 passwordError.style.display = 'block';
                 isValid = false;
-            } else {
-                passwordError.style.display = 'none';
             }
 
             if (isValid) {
                 alert('Login successful!');
-                form.reset();
-                emailError.style.display = 'none';
-                passwordError.style.display = 'none';
-                passwordInput.setAttribute('type', 'password');
-                togglePassword.textContent = 'Show Password';
+                // Here you would typically send data to a server
+                // For example: fetch('/login', { method: 'POST', body: JSON.stringify({ username, password }) });
             }
         });
     </script>
