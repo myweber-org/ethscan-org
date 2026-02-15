@@ -713,4 +713,82 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; }
+        input:invalid { border-color: red; }
+    </style>
+</head>
+<body>
+    <h1>Update Your Profile</h1>
+    <form id="profileForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="20" pattern="[A-Za-z0-9_]+">
+            <div id="usernameError" class="error"></div>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <div id="emailError" class="error"></div>
+        </div>
+        <div>
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" min="18" max="120">
+            <div id="ageError" class="error"></div>
+        </div>
+        <button type="submit">Save Profile</button>
+    </form>
+    <div id="message" class="success"></div>
+
+    <script>
+        const form = document.getElementById('profileForm');
+        const messageDiv = document.getElementById('message');
+
+        function showError(elementId, message) {
+            const errorDiv = document.getElementById(elementId);
+            errorDiv.textContent = message;
+        }
+
+        function clearErrors() {
+            document.querySelectorAll('.error').forEach(div => div.textContent = '');
+            messageDiv.textContent = '';
+        }
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            clearErrors();
+
+            let isValid = true;
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const age = document.getElementById('age').value;
+
+            if (!/^[A-Za-z0-9_]+$/.test(username)) {
+                showError('usernameError', 'Username can only contain letters, numbers, and underscores.');
+                isValid = false;
+            }
+
+            if (age && (age < 18 || age > 120)) {
+                showError('ageError', 'Age must be between 18 and 120.');
+                isValid = false;
+            }
+
+            if (isValid) {
+                messageDiv.textContent = 'Profile updated successfully!';
+                form.reset();
+            }
+        });
+
+        form.addEventListener('input', function() {
+            clearErrors();
+        });
+    </script>
+</body>
 </html>
