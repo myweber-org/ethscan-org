@@ -30,7 +30,7 @@
         <div>
             <label for="confirmPassword">Confirm Password:</label>
             <input type="password" id="confirmPassword" name="confirmPassword" required>
-            <span id="confirmError" class="error"></span>
+            <span id="confirmPasswordError" class="error"></span>
         </div>
         <button type="submit">Register</button>
         <div id="message" class="success"></div>
@@ -47,8 +47,8 @@
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
 
-            if (username.length < 3) {
-                showError('usernameError', 'Username must be at least 3 characters.');
+            if (username.length < 3 || username.length > 20) {
+                showError('usernameError', 'Username must be between 3 and 20 characters.');
                 isValid = false;
             }
 
@@ -59,18 +59,20 @@
             }
 
             if (password.length < 8) {
-                showError('passwordError', 'Password must be at least 8 characters.');
+                showError('passwordError', 'Password must be at least 8 characters long.');
                 isValid = false;
             }
 
             if (password !== confirmPassword) {
-                showError('confirmError', 'Passwords do not match.');
+                showError('confirmPasswordError', 'Passwords do not match.');
                 isValid = false;
             }
 
             if (isValid) {
                 document.getElementById('message').textContent = 'Registration successful!';
                 this.reset();
+            } else {
+                document.getElementById('message').textContent = '';
             }
         });
 
@@ -80,8 +82,7 @@
 
         function clearErrors() {
             const errorElements = document.querySelectorAll('.error');
-            errorElements.forEach(el => el.textContent = '');
-            document.getElementById('message').textContent = '';
+            errorElements.forEach(element => element.textContent = '');
         }
     </script>
 </body>
