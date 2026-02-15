@@ -209,3 +209,104 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <form id="profileForm">
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+                <span id="usernameError" class="error"></span>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <span id="emailError" class="error"></span>
+            </div>
+            <div>
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" min="18" max="120">
+            </div>
+            <div>
+                <label for="country">Country:</label>
+                <select id="country" name="country">
+                    <option value="">Select a country</option>
+                    <option value="us">United States</option>
+                    <option value="uk">United Kingdom</option>
+                    <option value="ca">Canada</option>
+                    <option value="au">Australia</option>
+                </select>
+            </div>
+            <button type="submit">Update Profile</button>
+        </form>
+        <div id="successMessage" class="success" style="display: none;">
+            Profile updated successfully!
+        </div>
+    </main>
+    <script>
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let isValid = true;
+
+            const username = document.getElementById('username');
+            const email = document.getElementById('email');
+            const usernameError = document.getElementById('usernameError');
+            const emailError = document.getElementById('emailError');
+
+            usernameError.textContent = '';
+            emailError.textContent = '';
+
+            if (username.value.length < 3) {
+                usernameError.textContent = 'Username must be at least 3 characters.';
+                isValid = false;
+            }
+
+            if (!email.value.includes('@')) {
+                emailError.textContent = 'Please enter a valid email address.';
+                isValid = false;
+            }
+
+            if (isValid) {
+                console.log('Form submitted with data:', {
+                    username: username.value,
+                    email: email.value,
+                    age: document.getElementById('age').value,
+                    country: document.getElementById('country').value
+                });
+                document.getElementById('successMessage').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('successMessage').style.display = 'none';
+                }, 3000);
+            }
+        });
+    </script>
+    <style>
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-left: 10px;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        div {
+            margin-bottom: 15px;
+        }
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+    </style>
+</body>
+</html>
