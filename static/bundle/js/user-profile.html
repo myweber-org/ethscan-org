@@ -350,3 +350,76 @@
     </div>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile Settings</h1>
+    </header>
+    <main>
+        <section class="profile-container">
+            <div class="avatar-section">
+                <img id="avatarPreview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
+                <div>
+                    <input type="file" id="avatarUpload" accept="image/*">
+                    <button onclick="uploadAvatar()">Upload Avatar</button>
+                </div>
+            </div>
+            <form id="profileForm" onsubmit="return updateProfile()">
+                <div class="form-group">
+                    <label for="fullName">Full Name:</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="bio">Bio:</label>
+                    <textarea id="bio" name="bio" rows="4"></textarea>
+                </div>
+                <button type="submit">Save Profile</button>
+            </form>
+        </section>
+    </main>
+    <script>
+        function uploadAvatar() {
+            const fileInput = document.getElementById('avatarUpload');
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatarPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+                alert('Avatar uploaded successfully!');
+            } else {
+                alert('Please select an image file first.');
+            }
+        }
+
+        function updateProfile() {
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const bio = document.getElementById('bio').value;
+            
+            // In a real application, you would send this data to a server
+            console.log('Profile updated:', { fullName, email, bio });
+            alert('Profile information saved!');
+            return false; // Prevent form submission for this example
+        }
+
+        // Simulate loading existing profile data
+        window.onload = function() {
+            document.getElementById('fullName').value = 'John Doe';
+            document.getElementById('email').value = 'john.doe@example.com';
+            document.getElementById('bio').value = 'Software developer and open source enthusiast.';
+        };
+    </script>
+</body>
+</html>
