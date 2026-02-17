@@ -106,4 +106,108 @@
         }
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        input.invalid, textarea.invalid { border: 2px solid red; }
+    </style>
+</head>
+<body>
+    <h1>Contact Us</h1>
+    <form id="contactForm" novalidate>
+        <div>
+            <label for="name">Full Name:</label><br>
+            <input type="text" id="name" name="name" required>
+            <div class="error" id="nameError"></div>
+        </div>
+        <br>
+        <div>
+            <label for="email">Email Address:</label><br>
+            <input type="email" id="email" name="email" required>
+            <div class="error" id="emailError"></div>
+        </div>
+        <br>
+        <div>
+            <label for="message">Your Message:</label><br>
+            <textarea id="message" name="message" rows="5" required></textarea>
+            <div class="error" id="messageError"></div>
+        </div>
+        <br>
+        <button type="submit">Send Message</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('contactForm');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const messageInput = document.getElementById('message');
+        const nameError = document.getElementById('nameError');
+        const emailError = document.getElementById('emailError');
+        const messageError = document.getElementById('messageError');
+
+        function validateField(input, errorElement, message) {
+            if (!input.value.trim()) {
+                errorElement.textContent = message;
+                input.classList.add('invalid');
+                return false;
+            } else {
+                errorElement.textContent = '';
+                input.classList.remove('invalid');
+                return true;
+            }
+        }
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            let isValid = true;
+
+            isValid = validateField(nameInput, nameError, 'Name is required.') && isValid;
+
+            if (!emailInput.value.trim()) {
+                emailError.textContent = 'Email is required.';
+                emailInput.classList.add('invalid');
+                isValid = false;
+            } else if (!validateEmail(emailInput.value)) {
+                emailError.textContent = 'Please enter a valid email address.';
+                emailInput.classList.add('invalid');
+                isValid = false;
+            } else {
+                emailError.textContent = '';
+                emailInput.classList.remove('invalid');
+            }
+
+            isValid = validateField(messageInput, messageError, 'Message is required.') && isValid;
+
+            if (isValid) {
+                alert('Form submitted successfully! (This is a demo)');
+                form.reset();
+            }
+        });
+
+        nameInput.addEventListener('blur', () => validateField(nameInput, nameError, 'Name is required.'));
+        emailInput.addEventListener('blur', () => {
+            if (!emailInput.value.trim()) {
+                emailError.textContent = 'Email is required.';
+                emailInput.classList.add('invalid');
+            } else if (!validateEmail(emailInput.value)) {
+                emailError.textContent = 'Please enter a valid email address.';
+                emailInput.classList.add('invalid');
+            } else {
+                emailError.textContent = '';
+                emailInput.classList.remove('invalid');
+            }
+        });
+        messageInput.addEventListener('blur', () => validateField(messageInput, messageError, 'Message is required.'));
+    </script>
+</body>
 </html>
