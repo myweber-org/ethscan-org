@@ -804,4 +804,84 @@
         }
     </style>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+</head>
+<body>
+    <form id="registrationForm">
+        <h2>Create Account</h2>
+        
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+        <small>Must be 3-20 characters</small>
+        
+        <br><br>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <small>Enter a valid email address</small>
+        
+        <br><br>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
+        <small>Minimum 8 characters with at least one letter and one number</small>
+        
+        <br><br>
+        
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+        
+        <br><br>
+        
+        <label>
+            <input type="checkbox" id="terms" name="terms" required>
+            I agree to the Terms of Service
+        </label>
+        
+        <br><br>
+        
+        <button type="submit">Register</button>
+        <button type="reset">Clear Form</button>
+    </form>
+
+    <div id="message"></div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const messageDiv = document.getElementById('message');
+            
+            if (password !== confirmPassword) {
+                messageDiv.innerHTML = '<p style="color: red;">Passwords do not match!</p>';
+                return;
+            }
+            
+            if (!document.getElementById('terms').checked) {
+                messageDiv.innerHTML = '<p style="color: red;">You must agree to the terms!</p>';
+                return;
+            }
+            
+            messageDiv.innerHTML = '<p style="color: green;">Registration successful! Form data would be sent to server.</p>';
+            
+            console.log('Form data:', {
+                username: document.getElementById('username').value,
+                email: document.getElementById('email').value,
+                password: '***' 
+            });
+            
+            setTimeout(() => {
+                messageDiv.innerHTML = '';
+                this.reset();
+            }, 3000);
+        });
+    </script>
+</body>
 </html>
