@@ -10,7 +10,7 @@
     </style>
 </head>
 <body>
-    <h2>Register New Account</h2>
+    <h1>Register New Account</h1>
     <form id="registrationForm">
         <div>
             <label for="username">Username:</label>
@@ -33,8 +33,8 @@
             <span id="confirmPasswordError" class="error"></span>
         </div>
         <button type="submit">Register</button>
-        <div id="formMessage" class="success"></div>
     </form>
+    <div id="message" class="success"></div>
 
     <script>
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
@@ -47,8 +47,8 @@
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
 
-            if (username.length < 3 || username.length > 20) {
-                showError('usernameError', 'Username must be 3-20 characters.');
+            if (username.length < 3) {
+                showError('usernameError', 'Username must be at least 3 characters.');
                 isValid = false;
             }
 
@@ -69,10 +69,11 @@
             }
 
             if (isValid) {
-                document.getElementById('formMessage').textContent = 'Registration successful!';
+                document.getElementById('message').textContent = 'Registration successful!';
+                document.getElementById('message').className = 'success';
                 this.reset();
             } else {
-                document.getElementById('formMessage').textContent = '';
+                document.getElementById('message').textContent = '';
             }
         });
 
@@ -82,7 +83,7 @@
 
         function clearErrors() {
             const errorElements = document.querySelectorAll('.error');
-            errorElements.forEach(el => el.textContent = '');
+            errorElements.forEach(element => element.textContent = '');
         }
     </script>
 </body>
