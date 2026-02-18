@@ -1084,4 +1084,337 @@
         <p>&copy; 2023 Profile Page. All rights reserved.</p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="profile-container">
+        <header class="profile-header">
+            <h1><i class="fas fa-user-circle"></i> User Profile</h1>
+        </header>
+
+        <main class="profile-content">
+            <section class="avatar-section">
+                <div class="avatar-preview">
+                    <img id="avatarImage" src="https://via.placeholder.com/150" alt="User Avatar">
+                </div>
+                <div class="avatar-controls">
+                    <input type="file" id="avatarUpload" accept="image/*" hidden>
+                    <button id="uploadBtn" class="btn"><i class="fas fa-cloud-upload-alt"></i> Upload Avatar</button>
+                    <button id="removeBtn" class="btn btn-secondary"><i class="fas fa-trash-alt"></i> Remove Avatar</button>
+                </div>
+            </section>
+
+            <section class="bio-section">
+                <h2><i class="fas fa-edit"></i> Edit Biography</h2>
+                <textarea id="bioText" placeholder="Tell us something about yourself...">Hello! I'm a web developer passionate about creating interactive user experiences.</textarea>
+                <div class="bio-controls">
+                    <button id="saveBioBtn" class="btn btn-primary"><i class="fas fa-save"></i> Save Bio</button>
+                    <span id="charCount">0/500 characters</span>
+                </div>
+            </section>
+
+            <section class="info-section">
+                <h2><i class="fas fa-info-circle"></i> Account Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong><i class="fas fa-envelope"></i> Email:</strong>
+                        <span>user@example.com</span>
+                    </div>
+                    <div class="info-item">
+                        <strong><i class="fas fa-calendar-alt"></i> Member Since:</strong>
+                        <span>January 2023</span>
+                    </div>
+                    <div class="info-item">
+                        <strong><i class="fas fa-globe"></i> Location:</strong>
+                        <span>San Francisco, CA</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="profile-footer">
+            <p>Profile last updated: <span id="lastUpdated">Just now</span></p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const avatarUpload = document.getElementById('avatarUpload');
+            const uploadBtn = document.getElementById('uploadBtn');
+            const removeBtn = document.getElementById('removeBtn');
+            const avatarImage = document.getElementById('avatarImage');
+            const bioText = document.getElementById('bioText');
+            const saveBioBtn = document.getElementById('saveBioBtn');
+            const charCount = document.getElementById('charCount');
+            const lastUpdated = document.getElementById('lastUpdated');
+
+            uploadBtn.addEventListener('click', () => avatarUpload.click());
+
+            avatarUpload.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        avatarImage.src = e.target.result;
+                        updateTimestamp();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            removeBtn.addEventListener('click', function() {
+                avatarImage.src = 'https://via.placeholder.com/150';
+                updateTimestamp();
+            });
+
+            bioText.addEventListener('input', function() {
+                const currentLength = bioText.value.length;
+                charCount.textContent = `${currentLength}/500 characters`;
+                charCount.style.color = currentLength > 500 ? '#e74c3c' : '#7f8c8d';
+            });
+
+            saveBioBtn.addEventListener('click', function() {
+                if (bioText.value.length > 500) {
+                    alert('Biography must be 500 characters or less.');
+                    return;
+                }
+                alert('Biography saved successfully!');
+                updateTimestamp();
+            });
+
+            function updateTimestamp() {
+                const now = new Date();
+                lastUpdated.textContent = now.toLocaleString();
+            }
+
+            bioText.dispatchEvent(new Event('input'));
+        });
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .profile-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+        }
+
+        .profile-header {
+            background: linear-gradient(90deg, #4776E6 0%, #8E54E9 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .profile-header h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+
+        .profile-header i {
+            margin-right: 15px;
+        }
+
+        .profile-content {
+            padding: 40px;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: #2d3436;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            border-bottom: 2px solid #f1f2f6;
+            padding-bottom: 10px;
+        }
+
+        h2 i {
+            color: #4776E6;
+            margin-right: 10px;
+        }
+
+        .avatar-section {
+            text-align: center;
+        }
+
+        .avatar-preview {
+            margin-bottom: 25px;
+        }
+
+        .avatar-preview img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #dfe6e9;
+            transition: transform 0.3s;
+        }
+
+        .avatar-preview img:hover {
+            transform: scale(1.05);
+        }
+
+        .avatar-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #4776E6 0%, #8E54E9 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        .btn-secondary {
+            background: #dfe6e9;
+            color: #2d3436;
+        }
+
+        .btn-secondary:hover {
+            background: #b2bec3;
+        }
+
+        .bio-section textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 20px;
+            border: 2px solid #dfe6e9;
+            border-radius: 10px;
+            font-size: 1rem;
+            resize: vertical;
+            margin-bottom: 15px;
+            transition: border-color 0.3s;
+        }
+
+        .bio-section textarea:focus {
+            outline: none;
+            border-color: #4776E6;
+        }
+
+        .bio-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #charCount {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .info-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #4776E6;
+        }
+
+        .info-item strong {
+            color: #2d3436;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .info-item span {
+            color: #636e72;
+            font-size: 1.1rem;
+        }
+
+        .info-item i {
+            color: #4776E6;
+            margin-right: 8px;
+            width: 20px;
+        }
+
+        .profile-footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #636e72;
+            border-top: 1px solid #dfe6e9;
+        }
+
+        @media (max-width: 600px) {
+            .profile-header h1 {
+                font-size: 2rem;
+            }
+
+            .profile-content {
+                padding: 25px;
+            }
+
+            .avatar-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .bio-controls {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</body>
 </html>
