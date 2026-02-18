@@ -69,4 +69,91 @@
         <p>&copy; 2023 User Profile Page</p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; }
+        input.invalid { border: 1px solid red; }
+    </style>
+</head>
+<body>
+    <h1>User Profile</h1>
+    <form id="profileForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <span id="usernameError" class="error"></span>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <span id="emailError" class="error"></span>
+        </div>
+        <div>
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" min="1" max="120">
+            <span id="ageError" class="error"></span>
+        </div>
+        <button type="submit">Update Profile</button>
+    </form>
+    <p id="message" class="success"></p>
+
+    <script>
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            clearErrors();
+            let isValid = true;
+
+            const username = document.getElementById('username').value.trim();
+            if (username.length < 3) {
+                showError('usernameError', 'Username must be at least 3 characters.');
+                markInvalid('username');
+                isValid = false;
+            }
+
+            const email = document.getElementById('email').value.trim();
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                showError('emailError', 'Please enter a valid email address.');
+                markInvalid('email');
+                isValid = false;
+            }
+
+            const age = document.getElementById('age').value;
+            if (age && (age < 1 || age > 120)) {
+                showError('ageError', 'Age must be between 1 and 120.');
+                markInvalid('age');
+                isValid = false;
+            }
+
+            if (isValid) {
+                document.getElementById('message').textContent = 'Profile updated successfully!';
+                setTimeout(() => {
+                    document.getElementById('message').textContent = '';
+                }, 3000);
+            }
+        });
+
+        function showError(elementId, message) {
+            document.getElementById(elementId).textContent = message;
+        }
+
+        function clearErrors() {
+            const errorElements = document.querySelectorAll('.error');
+            errorElements.forEach(el => el.textContent = '');
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => input.classList.remove('invalid'));
+            document.getElementById('message').textContent = '';
+        }
+
+        function markInvalid(elementId) {
+            document.getElementById(elementId).classList.add('invalid');
+        }
+    </script>
+</body>
 </html>
