@@ -216,4 +216,46 @@
         <p>&copy; 2023 Profile Page. All rights reserved.</p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="avatar-section">
+            <h2>Avatar</h2>
+            <img src="https://via.placeholder.com/150" alt="Profile Avatar" id="profile-avatar">
+            <button id="change-avatar-btn">Change Avatar</button>
+        </section>
+        <section id="bio-section">
+            <h2>Biography</h2>
+            <p id="user-bio">This is a placeholder for the user's biography. The user has not yet added any information about themselves.</p>
+            <textarea id="bio-input" rows="4" cols="50" placeholder="Enter your biography here..."></textarea>
+            <br>
+            <button id="save-bio-btn">Save Biography</button>
+        </section>
+    </main>
+    <script>
+        document.getElementById('change-avatar-btn').addEventListener('click', function() {
+            alert('Avatar change functionality would be implemented here.');
+        });
+
+        document.getElementById('save-bio-btn').addEventListener('click', function() {
+            const bioInput = document.getElementById('bio-input').value;
+            if(bioInput.trim() !== '') {
+                document.getElementById('user-bio').textContent = bioInput;
+                document.getElementById('bio-input').value = '';
+                alert('Biography saved successfully!');
+            } else {
+                alert('Please enter some text for your biography.');
+            }
+        });
+    </script>
+</body>
 </html>
