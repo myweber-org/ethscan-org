@@ -1,318 +1,59 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 2rem;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a6fa5;
-        }
-        .name-section {
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-        .full-name {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 0.25rem;
-        }
-        .username {
-            font-size: 1rem;
-            color: #666;
-        }
-        .bio-section {
-            padding: 1rem;
-            background-color: #f9f9f9;
-            border-radius: 6px;
-            line-height: 1.6;
-            color: #444;
-        }
-        .bio-title {
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            color: #333;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
-        </div>
-        <div class="name-section">
-            <div class="full-name">Alex Morgan</div>
-            <div class="username">@alex_morgan</div>
-        </div>
-        <div class="bio-section">
-            <div class="bio-title">About Me</div>
-            <div class="bio-content">
-                Software developer with a passion for open-source projects and web technologies. 
-                Enjoys hiking, photography, and exploring new coffee shops. Currently working on 
-                improving accessibility in modern web applications.
-            </div>
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
 </head>
 <body>
     <header>
         <h1>User Profile</h1>
     </header>
     <main>
-        <section class="profile">
-            <img src="avatar.jpg" alt="User Avatar" width="150" height="150">
-            <div class="info">
-                <h2>John Doe</h2>
-                <p>Email: john.doe@example.com</p>
-                <p>Location: New York, USA</p>
-                <p>Member since: January 2023</p>
-            </div>
+        <section class="avatar-section">
+            <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
+            <form id="avatar-form">
+                <input type="file" id="avatar-input" accept="image/*">
+                <button type="button" onclick="uploadAvatar()">Upload Avatar</button>
+            </form>
         </section>
-        <section class="bio">
-            <h3>Biography</h3>
-            <p>Software developer with a passion for open-source projects and web technologies.</p>
+        <section class="info-section">
+            <form id="profile-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <br>
+                <label for="bio">Bio:</label>
+                <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
+                <br>
+                <button type="submit">Save Profile</button>
+            </form>
         </section>
     </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .error { color: red; font-size: 0.9em; }
-        .success { color: green; font-size: 0.9em; }
-        input { margin-bottom: 10px; display: block; }
-    </style>
-</head>
-<body>
-    <h1>Update Your Profile</h1>
-    <form id="profileForm">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required minlength="3">
-        <div id="usernameError" class="error"></div>
-
-        <label for="email">Email Address:</label>
-        <input type="email" id="email" name="email" required>
-        <div id="emailError" class="error"></div>
-
-        <label for="age">Age:</label>
-        <input type="number" id="age" name="age" min="1" max="120">
-        <div id="ageError" class="error"></div>
-
-        <button type="submit">Save Profile</button>
-    </form>
-    <div id="message" class="success"></div>
-
     <script>
-        const form = document.getElementById('profileForm');
-        const messageDiv = document.getElementById('message');
-
-        function showError(elementId, message) {
-            const errorDiv = document.getElementById(elementId);
-            errorDiv.textContent = message;
+        function uploadAvatar() {
+            const input = document.getElementById('avatar-input');
+            const preview = document.getElementById('avatar-preview');
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
         }
 
-        function clearError(elementId) {
-            const errorDiv = document.getElementById(elementId);
-            errorDiv.textContent = '';
-        }
-
-        function validateForm() {
-            let isValid = true;
-            const username = document.getElementById('username').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const age = document.getElementById('age').value;
-
-            clearError('usernameError');
-            clearError('emailError');
-            clearError('ageError');
-
-            if (username.length < 3) {
-                showError('usernameError', 'Username must be at least 3 characters.');
-                isValid = false;
-            }
-
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-                showError('emailError', 'Please enter a valid email address.');
-                isValid = false;
-            }
-
-            if (age && (age < 1 || age > 120)) {
-                showError('ageError', 'Age must be between 1 and 120.');
-                isValid = false;
-            }
-
-            return isValid;
-        }
-
-        form.addEventListener('submit', function(event) {
+        document.getElementById('profile-form').addEventListener('submit', function(event) {
             event.preventDefault();
-            messageDiv.textContent = '';
-
-            if (validateForm()) {
-                messageDiv.textContent = 'Profile updated successfully!';
-                messageDiv.className = 'success';
-                form.reset();
-            } else {
-                messageDiv.textContent = 'Please correct the errors above.';
-                messageDiv.className = 'error';
-            }
-        });
-
-        document.getElementById('username').addEventListener('input', function() {
-            clearError('usernameError');
-        });
-        document.getElementById('email').addEventListener('input', function() {
-            clearError('emailError');
-        });
-        document.getElementById('age').addEventListener('input', function() {
-            clearError('ageError');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section>
-            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            <h2>John Doe</h2>
-            <p>Email: john.doe@example.com</p>
-            <p>Location: New York, USA</p>
-            <p>Member since: January 2023</p>
-        </section>
-        <section>
-            <h3>Bio</h3>
-            <p>Software developer passionate about web technologies and open source projects.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 Profile Page. All rights reserved.</p>
-    </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section>
-            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            <h2>John Doe</h2>
-            <p>Email: john.doe@example.com</p>
-            <p>Location: New York, USA</p>
-            <p>Member since: January 2023</p>
-        </section>
-        <section>
-            <h3>Bio</h3>
-            <p>Software developer with a passion for open-source projects and web technologies.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 Profile Page. All rights reserved.</p>
-    </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
-            <div class="avatar-container">
-                <img src="avatar-placeholder.jpg" alt="User Avatar" id="user-avatar" width="150" height="150">
-            </div>
-            <div class="profile-info">
-                <h2 id="username">John Doe</h2>
-                <p id="user-bio">Software developer with a passion for open-source projects and web technologies.</p>
-                <p><strong>Location:</strong> <span id="user-location">San Francisco, CA</span></p>
-                <p><strong>Joined:</strong> <span id="join-date">January 2023</span></p>
-            </div>
-        </section>
-    </main>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('User profile page loaded.');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
-            <div class="avatar-container">
-                <img src="avatar.jpg" alt="User Avatar" id="user-avatar" width="150" height="150">
-            </div>
-            <div class="user-info">
-                <h2 id="username">John Doe</h2>
-                <p id="user-bio">Software developer with a passion for open-source projects and web technologies.</p>
-                <p><strong>Location:</strong> <span id="user-location">San Francisco, CA</span></p>
-                <p><strong>Joined:</strong> <span id="join-date">January 2020</span></p>
-            </div>
-        </section>
-    </main>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('User profile page loaded.');
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const bio = document.getElementById('bio').value;
+            console.log('Profile saved:', { username, email, bio });
+            alert('Profile saved successfully!');
         });
     </script>
 </body>
