@@ -32,4 +32,60 @@
         <p>&copy; 2023 User Profile. All rights reserved.</p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section class="profile-section">
+            <div class="avatar-container">
+                <img id="avatarImage" src="default-avatar.png" alt="User Avatar" width="150" height="150">
+                <div>
+                    <input type="file" id="avatarUpload" accept="image/*">
+                    <button onclick="uploadAvatar()">Upload Avatar</button>
+                </div>
+            </div>
+            <div class="bio-container">
+                <h2>Edit Bio</h2>
+                <textarea id="bioText" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
+                <br>
+                <button onclick="saveBio()">Save Bio</button>
+                <p id="bioStatus"></p>
+            </div>
+        </section>
+    </main>
+    <script>
+        function uploadAvatar() {
+            const fileInput = document.getElementById('avatarUpload');
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatarImage').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+                alert('Avatar uploaded successfully!');
+            } else {
+                alert('Please select an image file.');
+            }
+        }
+
+        function saveBio() {
+            const bioText = document.getElementById('bioText').value;
+            if (bioText.trim() !== '') {
+                document.getElementById('bioStatus').textContent = 'Bio saved successfully!';
+                console.log('Bio saved:', bioText);
+            } else {
+                document.getElementById('bioStatus').textContent = 'Bio cannot be empty.';
+            }
+        }
+    </script>
+</body>
 </html>
