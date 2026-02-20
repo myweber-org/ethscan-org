@@ -18,40 +18,95 @@
             text-align: center;
             margin-bottom: 20px;
         }
-        .avatar {
+        .avatar-preview {
             width: 120px;
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #4a90e2;
-        }
-        .name-section {
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
+            border: 3px solid #4CAF50;
             margin-bottom: 10px;
-            color: #333;
         }
-        .bio-section {
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            line-height: 1.6;
-            color: #555;
+        .bio-section textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        .save-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+        .save-btn:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
+        <h1>Edit Profile</h1>
+        
         <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="User Avatar" class="avatar">
+            <img id="avatarPreview" src="default-avatar.png" alt="Avatar Preview" class="avatar-preview">
+            <div>
+                <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
+                <button onclick="document.getElementById('avatarUpload').click()">Choose Avatar</button>
+                <p style="font-size: 12px; color: #666;">Supported formats: JPG, PNG, GIF. Max size: 2MB</p>
+            </div>
         </div>
-        <div class="name-section">
-            Alex Johnson
-        </div>
+
         <div class="bio-section">
-            Software developer with over 8 years of experience in web technologies. Passionate about creating efficient, scalable applications and contributing to open-source projects. Enjoys hiking and photography in free time.
+            <label for="userBio"><strong>Bio:</strong></label>
+            <textarea id="userBio" placeholder="Tell something about yourself..."></textarea>
         </div>
+
+        <button class="save-btn" onclick="saveProfile()">Save Changes</button>
     </div>
+
+    <script>
+        const avatarUpload = document.getElementById('avatarUpload');
+        const avatarPreview = document.getElementById('avatarPreview');
+        const userBio = document.getElementById('userBio');
+
+        avatarUpload.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('File size exceeds 2MB limit.');
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function saveProfile() {
+            const bioText = userBio.value.trim();
+            if (bioText.length > 500) {
+                alert('Bio must be less than 500 characters.');
+                return;
+            }
+            alert('Profile saved successfully!');
+        }
+
+        window.onload = function() {
+            userBio.value = localStorage.getItem('userBio') || '';
+        };
+
+        window.onbeforeunload = function() {
+            localStorage.setItem('userBio', userBio.value);
+        };
+    </script>
 </body>
 </html>
