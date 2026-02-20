@@ -10,150 +10,65 @@
         <h1>User Profile</h1>
     </header>
     <main>
-        <section id="profile-info">
-            <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button id="upload-btn">Upload Avatar</button>
-            </div>
-            <div class="bio-section">
-                <h2>Bio</h2>
-                <textarea id="bio-text" rows="4" cols="50" placeholder="Write something about yourself..."></textarea>
-                <button id="save-bio-btn">Save Bio</button>
-            </div>
+        <section id="avatar-section">
+            <h2>Profile Picture</h2>
+            <img id="avatar-preview" src="placeholder.jpg" alt="Avatar Preview" width="150" height="150">
+            <form id="avatar-form">
+                <label for="avatar-upload">Upload new avatar:</label>
+                <input type="file" id="avatar-upload" name="avatar" accept="image/*">
+                <button type="submit">Update Avatar</button>
+            </form>
+        </section>
+        <section id="info-section">
+            <h2>Basic Information</h2>
+            <form id="profile-form">
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div>
+                    <label for="bio">Bio:</label>
+                    <textarea id="bio" name="bio" rows="4"></textarea>
+                </div>
+                <button type="submit">Save Profile</button>
+            </form>
         </section>
     </main>
     <script>
-        document.getElementById('upload-btn').addEventListener('click', function() {
-            const fileInput = document.getElementById('avatar-upload');
-            if (fileInput.files && fileInput.files[0]) {
+        document.getElementById('avatar-upload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     document.getElementById('avatar-preview').src = e.target.result;
                 };
-                reader.readAsDataURL(fileInput.files[0]);
+                reader.readAsDataURL(file);
             }
         });
 
-        document.getElementById('save-bio-btn').addEventListener('click', function() {
-            const bioText = document.getElementById('bio-text').value;
-            alert('Bio saved: ' + bioText);
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section>
-            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            <h2>John Doe</h2>
-            <p>Email: john.doe@example.com</p>
-            <p>Location: New York, USA</p>
-            <p>Member since: January 2023</p>
-        </section>
-        <section>
-            <h3>Bio</h3>
-            <p>Software developer with interest in web technologies and open source projects.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .error { color: red; font-size: 0.9em; }
-        .success { color: green; }
-        input.invalid { border: 1px solid red; }
-    </style>
-</head>
-<body>
-    <h1>User Profile</h1>
-    <form id="profileForm">
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            <span id="usernameError" class="error"></span>
-        </div>
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <span id="emailError" class="error"></span>
-        </div>
-        <div>
-            <label for="age">Age:</label>
-            <input type="number" id="age" name="age" min="1" max="120">
-            <span id="ageError" class="error"></span>
-        </div>
-        <button type="submit">Update Profile</button>
-    </form>
-    <p id="message" class="success"></p>
-
-    <script>
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
+        document.getElementById('profile-form').addEventListener('submit', function(event) {
             event.preventDefault();
-            clearErrors();
-            let isValid = true;
-
-            const username = document.getElementById('username').value.trim();
-            if (username.length < 3) {
-                showError('usernameError', 'Username must be at least 3 characters.');
-                markInvalid('username');
-                isValid = false;
-            }
-
-            const email = document.getElementById('email').value.trim();
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-                showError('emailError', 'Please enter a valid email address.');
-                markInvalid('email');
-                isValid = false;
-            }
-
-            const age = document.getElementById('age').value;
-            if (age && (age < 1 || age > 120)) {
-                showError('ageError', 'Age must be between 1 and 120.');
-                markInvalid('age');
-                isValid = false;
-            }
-
-            if (isValid) {
-                document.getElementById('message').textContent = 'Profile updated successfully!';
-                setTimeout(() => {
-                    document.getElementById('message').textContent = '';
-                }, 3000);
-            }
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const bio = document.getElementById('bio').value;
+            console.log('Profile saved:', { username, email, bio });
+            alert('Profile information saved!');
         });
 
-        function showError(elementId, message) {
-            document.getElementById(elementId).textContent = message;
-        }
-
-        function clearErrors() {
-            const errorElements = document.querySelectorAll('.error');
-            errorElements.forEach(el => el.textContent = '');
-            const inputs = document.querySelectorAll('input');
-            inputs.forEach(input => input.classList.remove('invalid'));
-            document.getElementById('message').textContent = '';
-        }
-
-        function markInvalid(elementId) {
-            document.getElementById(elementId).classList.add('invalid');
-        }
+        document.getElementById('avatar-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const fileInput = document.getElementById('avatar-upload');
+            if (fileInput.files.length > 0) {
+                console.log('Avatar uploaded:', fileInput.files[0].name);
+                alert('Avatar updated!');
+            } else {
+                alert('Please select an image file.');
+            }
+        });
     </script>
 </body>
 </html>
