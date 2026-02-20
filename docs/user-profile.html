@@ -286,4 +286,34 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section class="profile">
+            <div class="avatar-container">
+                <img src="avatar.jpg" alt="User Avatar" id="user-avatar" width="150" height="150">
+            </div>
+            <div class="user-info">
+                <h2 id="username">John Doe</h2>
+                <p id="user-bio">Software developer with a passion for open-source projects and web technologies.</p>
+                <p><strong>Location:</strong> <span id="user-location">San Francisco, CA</span></p>
+                <p><strong>Joined:</strong> <span id="join-date">January 2020</span></p>
+            </div>
+        </section>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('User profile page loaded.');
+        });
+    </script>
+</body>
 </html>
