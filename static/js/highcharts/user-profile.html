@@ -108,4 +108,55 @@
         <p>&copy; 2023 Profile Page. All rights reserved.</p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="profile-section">
+            <div class="avatar-container">
+                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
+                <input type="file" id="avatar-upload" accept="image/*">
+                <button id="upload-btn">Upload Avatar</button>
+            </div>
+            <div class="bio-container">
+                <h2>Edit Bio</h2>
+                <textarea id="bio-textarea" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
+                <button id="save-bio-btn">Save Bio</button>
+            </div>
+            <div class="user-info">
+                <p>Username: <span id="username-display">guest</span></p>
+                <p>Email: <span id="email-display">guest@example.com</span></p>
+                <p>Member since: <span id="join-date">January 2023</span></p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 User Profile Page. All rights reserved.</p>
+    </footer>
+    <script>
+        document.getElementById('upload-btn').addEventListener('click', function() {
+            const fileInput = document.getElementById('avatar-upload');
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatar-preview').src = e.target.result;
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        });
+
+        document.getElementById('save-bio-btn').addEventListener('click', function() {
+            const bioText = document.getElementById('bio-textarea').value;
+            alert('Bio saved: ' + bioText);
+        });
+    </script>
+</body>
 </html>
