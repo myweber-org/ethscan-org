@@ -4,197 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .avatar-preview {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #ddd;
-            margin-bottom: 10px;
-        }
-        .avatar-input {
-            display: none;
-        }
-        .avatar-label {
-            display: inline-block;
-            padding: 8px 16px;
-            background-color: #007bff;
-            color: white;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .bio-section {
-            margin-top: 20px;
-        }
-        .bio-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-        .bio-textarea {
-            width: 100%;
-            height: 100px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
-            box-sizing: border-box;
-        }
-        .save-button {
-            display: block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .save-button:hover {
-            background-color: #218838;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <h1>Edit Profile</h1>
-        <div class="avatar-section">
-            <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
-            <input type="file" id="avatarInput" class="avatar-input" accept="image/*">
-            <label for="avatarInput" class="avatar-label">Choose Avatar</label>
-        </div>
-        <div class="bio-section">
-            <label for="bioInput" class="bio-label">Bio:</label>
-            <textarea id="bioInput" class="bio-textarea" placeholder="Tell us about yourself..."></textarea>
-        </div>
-        <button id="saveButton" class="save-button">Save Changes</button>
-    </div>
-
-    <script>
-        document.getElementById('avatarInput').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatarPreview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        document.getElementById('saveButton').addEventListener('click', function() {
-            const bio = document.getElementById('bioInput').value.trim();
-            const avatarFile = document.getElementById('avatarInput').files[0];
-
-            if (bio || avatarFile) {
-                alert('Profile saved successfully!');
-            } else {
-                alert('No changes detected.');
-            }
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a6fa5;
-        }
-        .name {
-            font-size: 24px;
-            font-weight: bold;
-            margin: 10px 0 5px;
-            color: #333;
-        }
-        .title {
-            color: #666;
-            font-size: 16px;
-            margin-bottom: 15px;
-        }
-        .bio-section {
-            background-color: #f9f9f9;
-            padding: 15px;
-            border-radius: 5px;
-            line-height: 1.6;
-            color: #444;
-        }
-        .bio-heading {
-            margin-top: 0;
-            color: #4a6fa5;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 5px;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="User Avatar" class="avatar">
-            <h1 class="name">Alex Morgan</h1>
-            <p class="title">Senior Software Developer</p>
-        </div>
-        <div class="bio-section">
-            <h2 class="bio-heading">About</h2>
-            <p>Passionate developer with over 8 years of experience building web applications. Specializes in front-end technologies and user experience design. Enjoys hiking, photography, and contributing to open-source projects.</p>
-            <p>Currently focused on creating accessible and performant interfaces for enterprise applications.</p>
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
 </head>
 <body>
     <header>
         <h1>User Profile</h1>
     </header>
     <main>
-        <section class="profile">
-            <img src="avatar.jpg" alt="User Avatar" width="150" height="150">
+        <section>
+            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
             <h2>John Doe</h2>
-            <p class="bio">Software developer with a passion for open-source projects and web technologies.</p>
-            <ul class="details">
-                <li>Location: San Francisco, CA</li>
-                <li>Email: john.doe@example.com</li>
-                <li>Joined: January 2023</li>
-            </ul>
+            <p>Email: john.doe@example.com</p>
+            <p>Location: New York, USA</p>
+            <p>Member since: January 2023</p>
+        </section>
+        <section>
+            <h3>Bio</h3>
+            <p>Software developer passionate about web technologies and open source projects.</p>
         </section>
     </main>
     <footer>
