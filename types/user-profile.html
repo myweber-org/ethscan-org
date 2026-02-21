@@ -89,4 +89,43 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="avatar-section">
+            <h2>Avatar</h2>
+            <img src="https://via.placeholder.com/150" alt="Profile Avatar">
+            <button onclick="changeAvatar()">Change Avatar</button>
+        </section>
+        <section id="bio-section">
+            <h2>Biography</h2>
+            <p id="bio-text">This is the user's biography. It can be edited by clicking the button below.</p>
+            <button onclick="editBio()">Edit Bio</button>
+        </section>
+    </main>
+    <script>
+        function changeAvatar() {
+            const newAvatarUrl = prompt('Enter new avatar URL:');
+            if (newAvatarUrl) {
+                document.querySelector('#avatar-section img').src = newAvatarUrl;
+            }
+        }
+
+        function editBio() {
+            const newBio = prompt('Enter new biography:');
+            if (newBio) {
+                document.getElementById('bio-text').textContent = newBio;
+            }
+        }
+    </script>
+</body>
 </html>
