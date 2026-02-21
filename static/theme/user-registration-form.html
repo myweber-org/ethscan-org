@@ -26,7 +26,7 @@
         <div>
             <label for="confirmPassword">Confirm Password:</label>
             <input type="password" id="confirmPassword" name="confirmPassword" required>
-            <span class="error" id="confirmPasswordError"></span>
+            <span class="error" id="confirmError"></span>
         </div>
         <button type="submit">Register</button>
     </form>
@@ -34,32 +34,31 @@
     <script>
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
             event.preventDefault();
+            clearErrors();
+
             let isValid = true;
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
 
-            const username = document.getElementById('username');
-            const email = document.getElementById('email');
-            const password = document.getElementById('password');
-            const confirmPassword = document.getElementById('confirmPassword');
-
-            document.querySelectorAll('.error').forEach(el => el.textContent = '');
-
-            if (username.value.length < 3) {
-                document.getElementById('usernameError').textContent = 'Username must be at least 3 characters.';
+            if (username.length < 3) {
+                showError('usernameError', 'Username must be at least 3 characters');
                 isValid = false;
             }
 
-            if (!email.value.includes('@')) {
-                document.getElementById('emailError').textContent = 'Please enter a valid email address.';
+            if (!validateEmail(email)) {
+                showError('emailError', 'Please enter a valid email address');
                 isValid = false;
             }
 
-            if (password.value.length < 8) {
-                document.getElementById('passwordError').textContent = 'Password must be at least 8 characters.';
+            if (password.length < 8) {
+                showError('passwordError', 'Password must be at least 8 characters');
                 isValid = false;
             }
 
-            if (password.value !== confirmPassword.value) {
-                document.getElementById('confirmPasswordError').textContent = 'Passwords do not match.';
+            if (password !== confirmPassword) {
+                showError('confirmError', 'Passwords do not match');
                 isValid = false;
             }
 
@@ -68,6 +67,20 @@
                 this.reset();
             }
         });
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function showError(elementId, message) {
+            document.getElementById(elementId).textContent = message;
+        }
+
+        function clearErrors() {
+            const errors = document.querySelectorAll('.error');
+            errors.forEach(error => error.textContent = '');
+        }
     </script>
 </body>
 </html>
