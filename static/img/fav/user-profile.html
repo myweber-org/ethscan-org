@@ -4,214 +4,133 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
         .profile-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            width: 100%;
             max-width: 400px;
-            margin: 2rem auto;
-            padding: 2rem;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
+            overflow: hidden;
             text-align: center;
-            font-family: sans-serif;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 40px 30px;
+            transition: transform 0.3s ease;
+        }
+        .profile-card:hover {
+            transform: translateY(-10px);
         }
         .avatar {
-            width: 120px;
-            height: 120px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             object-fit: cover;
-            margin-bottom: 1rem;
-            border: 3px solid #4a6fa5;
+            border: 5px solid #667eea;
+            margin: 0 auto 25px;
+            display: block;
         }
-        .user-name {
-            font-size: 1.8rem;
-            margin: 0.5rem 0;
+        .name {
+            font-size: 28px;
             color: #333;
+            margin-bottom: 10px;
+            font-weight: 700;
         }
-        .user-title {
+        .title {
+            color: #667eea;
+            font-size: 18px;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+        .bio {
             color: #666;
-            font-style: italic;
-            margin-bottom: 1rem;
-        }
-        .user-bio {
             line-height: 1.6;
-            color: #444;
-            margin-top: 1rem;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+        }
+        .stat-item h3 {
+            font-size: 24px;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        .stat-item p {
+            color: #777;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #667eea;
+            font-size: 20px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .social-icon:hover {
+            background: #667eea;
+            color: white;
+            transform: scale(1.1);
         }
     </style>
 </head>
 <body>
     <div class="profile-card">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="User Avatar" class="avatar">
-        <h1 class="user-name">Alex Morgan</h1>
-        <p class="user-title">Senior Frontend Developer</p>
-        <p class="user-bio">Passionate about building intuitive user interfaces and scalable web applications. Enjoys hiking, photography, and open-source contributions.</p>
+        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80" alt="Profile Avatar" class="avatar">
+        <h1 class="name">Alex Morgan</h1>
+        <p class="title">Frontend Developer & UI Designer</p>
+        <p class="bio">Passionate about creating beautiful and functional web experiences. Loves clean code, responsive design, and user-centered interfaces. Currently exploring React and Vue.js ecosystems.</p>
+        <div class="stats">
+            <div class="stat-item">
+                <h3>127</h3>
+                <p>Projects</p>
+            </div>
+            <div class="stat-item">
+                <h3>4.8</h3>
+                <p>Rating</p>
+            </div>
+            <div class="stat-item">
+                <h3>3.2k</h3>
+                <p>Followers</p>
+            </div>
+        </div>
+        <div class="social-links">
+            <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-dribbble"></i></a>
+        </div>
     </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .error { color: red; font-size: 0.9em; }
-        .hidden { display: none; }
-        .avatar-preview { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid #ccc; }
-    </style>
-</head>
-<body>
-    <h1>User Profile</h1>
-    <form id="profileForm">
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
-            <div id="usernameError" class="error hidden">Username must be 3-20 characters.</div>
-        </div>
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <div id="emailError" class="error hidden">Please enter a valid email address.</div>
-        </div>
-        <div>
-            <label for="avatar">Avatar:</label>
-            <input type="file" id="avatar" name="avatar" accept="image/*">
-            <img id="avatarPreview" class="avatar-preview" src="" alt="Avatar Preview">
-            <div id="avatarError" class="error hidden">Please select a valid image file.</div>
-        </div>
-        <button type="submit">Update Profile</button>
-    </form>
-
-    <script>
-        const form = document.getElementById('profileForm');
-        const usernameInput = document.getElementById('username');
-        const emailInput = document.getElementById('email');
-        const avatarInput = document.getElementById('avatar');
-        const avatarPreview = document.getElementById('avatarPreview');
-        const usernameError = document.getElementById('usernameError');
-        const emailError = document.getElementById('emailError');
-        const avatarError = document.getElementById('avatarError');
-
-        function validateUsername() {
-            const value = usernameInput.value.trim();
-            if (value.length < 3 || value.length > 20) {
-                usernameError.classList.remove('hidden');
-                return false;
-            }
-            usernameError.classList.add('hidden');
-            return true;
-        }
-
-        function validateEmail() {
-            const email = emailInput.value.trim();
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-                emailError.classList.remove('hidden');
-                return false;
-            }
-            emailError.classList.add('hidden');
-            return true;
-        }
-
-        function validateAvatar() {
-            if (avatarInput.files.length === 0) return true;
-            const file = avatarInput.files[0];
-            if (!file.type.startsWith('image/')) {
-                avatarError.classList.remove('hidden');
-                return false;
-            }
-            avatarError.classList.add('hidden');
-            return true;
-        }
-
-        avatarInput.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file && file.type.startsWith('image/')) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    avatarPreview.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-                avatarError.classList.add('hidden');
-            } else {
-                avatarPreview.src = '';
-                avatarError.classList.remove('hidden');
-            }
-        });
-
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const isUsernameValid = validateUsername();
-            const isEmailValid = validateEmail();
-            const isAvatarValid = validateAvatar();
-
-            if (isUsernameValid && isEmailValid && isAvatarValid) {
-                alert('Profile updated successfully!');
-            } else {
-                alert('Please fix the errors before submitting.');
-            }
-        });
-
-        usernameInput.addEventListener('blur', validateUsername);
-        emailInput.addEventListener('blur', validateEmail);
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="profile-section">
-            <div id="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button id="upload-button">Upload Avatar</button>
-            </div>
-            <div id="bio-container">
-                <h2>Bio</h2>
-                <textarea id="bio-textarea" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
-                <button id="save-bio-button">Save Bio</button>
-            </div>
-            <div id="user-info">
-                <p>Username: <span id="username-display">guest</span></p>
-                <p>Email: <span id="email-display">guest@example.com</span></p>
-                <p>Member since: <span id="join-date">January 2023</span></p>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 MyWebsite. All rights reserved.</p>
-    </footer>
-    <script>
-        document.getElementById('upload-button').addEventListener('click', function() {
-            const fileInput = document.getElementById('avatar-upload');
-            const file = fileInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            } else {
-                alert('Please select an image file first.');
-            }
-        });
-
-        document.getElementById('save-bio-button').addEventListener('click', function() {
-            const bioText = document.getElementById('bio-textarea').value;
-            if (bioText.trim() !== '') {
-                alert('Bio saved successfully!');
-            } else {
-                alert('Bio cannot be empty.');
-            }
-        });
-    </script>
 </body>
 </html>
