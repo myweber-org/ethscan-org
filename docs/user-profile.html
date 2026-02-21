@@ -57,4 +57,61 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: sans-serif;
+        }
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #4a6fa5;
+        }
+        .name {
+            font-size: 1.8rem;
+            margin: 0.5rem 0;
+            color: #333;
+        }
+        .title {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        .bio-section {
+            line-height: 1.6;
+            color: #444;
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="avatar-section">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="User Avatar" class="avatar">
+            <h1 class="name">Alex Morgan</h1>
+            <p class="title">Senior Frontend Developer</p>
+        </div>
+        <div class="bio-section">
+            <p>Passionate about building intuitive user interfaces and accessible web applications. Enjoys collaborating with design teams to create seamless user experiences. Currently focused on modern JavaScript frameworks and performance optimization.</p>
+            <p>Outside of coding, I enjoy hiking, photography, and contributing to open-source projects.</p>
+        </div>
+    </div>
+</body>
 </html>
