@@ -1,60 +1,57 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+        }
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #4a90e2;
+        }
+        .name-section {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .bio-section {
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            line-height: 1.6;
+            color: #555;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="profile-info">
-            <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <form id="avatar-form">
-                    <label for="avatar-upload">Change Avatar:</label>
-                    <input type="file" id="avatar-upload" name="avatar" accept="image/*">
-                    <button type="submit">Upload</button>
-                </form>
-            </div>
-            <div class="bio-container">
-                <h2>Bio</h2>
-                <textarea id="bio-text" rows="5" cols="50" placeholder="Write something about yourself..."></textarea>
-                <button id="save-bio">Save Bio</button>
-                <p id="bio-status"></p>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
-    <script>
-        document.getElementById('avatar-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const fileInput = document.getElementById('avatar-upload');
-            if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(fileInput.files[0]);
-                alert('Avatar uploaded successfully!');
-            }
-        });
-
-        document.getElementById('save-bio').addEventListener('click', function() {
-            const bioText = document.getElementById('bio-text').value;
-            const statusElement = document.getElementById('bio-status');
-            if (bioText.trim()) {
-                statusElement.textContent = 'Bio saved successfully!';
-                statusElement.style.color = 'green';
-            } else {
-                statusElement.textContent = 'Bio cannot be empty.';
-                statusElement.style.color = 'red';
-            }
-        });
-    </script>
+    <div class="profile-container">
+        <div class="avatar-section">
+            <img src="https://via.placeholder.com/120" alt="User Avatar" class="avatar">
+        </div>
+        <div class="name-section">
+            Alex Johnson
+        </div>
+        <div class="bio-section">
+            Software developer with over 5 years of experience in web technologies. Passionate about creating efficient and user-friendly applications. Enjoys hiking and photography during weekends.
+        </div>
+    </div>
 </body>
 </html>
