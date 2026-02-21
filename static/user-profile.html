@@ -346,4 +346,95 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+        }
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #4a6fa5;
+            margin-bottom: 20px;
+        }
+        .user-name {
+            font-size: 2.2em;
+            color: #333;
+            margin: 10px 0;
+        }
+        .user-title {
+            color: #666;
+            font-size: 1.1em;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        .user-bio {
+            color: #555;
+            line-height: 1.6;
+            font-size: 1em;
+            padding: 0 20px;
+        }
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            display: block;
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #4a6fa5;
+        }
+        .stat-label {
+            font-size: 0.9em;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="User Avatar" class="avatar">
+        <h1 class="user-name">Alex Morgan</h1>
+        <p class="user-title">Senior Frontend Developer</p>
+        <p class="user-bio">
+            Passionate about building intuitive and performant web applications. Enjoys hiking, photography, and open-source contributions. Currently focused on React and modern CSS.
+        </p>
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-value">247</span>
+                <span class="stat-label">Projects</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">5.2k</span>
+                <span class="stat-label">Followers</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">128</span>
+                <span class="stat-label">Following</span>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
