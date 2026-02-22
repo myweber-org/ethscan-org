@@ -245,4 +245,58 @@
         <p>&copy; 2023 User Profile Page. All rights reserved.</p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="profile-section">
+            <div class="avatar-container">
+                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar">
+                <input type="file" id="avatar-upload" accept="image/*">
+                <button onclick="uploadAvatar()">Upload Avatar</button>
+            </div>
+            <div class="bio-container">
+                <h2>Edit Bio</h2>
+                <textarea id="bio-text" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
+                <button onclick="saveBio()">Save Bio</button>
+                <p id="bio-status"></p>
+            </div>
+        </section>
+    </main>
+    <script>
+        function uploadAvatar() {
+            const fileInput = document.getElementById('avatar-upload');
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatar-preview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                alert('Please select an image file.');
+            }
+        }
+
+        function saveBio() {
+            const bioText = document.getElementById('bio-text').value;
+            const statusElement = document.getElementById('bio-status');
+            if (bioText.trim() === '') {
+                statusElement.textContent = 'Bio cannot be empty.';
+                statusElement.style.color = 'red';
+            } else {
+                statusElement.textContent = 'Bio saved successfully!';
+                statusElement.style.color = 'green';
+            }
+        }
+    </script>
+</body>
 </html>
