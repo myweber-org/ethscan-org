@@ -313,4 +313,90 @@
         <p>&copy; 2023 Profile Page. All rights reserved.</p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #e1e1e1;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+        }
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #4a90e2;
+        }
+        .user-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0 5px;
+            color: #333;
+        }
+        .user-title {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .info-item {
+            padding: 12px;
+            background-color: #f9f9f9;
+            border-radius: 6px;
+        }
+        .info-label {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .info-value {
+            font-size: 16px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="avatar-section">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="User Avatar" class="avatar">
+            <h1 class="user-name">Alex Johnson</h1>
+            <p class="user-title">Senior Software Developer</p>
+        </div>
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="info-label">Email</div>
+                <div class="info-value">alex.johnson@example.com</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Location</div>
+                <div class="info-value">San Francisco, CA</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Department</div>
+                <div class="info-value">Engineering</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Join Date</div>
+                <div class="info-value">March 2020</div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
