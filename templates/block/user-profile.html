@@ -107,4 +107,78 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            text-align: center;
+            font-family: sans-serif;
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #0366d6;
+        }
+        .user-name {
+            font-size: 1.8rem;
+            margin: 1rem 0 0.5rem;
+            color: #24292e;
+        }
+        .user-bio {
+            color: #586069;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+        }
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .stat-value {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            color: #586069;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="User Avatar" class="avatar">
+        <h1 class="user-name">Alex Johnson</h1>
+        <p class="user-bio">Software developer passionate about open-source projects, web technologies, and hiking in the mountains. Building tools to make development easier.</p>
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-value">48</span>
+                <span class="stat-label">Repositories</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">127</span>
+                <span class="stat-label">Followers</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">89</span>
+                <span class="stat-label">Following</span>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
