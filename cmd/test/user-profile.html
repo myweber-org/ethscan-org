@@ -886,4 +886,74 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: sans-serif;
+        }
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #4a6fa5;
+        }
+        .name-section {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .full-name {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        .username {
+            font-size: 1.2rem;
+            color: #666;
+            font-style: italic;
+        }
+        .bio-section {
+            background-color: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 6px;
+            line-height: 1.6;
+            color: #444;
+        }
+        .bio-title {
+            font-weight: bold;
+            margin-bottom: 0.8rem;
+            color: #222;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="avatar-section">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
+        </div>
+        <div class="name-section">
+            <div class="full-name">Alexandra Chen</div>
+            <div class="username">@alexchen</div>
+        </div>
+        <div class="bio-section">
+            <div class="bio-title">About Me</div>
+            <div>Frontend developer passionate about creating accessible and performant web experiences. Enjoys hiking, photography, and open-source contributions. Currently learning Rust and exploring WebAssembly.</div>
+        </div>
+    </div>
+</body>
 </html>
