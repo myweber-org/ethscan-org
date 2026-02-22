@@ -111,4 +111,44 @@
         </div>
     </div>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="avatar-section">
+            <h2>Avatar</h2>
+            <img src="https://via.placeholder.com/150" alt="Profile Avatar" width="150" height="150">
+            <button onclick="changeAvatar()">Change Avatar</button>
+        </section>
+        <section id="bio-section">
+            <h2>Biography</h2>
+            <p id="bio-text">This is the default biography text. Click edit to update.</p>
+            <button onclick="editBio()">Edit Bio</button>
+        </section>
+    </main>
+    <script>
+        function changeAvatar() {
+            const newSrc = prompt('Enter new avatar image URL:');
+            if (newSrc) {
+                document.querySelector('#avatar-section img').src = newSrc;
+            }
+        }
+
+        function editBio() {
+            const currentBio = document.getElementById('bio-text').textContent;
+            const newBio = prompt('Edit your biography:', currentBio);
+            if (newBio !== null) {
+                document.getElementById('bio-text').textContent = newBio;
+            }
+        }
+    </script>
+</body>
 </html>
