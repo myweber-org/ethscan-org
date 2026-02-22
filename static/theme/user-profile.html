@@ -117,4 +117,96 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            font-family: sans-serif;
+        }
+        .avatar-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+            border: 3px solid #0366d6;
+        }
+        .user-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .user-role {
+            color: #586069;
+            font-size: 16px;
+        }
+        .bio-section {
+            padding: 15px;
+            background-color: #f6f8fa;
+            border-radius: 6px;
+            line-height: 1.5;
+        }
+        .stats {
+            display: flex;
+            margin-top: 20px;
+            gap: 20px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #0366d6;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: #586069;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="avatar-section">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
+            <div>
+                <div class="user-name">Alex Johnson</div>
+                <div class="user-role">Senior Developer</div>
+            </div>
+        </div>
+        
+        <div class="bio-section">
+            Passionate about building scalable web applications and open-source contributions. Enjoys hiking and photography during weekends. Currently focused on frontend architecture and performance optimization.
+        </div>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value">142</div>
+                <div class="stat-label">Repositories</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">1.2k</div>
+                <div class="stat-label">Followers</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">89</div>
+                <div class="stat-label">Following</div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
