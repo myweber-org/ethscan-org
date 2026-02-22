@@ -4,95 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 2rem;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a6fa5;
-        }
-        .name-section {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-        .full-name {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 0.5rem;
-        }
-        .username {
-            font-size: 1.2rem;
-            color: #666;
-        }
-        .bio-section {
-            background-color: #f9f9f9;
-            padding: 1.5rem;
-            border-radius: 6px;
-            line-height: 1.6;
-            color: #444;
-        }
-        .bio-title {
-            font-weight: bold;
-            margin-bottom: 0.8rem;
-            color: #222;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="Profile Avatar" class="avatar">
-        </div>
-        <div class="name-section">
-            <div class="full-name">Alex Morgan</div>
-            <div class="username">@alex_morgan</div>
-        </div>
-        <div class="bio-section">
-            <div class="bio-title">About Me</div>
-            <p>Software engineer with over 8 years of experience building web applications. Passionate about open-source projects, user experience design, and hiking in the mountains. Currently focused on frontend architecture and performance optimization.</p>
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
 </head>
 <body>
     <header>
         <h1>User Profile</h1>
     </header>
     <main>
-        <section>
-            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            <h2>John Doe</h2>
-            <p>Email: john.doe@example.com</p>
-            <p>Location: New York, USA</p>
-            <p>Member since: January 2023</p>
-        </section>
-        <section>
-            <h3>Bio</h3>
-            <p>Software developer with a passion for open-source projects and web technologies.</p>
-        </section>
+        <form id="profileForm">
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div>
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div>
+                <label for="bio">Biography:</label>
+                <textarea id="bio" name="bio" rows="4"></textarea>
+            </div>
+            <div>
+                <label for="newsletter">
+                    <input type="checkbox" id="newsletter" name="newsletter">
+                    Subscribe to newsletter
+                </label>
+            </div>
+            <button type="submit">Update Profile</button>
+        </form>
     </main>
-    <footer>
-        <p>&copy; 2023 Profile Page. All rights reserved.</p>
-    </footer>
+    <script>
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Profile update simulated.');
+        });
+    </script>
 </body>
 </html>
