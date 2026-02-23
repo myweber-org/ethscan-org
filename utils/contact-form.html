@@ -189,4 +189,86 @@
         }
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 1em; text-align: center; }
+    </style>
+</head>
+<body>
+    <h1>Contact Us</h1>
+    <form id="contactForm">
+        <div>
+            <label for="name">Full Name:</label><br>
+            <input type="text" id="name" name="name" required>
+            <span id="nameError" class="error"></span>
+        </div>
+        <br>
+        <div>
+            <label for="email">Email Address:</label><br>
+            <input type="email" id="email" name="email" required>
+            <span id="emailError" class="error"></span>
+        </div>
+        <br>
+        <div>
+            <label for="message">Your Message:</label><br>
+            <textarea id="message" name="message" rows="5" required></textarea>
+            <span id="messageError" class="error"></span>
+        </div>
+        <br>
+        <button type="submit">Send Message</button>
+    </form>
+    <div id="formMessage" class="success"></div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            clearErrors();
+            let isValid = true;
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            if (name.length < 2) {
+                showError('nameError', 'Name must be at least 2 characters.');
+                isValid = false;
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                showError('emailError', 'Please enter a valid email address.');
+                isValid = false;
+            }
+
+            if (message.length < 10) {
+                showError('messageError', 'Message must be at least 10 characters.');
+                isValid = false;
+            }
+
+            if (isValid) {
+                document.getElementById('formMessage').textContent = 'Thank you! Your message has been sent.';
+                document.getElementById('contactForm').reset();
+                setTimeout(() => {
+                    document.getElementById('formMessage').textContent = '';
+                }, 5000);
+            }
+        });
+
+        function showError(elementId, message) {
+            document.getElementById(elementId).textContent = message;
+        }
+
+        function clearErrors() {
+            const errors = document.querySelectorAll('.error');
+            errors.forEach(error => error.textContent = '');
+            document.getElementById('formMessage').textContent = '';
+        }
+    </script>
+</body>
 </html>
