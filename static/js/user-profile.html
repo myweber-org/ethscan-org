@@ -1,187 +1,32 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: Arial, sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a90e2;
-        }
-        .name-section {
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        .bio-section {
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            line-height: 1.6;
-            color: #555;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://via.placeholder.com/120" alt="User Avatar" class="avatar">
-        </div>
-        <div class="name-section">
-            Alex Johnson
-        </div>
-        <div class="bio-section">
-            Software developer with over 5 years of experience in web technologies. Passionate about creating efficient and user-friendly applications. Enjoys hiking and photography during weekends.
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 2rem;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a6fa5;
-        }
-        .name {
-            font-size: 1.8rem;
-            margin: 0.5rem 0;
-            color: #333;
-        }
-        .title {
-            color: #666;
-            font-style: italic;
-            margin-bottom: 1rem;
-        }
-        .bio-section {
-            line-height: 1.6;
-            color: #444;
-            padding-top: 1rem;
-            border-top: 1px solid #eee;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="User Avatar" class="avatar">
-            <h1 class="name">Alex Morgan</h1>
-            <div class="title">Senior Frontend Developer</div>
-        </div>
-        <div class="bio-section">
-            <p>Passionate about building accessible and performant web applications. Enjoys working with modern JavaScript frameworks and contributing to open-source projects. Currently focused on improving user experience through responsive design and progressive enhancement.</p>
-            <p>Outside of coding, I enjoy hiking, photography, and experimenting with new coffee brewing techniques.</p>
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
 </head>
 <body>
     <header>
         <h1>User Profile</h1>
     </header>
     <main>
-        <section id="avatar-section">
-            <h2>Avatar</h2>
-            <img src="https://via.placeholder.com/150" alt="Profile Avatar" width="150" height="150">
-            <button onclick="changeAvatar()">Change Avatar</button>
-        </section>
-        <section id="bio-section">
-            <h2>Biography</h2>
-            <p id="bio-text">This is the default biography text. Click edit to update.</p>
-            <button onclick="editBio()">Edit Bio</button>
-        </section>
-    </main>
-    <script>
-        function changeAvatar() {
-            const newSrc = prompt('Enter new avatar image URL:');
-            if (newSrc) {
-                document.querySelector('#avatar-section img').src = newSrc;
-            }
-        }
-
-        function editBio() {
-            const currentBio = document.getElementById('bio-text').textContent;
-            const newBio = prompt('Edit your biography:', currentBio);
-            if (newBio !== null) {
-                document.getElementById('bio-text').textContent = newBio;
-            }
-        }
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile-header">
-            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            <h2 id="user-name">Alex Johnson</h2>
-        </section>
-        <section class="profile-bio">
-            <h3>About Me</h3>
-            <p id="user-bio">Software developer passionate about open-source projects and web technologies. Enjoys hiking and photography in free time.</p>
-        </section>
-        <section class="profile-details">
-            <h3>Details</h3>
-            <ul>
-                <li><strong>Location:</strong> <span id="user-location">San Francisco, CA</span></li>
-                <li><strong>Joined:</strong> <span id="join-date">January 2022</span></li>
-                <li><strong>Website:</strong> <a href="#" id="website-link">alexjohnson.example.com</a></li>
-            </ul>
+        <section class="profile">
+            <div class="avatar-container">
+                <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
+            </div>
+            <div class="user-info">
+                <h2>Alex Johnson</h2>
+                <p class="title">Software Developer</p>
+                <p class="bio">Passionate about building efficient web applications and open-source projects. Enjoys hiking and photography in free time.</p>
+                <div class="contact">
+                    <p>Email: alex.johnson@example.com</p>
+                    <p>Location: San Francisco, CA</p>
+                </div>
+            </div>
         </section>
     </main>
     <footer>
-        <p>Profile last updated: <span id="update-date">October 2023</span></p>
+        <p>&copy; 2023 User Profile. All rights reserved.</p>
     </footer>
 </body>
 </html>
