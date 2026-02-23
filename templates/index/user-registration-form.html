@@ -30,10 +30,10 @@
         <div>
             <label for="confirmPassword">Confirm Password:</label>
             <input type="password" id="confirmPassword" name="confirmPassword" required>
-            <span id="confirmPasswordError" class="error"></span>
+            <span id="confirmError" class="error"></span>
         </div>
         <button type="submit">Register</button>
-        <div id="formMessage"></div>
+        <div id="message" class="success"></div>
     </form>
 
     <script>
@@ -64,15 +64,13 @@
             }
 
             if (password !== confirmPassword) {
-                showError('confirmPasswordError', 'Passwords do not match.');
+                showError('confirmError', 'Passwords do not match.');
                 isValid = false;
             }
 
             if (isValid) {
-                document.getElementById('formMessage').innerHTML = '<p class="success">Registration successful! (This is a demo)</p>';
+                document.getElementById('message').textContent = 'Registration successful!';
                 this.reset();
-            } else {
-                document.getElementById('formMessage').innerHTML = '<p class="error">Please correct the errors above.</p>';
             }
         });
 
@@ -81,9 +79,9 @@
         }
 
         function clearErrors() {
-            const errorElements = document.querySelectorAll('.error');
-            errorElements.forEach(el => el.textContent = '');
-            document.getElementById('formMessage').innerHTML = '';
+            const errors = document.querySelectorAll('.error');
+            errors.forEach(error => error.textContent = '');
+            document.getElementById('message').textContent = '';
         }
     </script>
 </body>
