@@ -260,4 +260,79 @@
         }
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+</head>
+<body>
+    <h1>Register New Account</h1>
+    <form id="registrationForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+            <span id="usernameError" style="color: red; display: none;">Username must be 3-20 characters.</span>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <span id="emailError" style="color: red; display: none;">Please enter a valid email address.</span>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required minlength="8">
+            <span id="passwordError" style="color: red; display: none;">Password must be at least 8 characters.</span>
+        </div>
+        <div>
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <span id="confirmError" style="color: red; display: none;">Passwords do not match.</span>
+        </div>
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let isValid = true;
+
+            const username = document.getElementById('username');
+            const email = document.getElementById('email');
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirmPassword');
+
+            document.getElementById('usernameError').style.display = 'none';
+            document.getElementById('emailError').style.display = 'none';
+            document.getElementById('passwordError').style.display = 'none';
+            document.getElementById('confirmError').style.display = 'none';
+
+            if (username.value.length < 3 || username.value.length > 20) {
+                document.getElementById('usernameError').style.display = 'inline';
+                isValid = false;
+            }
+
+            if (!email.value.includes('@') || !email.value.includes('.')) {
+                document.getElementById('emailError').style.display = 'inline';
+                isValid = false;
+            }
+
+            if (password.value.length < 8) {
+                document.getElementById('passwordError').style.display = 'inline';
+                isValid = false;
+            }
+
+            if (password.value !== confirmPassword.value) {
+                document.getElementById('confirmError').style.display = 'inline';
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert('Registration successful!');
+                this.reset();
+            }
+        });
+    </script>
+</body>
 </html>
