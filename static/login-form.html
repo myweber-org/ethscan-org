@@ -67,4 +67,56 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+</head>
+<body>
+    <form id="loginForm">
+        <h2>Login</h2>
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <span id="usernameError" style="color: red; display: none;">Username must be at least 3 characters.</span>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <span id="passwordError" style="color: red; display: none;">Password must be at least 6 characters.</span>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let isValid = true;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const usernameError = document.getElementById('usernameError');
+            const passwordError = document.getElementById('passwordError');
+
+            usernameError.style.display = 'none';
+            passwordError.style.display = 'none';
+
+            if (username.length < 3) {
+                usernameError.style.display = 'inline';
+                isValid = false;
+            }
+            if (password.length < 6) {
+                passwordError.style.display = 'inline';
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert('Login successful!');
+                // In a real application, you would send data to a server here.
+                // For example: fetch('/login', { method: 'POST', body: JSON.stringify({ username, password }) });
+            }
+        });
+    </script>
+</body>
 </html>
