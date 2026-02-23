@@ -1179,4 +1179,118 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+</head>
+<body>
+    <form id="registrationForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+            <div class="error" id="usernameError"></div>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <div class="error" id="emailError"></div>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required minlength="8">
+            <div class="error" id="passwordError"></div>
+        </div>
+        <div>
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <div class="error" id="confirmPasswordError"></div>
+        </div>
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('registrationForm');
+        const usernameInput = document.getElementById('username');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = message;
+        }
+
+        function clearError(elementId) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = '';
+        }
+
+        function validateUsername() {
+            const username = usernameInput.value.trim();
+            if (username.length < 3) {
+                showError('usernameError', 'Username must be at least 3 characters.');
+                return false;
+            }
+            if (username.length > 20) {
+                showError('usernameError', 'Username cannot exceed 20 characters.');
+                return false;
+            }
+            clearError('usernameError');
+            return true;
+        }
+
+        function validateEmail() {
+            const email = emailInput.value.trim();
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                showError('emailError', 'Please enter a valid email address.');
+                return false;
+            }
+            clearError('emailError');
+            return true;
+        }
+
+        function validatePassword() {
+            const password = passwordInput.value;
+            if (password.length < 8) {
+                showError('passwordError', 'Password must be at least 8 characters.');
+                return false;
+            }
+            clearError('passwordError');
+            return true;
+        }
+
+        function validateConfirmPassword() {
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+            if (password !== confirmPassword) {
+                showError('confirmPasswordError', 'Passwords do not match.');
+                return false;
+            }
+            clearError('confirmPasswordError');
+            return true;
+        }
+
+        usernameInput.addEventListener('blur', validateUsername);
+        emailInput.addEventListener('blur', validateEmail);
+        passwordInput.addEventListener('blur', validatePassword);
+        confirmPasswordInput.addEventListener('blur', validateConfirmPassword);
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const isUsernameValid = validateUsername();
+            const isEmailValid = validateEmail();
+            const isPasswordValid = validatePassword();
+            const isConfirmPasswordValid = validateConfirmPassword();
+
+            if (isUsernameValid && isEmailValid && isPasswordValid && isConfirmPasswordValid) {
+                alert('Registration successful!');
+                form.reset();
+            }
+        });
+    </script>
+</body>
 </html>
