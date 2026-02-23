@@ -10,116 +10,33 @@
         <h1>User Profile</h1>
     </header>
     <main>
-        <section class="profile-header">
-            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            <h2>Alex Johnson</h2>
-            <p class="title">Software Developer</p>
-        </section>
-        <section class="profile-bio">
-            <h3>About Me</h3>
-            <p>Passionate about building efficient web applications and exploring new technologies. Enjoys hiking and photography in free time.</p>
-        </section>
-        <section class="profile-details">
-            <h3>Contact Information</h3>
-            <ul>
-                <li>Email: alex.johnson@example.com</li>
-                <li>Location: San Francisco, CA</li>
-                <li>Website: <a href="https://alexjohnson.dev">alexjohnson.dev</a></li>
-            </ul>
-        </section>
+        <form id="profileForm">
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div>
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div>
+                <label for="bio">Biography:</label>
+                <textarea id="bio" name="bio" rows="4"></textarea>
+            </div>
+            <div>
+                <label for="newsletter">
+                    <input type="checkbox" id="newsletter" name="newsletter">
+                    Subscribe to newsletter
+                </label>
+            </div>
+            <button type="submit">Update Profile</button>
+        </form>
     </main>
-    <footer>
-        <p>Profile last updated: <time datetime="2023-10-05">October 5, 2023</time></p>
-    </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section>
-            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            <h2>John Doe</h2>
-            <p>Email: john.doe@example.com</p>
-            <p>Location: New York, USA</p>
-            <p>Member since: January 2023</p>
-        </section>
-        <section>
-            <h3>Bio</h3>
-            <p>Software developer passionate about web technologies and open source projects.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 Profile Page. All rights reserved.</p>
-    </footer>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: Arial, sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a90e2;
-        }
-        .name-section {
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        .bio-section {
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            line-height: 1.6;
-            color: #555;
-        }
-        .bio-title {
-            font-weight: bold;
-            margin-bottom: 8px;
-            color: #333;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="User Avatar" class="avatar">
-        </div>
-        <div class="name-section">
-            Alex Johnson
-        </div>
-        <div class="bio-section">
-            <div class="bio-title">About Me</div>
-            Software engineer passionate about building scalable web applications. Enjoys hiking, photography, and open-source contributions. Currently focusing on frontend performance optimization and accessibility.
-        </div>
-    </div>
+    <script>
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Profile update simulated.');
+        });
+    </script>
 </body>
 </html>
