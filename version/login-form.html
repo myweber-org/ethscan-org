@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Login</title>
     <style>
-        .error { color: red; font-size: 0.9em; }
-        .success { color: green; font-size: 0.9em; }
+        .error {
+            color: red;
+            font-size: 0.9em;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -15,57 +18,45 @@
         <div>
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
-            <span id="emailError" class="error"></span>
+            <span id="emailError" class="error">Please enter a valid email address.</span>
         </div>
         <div>
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" minlength="6" required>
-            <span id="passwordError" class="error"></span>
+            <input type="password" id="password" name="password" minlength="8" required>
+            <span id="passwordError" class="error">Password must be at least 8 characters long.</span>
         </div>
         <button type="submit">Login</button>
     </form>
-    <div id="message" class="success"></div>
 
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
-            clearErrors();
             let isValid = true;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const emailError = document.getElementById('emailError');
-            const passwordError = document.getElementById('passwordError');
-            const messageDiv = document.getElementById('message');
 
-            if (!validateEmail(email)) {
-                emailError.textContent = 'Please enter a valid email address.';
+            const email = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            if (!email.validity.valid) {
+                emailError.style.display = 'block';
                 isValid = false;
-            }
-            if (password.length < 6) {
-                passwordError.textContent = 'Password must be at least 6 characters.';
-                isValid = false;
-            }
-            if (isValid) {
-                messageDiv.textContent = 'Login successful! Redirecting...';
-                messageDiv.className = 'success';
-                setTimeout(() => {
-                    alert('Simulated redirect to dashboard.');
-                }, 1000);
             } else {
-                messageDiv.textContent = 'Please fix the errors above.';
-                messageDiv.className = 'error';
+                emailError.style.display = 'none';
+            }
+
+            const password = document.getElementById('password');
+            const passwordError = document.getElementById('passwordError');
+            if (password.value.length < 8) {
+                passwordError.style.display = 'block';
+                isValid = false;
+            } else {
+                passwordError.style.display = 'none';
+            }
+
+            if (isValid) {
+                alert('Login successful!');
+                // In a real application, you would submit the form to a server here.
+                // this.submit();
             }
         });
-
-        function validateEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
-        }
-
-        function clearErrors() {
-            document.querySelectorAll('.error').forEach(span => span.textContent = '');
-            document.getElementById('message').textContent = '';
-        }
     </script>
 </body>
 </html>
