@@ -4,29 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #4a90e2;
+            display: block;
+            margin: 0 auto 20px;
+        }
+        .user-name {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .user-title {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .info-section {
+            margin-top: 25px;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #555;
+            display: inline-block;
+            width: 100px;
+        }
+        .info-value {
+            color: #333;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
-            <div class="avatar-container">
-                <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            </div>
-            <div class="user-info">
-                <h2>Alex Johnson</h2>
-                <p class="title">Software Developer</p>
-                <p class="bio">Passionate about building efficient web applications and open-source projects. Enjoys hiking and photography in free time.</p>
-                <div class="contact">
-                    <p>Email: alex.johnson@example.com</p>
-                    <p>Location: San Francisco, CA</p>
-                </div>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile. All rights reserved.</p>
-    </footer>
+    <div class="profile-container">
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
+        <h1 class="user-name">Alex Johnson</h1>
+        <p class="user-title">Senior Software Developer</p>
+        
+        <div class="info-section">
+            <p><span class="info-label">Email:</span> <span class="info-value">alex.johnson@example.com</span></p>
+            <p><span class="info-label">Location:</span> <span class="info-value">San Francisco, CA</span></p>
+            <p><span class="info-label">Department:</span> <span class="info-value">Engineering</span></p>
+            <p><span class="info-label">Joined:</span> <span class="info-value">March 2020</span></p>
+        </div>
+        
+        <div class="info-section">
+            <p><span class="info-label">Bio:</span></p>
+            <p class="info-value">Passionate developer with expertise in web technologies. Enjoys building scalable applications and contributing to open-source projects.</p>
+        </div>
+    </div>
 </body>
 </html>
