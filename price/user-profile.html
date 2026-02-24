@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,78 +11,23 @@
         <h1>User Profile</h1>
     </header>
     <main>
-        <section>
-            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            <h2>John Doe</h2>
-            <p>Email: john.doe@example.com</p>
-            <p>Location: New York, USA</p>
-            <p>Member since: January 2023</p>
-        </section>
-        <section>
-            <h3>Bio</h3>
-            <p>Software developer passionate about web technologies and open source projects.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 Profile Page. All rights reserved.</p>
-    </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="profile-section">
+        <section class="profile">
             <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button id="upload-button">Upload Avatar</button>
+                <img src="https://via.placeholder.com/150" alt="User Avatar" class="avatar">
             </div>
-            <div class="bio-container">
-                <h2>Bio</h2>
-                <textarea id="bio-textarea" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
-                <br>
-                <button id="save-bio-button">Save Bio</button>
-                <p id="bio-status"></p>
+            <div class="user-info">
+                <h2 class="username">John Doe</h2>
+                <p class="user-bio">Software developer with over 5 years of experience in web technologies. Enjoys hiking and photography in free time.</p>
+                <div class="user-stats">
+                    <span class="stat">Posts: 42</span>
+                    <span class="stat">Followers: 128</span>
+                    <span class="stat">Following: 56</span>
+                </div>
             </div>
         </section>
     </main>
     <footer>
-        <p>&copy; 2023 User Profile Page</p>
+        <p>Profile last updated: <span class="update-date">2023-10-05</span></p>
     </footer>
-    <script>
-        document.getElementById('upload-button').addEventListener('click', function() {
-            const fileInput = document.getElementById('avatar-upload');
-            const file = fileInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            } else {
-                alert('Please select an image file first.');
-            }
-        });
-
-        document.getElementById('save-bio-button').addEventListener('click', function() {
-            const bioText = document.getElementById('bio-textarea').value;
-            const statusElement = document.getElementById('bio-status');
-            if (bioText.trim() !== '') {
-                statusElement.textContent = 'Bio saved successfully!';
-                statusElement.style.color = 'green';
-            } else {
-                statusElement.textContent = 'Bio cannot be empty.';
-                statusElement.style.color = 'red';
-            }
-        });
-    </script>
 </body>
 </html>
