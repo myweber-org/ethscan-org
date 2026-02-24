@@ -1099,4 +1099,56 @@
         <p>Profile last updated: <span class="update-date">2023-10-05</span></p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="profile-section">
+            <div class="avatar-container">
+                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
+                <form id="avatar-form">
+                    <input type="file" id="avatar-input" accept="image/*">
+                    <button type="submit">Upload Avatar</button>
+                </form>
+            </div>
+            <div class="bio-container">
+                <h2>Edit Bio</h2>
+                <textarea id="bio-textarea" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
+                <button id="save-bio-btn">Save Bio</button>
+                <p id="bio-display"></p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 User Profile Page</p>
+    </footer>
+    <script>
+        document.getElementById('avatar-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const fileInput = document.getElementById('avatar-input');
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatar-preview').src = e.target.result;
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+                alert('Avatar uploaded successfully!');
+            }
+        });
+
+        document.getElementById('save-bio-btn').addEventListener('click', function() {
+            const bioText = document.getElementById('bio-textarea').value;
+            document.getElementById('bio-display').textContent = bioText || 'No bio provided.';
+            alert('Bio saved!');
+        });
+    </script>
+</body>
 </html>
