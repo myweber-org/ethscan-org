@@ -4,143 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Registration</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 0.9em; }
+    </style>
 </head>
 <body>
-    <h1>Register New Account</h1>
+    <h2>Register New Account</h2>
     <form id="registrationForm">
         <div>
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required minlength="3" maxlength="20">
-            <small>Must be 3-20 characters.</small>
+            <span id="usernameError" class="error"></span>
         </div>
         <div>
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
-            <small>Minimum 8 characters with at least one letter and one number.</small>
-        </div>
-        <div>
-            <label for="confirmPassword">Confirm Password:</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" required>
-        </div>
-        <button type="submit">Register</button>
-    </form>
-
-    <script>
-        document.getElementById('registrationForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            if (password !== confirmPassword) {
-                alert('Passwords do not match!');
-                return;
-            }
-            
-            alert('Registration submitted successfully!');
-            this.reset();
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration</title>
-</head>
-<body>
-    <h1>Register New Account</h1>
-    <form id="registrationForm">
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
-            <small>Must be 3-20 characters long.</small>
-        </div>
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+            <span id="emailError" class="error"></span>
         </div>
         <div>
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required minlength="8">
-            <small>Must be at least 8 characters.</small>
+            <span id="passwordError" class="error"></span>
         </div>
         <div>
             <label for="confirmPassword">Confirm Password:</label>
             <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <span id="confirmPasswordError" class="error"></span>
         </div>
-        <div>
-            <button type="submit">Register</button>
-        </div>
+        <button type="submit">Register</button>
+        <div id="formMessage" class="success"></div>
     </form>
 
     <script>
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
             event.preventDefault();
-            
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            if (password !== confirmPassword) {
-                alert('Passwords do not match!');
-                return;
-            }
-            
-            alert('Registration submitted successfully!');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration</title>
-    <script>
-        function validateForm() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            clearErrors();
+            let isValid = true;
 
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (username.length < 3) {
+                showError('usernameError', 'Username must be at least 3 characters.');
+                isValid = false;
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailPattern.test(email)) {
-                alert('Please enter a valid email address.');
-                return false;
+                showError('emailError', 'Please enter a valid email address.');
+                isValid = false;
             }
 
             if (password.length < 8) {
-                alert('Password must be at least 8 characters long.');
-                return false;
+                showError('passwordError', 'Password must be at least 8 characters.');
+                isValid = false;
             }
 
             if (password !== confirmPassword) {
-                alert('Passwords do not match.');
-                return false;
+                showError('confirmPasswordError', 'Passwords do not match.');
+                isValid = false;
             }
 
-            alert('Registration successful!');
-            return true;
+            if (isValid) {
+                document.getElementById('formMessage').textContent = 'Registration successful!';
+                this.reset();
+            } else {
+                document.getElementById('formMessage').textContent = '';
+            }
+        });
+
+        function showError(elementId, message) {
+            document.getElementById(elementId).textContent = message;
+        }
+
+        function clearErrors() {
+            const errorElements = document.querySelectorAll('.error');
+            errorElements.forEach(el => el.textContent = '');
         }
     </script>
-</head>
-<body>
-    <h1>Register New Account</h1>
-    <form onsubmit="return validateForm()">
-        <label for="email">Email Address:</label><br>
-        <input type="text" id="email" name="email" required><br><br>
-
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" required><br><br>
-
-        <label for="confirmPassword">Confirm Password:</label><br>
-        <input type="password" id="confirmPassword" name="confirmPassword" required><br><br>
-
-        <input type="submit" value="Register">
-    </form>
 </body>
 </html>
