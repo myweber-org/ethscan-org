@@ -1,50 +1,38 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: Arial, sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a90e2;
-        }
-        .user-info {
-            line-height: 1.6;
-        }
-        .info-label {
-            font-weight: bold;
-            color: #555;
-        }
-    </style>
 </head>
 <body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://via.placeholder.com/120" alt="User Avatar" class="avatar">
-            <h2>Alex Johnson</h2>
-        </div>
-        <div class="user-info">
-            <p><span class="info-label">Email:</span> alex.johnson@example.com</p>
-            <p><span class="info-label">Location:</span> San Francisco, CA</p>
-            <p><span class="info-label">Member Since:</span> January 2022</p>
-            <p><span class="info-label">Bio:</span> Software developer with interest in web technologies and open source projects.</p>
-        </div>
-    </div>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section class="profile">
+            <div class="avatar-container">
+                <img src="avatar-placeholder.jpg" alt="User Avatar" id="user-avatar" width="150" height="150">
+            </div>
+            <div class="user-info">
+                <h2 id="username">John Doe</h2>
+                <p id="user-bio">Software developer with interest in web technologies and open source projects.</p>
+                <p id="user-location">Based in San Francisco, CA</p>
+                <p id="member-since">Member since: January 2023</p>
+            </div>
+        </section>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const avatarElement = document.getElementById('user-avatar');
+            const usernameElement = document.getElementById('username');
+            const bioElement = document.getElementById('user-bio');
+            const locationElement = document.getElementById('user-location');
+            const memberSinceElement = document.getElementById('member-since');
+
+            console.log('Profile page loaded successfully.');
+        });
+    </script>
 </body>
 </html>
