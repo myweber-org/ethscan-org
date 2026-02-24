@@ -7,153 +7,63 @@
     <style>
         .profile-container {
             max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
+            margin: 2rem auto;
+            padding: 2rem;
+            border: 1px solid #e1e4e8;
             border-radius: 8px;
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .avatar-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
         }
         .avatar {
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #4a90e2;
-            display: block;
-            margin: 0 auto 20px;
+            border: 3px solid #0366d6;
+            margin-right: 1.5rem;
         }
         .user-name {
-            text-align: center;
-            font-size: 24px;
-            margin-bottom: 5px;
-            color: #333;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #24292e;
+            margin: 0 0 0.5rem 0;
         }
-        .user-title {
-            text-align: center;
-            color: #666;
-            margin-bottom: 20px;
+        .user-handle {
+            color: #586069;
+            font-size: 1.2rem;
+            margin: 0;
         }
-        .info-section {
-            margin-top: 25px;
+        .bio-section {
+            padding: 1rem;
+            background-color: #f6f8fa;
+            border-radius: 6px;
+            line-height: 1.5;
+            color: #24292e;
         }
-        .info-label {
-            font-weight: bold;
-            color: #555;
-            display: inline-block;
-            width: 100px;
-        }
-        .info-value {
-            color: #333;
+        .bio-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #0366d6;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
-        <h1 class="user-name">Alex Johnson</h1>
-        <p class="user-title">Senior Software Developer</p>
-        
-        <div class="info-section">
-            <p><span class="info-label">Email:</span> <span class="info-value">alex.johnson@example.com</span></p>
-            <p><span class="info-label">Location:</span> <span class="info-value">San Francisco, CA</span></p>
-            <p><span class="info-label">Department:</span> <span class="info-value">Engineering</span></p>
-            <p><span class="info-label">Joined:</span> <span class="info-value">March 2020</span></p>
+        <div class="avatar-section">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
+            <div>
+                <h1 class="user-name">Alex Morgan</h1>
+                <p class="user-handle">@alex_morgan</p>
+            </div>
         </div>
-        
-        <div class="info-section">
-            <p><span class="info-label">Bio:</span></p>
-            <p class="info-value">Passionate developer with expertise in web technologies. Enjoys building scalable applications and contributing to open-source projects.</p>
+        <div class="bio-section">
+            <div class="bio-title">About Me</div>
+            <p>Software engineer passionate about open-source projects and web technologies. Enjoys hiking, photography, and contributing to developer communities. Currently working on improving accessibility in web applications.</p>
         </div>
     </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section>
-            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            <h2>John Doe</h2>
-            <p><strong>Email:</strong> john.doe@example.com</p>
-            <p><strong>Location:</strong> New York, USA</p>
-            <p><strong>Member Since:</strong> January 2023</p>
-        </section>
-        <section>
-            <h3>Bio</h3>
-            <p>Software developer with a passion for open-source projects and web technologies.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="avatar-section">
-            <h2>Profile Picture</h2>
-            <img id="avatar-preview" src="default-avatar.png" alt="Avatar Preview" width="150" height="150">
-            <br>
-            <input type="file" id="avatar-upload" accept="image/*">
-            <button onclick="uploadAvatar()">Upload Avatar</button>
-        </section>
-        <section id="info-section">
-            <h2>Basic Information</h2>
-            <form id="profile-form">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                <br>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <br>
-                <label for="bio">Bio:</label>
-                <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
-                <br>
-                <button type="submit">Save Profile</button>
-            </form>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
-    <script>
-        function uploadAvatar() {
-            const fileInput = document.getElementById('avatar-upload');
-            const file = fileInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            } else {
-                alert('Please select an image file.');
-            }
-        }
-
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            alert('Profile saved!\nUsername: ' + username + '\nEmail: ' + email + '\nBio: ' + bio);
-        });
-    </script>
 </body>
 </html>
