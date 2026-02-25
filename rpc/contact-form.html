@@ -177,4 +177,88 @@
         }
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        input.invalid, textarea.invalid { border: 2px solid red; }
+    </style>
+</head>
+<body>
+    <h1>Contact Us</h1>
+    <form id="contactForm" novalidate>
+        <div>
+            <label for="name">Full Name:</label><br>
+            <input type="text" id="name" name="name" required minlength="2">
+            <div class="error" id="nameError"></div>
+        </div>
+        <div>
+            <label for="email">Email Address:</label><br>
+            <input type="email" id="email" name="email" required>
+            <div class="error" id="emailError"></div>
+        </div>
+        <div>
+            <label for="message">Message:</label><br>
+            <textarea id="message" name="message" rows="5" required minlength="10"></textarea>
+            <div class="error" id="messageError"></div>
+        </div>
+        <button type="submit">Send Message</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('contactForm');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const messageInput = document.getElementById('message');
+        const nameError = document.getElementById('nameError');
+        const emailError = document.getElementById('emailError');
+        const messageError = document.getElementById('messageError');
+
+        function validateField(input, errorElement, message) {
+            if (!input.validity.valid) {
+                errorElement.textContent = message;
+                input.classList.add('invalid');
+                return false;
+            } else {
+                errorElement.textContent = '';
+                input.classList.remove('invalid');
+                return true;
+            }
+        }
+
+        nameInput.addEventListener('input', () => {
+            validateField(nameInput, nameError, 'Please enter a valid name (at least 2 characters).');
+        });
+
+        emailInput.addEventListener('input', () => {
+            validateField(emailInput, emailError, 'Please enter a valid email address.');
+        });
+
+        messageInput.addEventListener('input', () => {
+            validateField(messageInput, messageError, 'Please enter a message (at least 10 characters).');
+        });
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const isNameValid = validateField(nameInput, nameError, 'Please enter a valid name (at least 2 characters).');
+            const isEmailValid = validateField(emailInput, emailError, 'Please enter a valid email address.');
+            const isMessageValid = validateField(messageInput, messageError, 'Please enter a message (at least 10 characters).');
+
+            if (isNameValid && isEmailValid && isMessageValid) {
+                alert('Form submitted successfully! (This is a demo)');
+                form.reset();
+                nameInput.classList.remove('invalid');
+                emailInput.classList.remove('invalid');
+                messageInput.classList.remove('invalid');
+            } else {
+                alert('Please fix the errors in the form.');
+            }
+        });
+    </script>
+</body>
 </html>
