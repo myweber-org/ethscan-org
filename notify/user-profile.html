@@ -636,4 +636,61 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section class="avatar-section">
+            <img src="https://via.placeholder.com/150" alt="Profile Avatar" id="user-avatar">
+            <button onclick="changeAvatar()">Change Avatar</button>
+        </section>
+        <section class="info-section">
+            <h2>User Information</h2>
+            <p><strong>Name:</strong> <span id="user-name">Alex Johnson</span></p>
+            <p><strong>Email:</strong> <span id="user-email">alex.johnson@example.com</span></p>
+            <p><strong>Member Since:</strong> <span id="join-date">January 2023</span></p>
+        </section>
+        <section class="bio-section">
+            <h2>Bio</h2>
+            <p id="user-bio">Software developer passionate about open-source projects and web technologies.</p>
+            <textarea id="bio-editor" style="display:none;"></textarea>
+            <button onclick="editBio()">Edit Bio</button>
+            <button onclick="saveBio()" style="display:none;">Save Bio</button>
+        </section>
+    </main>
+    <script>
+        function changeAvatar() {
+            const newAvatarUrl = prompt('Enter new avatar URL:');
+            if (newAvatarUrl) {
+                document.getElementById('user-avatar').src = newAvatarUrl;
+            }
+        }
+
+        function editBio() {
+            const bioText = document.getElementById('user-bio').textContent;
+            document.getElementById('bio-editor').value = bioText;
+            document.getElementById('user-bio').style.display = 'none';
+            document.getElementById('bio-editor').style.display = 'block';
+            document.querySelector('button[onclick="editBio()"]').style.display = 'none';
+            document.querySelector('button[onclick="saveBio()"]').style.display = 'inline';
+        }
+
+        function saveBio() {
+            const newBio = document.getElementById('bio-editor').value;
+            document.getElementById('user-bio').textContent = newBio;
+            document.getElementById('user-bio').style.display = 'block';
+            document.getElementById('bio-editor').style.display = 'none';
+            document.querySelector('button[onclick="editBio()"]').style.display = 'inline';
+            document.querySelector('button[onclick="saveBio()"]').style.display = 'none';
+        }
+    </script>
+</body>
 </html>
