@@ -291,4 +291,81 @@
         }
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <h1>Contact Us</h1>
+    <form id="contactForm">
+        <div>
+            <label for="name">Full Name:</label><br>
+            <input type="text" id="name" name="name" required>
+            <span id="nameError" class="error"></span>
+        </div>
+        <br>
+        <div>
+            <label for="email">Email Address:</label><br>
+            <input type="email" id="email" name="email" required>
+            <span id="emailError" class="error"></span>
+        </div>
+        <br>
+        <div>
+            <label for="message">Your Message:</label><br>
+            <textarea id="message" name="message" rows="4" required></textarea>
+            <span id="messageError" class="error"></span>
+        </div>
+        <br>
+        <button type="submit">Send Message</button>
+        <div id="successMessage" class="success"></div>
+    </form>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let isValid = true;
+
+            const name = document.getElementById('name');
+            const email = document.getElementById('email');
+            const message = document.getElementById('message');
+            const nameError = document.getElementById('nameError');
+            const emailError = document.getElementById('emailError');
+            const messageError = document.getElementById('messageError');
+            const successMessage = document.getElementById('successMessage');
+
+            nameError.textContent = '';
+            emailError.textContent = '';
+            messageError.textContent = '';
+            successMessage.textContent = '';
+
+            if (name.value.trim() === '') {
+                nameError.textContent = 'Name is required.';
+                isValid = false;
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email.value)) {
+                emailError.textContent = 'Please enter a valid email address.';
+                isValid = false;
+            }
+
+            if (message.value.trim() === '') {
+                messageError.textContent = 'Message cannot be empty.';
+                isValid = false;
+            }
+
+            if (isValid) {
+                successMessage.textContent = 'Thank you! Your message has been sent.';
+                this.reset();
+            }
+        });
+    </script>
+</body>
 </html>
