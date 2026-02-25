@@ -123,4 +123,69 @@
         }
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+    <style>
+        .error {
+            color: red;
+            font-size: 0.9em;
+            display: none;
+        }
+        .input-error {
+            border-color: red;
+        }
+    </style>
+</head>
+<body>
+    <form id="loginForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <span id="usernameError" class="error">Username must be at least 3 characters</span>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <span id="passwordError" class="error">Password must be at least 6 characters</span>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let isValid = true;
+            
+            const username = document.getElementById('username');
+            const password = document.getElementById('password');
+            const usernameError = document.getElementById('usernameError');
+            const passwordError = document.getElementById('passwordError');
+            
+            username.classList.remove('input-error');
+            password.classList.remove('input-error');
+            usernameError.style.display = 'none';
+            passwordError.style.display = 'none';
+            
+            if (username.value.length < 3) {
+                username.classList.add('input-error');
+                usernameError.style.display = 'block';
+                isValid = false;
+            }
+            
+            if (password.value.length < 6) {
+                password.classList.add('input-error');
+                passwordError.style.display = 'block';
+                isValid = false;
+            }
+            
+            if (isValid) {
+                alert('Login successful!');
+            }
+        });
+    </script>
+</body>
 </html>
