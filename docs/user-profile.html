@@ -142,4 +142,67 @@
         <p>&copy; 2023 User Profile Page</p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="avatar-section">
+            <h2>Profile Picture</h2>
+            <img id="avatar-preview" src="placeholder.jpg" alt="Avatar Preview" width="150" height="150">
+            <form id="avatar-form">
+                <label for="avatar-upload">Choose a new image:</label>
+                <input type="file" id="avatar-upload" name="avatar" accept="image/*">
+                <button type="submit">Upload Avatar</button>
+            </form>
+        </section>
+        <section id="info-section">
+            <h2>Basic Information</h2>
+            <form id="profile-form">
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div>
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div>
+                    <label for="bio">Bio:</label>
+                    <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
+                </div>
+                <button type="submit">Save Changes</button>
+            </form>
+        </section>
+    </main>
+    <script>
+        document.getElementById('avatar-upload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatar-preview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('avatar-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Avatar upload simulated. In a real app, this would send to a server.');
+        });
+
+        document.getElementById('profile-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Profile changes saved (simulated).');
+        });
+    </script>
+</body>
 </html>
