@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,20 +11,55 @@
         <h1>User Profile</h1>
     </header>
     <main>
-        <section>
-            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            <h2>John Doe</h2>
-            <p>Email: john.doe@example.com</p>
-            <p>Location: New York, USA</p>
-            <p>Member since: January 2023</p>
-        </section>
-        <section>
-            <h3>Bio</h3>
-            <p>Software developer with a passion for open-source projects and web technologies.</p>
+        <section id="profile-section">
+            <div class="avatar-container">
+                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
+                <input type="file" id="avatar-upload" accept="image/*">
+                <button onclick="uploadAvatar()">Upload Avatar</button>
+            </div>
+            <div class="bio-container">
+                <h2>Bio</h2>
+                <textarea id="bio-text" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
+                <button onclick="saveBio()">Save Bio</button>
+            </div>
+            <div class="user-info">
+                <p>Username: <span id="username">john_doe</span></p>
+                <p>Email: <span id="user-email">john@example.com</span></p>
+                <p>Member since: <span id="join-date">January 2023</span></p>
+            </div>
         </section>
     </main>
     <footer>
-        <p>&copy; 2023 Profile Page. All rights reserved.</p>
+        <p>&copy; 2023 User Profile Page</p>
     </footer>
+    <script>
+        function uploadAvatar() {
+            const fileInput = document.getElementById('avatar-upload');
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatar-preview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+                alert('Avatar uploaded successfully!');
+            } else {
+                alert('Please select an image file.');
+            }
+        }
+
+        function saveBio() {
+            const bioText = document.getElementById('bio-text').value;
+            localStorage.setItem('userBio', bioText);
+            alert('Bio saved successfully!');
+        }
+
+        window.onload = function() {
+            const savedBio = localStorage.getItem('userBio');
+            if (savedBio) {
+                document.getElementById('bio-text').value = savedBio;
+            }
+        };
+    </script>
 </body>
 </html>
