@@ -1,59 +1,81 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 0.9em; }
+        input { margin-bottom: 10px; display: block; }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="avatar-section">
-            <h2>Profile Picture</h2>
-            <img id="avatar-preview" src="default-avatar.png" alt="Avatar Preview" width="150" height="150">
-            <br>
-            <input type="file" id="avatar-upload" accept="image/*">
-            <button id="upload-btn">Upload New Avatar</button>
-        </section>
-        <section id="info-section">
-            <h2>Basic Information</h2>
-            <form id="profile-form">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                <br>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <br>
-                <label for="bio">Bio:</label>
-                <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
-                <br>
-                <button type="submit">Save Changes</button>
-            </form>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
+    <h1>Update Your Profile</h1>
+    <form id="profileForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required minlength="3">
+        <div id="usernameError" class="error"></div>
+
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" required>
+        <div id="emailError" class="error"></div>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" min="18" max="120">
+        <div id="ageError" class="error"></div>
+
+        <button type="submit">Save Profile</button>
+    </form>
+    <div id="message" class="success"></div>
+
     <script>
-        document.getElementById('upload-btn').addEventListener('click', function() {
-            document.getElementById('avatar-upload').click();
-        });
-        document.getElementById('avatar-upload').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
+        const form = document.getElementById('profileForm');
+        const messageDiv = document.getElementById('message');
+
+        function showError(fieldId, message) {
+            const errorDiv = document.getElementById(fieldId + 'Error');
+            errorDiv.textContent = message;
+        }
+
+        function clearErrors() {
+            document.querySelectorAll('.error').forEach(div => div.textContent = '');
+            messageDiv.textContent = '';
+        }
+
+        function validateForm() {
+            clearErrors();
+            let isValid = true;
+
+            const username = document.getElementById('username').value.trim();
+            if (username.length < 3) {
+                showError('username', 'Username must be at least 3 characters.');
+                isValid = false;
             }
-        });
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
+
+            const email = document.getElementById('email').value;
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                showError('email', 'Please enter a valid email address.');
+                isValid = false;
+            }
+
+            const age = document.getElementById('age').value;
+            if (age && (age < 18 || age > 120)) {
+                showError('age', 'Age must be between 18 and 120.');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        form.addEventListener('submit', function(event) {
             event.preventDefault();
-            alert('Profile updated successfully!');
+            if (validateForm()) {
+                messageDiv.textContent = 'Profile updated successfully!';
+                form.reset();
+                setTimeout(() => { messageDiv.textContent = ''; }, 3000);
+            }
         });
     </script>
 </body>
