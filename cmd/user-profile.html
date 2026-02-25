@@ -4,25 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #4CAF50;
+        }
+        .user-info {
+            margin-top: 20px;
+        }
+        .bio {
+            margin-top: 10px;
+            line-height: 1.6;
+            color: #555;
+        }
+        .stats {
+            display: flex;
+            margin-top: 20px;
+            gap: 30px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
-            <img src="avatar.jpg" alt="User Avatar" width="150" height="150">
-            <h2>John Doe</h2>
-            <p class="bio">Software developer with over 5 years of experience in web technologies. Enjoys hiking and photography.</p>
-            <ul class="details">
-                <li><strong>Location:</strong> San Francisco, CA</li>
-                <li><strong>Email:</strong> john.doe@example.com</li>
-                <li><strong>Joined:</strong> January 2020</li>
-            </ul>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 Profile Page. All rights reserved.</p>
-    </footer>
+    <div class="profile-container">
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
+        <div class="user-info">
+            <h2>Alex Johnson</h2>
+            <p class="bio">Software developer passionate about open-source projects, web technologies, and hiking. Currently building tools to simplify developer workflows.</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value">127</div>
+                    <div class="stat-label">Projects</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">892</div>
+                    <div class="stat-label">Followers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">56</div>
+                    <div class="stat-label">Following</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
