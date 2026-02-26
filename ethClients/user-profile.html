@@ -130,4 +130,176 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .profile-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            padding: 40px 30px;
+            position: relative;
+        }
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+            z-index: 1;
+        }
+        .avatar-container {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 20px;
+        }
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        .name {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .title {
+            font-size: 16px;
+            color: #667eea;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        .bio {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-size: 15px;
+            padding: 0 10px;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+        }
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #4facfe;
+        }
+        .stat-label {
+            font-size: 13px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .social-icon:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .twitter {
+            background: linear-gradient(45deg, #1da1f2, #1a91da);
+        }
+        .github {
+            background: linear-gradient(45deg, #333, #24292e);
+        }
+        .linkedin {
+            background: linear-gradient(45deg, #0077b5, #006699);
+        }
+        .instagram {
+            background: linear-gradient(45deg, #e4405f, #c13584);
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-card">
+        <div class="avatar-container">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Profile Avatar" class="avatar">
+        </div>
+        <h1 class="name">Alex Morgan</h1>
+        <p class="title">Senior Frontend Developer</p>
+        <p class="bio">Passionate about creating beautiful, functional user interfaces. Loves JavaScript, React, and modern CSS. Enjoys hiking, photography, and open-source contributions in free time.</p>
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-value">127</span>
+                <span class="stat-label">Projects</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">5.2K</span>
+                <span class="stat-label">Followers</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">348</span>
+                <span class="stat-label">Following</span>
+            </div>
+        </div>
+        <div class="social-links">
+            <a href="#" class="social-icon twitter">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="social-icon github">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="#" class="social-icon linkedin">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="#" class="social-icon instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+    </div>
+</body>
 </html>
