@@ -97,4 +97,95 @@
         }
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 1em; padding: 10px; border: 1px solid green; background-color: #e6ffe6; }
+        input, textarea { display: block; margin-bottom: 10px; width: 300px; padding: 8px; }
+        button { padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #45a049; }
+    </style>
+</head>
+<body>
+    <h1>Contact Us</h1>
+    <div id="message"></div>
+    <form id="contactForm">
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" name="name" required>
+        <span id="nameError" class="error"></span>
+
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" required>
+        <span id="emailError" class="error"></span>
+
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" name="subject" required>
+        <span id="subjectError" class="error"></span>
+
+        <label for="messageText">Your Message:</label>
+        <textarea id="messageText" name="message" rows="5" required></textarea>
+        <span id="messageError" class="error"></span>
+
+        <button type="submit">Send Message</button>
+    </form>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            clearErrors();
+            let isValid = true;
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const subject = document.getElementById('subject').value.trim();
+            const message = document.getElementById('messageText').value.trim();
+
+            if (name.length < 2) {
+                showError('nameError', 'Name must be at least 2 characters.');
+                isValid = false;
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                showError('emailError', 'Please enter a valid email address.');
+                isValid = false;
+            }
+
+            if (subject.length < 5) {
+                showError('subjectError', 'Subject must be at least 5 characters.');
+                isValid = false;
+            }
+
+            if (message.length < 10) {
+                showError('messageError', 'Message must be at least 10 characters.');
+                isValid = false;
+            }
+
+            if (isValid) {
+                document.getElementById('message').innerHTML = '<p class="success">Thank you! Your message has been sent successfully.</p>';
+                document.getElementById('contactForm').reset();
+                setTimeout(() => {
+                    document.getElementById('message').innerHTML = '';
+                }, 5000);
+            }
+        });
+
+        function showError(elementId, message) {
+            document.getElementById(elementId).textContent = message;
+        }
+
+        function clearErrors() {
+            const errorElements = document.querySelectorAll('.error');
+            errorElements.forEach(element => {
+                element.textContent = '';
+            });
+            document.getElementById('message').innerHTML = '';
+        }
+    </script>
+</body>
 </html>
