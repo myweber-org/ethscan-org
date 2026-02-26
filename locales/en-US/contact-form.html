@@ -206,4 +206,88 @@
         <button type="submit">Send Message</button>
     </form>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 1em; padding: 10px; background-color: #e8f5e9; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>Get in Touch</h1>
+    <form id="contactForm">
+        <div>
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required>
+            <span id="nameError" class="error"></span>
+        </div>
+        <div>
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required>
+            <span id="emailError" class="error"></span>
+        </div>
+        <div>
+            <label for="message">Your Message:</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+            <span id="messageError" class="error"></span>
+        </div>
+        <button type="submit">Send Message</button>
+    </form>
+    <div id="responseMessage"></div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            clearErrors();
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+            let isValid = true;
+
+            if (name.length < 2) {
+                showError('nameError', 'Name must be at least 2 characters.');
+                isValid = false;
+            }
+            if (!validateEmail(email)) {
+                showError('emailError', 'Please enter a valid email address.');
+                isValid = false;
+            }
+            if (message.length < 10) {
+                showError('messageError', 'Message must be at least 10 characters.');
+                isValid = false;
+            }
+
+            if (isValid) {
+                submitForm({ name, email, message });
+            }
+        });
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function showError(elementId, message) {
+            document.getElementById(elementId).textContent = message;
+        }
+
+        function clearErrors() {
+            document.querySelectorAll('.error').forEach(span => span.textContent = '');
+            document.getElementById('responseMessage').innerHTML = '';
+        }
+
+        function submitForm(data) {
+            const responseDiv = document.getElementById('responseMessage');
+            responseDiv.innerHTML = '<p class="success">Sending your message...</p>';
+            setTimeout(() => {
+                responseDiv.innerHTML = `<p class="success">Thank you, ${data.name}! Your message has been sent successfully. We will respond to ${data.email} shortly.</p>`;
+                document.getElementById('contactForm').reset();
+            }, 1500);
+        }
+    </script>
+</body>
 </html>
