@@ -1,166 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-family: Arial, sans-serif;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4CAF50;
-        }
-        .user-info {
-            margin-top: 20px;
-        }
-        .bio {
-            margin-top: 10px;
-            line-height: 1.6;
-            color: #555;
-        }
-        .stats {
-            display: flex;
-            margin-top: 20px;
-            gap: 30px;
-        }
-        .stat-item {
-            text-align: center;
-        }
-        .stat-value {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-        }
-        .stat-label {
-            font-size: 14px;
-            color: #777;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
-        <div class="user-info">
-            <h2>Alex Johnson</h2>
-            <p class="bio">Software developer passionate about open-source projects, web technologies, and hiking. Currently building tools to simplify developer workflows.</p>
-            <div class="stats">
-                <div class="stat-item">
-                    <div class="stat-value">127</div>
-                    <div class="stat-label">Projects</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">892</div>
-                    <div class="stat-label">Followers</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">56</div>
-                    <div class="stat-label">Following</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .error { color: red; font-size: 0.9em; }
-        .success { color: green; font-size: 0.9em; }
-        .avatar-preview { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid #ddd; }
-    </style>
-</head>
-<body>
-    <h1>User Profile</h1>
-    <form id="profileForm">
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            <span id="usernameError" class="error"></span>
-        </div>
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <span id="emailError" class="error"></span>
-        </div>
-        <div>
-            <label for="avatar">Avatar Image:</label>
-            <input type="file" id="avatar" name="avatar" accept="image/*">
-            <img id="avatarPreview" class="avatar-preview" src="" alt="Avatar Preview">
-            <span id="avatarError" class="error"></span>
-        </div>
-        <button type="submit">Update Profile</button>
-        <div id="successMessage" class="success"></div>
-    </form>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="profile-section">
+            <div class="avatar-container">
+                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
+                <form id="avatar-form">
+                    <input type="file" id="avatar-input" accept="image/*">
+                    <button type="submit">Upload Avatar</button>
+                </form>
+            </div>
+            <div class="bio-container">
+                <h2>Edit Bio</h2>
+                <textarea id="bio-textarea" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
+                <button id="save-bio-btn">Save Bio</button>
+                <p id="bio-display"></p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 User Profile Page</p>
+    </footer>
     <script>
-        document.getElementById('avatar').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            const preview = document.getElementById('avatarPreview');
-            const errorSpan = document.getElementById('avatarError');
+        document.getElementById('avatar-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const fileInput = document.getElementById('avatar-input');
+            const file = fileInput.files[0];
             if (file) {
-                if (file.size > 2 * 1024 * 1024) {
-                    errorSpan.textContent = 'File size must be less than 2MB.';
-                    event.target.value = '';
-                    preview.src = '';
-                } else if (!file.type.startsWith('image/')) {
-                    errorSpan.textContent = 'File must be an image.';
-                    event.target.value = '';
-                    preview.src = '';
-                } else {
-                    errorSpan.textContent = '';
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        preview.src = e.target.result;
-                    };
-                    reader.readAsDataURL(file);
-                }
-            } else {
-                preview.src = '';
-                errorSpan.textContent = '';
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatar-preview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
             }
         });
 
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            let isValid = true;
-            const username = document.getElementById('username').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const usernameError = document.getElementById('usernameError');
-            const emailError = document.getElementById('emailError');
-            const successMessage = document.getElementById('successMessage');
-
-            usernameError.textContent = '';
-            emailError.textContent = '';
-            successMessage.textContent = '';
-
-            if (username.length < 3) {
-                usernameError.textContent = 'Username must be at least 3 characters.';
-                isValid = false;
-            }
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-                emailError.textContent = 'Please enter a valid email address.';
-                isValid = false;
-            }
-
-            if (isValid) {
-                successMessage.textContent = 'Profile updated successfully!';
-                console.log('Form submitted with:', { username, email });
-            }
+        document.getElementById('save-bio-btn').addEventListener('click', function() {
+            const bioText = document.getElementById('bio-textarea').value;
+            document.getElementById('bio-display').textContent = bioText;
         });
     </script>
 </body>
