@@ -359,4 +359,47 @@
         </div>
     </div>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="profile-info">
+            <div class="avatar-container">
+                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar">
+                <input type="file" id="avatar-upload" accept="image/*">
+                <button id="upload-btn">Upload Avatar</button>
+            </div>
+            <div class="bio-section">
+                <h2>Bio</h2>
+                <textarea id="bio-text" rows="4" cols="50" placeholder="Write something about yourself..."></textarea>
+                <button id="save-bio-btn">Save Bio</button>
+            </div>
+        </section>
+    </main>
+    <script>
+        document.getElementById('upload-btn').addEventListener('click', function() {
+            const fileInput = document.getElementById('avatar-upload');
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatar-preview').src = e.target.result;
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        });
+
+        document.getElementById('save-bio-btn').addEventListener('click', function() {
+            const bioText = document.getElementById('bio-text').value;
+            alert('Bio saved: ' + bioText);
+        });
+    </script>
+</body>
 </html>
