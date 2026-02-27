@@ -84,4 +84,63 @@
         <p>&copy; 2023 User Profile Page</p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="profile-section">
+            <div id="avatar-container">
+                <img id="avatar-img" src="default-avatar.png" alt="User Avatar" width="150" height="150">
+                <br>
+                <input type="file" id="avatar-upload" accept="image/*">
+                <button id="upload-btn">Upload Avatar</button>
+            </div>
+            <div id="bio-container">
+                <h2>Edit Bio</h2>
+                <textarea id="bio-text" rows="5" cols="50" placeholder="Enter your bio here..."></textarea>
+                <br>
+                <button id="save-bio-btn">Save Bio</button>
+                <p id="bio-status"></p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 User Profile Page</p>
+    </footer>
+    <script>
+        document.getElementById('upload-btn').addEventListener('click', function() {
+            const fileInput = document.getElementById('avatar-upload');
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatar-img').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                alert('Please select an image file first.');
+            }
+        });
+
+        document.getElementById('save-bio-btn').addEventListener('click', function() {
+            const bioText = document.getElementById('bio-text').value.trim();
+            const statusElement = document.getElementById('bio-status');
+            if (bioText) {
+                statusElement.textContent = 'Bio saved successfully!';
+                statusElement.style.color = 'green';
+            } else {
+                statusElement.textContent = 'Bio cannot be empty.';
+                statusElement.style.color = 'red';
+            }
+        });
+    </script>
+</body>
 </html>
