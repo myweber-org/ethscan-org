@@ -1,94 +1,4 @@
-
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .error { color: red; font-size: 0.9em; }
-        .success { color: green; font-size: 0.9em; }
-        .avatar-preview { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid #ddd; }
-    </style>
-</head>
-<body>
-    <h1>User Profile</h1>
-    <form id="profileForm">
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            <div id="usernameError" class="error"></div>
-        </div>
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <div id="emailError" class="error"></div>
-        </div>
-        <div>
-            <label for="avatar">Avatar:</label>
-            <input type="file" id="avatar" name="avatar" accept="image/*">
-            <img id="avatarPreview" class="avatar-preview" src="https://via.placeholder.com/100" alt="Avatar Preview">
-            <div id="avatarError" class="error"></div>
-        </div>
-        <button type="submit">Update Profile</button>
-        <div id="successMessage" class="success"></div>
-    </form>
-
-    <script>
-        document.getElementById('avatar').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatarPreview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            let isValid = true;
-
-            const username = document.getElementById('username').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const avatarFile = document.getElementById('avatar').files[0];
-
-            document.getElementById('usernameError').textContent = '';
-            document.getElementById('emailError').textContent = '';
-            document.getElementById('avatarError').textContent = '';
-            document.getElementById('successMessage').textContent = '';
-
-            if (username.length < 3) {
-                document.getElementById('usernameError').textContent = 'Username must be at least 3 characters.';
-                isValid = false;
-            }
-
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-                document.getElementById('emailError').textContent = 'Please enter a valid email address.';
-                isValid = false;
-            }
-
-            if (avatarFile) {
-                const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
-                if (!validTypes.includes(avatarFile.type)) {
-                    document.getElementById('avatarError').textContent = 'Only JPG, PNG, and GIF images are allowed.';
-                    isValid = false;
-                }
-                if (avatarFile.size > 2 * 1024 * 1024) {
-                    document.getElementById('avatarError').textContent = 'Image size must be less than 2MB.';
-                    isValid = false;
-                }
-            }
-
-            if (isValid) {
-                document.getElementById('successMessage').textContent = 'Profile updated successfully!';
-            }
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -100,20 +10,23 @@
         <h1>User Profile</h1>
     </header>
     <main>
-        <section>
-            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            <h2>John Doe</h2>
-            <p>Email: john.doe@example.com</p>
-            <p>Location: New York, USA</p>
-            <p>Member since: January 2023</p>
-        </section>
-        <section>
-            <h3>Bio</h3>
-            <p>Software developer with interest in web technologies and open source projects.</p>
+        <section class="profile">
+            <div class="avatar-container">
+                <img src="https://via.placeholder.com/150" alt="User Avatar" class="avatar">
+            </div>
+            <div class="user-info">
+                <h2 class="username">Alex Johnson</h2>
+                <p class="user-bio">Software developer with a passion for open-source projects and web technologies. Enjoys hiking and photography in free time.</p>
+                <div class="user-stats">
+                    <span class="stat">Posts: <strong>127</strong></span>
+                    <span class="stat">Followers: <strong>548</strong></span>
+                    <span class="stat">Following: <strong>89</strong></span>
+                </div>
+            </div>
         </section>
     </main>
     <footer>
-        <p>&copy; 2023 User Profile Page</p>
+        <p>&copy; 2023 User Profile Page. All rights reserved.</p>
     </footer>
 </body>
 </html>
