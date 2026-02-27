@@ -259,4 +259,57 @@
         <p>&copy; 2023 Profile Page. All rights reserved.</p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="avatar-section">
+            <h2>Avatar</h2>
+            <img src="https://via.placeholder.com/150" alt="Profile Avatar" id="user-avatar">
+            <button onclick="changeAvatar()">Change Avatar</button>
+        </section>
+        <section id="bio-section">
+            <h2>Biography</h2>
+            <p id="user-bio">This is a sample user biography. It can be edited by the user.</p>
+            <textarea id="bio-editor" rows="4" cols="50" style="display: none;"></textarea>
+            <br>
+            <button onclick="editBio()" id="edit-bio-btn">Edit Bio</button>
+            <button onclick="saveBio()" id="save-bio-btn" style="display: none;">Save Bio</button>
+        </section>
+    </main>
+    <script>
+        function changeAvatar() {
+            const newAvatarUrl = prompt('Enter new avatar URL:');
+            if (newAvatarUrl) {
+                document.getElementById('user-avatar').src = newAvatarUrl;
+            }
+        }
+
+        function editBio() {
+            const bioText = document.getElementById('user-bio').textContent;
+            document.getElementById('bio-editor').value = bioText;
+            document.getElementById('user-bio').style.display = 'none';
+            document.getElementById('bio-editor').style.display = 'block';
+            document.getElementById('edit-bio-btn').style.display = 'none';
+            document.getElementById('save-bio-btn').style.display = 'inline';
+        }
+
+        function saveBio() {
+            const newBio = document.getElementById('bio-editor').value;
+            document.getElementById('user-bio').textContent = newBio;
+            document.getElementById('user-bio').style.display = 'block';
+            document.getElementById('bio-editor').style.display = 'none';
+            document.getElementById('edit-bio-btn').style.display = 'inline';
+            document.getElementById('save-bio-btn').style.display = 'none';
+        }
+    </script>
+</body>
 </html>
