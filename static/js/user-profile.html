@@ -11,43 +11,55 @@
             padding: 2rem;
             border: 1px solid #e1e4e8;
             border-radius: 8px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: sans-serif;
         }
         .avatar-section {
-            display: flex;
-            align-items: center;
+            text-align: center;
             margin-bottom: 1.5rem;
         }
         .avatar {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid #0366d6;
-            margin-right: 1.5rem;
         }
-        .user-name {
+        .name {
             font-size: 1.8rem;
-            font-weight: 600;
+            margin: 0.5rem 0;
             color: #24292e;
-            margin: 0 0 0.5rem 0;
         }
-        .user-handle {
+        .username {
             color: #586069;
             font-size: 1.2rem;
-            margin: 0;
+            margin-bottom: 1rem;
         }
-        .bio-section {
+        .bio {
+            line-height: 1.5;
+            color: #444d56;
             padding: 1rem;
             background-color: #f6f8fa;
             border-radius: 6px;
-            line-height: 1.5;
-            color: #24292e;
         }
-        .bio-title {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eaecef;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
             color: #0366d6;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            color: #586069;
+            text-transform: uppercase;
         }
     </style>
 </head>
@@ -55,48 +67,28 @@
     <div class="profile-container">
         <div class="avatar-section">
             <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
-            <div>
-                <h1 class="user-name">Alex Morgan</h1>
-                <p class="user-handle">@alex_morgan</p>
-            </div>
+            <h1 class="name">Alex Morgan</h1>
+            <div class="username">@alexmorgan</div>
         </div>
-        <div class="bio-section">
-            <div class="bio-title">About Me</div>
-            <p>Software engineer passionate about open-source projects and web technologies. Enjoys hiking, photography, and contributing to developer communities. Currently working on improving accessibility in web applications.</p>
+        
+        <div class="bio">
+            <p>Software developer passionate about open-source projects, web technologies, and user experience design. Enjoys hiking, photography, and contributing to developer communities.</p>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value">142</div>
+                <div class="stat-label">Repositories</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">1.2k</div>
+                <div class="stat-label">Followers</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">89</div>
+                <div class="stat-label">Following</div>
+            </div>
         </div>
     </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section class="profile">
-            <div class="avatar-container">
-                <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            </div>
-            <div class="user-info">
-                <h2>John Doe</h2>
-                <p class="username">@johndoe</p>
-                <p class="bio">Software developer passionate about open-source projects and web technologies. Enjoys hiking and photography in free time.</p>
-                <div class="stats">
-                    <span class="stat">Posts: <strong>128</strong></span>
-                    <span class="stat">Followers: <strong>456</strong></span>
-                    <span class="stat">Following: <strong>234</strong></span>
-                </div>
-                <button class="edit-profile">Edit Profile</button>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page. All rights reserved.</p>
-    </footer>
 </body>
 </html>
