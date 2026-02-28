@@ -15,7 +15,7 @@
         <div>
             <label for="name">Full Name:</label>
             <input type="text" id="name" name="name" required>
-            <div id="nameError" class="error">Please enter a valid name (letters and spaces only).</div>
+            <div id="nameError" class="error">Please enter your full name.</div>
         </div>
         <div>
             <label for="email">Email Address:</label>
@@ -25,11 +25,11 @@
         <div>
             <label for="message">Your Message:</label>
             <textarea id="message" name="message" rows="5" required></textarea>
-            <div id="messageError" class="error">Message must be at least 10 characters long.</div>
+            <div id="messageError" class="error">Please enter your message.</div>
         </div>
         <button type="submit">Send Message</button>
+        <div id="successMessage" class="success">Thank you! Your message has been sent successfully.</div>
     </form>
-    <div id="successMessage" class="success">Thank you! Your message has been sent successfully.</div>
 
     <script>
         document.getElementById('contactForm').addEventListener('submit', function(event) {
@@ -49,25 +49,24 @@
             messageError.style.display = 'none';
             successMessage.style.display = 'none';
 
-            const namePattern = /^[A-Za-z\s]+$/;
-            if (!namePattern.test(name.value.trim())) {
+            if (!name.value.trim()) {
                 nameError.style.display = 'block';
                 isValid = false;
             }
 
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email.value.trim())) {
+            if (!emailPattern.test(email.value)) {
                 emailError.style.display = 'block';
                 isValid = false;
             }
 
-            if (message.value.trim().length < 10) {
+            if (!message.value.trim()) {
                 messageError.style.display = 'block';
                 isValid = false;
             }
 
             if (isValid) {
-                console.log('Form submitted with:', {
+                console.log('Form submitted:', {
                     name: name.value,
                     email: email.value,
                     message: message.value
