@@ -7,66 +7,9 @@
     <style>
         .profile-container {
             max-width: 600px;
-            margin: 2rem auto;
-            padding: 2rem;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a6fa5;
-        }
-        .name {
-            font-size: 1.8rem;
-            margin: 0.5rem 0;
-            color: #333;
-        }
-        .title {
-            color: #666;
-            font-style: italic;
-            margin-bottom: 1rem;
-        }
-        .bio-section {
-            line-height: 1.6;
-            color: #444;
-            border-top: 1px solid #eee;
-            padding-top: 1rem;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="User Avatar" class="avatar">
-            <h1 class="name">Alex Morgan</h1>
-            <p class="title">Senior Frontend Developer</p>
-        </div>
-        <div class="bio-section">
-            <p>Passionate about building intuitive user interfaces and accessible web applications. Enjoys working with modern JavaScript frameworks and contributing to open-source projects. Currently focused on performance optimization and component library development.</p>
-            <p>Outside of coding, I enjoy hiking, photography, and experimenting with new coffee brewing techniques.</p>
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
             margin: 40px auto;
             padding: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
             border-radius: 8px;
             font-family: Arial, sans-serif;
         }
@@ -74,75 +17,39 @@
             text-align: center;
             margin-bottom: 20px;
         }
-        .avatar-preview {
+        .avatar {
             width: 120px;
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid #ddd;
-            margin-bottom: 10px;
+            border: 3px solid #4a90e2;
         }
-        .bio-section textarea {
-            width: 100%;
-            height: 100px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
-            box-sizing: border-box;
+        .user-info {
+            line-height: 1.6;
         }
-        .save-button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 15px;
+        .info-label {
+            font-weight: bold;
+            color: #555;
         }
-        .save-button:hover {
-            background-color: #45a049;
+        .status-active {
+            color: green;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <h1>Edit Profile</h1>
         <div class="avatar-section">
-            <img id="avatarPreview" src="https://via.placeholder.com/120" class="avatar-preview" alt="Avatar Preview">
-            <div>
-                <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
-                <button onclick="document.getElementById('avatarUpload').click()">Change Avatar</button>
-            </div>
+            <img src="https://via.placeholder.com/120" alt="User Avatar" class="avatar">
+            <h2>Alex Johnson</h2>
         </div>
-        <div class="bio-section">
-            <label for="userBio"><strong>Bio:</strong></label>
-            <textarea id="userBio" placeholder="Tell us about yourself..."></textarea>
+        <div class="user-info">
+            <p><span class="info-label">Email:</span> alex.johnson@example.com</p>
+            <p><span class="info-label">Member Since:</span> January 15, 2022</p>
+            <p><span class="info-label">Location:</span> San Francisco, CA</p>
+            <p><span class="info-label">Status:</span> <span class="status-active">Active</span></p>
+            <p><span class="info-label">Bio:</span> Software developer with interest in web technologies and open source projects. Enjoys hiking and photography.</p>
         </div>
-        <button class="save-button" onclick="saveProfile()">Save Changes</button>
     </div>
-
-    <script>
-        const avatarUpload = document.getElementById('avatarUpload');
-        const avatarPreview = document.getElementById('avatarPreview');
-        const userBio = document.getElementById('userBio');
-
-        avatarUpload.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    avatarPreview.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        function saveProfile() {
-            const bioText = userBio.value.trim();
-            alert('Profile saved successfully!\nBio: ' + (bioText || '(Empty)'));
-        }
-    </script>
 </body>
 </html>
