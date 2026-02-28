@@ -637,4 +637,108 @@
         </div>
     </div>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 0.9em; }
+        .hidden { display: none; }
+        .avatar-preview { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid #ccc; }
+    </style>
+</head>
+<body>
+    <h1>User Profile</h1>
+    <form id="profileForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <span id="usernameError" class="error hidden"></span>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <span id="emailError" class="error hidden"></span>
+        </div>
+        <div>
+            <label for="avatar">Avatar:</label>
+            <input type="file" id="avatar" name="avatar" accept="image/*">
+            <img id="avatarPreview" class="avatar-preview" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIwLjNlbSIgZmlsbD0iIzY2NiI+Tk8gSU1BR0U8L3RleHQ+PC9zdmc+" alt="Avatar Preview">
+            <span id="avatarError" class="error hidden"></span>
+        </div>
+        <button type="submit">Update Profile</button>
+        <div id="successMessage" class="success hidden">Profile updated successfully!</div>
+    </form>
+
+    <script>
+        document.getElementById('avatar').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('avatarPreview');
+            const errorSpan = document.getElementById('avatarError');
+
+            if (file) {
+                if (file.size > 2 * 1024 * 1024) {
+                    errorSpan.textContent = 'File size must be less than 2MB.';
+                    errorSpan.classList.remove('hidden');
+                    event.target.value = '';
+                    preview.src = preview.dataset.defaultSrc || preview.src;
+                    return;
+                }
+                if (!file.type.startsWith('image/')) {
+                    errorSpan.textContent = 'File must be an image.';
+                    errorSpan.classList.remove('hidden');
+                    event.target.value = '';
+                    preview.src = preview.dataset.defaultSrc || preview.src;
+                    return;
+                }
+
+                errorSpan.classList.add('hidden');
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let isValid = true;
+
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const usernameError = document.getElementById('usernameError');
+            const emailError = document.getElementById('emailError');
+            const successMessage = document.getElementById('successMessage');
+
+            usernameError.classList.add('hidden');
+            emailError.classList.add('hidden');
+            successMessage.classList.add('hidden');
+
+            if (username.length < 3) {
+                usernameError.textContent = 'Username must be at least 3 characters.';
+                usernameError.classList.remove('hidden');
+                isValid = false;
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                emailError.textContent = 'Please enter a valid email address.';
+                emailError.classList.remove('hidden');
+                isValid = false;
+            }
+
+            if (isValid) {
+                console.log('Submitting profile data:', { username, email });
+                successMessage.classList.remove('hidden');
+                setTimeout(() => {
+                    successMessage.classList.add('hidden');
+                }, 3000);
+            }
+        });
+    </script>
+</body>
 </html>
