@@ -1212,4 +1212,65 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="profile-section">
+            <div class="avatar-container">
+                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
+                <form id="avatar-form">
+                    <input type="file" id="avatar-input" name="avatar" accept="image/*">
+                    <button type="submit">Upload Avatar</button>
+                </form>
+            </div>
+            <div class="bio-container">
+                <h2>Edit Bio</h2>
+                <form id="bio-form">
+                    <textarea id="bio-text" name="bio" rows="5" cols="50" placeholder="Enter your bio here..."></textarea>
+                    <br>
+                    <button type="submit">Save Bio</button>
+                </form>
+                <p id="current-bio">Current bio will appear here after saving.</p>
+            </div>
+        </section>
+    </main>
+    <script>
+        document.getElementById('avatar-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const fileInput = document.getElementById('avatar-input');
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatar-preview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+                alert('Avatar uploaded successfully!');
+            } else {
+                alert('Please select an image file.');
+            }
+        });
+
+        document.getElementById('bio-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const bioText = document.getElementById('bio-text').value;
+            if (bioText.trim() !== '') {
+                document.getElementById('current-bio').textContent = bioText;
+                document.getElementById('bio-text').value = '';
+                alert('Bio saved successfully!');
+            } else {
+                alert('Please enter some text for your bio.');
+            }
+        });
+    </script>
+</body>
 </html>
