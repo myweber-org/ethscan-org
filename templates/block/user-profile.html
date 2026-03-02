@@ -492,4 +492,220 @@
         <p>&copy; 2023 User Profile Page</p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="profile-container">
+        <header class="profile-header">
+            <div class="avatar-container">
+                <img src="https://i.pravatar.cc/150?img=12" alt="User Avatar" class="profile-avatar">
+                <span class="online-status"></span>
+            </div>
+            <h1 class="profile-name">Alex Johnson</h1>
+            <p class="profile-title">Senior Frontend Developer</p>
+            <div class="profile-location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>San Francisco, CA</span>
+            </div>
+        </header>
+
+        <section class="profile-bio">
+            <h2>About Me</h2>
+            <p>Passionate developer with over 8 years of experience building responsive web applications. Enjoys hiking, photography, and open-source contributions.</p>
+        </section>
+
+        <section class="profile-skills">
+            <h2>Skills</h2>
+            <div class="skills-list">
+                <span class="skill-tag">JavaScript</span>
+                <span class="skill-tag">React</span>
+                <span class="skill-tag">TypeScript</span>
+                <span class="skill-tag">Node.js</span>
+                <span class="skill-tag">CSS3</span>
+                <span class="skill-tag">Webpack</span>
+            </div>
+        </section>
+
+        <section class="profile-stats">
+            <div class="stat-item">
+                <strong>142</strong>
+                <span>Projects</span>
+            </div>
+            <div class="stat-item">
+                <strong>5.8k</strong>
+                <span>Followers</span>
+            </div>
+            <div class="stat-item">
+                <strong>328</strong>
+                <span>Following</span>
+            </div>
+        </section>
+
+        <footer class="profile-footer">
+            <button class="btn-message">
+                <i class="fas fa-envelope"></i> Send Message
+            </button>
+            <button class="btn-follow">
+                <i class="fas fa-user-plus"></i> Follow
+            </button>
+        </footer>
+    </div>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .profile-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            text-align: center;
+        }
+        .avatar-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 5px solid #e0e6ff;
+            object-fit: cover;
+        }
+        .online-status {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 20px;
+            height: 20px;
+            background-color: #4CAF50;
+            border: 3px solid white;
+            border-radius: 50%;
+        }
+        .profile-name {
+            margin: 10px 0 5px;
+            color: #333;
+            font-size: 28px;
+        }
+        .profile-title {
+            color: #666;
+            margin: 0 0 10px;
+            font-size: 16px;
+        }
+        .profile-location {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+        .profile-location i {
+            margin-right: 5px;
+        }
+        section {
+            margin: 25px 0;
+            text-align: left;
+        }
+        h2 {
+            color: #444;
+            font-size: 18px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #e0e6ff;
+            padding-bottom: 5px;
+        }
+        .profile-bio p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 15px;
+            margin: 0;
+        }
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .skill-tag {
+            background: #eef2ff;
+            color: #4f6df5;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .profile-stats {
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+            margin: 30px 0;
+        }
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .stat-item strong {
+            font-size: 24px;
+            color: #333;
+        }
+        .stat-item span {
+            font-size: 13px;
+            color: #777;
+            margin-top: 5px;
+        }
+        .profile-footer {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+        .btn-message {
+            background: #4f6df5;
+            color: white;
+            flex: 1;
+        }
+        .btn-follow {
+            background: #f0f4ff;
+            color: #4f6df5;
+            flex: 1;
+        }
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+        }
+        .btn-message:hover {
+            background: #3a56d4;
+        }
+        .btn-follow:hover {
+            background: #e4e9ff;
+        }
+    </style>
+</body>
 </html>
