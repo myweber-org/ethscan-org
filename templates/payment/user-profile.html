@@ -987,4 +987,89 @@
         </div>
     </div>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-card {
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #4a6fa5;
+            margin-bottom: 1rem;
+        }
+        .user-name {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        .user-title {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        .user-bio {
+            color: #555;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .stat-value {
+            font-weight: bold;
+            font-size: 1.4rem;
+            color: #4a6fa5;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 0.3rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-card">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="User Avatar" class="avatar">
+        <h1 class="user-name">Alex Morgan</h1>
+        <p class="user-title">Senior Frontend Developer</p>
+        <p class="user-bio">Passionate about building intuitive user interfaces and scalable web applications. Enjoys hiking, photography, and open-source contributions.</p>
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-value">247</span>
+                <span class="stat-label">Projects</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">1.8k</span>
+                <span class="stat-label">Followers</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">89</span>
+                <span class="stat-label">Following</span>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
