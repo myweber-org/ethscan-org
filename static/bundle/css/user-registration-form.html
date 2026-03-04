@@ -777,3 +777,110 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        input.invalid { border: 1px solid red; }
+    </style>
+</head>
+<body>
+    <h1>Register New Account</h1>
+    <form id="registrationForm" novalidate>
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+            <div class="error" id="usernameError"></div>
+        </div>
+
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <div class="error" id="emailError"></div>
+        </div>
+
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
+            <div class="error" id="passwordError">Minimum 8 characters, at least one letter and one number</div>
+        </div>
+
+        <div>
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <div class="error" id="confirmPasswordError"></div>
+        </div>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('registrationForm');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirmPassword');
+
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = message;
+        }
+
+        function clearError(elementId) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = '';
+        }
+
+        function validatePasswordMatch() {
+            if (password.value !== confirmPassword.value) {
+                showError('confirmPasswordError', 'Passwords do not match');
+                confirmPassword.classList.add('invalid');
+                return false;
+            } else {
+                clearError('confirmPasswordError');
+                confirmPassword.classList.remove('invalid');
+                return true;
+            }
+        }
+
+        confirmPassword.addEventListener('input', validatePasswordMatch);
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            let isValid = true;
+            
+            if (!form.checkValidity()) {
+                isValid = false;
+            }
+            
+            if (!validatePasswordMatch()) {
+                isValid = false;
+            }
+            
+            if (isValid) {
+                alert('Registration successful!');
+                form.reset();
+                document.querySelectorAll('.error').forEach(el => el.textContent = '');
+                document.querySelectorAll('input').forEach(el => el.classList.remove('invalid'));
+            } else {
+                alert('Please fix errors before submitting.');
+            }
+        });
+
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', function() {
+                if (this.checkValidity()) {
+                    this.classList.remove('invalid');
+                    clearError(this.id + 'Error');
+                } else {
+                    this.classList.add('invalid');
+                    showError(this.id + 'Error', this.validationMessage);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
