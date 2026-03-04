@@ -175,4 +175,107 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+    <style>
+        body { font-family: sans-serif; max-width: 400px; margin: 50px auto; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; width: 100%; }
+        button:hover { background-color: #0056b3; }
+        .error { color: red; font-size: 0.9em; margin-top: 5px; display: none; }
+        .password-container { position: relative; }
+        .toggle-password { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #666; padding: 0; width: auto; }
+    </style>
+</head>
+<body>
+    <h2>Login to Your Account</h2>
+    <form id="loginForm">
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required placeholder="Enter your email">
+            <div class="error" id="emailError">Please enter a valid email address.</div>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <div class="password-container">
+                <input type="password" id="password" name="password" required placeholder="Enter your password" minlength="6">
+                <button type="button" class="toggle-password" id="togglePassword">Show</button>
+            </div>
+            <div class="error" id="passwordError">Password must be at least 6 characters long.</div>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
+        const toggleButton = document.getElementById('togglePassword');
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function showError(element, message) {
+            element.textContent = message;
+            element.style.display = 'block';
+        }
+
+        function hideError(element) {
+            element.style.display = 'none';
+        }
+
+        emailInput.addEventListener('input', function() {
+            if (validateEmail(this.value)) {
+                hideError(emailError);
+            }
+        });
+
+        passwordInput.addEventListener('input', function() {
+            if (this.value.length >= 6) {
+                hideError(passwordError);
+            }
+        });
+
+        toggleButton.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.textContent = type === 'password' ? 'Show' : 'Hide';
+        });
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            let isValid = true;
+
+            if (!validateEmail(emailInput.value)) {
+                showError(emailError, 'Please enter a valid email address.');
+                isValid = false;
+            } else {
+                hideError(emailError);
+            }
+
+            if (passwordInput.value.length < 6) {
+                showError(passwordError, 'Password must be at least 6 characters long.');
+                isValid = false;
+            } else {
+                hideError(passwordError);
+            }
+
+            if (isValid) {
+                alert('Login successful! (This is a demo)');
+                // In a real application, you would submit the form data to a server here.
+                // form.submit();
+            }
+        });
+    </script>
+</body>
 </html>
