@@ -88,3 +88,93 @@
     </div>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+        }
+        .avatar-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #4a90e2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 36px;
+            margin-right: 20px;
+        }
+        .user-info h2 {
+            margin: 0 0 5px 0;
+            color: #333;
+        }
+        .user-info p {
+            margin: 0;
+            color: #666;
+        }
+        .details-section {
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        .detail-row {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        .detail-label {
+            font-weight: bold;
+            width: 120px;
+            color: #555;
+        }
+        .detail-value {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="avatar-section">
+            <div class="avatar">JD</div>
+            <div class="user-info">
+                <h2>John Doe</h2>
+                <p>Software Developer</p>
+                <p>San Francisco, CA</p>
+            </div>
+        </div>
+        
+        <div class="details-section">
+            <div class="detail-row">
+                <span class="detail-label">Email:</span>
+                <span class="detail-value">john.doe@example.com</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Member Since:</span>
+                <span class="detail-value">January 2023</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Status:</span>
+                <span class="detail-value">Active</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Last Login:</span>
+                <span class="detail-value">2024-03-15 14:30</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
