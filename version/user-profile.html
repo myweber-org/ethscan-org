@@ -144,3 +144,103 @@
     </footer>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+        body { background-color: #f4f4f4; padding: 20px; }
+        .profile-container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .profile-header { text-align: center; margin-bottom: 30px; }
+        .avatar-section { margin-bottom: 20px; }
+        .avatar-preview { width: 120px; height: 120px; border-radius: 50%; background-color: #ddd; margin: 0 auto 15px; overflow: hidden; border: 3px solid #4CAF50; }
+        .avatar-preview img { width: 100%; height: 100%; object-fit: cover; }
+        .avatar-upload { text-align: center; }
+        .avatar-upload input { display: none; }
+        .avatar-upload label { background-color: #4CAF50; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer; display: inline-block; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; }
+        .form-group input, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px; }
+        .form-group textarea { height: 100px; resize: vertical; }
+        .submit-btn { background-color: #4CAF50; color: white; border: none; padding: 12px 30px; border-radius: 5px; cursor: pointer; font-size: 16px; width: 100%; }
+        .submit-btn:hover { background-color: #45a049; }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>User Profile</h1>
+            <p>Update your personal information and avatar</p>
+        </div>
+        
+        <div class="avatar-section">
+            <div class="avatar-preview">
+                <img id="avatarPreview" src="" alt="Avatar Preview">
+            </div>
+            <div class="avatar-upload">
+                <input type="file" id="avatarInput" accept="image/*">
+                <label for="avatarInput">Choose Avatar</label>
+            </div>
+        </div>
+
+        <form id="profileForm">
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="bio">Bio</label>
+                <textarea id="bio" name="bio" placeholder="Tell something about yourself"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" placeholder="City, Country">
+            </div>
+            
+            <button type="submit" class="submit-btn">Update Profile</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('avatarInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatarPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                bio: document.getElementById('bio').value,
+                location: document.getElementById('location').value
+            };
+            
+            console.log('Profile data to submit:', formData);
+            alert('Profile updated successfully! Check console for data.');
+        });
+
+        window.addEventListener('DOMContentLoaded', function() {
+            const defaultAvatar = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iNjAiIGN5PSI2MCIgcj0iNjAiIGZpbGw9IiNFRUVFRUUiLz48cGF0aCBkPSJNNjAgMzBDNDQuNSA0NS41IDQ1IDc1IDYwIDkwQzc1IDEwNSA5NS41IDEwNC41IDkwIDkwQzg0LjUgNzUuNSA3NS41IDQ1LjUgNjAgMzBaIiBmaWxsPSIjQ0NDQ0NDIi8+PGNpcmNsZSBjeD0iNDUiIGN5PSI0NSIgcj0iNSIgZmlsbD0iI0NDQ0NDQyIvPjxjaXJjbGUgY3g9Ijc1IiBjeT0iNDUiIHI9IjUiIGZpbGw9IiNDQ0NDQ0MiLz48L3N2Zz4=';
+            document.getElementById('avatarPreview').src = defaultAvatar;
+        });
+    </script>
+</body>
+</html>
