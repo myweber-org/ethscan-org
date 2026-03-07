@@ -4,221 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <script>
-        function validateForm() {
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const age = document.getElementById('age').value;
-            const errorElement = document.getElementById('error-message');
-
-            errorElement.textContent = '';
-
-            if (name.trim() === '') {
-                errorElement.textContent = 'Name is required.';
-                return false;
-            }
-
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-                errorElement.textContent = 'Please enter a valid email address.';
-                return false;
-            }
-
-            if (age === '' || age < 1 || age > 120) {
-                errorElement.textContent = 'Please enter a valid age between 1 and 120.';
-                return false;
-            }
-
-            alert('Profile data submitted successfully!');
-            return true;
-        }
-
-        function submitData() {
-            if (validateForm()) {
-                const formData = {
-                    name: document.getElementById('name').value,
-                    email: document.getElementById('email').value,
-                    age: document.getElementById('age').value,
-                    country: document.getElementById('country').value
-                };
-                console.log('Submitting data:', formData);
-            }
-        }
-    </script>
-</head>
-<body>
-    <h1>User Profile</h1>
-    <form onsubmit="return validateForm();">
-        <div>
-            <label for="name">Full Name:</label>
-            <input type="text" id="name" name="name" required>
-        </div>
-        <div>
-            <label for="email">Email Address:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div>
-            <label for="age">Age:</label>
-            <input type="number" id="age" name="age" min="1" max="120">
-        </div>
-        <div>
-            <label for="country">Country:</label>
-            <select id="country" name="country">
-                <option value="us">United States</option>
-                <option value="uk">United Kingdom</option>
-                <option value="ca">Canada</option>
-                <option value="au">Australia</option>
-            </select>
-        </div>
-        <div id="error-message" style="color: red;"></div>
-        <button type="button" onclick="submitData()">Save Profile</button>
-    </form>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="avatar-section">
-            <h2>Profile Picture</h2>
-            <img id="avatar-preview" src="placeholder.jpg" alt="Avatar Preview" width="150" height="150">
-            <form id="avatar-form">
-                <label for="avatar-upload">Choose new image:</label>
-                <input type="file" id="avatar-upload" name="avatar" accept="image/*">
-                <button type="submit">Upload Avatar</button>
-            </form>
-        </section>
-        <section id="info-section">
-            <h2>Basic Information</h2>
-            <form id="profile-form">
-                <div>
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div>
-                    <label for="bio">Bio:</label>
-                    <textarea id="bio" name="bio" rows="4"></textarea>
-                </div>
-                <button type="submit">Save Changes</button>
-            </form>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
-    <script>
-        document.getElementById('avatar-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const fileInput = document.getElementById('avatar-upload');
-            if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(fileInput.files[0]);
-            }
-        });
-
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            console.log('Profile updated:', { username, email, bio });
-            alert('Profile information saved!');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
     <style>
         .profile-container {
             max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
+            margin: 2rem auto;
+            padding: 2rem;
+            border: 1px solid #ccc;
             border-radius: 8px;
-            font-family: Arial, sans-serif;
-        }
-        .avatar-section {
             text-align: center;
-            margin-bottom: 20px;
+            font-family: sans-serif;
         }
         .avatar {
             width: 120px;
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #4a90e2;
+            border: 3px solid #4a6fa5;
+            margin-bottom: 1rem;
         }
-        .user-info {
-            line-height: 1.6;
-        }
-        .info-label {
-            font-weight: bold;
-            color: #555;
-        }
-        .info-value {
-            margin-left: 10px;
+        .user-name {
+            font-size: 2rem;
+            margin: 0.5rem 0;
             color: #333;
+        }
+        .user-title {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        .bio-section {
+            text-align: left;
+            line-height: 1.6;
+            color: #444;
+            border-top: 1px solid #eee;
+            padding-top: 1.5rem;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://via.placeholder.com/120" alt="User Avatar" class="avatar">
-        </div>
-        <div class="user-info">
-            <p><span class="info-label">Name:</span> <span class="info-value">Alex Johnson</span></p>
-            <p><span class="info-label">Email:</span> <span class="info-value">alex.johnson@example.com</span></p>
-            <p><span class="info-label">Location:</span> <span class="info-value">San Francisco, CA</span></p>
-            <p><span class="info-label">Member Since:</span> <span class="info-value">January 2022</span></p>
-            <p><span class="info-label">Bio:</span> <span class="info-value">Software developer with a passion for open-source projects and web technologies.</span></p>
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
+        <h1 class="user-name">Alex Morgan</h1>
+        <p class="user-title">Senior Frontend Developer</p>
+        <div class="bio-section">
+            <h3>About Me</h3>
+            <p>Passionate about building intuitive user interfaces with modern web technologies. Enjoys optimizing performance and accessibility. Currently focused on React and Vue.js ecosystems.</p>
+            <p>Open source contributor and tech community speaker. Loves hiking and photography in free time.</p>
         </div>
     </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section>
-            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
-            <h2>John Doe</h2>
-            <p>Email: john.doe@example.com</p>
-            <p>Location: New York, USA</p>
-            <p>Member since: January 2023</p>
-        </section>
-        <section>
-            <h3>Bio</h3>
-            <p>Software developer with a passion for open-source projects and web technologies.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 User Profile Page</p>
-    </footer>
 </body>
 </html>
