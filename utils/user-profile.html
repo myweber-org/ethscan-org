@@ -977,4 +977,54 @@
         </div>
     </div>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="avatar-section">
+            <h2>Avatar</h2>
+            <img src="https://via.placeholder.com/150" alt="Profile Avatar">
+            <button onclick="changeAvatar()">Change Avatar</button>
+        </section>
+        <section id="bio-section">
+            <h2>Biography</h2>
+            <p id="bio-text">This is a sample biography. User can edit this text.</p>
+            <textarea id="bio-edit" style="display:none;"></textarea>
+            <button onclick="editBio()">Edit Bio</button>
+            <button id="save-bio" onclick="saveBio()" style="display:none;">Save Bio</button>
+        </section>
+    </main>
+    <script>
+        function changeAvatar() {
+            const newAvatarUrl = prompt('Enter new avatar URL:');
+            if (newAvatarUrl) {
+                document.querySelector('#avatar-section img').src = newAvatarUrl;
+            }
+        }
+
+        function editBio() {
+            const bioText = document.getElementById('bio-text').textContent;
+            document.getElementById('bio-edit').value = bioText;
+            document.getElementById('bio-text').style.display = 'none';
+            document.getElementById('bio-edit').style.display = 'block';
+            document.getElementById('save-bio').style.display = 'inline-block';
+        }
+
+        function saveBio() {
+            const newBio = document.getElementById('bio-edit').value;
+            document.getElementById('bio-text').textContent = newBio;
+            document.getElementById('bio-text').style.display = 'block';
+            document.getElementById('bio-edit').style.display = 'none';
+            document.getElementById('save-bio').style.display = 'none';
+        }
+    </script>
+</body>
 </html>
