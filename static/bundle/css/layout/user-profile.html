@@ -444,4 +444,42 @@
         <p>&copy; 2023 Example Platform</p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="avatar-section">
+            <img src="https://via.placeholder.com/150" alt="Profile Avatar">
+            <button onclick="changeAvatar()">Change Avatar</button>
+        </section>
+        <section id="bio-section">
+            <h2>Bio</h2>
+            <p id="bio-text">This is a sample bio. Click edit to update.</p>
+            <button onclick="editBio()">Edit Bio</button>
+        </section>
+    </main>
+    <script>
+        function changeAvatar() {
+            const newAvatarUrl = prompt('Enter new avatar URL:');
+            if (newAvatarUrl) {
+                document.querySelector('#avatar-section img').src = newAvatarUrl;
+            }
+        }
+
+        function editBio() {
+            const newBio = prompt('Enter new bio:');
+            if (newBio) {
+                document.getElementById('bio-text').textContent = newBio;
+            }
+        }
+    </script>
+</body>
 </html>
