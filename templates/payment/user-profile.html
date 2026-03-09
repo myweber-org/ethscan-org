@@ -1444,4 +1444,240 @@
         }
     </style>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="profile-container">
+        <header>
+            <h1><i class="fas fa-user-circle"></i> User Profile</h1>
+        </header>
+
+        <main>
+            <section class="profile-section">
+                <div class="avatar-container">
+                    <img id="avatar-preview" src="https://via.placeholder.com/150" alt="User Avatar">
+                    <div class="avatar-controls">
+                        <input type="file" id="avatar-upload" accept="image/*" hidden>
+                        <button onclick="document.getElementById('avatar-upload').click()">
+                            <i class="fas fa-upload"></i> Upload New Avatar
+                        </button>
+                        <button onclick="resetAvatar()">
+                            <i class="fas fa-redo"></i> Reset to Default
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bio-section">
+                    <h2><i class="fas fa-edit"></i> Edit Your Bio</h2>
+                    <textarea id="bio-textarea" rows="5" placeholder="Tell us something about yourself..."></textarea>
+                    <div class="bio-controls">
+                        <button onclick="saveBio()">
+                            <i class="fas fa-save"></i> Save Bio
+                        </button>
+                        <button onclick="clearBio()">
+                            <i class="fas fa-trash"></i> Clear Bio
+                        </button>
+                        <span id="char-count">0/500 characters</span>
+                    </div>
+                </div>
+
+                <div class="profile-info">
+                    <h3><i class="fas fa-info-circle"></i> Profile Information</h3>
+                    <p><strong>Username:</strong> <span id="username">johndoe</span></p>
+                    <p><strong>Member Since:</strong> <span id="join-date">January 2023</span></p>
+                    <p><strong>Last Updated:</strong> <span id="update-time">Never</span></p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2023 User Profile Page. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        const avatarUpload = document.getElementById('avatar-upload');
+        const bioTextarea = document.getElementById('bio-textarea');
+        const charCount = document.getElementById('char-count');
+        const updateTime = document.getElementById('update-time');
+
+        avatarUpload.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatar-preview').src = e.target.result;
+                    updateTimestamp();
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        bioTextarea.addEventListener('input', function() {
+            const currentLength = bioTextarea.value.length;
+            charCount.textContent = `${currentLength}/500 characters`;
+            if (currentLength > 500) {
+                bioTextarea.value = bioTextarea.value.substring(0, 500);
+                charCount.textContent = '500/500 characters (limit reached)';
+            }
+        });
+
+        function saveBio() {
+            const bio = bioTextarea.value.trim();
+            if (bio) {
+                alert('Bio saved successfully!');
+                updateTimestamp();
+            } else {
+                alert('Please enter some text before saving.');
+            }
+        }
+
+        function clearBio() {
+            if (confirm('Are you sure you want to clear your bio?')) {
+                bioTextarea.value = '';
+                charCount.textContent = '0/500 characters';
+                updateTimestamp();
+            }
+        }
+
+        function resetAvatar() {
+            document.getElementById('avatar-preview').src = 'https://via.placeholder.com/150';
+            updateTimestamp();
+        }
+
+        function updateTimestamp() {
+            const now = new Date();
+            updateTime.textContent = now.toLocaleString();
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        .profile-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.2em;
+        }
+        .profile-section {
+            padding: 30px;
+        }
+        .avatar-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        #avatar-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid #4b6cb7;
+            object-fit: cover;
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+        }
+        #avatar-preview:hover {
+            transform: scale(1.05);
+        }
+        .avatar-controls button, .bio-controls button {
+            background: #4b6cb7;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s;
+        }
+        .avatar-controls button:hover, .bio-controls button:hover {
+            background: #3a5795;
+        }
+        .bio-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .bio-section h2 {
+            color: #182848;
+            margin-top: 0;
+        }
+        #bio-textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1em;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+        .bio-controls {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        #char-count {
+            margin-left: auto;
+            color: #666;
+            font-size: 0.9em;
+        }
+        .profile-info {
+            border-top: 2px solid #eee;
+            padding-top: 25px;
+        }
+        .profile-info h3 {
+            color: #182848;
+        }
+        .profile-info p {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #f1f1f1;
+            color: #666;
+            font-size: 0.9em;
+        }
+        @media (max-width: 600px) {
+            .profile-container {
+                border-radius: 0;
+            }
+            .bio-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            #char-count {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</body>
 </html>
