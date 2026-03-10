@@ -370,4 +370,39 @@
         <p>&copy; 2023 User Profile Page. All rights reserved.</p>
     </footer>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section id="avatar-section">
+            <h2>Avatar</h2>
+            <img src="avatar-placeholder.jpg" alt="User Avatar" width="150" height="150">
+            <button onclick="changeAvatar()">Change Avatar</button>
+        </section>
+        <section id="bio-section">
+            <h2>Biography</h2>
+            <p id="user-bio">This is a sample user biography. It can be edited by the user.</p>
+            <button onclick="editBio()">Edit Bio</button>
+        </section>
+    </main>
+    <script>
+        function changeAvatar() {
+            alert('Avatar change functionality would be implemented here.');
+        }
+        function editBio() {
+            const newBio = prompt('Enter your new biography:', document.getElementById('user-bio').textContent);
+            if (newBio !== null) {
+                document.getElementById('user-bio').textContent = newBio;
+            }
+        }
+    </script>
+</body>
 </html>
