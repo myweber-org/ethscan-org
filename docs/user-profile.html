@@ -292,4 +292,57 @@
         </div>
     </div>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+    </header>
+    <main>
+        <section class="avatar-section">
+            <img src="https://via.placeholder.com/150" alt="Profile Avatar" id="user-avatar">
+            <button onclick="changeAvatar()">Change Avatar</button>
+        </section>
+        <section class="info-section">
+            <div>
+                <label for="user-name">Full Name:</label>
+                <span id="user-name">Alex Johnson</span>
+                <button onclick="editName()">Edit</button>
+            </div>
+            <div>
+                <label for="user-bio">Biography:</label>
+                <p id="user-bio">Software developer and open source enthusiast. Loves hiking and photography.</p>
+                <button onclick="editBio()">Edit Bio</button>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 User Profile Page. All rights reserved.</p>
+    </footer>
+    <script>
+        function changeAvatar() {
+            const newUrl = prompt('Enter new avatar URL:');
+            if (newUrl) {
+                document.getElementById('user-avatar').src = newUrl;
+            }
+        }
+        function editName() {
+            const newName = prompt('Enter new name:', document.getElementById('user-name').textContent);
+            if (newName) {
+                document.getElementById('user-name').textContent = newName;
+            }
+        }
+        function editBio() {
+            const newBio = prompt('Enter new biography:', document.getElementById('user-bio').textContent);
+            if (newBio) {
+                document.getElementById('user-bio').textContent = newBio;
+            }
+        }
+    </script>
+</body>
 </html>
