@@ -7,310 +7,66 @@
     <style>
         .profile-container {
             max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
+            margin: 2rem auto;
+            padding: 2rem;
+            border: 1px solid #e1e4e8;
             border-radius: 8px;
             font-family: sans-serif;
         }
         .avatar-section {
-            display: flex;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-        .avatar-preview {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background-color: #f0f0f0;
-            margin-right: 20px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            color: #666;
-        }
-        .avatar-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .avatar-upload {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .bio-section {
-            margin-bottom: 20px;
-        }
-        textarea {
-            width: 100%;
-            height: 120px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
-            font-family: inherit;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .hidden {
-            display: none;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <h1>User Profile</h1>
-        
-        <div class="avatar-section">
-            <div class="avatar-preview" id="avatarPreview">
-                <span>U</span>
-            </div>
-            <div class="avatar-upload">
-                <input type="file" id="avatarInput" accept="image/*">
-                <button id="uploadButton">Upload Avatar</button>
-                <button id="removeButton" class="hidden">Remove Avatar</button>
-            </div>
-        </div>
-
-        <div class="bio-section">
-            <label for="bioTextarea"><strong>Bio:</strong></label>
-            <textarea id="bioTextarea" placeholder="Tell us about yourself..."></textarea>
-        </div>
-
-        <button id="saveButton">Save Profile</button>
-    </div>
-
-    <script>
-        const avatarInput = document.getElementById('avatarInput');
-        const avatarPreview = document.getElementById('avatarPreview');
-        const uploadButton = document.getElementById('uploadButton');
-        const removeButton = document.getElementById('removeButton');
-        const bioTextarea = document.getElementById('bioTextarea');
-        const saveButton = document.getElementById('saveButton');
-
-        let currentAvatar = null;
-
-        uploadButton.addEventListener('click', () => {
-            avatarInput.click();
-        });
-
-        avatarInput.addEventListener('change', (event) => {
-            const file = event.target.files[0];
-            if (file && file.type.startsWith('image/')) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    currentAvatar = e.target.result;
-                    updateAvatarPreview();
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        removeButton.addEventListener('click', () => {
-            currentAvatar = null;
-            avatarInput.value = '';
-            updateAvatarPreview();
-        });
-
-        function updateAvatarPreview() {
-            const previewSpan = avatarPreview.querySelector('span');
-            if (currentAvatar) {
-                let img = avatarPreview.querySelector('img');
-                if (!img) {
-                    img = document.createElement('img');
-                    avatarPreview.innerHTML = '';
-                    avatarPreview.appendChild(img);
-                }
-                img.src = currentAvatar;
-                removeButton.classList.remove('hidden');
-            } else {
-                avatarPreview.innerHTML = '<span>U</span>';
-                removeButton.classList.add('hidden');
-            }
-        }
-
-        saveButton.addEventListener('click', () => {
-            const bio = bioTextarea.value.trim();
-            const profileData = {
-                avatar: currentAvatar,
-                bio: bio
-            };
-            console.log('Profile saved:', profileData);
-            alert('Profile saved successfully!');
-        });
-
-        window.addEventListener('DOMContentLoaded', () => {
-            const savedBio = localStorage.getItem('userBio');
-            const savedAvatar = localStorage.getItem('userAvatar');
-            if (savedBio) {
-                bioTextarea.value = savedBio;
-            }
-            if (savedAvatar) {
-                currentAvatar = savedAvatar;
-                updateAvatarPreview();
-            }
-            saveButton.addEventListener('click', () => {
-                localStorage.setItem('userBio', bioTextarea.value);
-                if (currentAvatar) {
-                    localStorage.setItem('userAvatar', currentAvatar);
-                } else {
-                    localStorage.removeItem('userAvatar');
-                }
-            });
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        .profile-card {
-            max-width: 400px;
-            margin: 50px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
             text-align: center;
-            font-family: sans-serif;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
         }
         .avatar {
             width: 120px;
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            margin-bottom: 15px;
-            border: 3px solid #4a6fa5;
+            border: 3px solid #0366d6;
         }
         .user-name {
-            font-size: 1.8em;
-            margin: 10px 0;
-            color: #333;
+            font-size: 1.8rem;
+            margin: 0.5rem 0;
+            color: #24292e;
         }
-        .user-bio {
-            color: #666;
+        .user-title {
+            color: #586069;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        .bio-section {
+            background-color: #f6f8fa;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+        }
+        .bio-heading {
+            margin-top: 0;
+            color: #24292e;
+            font-size: 1.1rem;
+        }
+        .bio-content {
+            color: #444d56;
             line-height: 1.5;
-            margin-bottom: 20px;
-        }
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            border-top: 1px solid #eee;
-            padding-top: 15px;
-        }
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-        }
-        .stat-value {
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-        .stat-label {
-            font-size: 0.9em;
-            color: #888;
         }
     </style>
 </head>
 <body>
-    <div class="profile-card">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
-        <h1 class="user-name">Alex Morgan</h1>
-        <p class="user-bio">Software developer passionate about open-source projects, hiking, and photography. Building tools to simplify everyday life.</p>
-        <div class="stats">
-            <div class="stat-item">
-                <span class="stat-value">247</span>
-                <span class="stat-label">Posts</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-value">1.8k</span>
-                <span class="stat-label">Followers</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-value">350</span>
-                <span class="stat-label">Following</span>
-            </div>
+    <div class="profile-container">
+        <div class="avatar-section">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
+            <h1 class="user-name">Alex Johnson</h1>
+            <p class="user-title">Senior Frontend Developer</p>
+        </div>
+        
+        <div class="bio-section">
+            <h2 class="bio-heading">About</h2>
+            <p class="bio-content">
+                Passionate about building responsive web applications with clean code and modern frameworks. 
+                Enjoys contributing to open-source projects and sharing knowledge through technical writing. 
+                Currently focused on improving accessibility standards in web development.
+            </p>
         </div>
     </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <script>
-        function validateForm() {
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const age = document.getElementById('age').value;
-            const nameError = document.getElementById('nameError');
-            const emailError = document.getElementById('emailError');
-            const ageError = document.getElementById('ageError');
-            let isValid = true;
-
-            nameError.textContent = '';
-            emailError.textContent = '';
-            ageError.textContent = '';
-
-            if (name === '') {
-                nameError.textContent = 'Name is required.';
-                isValid = false;
-            }
-
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-                emailError.textContent = 'Please enter a valid email address.';
-                isValid = false;
-            }
-
-            if (age === '' || isNaN(age) || age < 1 || age > 120) {
-                ageError.textContent = 'Please enter a valid age between 1 and 120.';
-                isValid = false;
-            }
-
-            if (isValid) {
-                alert('Profile submitted successfully!');
-            }
-            return false;
-        }
-    </script>
-</head>
-<body>
-    <h1>User Profile</h1>
-    <form onsubmit="return validateForm()">
-        <div>
-            <label for="name">Full Name:</label>
-            <input type="text" id="name" name="name">
-            <span id="nameError" style="color: red;"></span>
-        </div>
-        <div>
-            <label for="email">Email:</label>
-            <input type="text" id="email" name="email">
-            <span id="emailError" style="color: red;"></span>
-        </div>
-        <div>
-            <label for="age">Age:</label>
-            <input type="number" id="age" name="age">
-            <span id="ageError" style="color: red;"></span>
-        </div>
-        <button type="submit">Save Profile</button>
-    </form>
 </body>
 </html>
