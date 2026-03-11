@@ -590,3 +590,144 @@
     </footer>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+        }
+        .avatar-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .avatar-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ccc;
+            margin-right: 20px;
+        }
+        .upload-btn {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .upload-btn:hover {
+            background-color: #45a049;
+        }
+        .bio-section {
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        .save-btn {
+            padding: 10px 24px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .save-btn:hover {
+            background-color: #007B9A;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h1>User Profile</h1>
+        
+        <div class="avatar-section">
+            <img id="avatarPreview" src="https://via.placeholder.com/100" alt="Avatar Preview" class="avatar-preview">
+            <div>
+                <input type="file" id="avatarInput" accept="image/*" class="hidden">
+                <button class="upload-btn" onclick="document.getElementById('avatarInput').click()">Upload Avatar</button>
+                <p style="font-size: 12px; color: #666; margin-top: 5px;">Max file size: 2MB</p>
+            </div>
+        </div>
+
+        <div class="bio-section">
+            <label for="bioTextarea"><strong>Bio:</strong></label>
+            <textarea id="bioTextarea" placeholder="Tell something about yourself..."></textarea>
+        </div>
+
+        <button class="save-btn" onclick="saveProfile()">Save Profile</button>
+    </div>
+
+    <script>
+        const avatarInput = document.getElementById('avatarInput');
+        const avatarPreview = document.getElementById('avatarPreview');
+        const bioTextarea = document.getElementById('bioTextarea');
+
+        avatarInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('File size exceeds 2MB limit.');
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function saveProfile() {
+            const bio = bioTextarea.value.trim();
+            const avatarSrc = avatarPreview.src;
+            
+            if (bio.length > 500) {
+                alert('Bio must be less than 500 characters.');
+                return;
+            }
+            
+            const profileData = {
+                avatar: avatarSrc,
+                bio: bio,
+                savedAt: new Date().toISOString()
+            };
+            
+            localStorage.setItem('userProfile', JSON.stringify(profileData));
+            alert('Profile saved successfully!');
+        }
+
+        function loadProfile() {
+            const saved = localStorage.getItem('userProfile');
+            if (saved) {
+                const profileData = JSON.parse(saved);
+                avatarPreview.src = profileData.avatar;
+                bioTextarea.value = profileData.bio;
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', loadProfile);
+    </script>
+</body>
+</html>
