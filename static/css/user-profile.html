@@ -416,4 +416,270 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="profile-container">
+        <header class="profile-header">
+            <div class="avatar-container">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
+                <span class="status-indicator online"></span>
+            </div>
+            <h1 class="username">Alex Johnson</h1>
+            <p class="user-title">Senior Frontend Developer</p>
+            <div class="location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>San Francisco, CA</span>
+            </div>
+        </header>
+
+        <section class="profile-content">
+            <div class="bio-section">
+                <h2><i class="fas fa-user"></i> About Me</h2>
+                <p class="bio-text">
+                    Passionate about building elegant web solutions. Enjoys hiking, photography, and open-source contributions. Always learning new technologies and sharing knowledge with the community.
+                </p>
+            </div>
+
+            <div class="skills-section">
+                <h2><i class="fas fa-code"></i> Technical Skills</h2>
+                <ul class="skills-list">
+                    <li>JavaScript (ES6+)</li>
+                    <li>React & Vue.js</li>
+                    <li>HTML5 & CSS3</li>
+                    <li>Node.js</li>
+                    <li>TypeScript</li>
+                    <li>Webpack & Vite</li>
+                </ul>
+            </div>
+
+            <div class="stats-section">
+                <h2><i class="fas fa-chart-bar"></i> Activity Stats</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value">247</div>
+                        <div class="stat-label">Projects</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">5.8k</div>
+                        <div class="stat-label">Followers</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">892</div>
+                        <div class="stat-label">Following</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">4.9</div>
+                        <div class="stat-label">Avg Rating</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="profile-footer">
+            <button class="action-btn message-btn">
+                <i class="fas fa-envelope"></i> Send Message
+            </button>
+            <button class="action-btn follow-btn">
+                <i class="fas fa-user-plus"></i> Follow
+            </button>
+            <button class="action-btn share-btn">
+                <i class="fas fa-share-alt"></i> Share Profile
+            </button>
+        </footer>
+    </div>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .profile-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+            width: 100%;
+            max-width: 600px;
+            overflow: hidden;
+            padding: 30px;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .avatar-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #e0e6ff;
+        }
+
+        .status-indicator {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+
+        .status-indicator.online {
+            background-color: #4CAF50;
+        }
+
+        .username {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .user-title {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .location {
+            color: #888;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .profile-content {
+            margin-bottom: 30px;
+        }
+
+        .profile-content h2 {
+            color: #444;
+            margin-bottom: 15px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bio-section, .skills-section, .stats-section {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .bio-text {
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            list-style: none;
+        }
+
+        .skills-list li {
+            background: #f0f4ff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #3a6df0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 10px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #3a6df0;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #777;
+            margin-top: 5px;
+        }
+
+        .profile-footer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .message-btn {
+            background: #3a6df0;
+            color: white;
+        }
+
+        .follow-btn {
+            background: transparent;
+            color: #3a6df0;
+            border: 2px solid #3a6df0;
+        }
+
+        .share-btn {
+            background: #f0f4ff;
+            color: #3a6df0;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</body>
 </html>
