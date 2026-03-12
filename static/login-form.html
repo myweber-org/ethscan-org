@@ -4,153 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Login</title>
-</head>
-<body>
-    <form id="loginForm">
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <button type="submit">Login</button>
-    </form>
-
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value;
-            
-            if (username === '' || password === '') {
-                alert('Please fill in all fields.');
-                return;
-            }
-            
-            if (password.length < 6) {
-                alert('Password must be at least 6 characters long.');
-                return;
-            }
-            
-            console.log('Login attempt with:', { username, password });
-            alert('Login submitted successfully!');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login</title>
-</head>
-<body>
-    <form id="loginForm">
-        <label for="email">Email Address:</label>
-        <input type="email" id="email" name="email" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required minlength="8">
-        <br>
-        <button type="submit">Login</button>
-    </form>
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+        function validateForm() {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            console.log('Login attempt with:', { email, password });
-            alert('Login submitted (check console for details)');
-        });
+            const errorMessage = document.getElementById('error-message');
+
+            errorMessage.textContent = '';
+
+            if (!email || !password) {
+                errorMessage.textContent = 'Please fill in all fields.';
+                return false;
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                errorMessage.textContent = 'Please enter a valid email address.';
+                return false;
+            }
+
+            if (password.length < 6) {
+                errorMessage.textContent = 'Password must be at least 6 characters long.';
+                return false;
+            }
+
+            alert('Login successful!');
+            return true;
+        }
     </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login</title>
 </head>
 <body>
-    <form id="loginForm">
-        <h2>Login</h2>
+    <h1>Login</h1>
+    <form onsubmit="return validateForm()">
         <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            <span id="usernameError" style="color: red; display: none;">Username must be at least 3 characters.</span>
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email">
         </div>
         <div>
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            <span id="passwordError" style="color: red; display: none;">Password must be at least 6 characters.</span>
+            <input type="password" id="password" name="password">
         </div>
+        <div id="error-message" style="color: red;"></div>
         <button type="submit">Login</button>
     </form>
-
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            let isValid = true;
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const usernameError = document.getElementById('usernameError');
-            const passwordError = document.getElementById('passwordError');
-
-            usernameError.style.display = 'none';
-            passwordError.style.display = 'none';
-
-            if (username.length < 3) {
-                usernameError.style.display = 'inline';
-                isValid = false;
-            }
-            if (password.length < 6) {
-                passwordError.style.display = 'inline';
-                isValid = false;
-            }
-
-            if (isValid) {
-                alert('Login successful!');
-                // In a real application, you would send data to a server here.
-                // For example: fetch('/login', { method: 'POST', body: JSON.stringify({ username, password }) });
-            }
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login</title>
-</head>
-<body>
-    <form id="loginForm">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <br>
-        <button type="submit">Login</button>
-    </form>
-
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            if (username.trim() === '' || password.trim() === '') {
-                alert('Please fill in all fields.');
-                return;
-            }
-            
-            console.log('Login attempt with:', { username, password });
-            alert('Login submitted (check console for details)');
-        });
-    </script>
 </body>
 </html>
