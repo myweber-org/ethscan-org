@@ -682,4 +682,114 @@
         }
     </style>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        .success { color: green; font-size: 0.9em; }
+        input:invalid { border-color: red; }
+        input:valid { border-color: green; }
+    </style>
+</head>
+<body>
+    <h1>Update Your Profile</h1>
+    <form id="profileForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="20" pattern="[A-Za-z0-9_]+">
+            <div class="error" id="usernameError"></div>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <div class="error" id="emailError"></div>
+        </div>
+        <div>
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" min="18" max="120">
+            <div class="error" id="ageError"></div>
+        </div>
+        <button type="submit">Save Profile</button>
+        <div class="success" id="successMessage"></div>
+    </form>
+
+    <script>
+        const form = document.getElementById('profileForm');
+        const usernameInput = document.getElementById('username');
+        const emailInput = document.getElementById('email');
+        const ageInput = document.getElementById('age');
+        const usernameError = document.getElementById('usernameError');
+        const emailError = document.getElementById('emailError');
+        const ageError = document.getElementById('ageError');
+        const successMessage = document.getElementById('successMessage');
+
+        function validateUsername() {
+            const value = usernameInput.value.trim();
+            if (!value) {
+                usernameError.textContent = 'Username is required.';
+                return false;
+            }
+            if (value.length < 3) {
+                usernameError.textContent = 'Username must be at least 3 characters.';
+                return false;
+            }
+            if (!/^[A-Za-z0-9_]+$/.test(value)) {
+                usernameError.textContent = 'Username can only contain letters, numbers, and underscores.';
+                return false;
+            }
+            usernameError.textContent = '';
+            return true;
+        }
+
+        function validateEmail() {
+            const value = emailInput.value.trim();
+            if (!value) {
+                emailError.textContent = 'Email is required.';
+                return false;
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                emailError.textContent = 'Please enter a valid email address.';
+                return false;
+            }
+            emailError.textContent = '';
+            return true;
+        }
+
+        function validateAge() {
+            const value = ageInput.value;
+            if (value === '') return true;
+            const age = parseInt(value, 10);
+            if (isNaN(age) || age < 18 || age > 120) {
+                ageError.textContent = 'Age must be between 18 and 120.';
+                return false;
+            }
+            ageError.textContent = '';
+            return true;
+        }
+
+        usernameInput.addEventListener('input', validateUsername);
+        emailInput.addEventListener('input', validateEmail);
+        ageInput.addEventListener('input', validateAge);
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const isUsernameValid = validateUsername();
+            const isEmailValid = validateEmail();
+            const isAgeValid = validateAge();
+
+            if (isUsernameValid && isEmailValid && isAgeValid) {
+                successMessage.textContent = 'Profile updated successfully!';
+                setTimeout(() => {
+                    successMessage.textContent = '';
+                }, 3000);
+            } else {
+                successMessage.textContent = '';
+            }
+        });
+    </script>
+</body>
 </html>
