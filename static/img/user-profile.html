@@ -4,125 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="profile-section">
-            <div class="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button onclick="uploadAvatar()">Upload Avatar</button>
-            </div>
-            <div class="bio-container">
-                <h2>Edit Bio</h2>
-                <textarea id="bio-textarea" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
-                <br>
-                <button onclick="saveBio()">Save Bio</button>
-            </div>
-        </section>
-    </main>
-    <script>
-        function uploadAvatar() {
-            const fileInput = document.getElementById('avatar-upload');
-            const file = fileInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-                alert('Avatar uploaded successfully!');
-            } else {
-                alert('Please select an image file.');
-            }
-        }
-
-        function saveBio() {
-            const bioText = document.getElementById('bio-textarea').value;
-            if (bioText.trim() !== '') {
-                alert('Bio saved successfully!');
-            } else {
-                alert('Bio cannot be empty.');
-            }
-        }
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <header>
-        <h1>User Profile</h1>
-    </header>
-    <main>
-        <section id="profile-section">
-            <div id="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <input type="file" id="avatar-upload" accept="image/*">
-                <button id="upload-btn">Upload Avatar</button>
-            </div>
-            <form id="profile-form">
-                <div>
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div>
-                    <label for="bio">Bio:</label>
-                    <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
-                </div>
-                <button type="submit">Save Profile</button>
-            </form>
-        </section>
-    </main>
-    <script>
-        document.getElementById('upload-btn').addEventListener('click', function() {
-            document.getElementById('avatar-upload').click();
-        });
-
-        document.getElementById('avatar-upload').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        document.getElementById('profile-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const bio = document.getElementById('bio').value;
-            console.log('Profile saved:', { username, email, bio });
-            alert('Profile saved successfully!');
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
     <style>
         .profile-container {
             max-width: 600px;
             margin: 2rem auto;
             padding: 2rem;
-            border: 1px solid #e0e0e0;
+            border: 1px solid #ccc;
             border-radius: 8px;
             font-family: sans-serif;
         }
@@ -144,27 +31,27 @@
         }
         .title {
             color: #666;
-            font-size: 1rem;
+            font-style: italic;
             margin-bottom: 1rem;
         }
         .bio-section {
             line-height: 1.6;
             color: #444;
+            padding-top: 1rem;
             border-top: 1px solid #eee;
-            padding-top: 1.5rem;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
         <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="User Avatar" class="avatar">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="Profile Avatar" class="avatar">
             <h1 class="name">Alex Morgan</h1>
-            <div class="title">Senior Frontend Developer</div>
+            <p class="title">Senior Frontend Developer</p>
         </div>
         <div class="bio-section">
-            <p>Passionate about creating intuitive user interfaces and seamless web experiences. With over 8 years of experience in modern JavaScript frameworks and responsive design principles.</p>
-            <p>Currently focused on accessibility improvements and performance optimization for large-scale applications.</p>
+            <p>Passionate about building accessible and performant web applications. Enjoys working with modern JavaScript frameworks and contributing to open-source projects. Currently focused on improving user experience through responsive design and progressive enhancement.</p>
+            <p>Outside of coding, I enjoy hiking, photography, and experimenting with new coffee brewing techniques.</p>
         </div>
     </div>
 </body>
