@@ -4,126 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 2rem;
-            border: 1px solid #e1e4e8;
-            border-radius: 8px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-        .avatar-section {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-        .avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #0366d6;
-            margin-right: 1.5rem;
-        }
-        .user-name {
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin: 0 0 0.5rem 0;
-            color: #24292e;
-        }
-        .user-handle {
-            font-size: 1.2rem;
-            color: #586069;
-            margin: 0;
-        }
-        .bio-section {
-            padding: 1rem;
-            background-color: #f6f8fa;
-            border-radius: 6px;
-            line-height: 1.5;
-            color: #24292e;
-        }
-        .bio-title {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #0366d6;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <div class="avatar-section">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
-            <div>
-                <h1 class="user-name">Alex Morgan</h1>
-                <p class="user-handle">@alex_morgan</p>
-            </div>
-        </div>
-        <div class="bio-section">
-            <div class="bio-title">Bio</div>
-            <p>Software engineer passionate about open source and web technologies. Enjoys hiking, photography, and contributing to developer communities. Currently working on improving accessibility in modern web applications.</p>
-        </div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
 </head>
 <body>
     <header>
         <h1>User Profile</h1>
     </header>
     <main>
-        <section id="profile-section">
-            <div id="avatar-container">
-                <img id="avatar-preview" src="default-avatar.png" alt="User Avatar" width="150" height="150">
-                <form id="avatar-form">
-                    <input type="file" id="avatar-input" name="avatar" accept="image/png, image/jpeg">
-                    <button type="submit">Upload Avatar</button>
-                </form>
+        <section class="profile">
+            <div class="avatar-container">
+                <img src="https://via.placeholder.com/150" alt="User Avatar" class="avatar">
             </div>
-            <div id="bio-container">
-                <h2>Edit Bio</h2>
-                <form id="bio-form">
-                    <textarea id="bio-textarea" name="bio" rows="4" cols="50" placeholder="Enter your bio here..."></textarea>
-                    <br>
-                    <button type="submit">Save Bio</button>
-                </form>
-                <p id="current-bio">Current bio will appear here after saving.</p>
+            <div class="user-info">
+                <h2 class="username">John Doe</h2>
+                <p class="bio">Software developer with a passion for open-source projects and web technologies.</p>
+                <ul class="details">
+                    <li><strong>Location:</strong> San Francisco, CA</li>
+                    <li><strong>Joined:</strong> January 2022</li>
+                    <li><strong>Website:</strong> <a href="https://johndoe.example.com">johndoe.example.com</a></li>
+                </ul>
             </div>
         </section>
     </main>
     <footer>
         <p>&copy; 2023 User Profile Page</p>
     </footer>
-    <script>
-        document.getElementById('avatar-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const fileInput = document.getElementById('avatar-input');
-            if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                };
-                reader.readAsDataURL(fileInput.files[0]);
-                alert('Avatar uploaded successfully!');
-            }
-        });
-
-        document.getElementById('bio-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const bioText = document.getElementById('bio-textarea').value;
-            if (bioText.trim() !== '') {
-                document.getElementById('current-bio').textContent = bioText;
-                alert('Bio saved successfully!');
-            } else {
-                alert('Please enter a bio before saving.');
-            }
-        });
-    </script>
 </body>
 </html>
