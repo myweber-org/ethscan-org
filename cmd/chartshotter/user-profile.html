@@ -4,111 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: sans-serif;
-        }
-        .avatar-section {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .avatar-preview {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4a90e2;
-            margin-bottom: 10px;
-        }
-        .bio-section textarea {
-            width: 100%;
-            height: 100px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
-            font-family: inherit;
-        }
-        .btn {
-            background-color: #4a90e2;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        .btn:hover {
-            background-color: #3a7bc8;
-        }
-        .hidden {
-            display: none;
-        }
-    </style>
 </head>
 <body>
-    <div class="profile-container">
+    <header>
         <h1>User Profile</h1>
-        
-        <div class="avatar-section">
-            <img id="avatarPreview" src="https://via.placeholder.com/120" alt="Avatar Preview" class="avatar-preview">
-            <br>
-            <input type="file" id="avatarInput" accept="image/*" class="hidden">
-            <button onclick="document.getElementById('avatarInput').click()" class="btn">Change Avatar</button>
-            <p id="avatarStatus" class="hidden">Image selected. Click save to update.</p>
-        </div>
-
-        <div class="bio-section">
-            <label for="bioText"><strong>Bio:</strong></label><br>
-            <textarea id="bioText" placeholder="Tell us something about yourself...">Sample user bio text.</textarea>
-        </div>
-
-        <div class="actions">
-            <button onclick="saveProfile()" class="btn">Save Profile</button>
-            <span id="saveStatus"></span>
-        </div>
-    </div>
-
-    <script>
-        const avatarInput = document.getElementById('avatarInput');
-        const avatarPreview = document.getElementById('avatarPreview');
-        const avatarStatus = document.getElementById('avatarStatus');
-        const bioText = document.getElementById('bioText');
-        const saveStatus = document.getElementById('saveStatus');
-
-        avatarInput.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    avatarPreview.src = e.target.result;
-                    avatarStatus.classList.remove('hidden');
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        function saveProfile() {
-            const bio = bioText.value.trim();
-            saveStatus.textContent = 'Saving...';
-            saveStatus.style.color = '#4a90e2';
-
-            setTimeout(() => {
-                saveStatus.textContent = 'Profile saved successfully!';
-                saveStatus.style.color = 'green';
-                avatarStatus.classList.add('hidden');
-                
-                console.log('Profile saved with bio:', bio);
-                if (avatarInput.files.length > 0) {
-                    console.log('New avatar file:', avatarInput.files[0].name);
-                }
-            }, 800);
-        }
-    </script>
+    </header>
+    <main>
+        <section class="profile-card">
+            <div class="avatar-container">
+                <img src="https://via.placeholder.com/150" alt="User Avatar" class="avatar">
+            </div>
+            <div class="profile-info">
+                <h2 class="user-name">Alex Johnson</h2>
+                <p class="user-bio">Software developer with a passion for open-source projects and web technologies.</p>
+                <div class="user-stats">
+                    <span class="stat">Posts: 42</span>
+                    <span class="stat">Followers: 128</span>
+                    <span class="stat">Following: 56</span>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 User Profile Page</p>
+    </footer>
 </body>
 </html>
