@@ -383,4 +383,78 @@
         });
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            font-family: sans-serif;
+        }
+        .avatar-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 2rem;
+            border: 3px solid #0366d6;
+        }
+        .user-info h1 {
+            margin: 0 0 0.5rem 0;
+            color: #24292e;
+        }
+        .user-info .username {
+            color: #586069;
+            font-size: 1.2rem;
+        }
+        .bio-section {
+            padding: 1rem;
+            background-color: #f6f8fa;
+            border-radius: 6px;
+        }
+        .bio-section h2 {
+            margin-top: 0;
+            color: #24292e;
+            border-bottom: 1px solid #e1e4e8;
+            padding-bottom: 0.5rem;
+        }
+        .bio-content {
+            line-height: 1.6;
+            color: #444d56;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="avatar-section">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="User Avatar" class="avatar">
+            <div class="user-info">
+                <h1>Alex Johnson</h1>
+                <div class="username">@alexj</div>
+                <div>Software Developer</div>
+                <div>San Francisco, CA</div>
+            </div>
+        </div>
+        <div class="bio-section">
+            <h2>Bio</h2>
+            <div class="bio-content">
+                Passionate full-stack developer with 8 years of experience building scalable web applications.
+                Specialized in JavaScript ecosystems including React, Node.js, and modern tooling.
+                Open source contributor and tech community speaker. Currently exploring WebAssembly and edge computing.
+            </div>
+        </div>
+    </div>
+</body>
 </html>
